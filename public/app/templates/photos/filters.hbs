@@ -1,0 +1,14 @@
+<div class="img-active">
+  <img src="/images/{{ original }}" class="img-responsive">
+</div>
+
+<div class="frame">
+  <ul class="slidee">
+  {{#each filters}}
+    <li class="select-image">
+      <img src="/images/{{ image }}" class="load-image"  width="100" heigh="100">
+      <h4>{{ filter_name }}</h4>
+    </li>
+  {{/each}}
+  </ul>
+</div>

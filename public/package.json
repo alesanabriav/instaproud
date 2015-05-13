@@ -1,0 +1,34 @@
+{
+  "name": "instaproud_front",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alejandro Sanabria <alejandro@brandspa.com>",
+  "license": "ISC",
+  "dependencies": {
+    "backbone": "^1.1.2",
+    "filereader": "^0.10.3",
+    "handlebars": "^3.0.3",
+    "imagesloaded": "^3.1.8",
+    "jquery": "^2.1.4",
+    "jquery-lazyload": "^1.9.5",
+    "passport-local": "^1.0.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.7.1",
+    "debowerify": "^1.2.1",
+    "gulp": "^3.8.11",
+    "gulp-concat": "^2.5.2",
+    "gulp-minify-css": "^1.1.1",
+    "gulp-sass": "^2.0.0",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0",
+    "hbsfy": "^2.2.1",
+    "require-dir": "^0.3.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
