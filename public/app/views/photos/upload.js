@@ -13,12 +13,13 @@ module.exports = Backbone.View.extend({
 
   //Upload photo to server
   upload: function(data) {
+    var d = data.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+    var img = encodeURIComponent(d);
+
     options = {
-      url: '/photos',
+      url: '/photos/',
       type: 'POST',
-      data: data,
-      processData: false, //Avoid be processed by jquery
-      contentType: false, //Not set any content type header
+      data: {img: d[2]},
       beforeSend: function() {
         $('.preloader').removeClass('hidden');
       }

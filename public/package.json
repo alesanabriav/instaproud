@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "backbone": "^1.1.2",
+    "base64-image": "^0.1.0",
+    "base64-img": "^1.0.3",
     "filereader": "^0.10.3",
     "handlebars": "^3.0.3",
     "imagesloaded": "^3.1.8",

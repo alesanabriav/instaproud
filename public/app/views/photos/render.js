@@ -20,24 +20,31 @@ module.exports = Backbone.View.extend({
 
   render: function(file) {
     var imageType = /image.*/;
+    var img;
 
     if (file.type.match(imageType)) {
       var reader = new FileReader();
 
       reader.onload = function(e) {
-        var img = new Image();
+        img = new Image();
         img.src = reader.result;
+        $(img).addClass('img-responsive');
         $("#app-container").html(img);
-      }
+      };
 
-      reader.readAsDataURL(file); 
+      reader.readAsDataURL(file);
+      
+      var picture = $("#app-container");
 
-      $("#app-container").imagesLoaded(function() {
-        pubsub.trigger("photo:crop");
-      });
+      $('.preloader').removeClass('hidden');
+
+      _.delay(function() {
+         $('.preloader').addClass('hidden');
+        pubsub.trigger("photo:crop", picture.find('img'));
+      }, 400);
 
     } else {
-      fileDisplayArea.innerHTML = "File not supported!";
+      alert("File not supported!");
     }
 
     // var img = {img: "/uploads/"+data};
