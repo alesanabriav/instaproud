@@ -1,7 +1,13 @@
+html{
+  height: 100%;
+}
+
 body {
   background: #f1f1f1;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  padding-top: 50px;
+  padding-top: 70px;
+  padding-bottom: 100px;
+  height: 100%;
 }
 
 a {
@@ -93,14 +99,14 @@ a {
       color: #9CA0A3;
       display: block;
       height: 50px;
-      font-size: 32px;
+      font-size: 1.9em;
     }
     .btn-file{
       text-align: center;
       color: #ccc;
       display: block;
       height: 50px;
-      font-size: 32px;
+      font-size: 1.9em;
     }
   }
 }

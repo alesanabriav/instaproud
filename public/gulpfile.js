@@ -2,6 +2,7 @@ var gulp      = require('gulp');
 var requireDir = require('require-dir');
 var tasks = requireDir('./tasks');
 var browserSync = require('browser-sync').create();
+var reload = browserSync.reload;
 
 gulp.task('browser-sync', function() {
     browserSync.init({
@@ -10,12 +11,13 @@ gulp.task('browser-sync', function() {
 });
 
 gulp.task('watch', ['concact_css','compile-browerserify', 'browser-sync'], function() {
-  gulp.watch('css/*.scss', ['concact_css', browserSync.reload]);
+  gulp.watch('css/*.scss', ['concact_css', reload]);
+
   gulp.watch([
     'app/*/*/*.js',
     'app/*/*.js',
     'app/*.js',
-    ], ['compile-browerserify', browserSync.reload]);
+    ], ['compile-browerserify', reload]);
 
 });
 

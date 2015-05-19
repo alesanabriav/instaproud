@@ -3,9 +3,11 @@ global.jQuery = require('jquery');
 var $ = jQuery;
 var Backbone = require('backbone');
 var _ = require('underscore');
-Backbone.$ = $;
 var pubsub = require('utils/pubsub');
-var guillotine = require('jquery-guillotine');
+
+var cropper = require('cropper');
+
+Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
 
@@ -13,50 +15,46 @@ module.exports = Backbone.View.extend({
   initialize: function() {
     pubsub.on("photo:crop", this.startCrop, this);
     pubsub.on("app:next", this.sendCrop, this);
+    this.data = '';
   },
 
-  startCrop: function(picture) {
-    picture.guillotine({width: 500, });
-    picture.guillotine('center');
-    picture.guillotine('fit');
+  startCrop: function() {
+    var image;
+    var _this = this;
+    var data;
+    var $container = $('#app-container');
+    var $img = $container.find('img');
+    
+    $container.append('<canvas width="500" height="500" class="hidden" />');
+
+    var canvas = $container.find('canvas').get(0);
+    var context = canvas.getContext("2d");
+
+    $img.cropper({
+      minCropBoxWidth: 1000,
+      minCropBoxHeight: 1000,
+      responsive: false,
+      aspectRatio: 1,
+      resizable: false,
+      strict: true,
+      movable: false,
+      dragCrop: false,
+
+      crop: function(data) {
+        image = $img.get(0);
+        context.drawImage(image, data.x, data.y, data.width, data.height, 0, 0, 500, 500);
+        _this.data = canvas.toDataURL();
+      },
+
+      built: function () {
+        $(this).cropper('zoom', 2);
+        $(this).cropper('setCropBoxData',{width: '100%'});
+      }
+    });
+
   },
 
   sendCrop: function() {
-    var picture = $("#app-container").find('img');
-
-    var data = picture.guillotine('getData');
-
-    $("#app-container").append("<canvas width='500' height='500' />");
-
-    var canvas = $("#app-container").find('canvas').get(0);
-    var element = canvas.getContext("2d");
-
-    var image = picture.get(0);
-    var theImage = new Image();
-    theImage.src = $(image).attr("src");
-    
-    var imageWidth = theImage.width;
-    var imageHeight = theImage.height;
-   
-    var sX = imageWidth / 1000;
-    var sY = imageHeight / $(picture).height();
-
-    var ratioX = imageWidth / sX;
-    var ratioY = imageHeight / sY;
-
-    var sourceX = (data.x * ratioX);
-    var sourceY = (data.y * ratioY);
-
-    var W = 500 * ratioX;
-    var H = 500 * ratioY;
-
-    element.scale(data.scale, data.scale);
-
-    element.drawImage(image, sourceX, sourceY, 0, 0, 500, 500);
-
-    var data = canvas.toDataURL( 'image/jpg' );
-
-    pubsub.trigger("photo:upload", data);
-
+    pubsub.trigger("photo:upload", this.data);
   }
 });

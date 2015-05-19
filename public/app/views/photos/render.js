@@ -27,8 +27,11 @@ module.exports = Backbone.View.extend({
 
       reader.onload = function(e) {
         img = new Image();
+
         img.src = reader.result;
-        $(img).addClass('img-responsive');
+
+        $("#app-container").find("img");
+
         $("#app-container").html(img);
       };
 
