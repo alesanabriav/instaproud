@@ -16,11 +16,12 @@ module.exports = Backbone.View.extend({
 
   //Listen events
   initialize: function() {
-    console.log('start app header');
+
   },
 
   //execute event
-  next: function(data) {
+  next: function(e) {
+    e.preventDefault();
     pubsub.trigger('app:next');
   }
 });

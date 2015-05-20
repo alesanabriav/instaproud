@@ -1,25 +1,20 @@
 var request = require('supertest-as-promised');
+var base64Img = require('base64-img');
 var api = require('../app.js');
 request = request(api);
 
+describe('photo add filter', function() {
+  it('should add filter to image', function(done) {
 
-describe('photos handle images', function() {
-  it('should upload image', function(done) {
-    var data;
+    var src = '/uploads/500.jpg';
 
     request
-    .post('/photos')
+    .get('/photos/filter')
+    .send({src: src, filter: 'hemingway'})
     .set('accept', 'application/json')
-    .attach('photo', 'test/fixtures/img_w_960.jpg')
-    .send()
-    .then(function(res) {
-
-      return request
-        .get('/photos?src=/'+res.text+'&x=0&y=0,scale= 0')
-        .send(data);
-    }).then(function(res){
-      console.log(res.text);
-      done();
+    .end(function(err, res){
+      console.log(res.body);
+      done(err);
     });
 
   });

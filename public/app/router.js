@@ -14,15 +14,22 @@ module.exports = Backbone.Router.extend({
 
   initialize: function(){
     AppNavController.initialize();
-  
-    photosController.upload();
     photosController.render();
     photosController.crop();
+    photosController.upload();
     photosController.filter();
   },
 
   feed: function() {
 
+  },
+
+  crop: function() {
+   
+  },
+
+  filters: function() {
+    
   }
 
 });

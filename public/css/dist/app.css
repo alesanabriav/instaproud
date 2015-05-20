@@ -106,3 +106,6 @@ a {
   .filters li {
     display: inline-block;
     width: 150px; }
+    .filters li h4 {
+      text-align: center;
+      color: #fff; }

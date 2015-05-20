@@ -2,9 +2,10 @@
 global.jQuery = require('jquery');
 var $ = jQuery;
 var Backbone = require('backbone');
-Backbone.$ = $;
 var pubsub = require('utils/pubsub');
 var imagesloaded = require('imagesloaded');
+Backbone.$ = $;
+
 module.exports = Backbone.View.extend({
 
   initialize: function() {

@@ -4,9 +4,7 @@ var $ = jQuery;
 var Backbone = require('backbone');
 var _ = require('underscore');
 var pubsub = require('utils/pubsub');
-
 var cropper = require('cropper');
-
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({

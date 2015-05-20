@@ -1,95 +1,48 @@
-var express = require('express');
-var app = express();
-var Caman = require('caman').Caman;
+//Dependencies
+var app = require('express')();
 var Jimp = require("jimp");
-var fs = require('fs');
-var crypto = require('crypto');
-var base64image = require('base64-image');
+var server = require('http').Server(app);
 var async = require('async');
 
-// generate name for image
-var rename = function (src) {
-  var random_string = src + Date.now() + Math.random();
-  return crypto.createHash('md5').update(random_string).digest('hex');
-};
+var rename = require('../helpers/rename');
+var filters = require('../lib/photoFilters');
 
-app.route('/photos')
-
-.post(function(req, res, next) {
-
+/**
+ * create random name for image and stored on uploads
+ * @param  req  get request data
+ * @param  res   
+ * @return object
+ */
+app.post('/photos', function(req, res, next) {
   var img = new Buffer(req.body.img ,'base64');
   var hash = rename("1nstaPr0ud" + Math.random() );
-  var path = "./public/uploads/"+ hash +".jpg";
+  var name = hash + ".jpg";
+  var path = "./public/uploads/" + name;
+  
+  new Jimp(img, function (err, image) {
+    if (err) throw err;
 
-  async.waterfall([
-
-    function downQuality(callback) {
-      new Jimp(img, function (err, image) {
-        if (err) throw err;
-
-        image.quality(80)
-        .write(path);
-        callback();
-      });
-    },
-
-    function pinhole(callback) {
-      Caman(path, function () {
-        this.pinhole()
-        .contrast(10);
-
-        this.render(function () {
-          this.save("./public/images/"+hash+"_pinhole.jpg");
-          callback();
-        });
-      });
-    },
-
-    function jarques(callback) {
-      Caman(path, function () {
-        this.jarques()
-        .contrast(10);
-
-        this.render(function () {
-          this.save("./public/images/"+hash+"_jarques.jpg");
-          callback();
-        });
-      });
-    },
-
-    function sunrise(callback) {
-      Caman(path, function () {
-        this.sunrise()
-        .contrast(10);
-
-        this.render(function () {
-          this.save("./public/images/"+hash+"_sunrise.jpg");
-          callback();
-        });
-      });
-    },
-
-    function hemingway(callback) {
-      Caman(path, function () {
-        this.hemingway()
-        .contrast(10);
-
-        this.render(function () {
-          this.save("./public/images/"+hash+"_hemingway.jpg");
-          callback();
-        });
-      });
-    }
-  ],
-
-  // optional callback 
-  function(err, results){
-    if (err) {
-      console.log(err);
-    };
+    image.write(path);
+    res.json({"original": name});
   });
 
-  res.json({"error": "err"});
+});
+
+/**
+ * add to image caman filter
+ * @param  req  get request data
+ * @param  res   
+ * @return object
+ */
+app.post('/photos/filter', function(req, res, next) {
+
+  var src = "./public/"+req.body.src;
+  var filter = req.body.filter;
+  filters(src, filter, function(photo) {
+    return res.json({photo: photo});
+  });
+  
+  
 });
 
 module.exports = app;

@@ -3,9 +3,9 @@ global.jQuery = require('jquery');
 var $ = jQuery;
 var Backbone = require('backbone');
 var _ = require('underscore');
-Backbone.$ = $;
 var imagesLoaded = require('imagesloaded');
 var pubsub = require('utils/pubsub');
+Backbone.$ = $;
 
 // Templates
 templateCrop = require('templates/photos/crop.hbs')
@@ -56,8 +56,6 @@ module.exports = Backbone.View.extend({
     // var $image = $('.img-to-crop');
     // $el.html(t);
     // $("#app-container").html($el);
-    
-  
   },
 
 
