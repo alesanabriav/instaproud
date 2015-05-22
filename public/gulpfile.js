@@ -11,13 +11,14 @@ gulp.task('browser-sync', function() {
 });
 
 gulp.task('watch', ['concact_css','compile-browerserify', 'browser-sync'], function() {
-  gulp.watch('css/*.scss', ['concact_css', reload]);
+  gulp.watch('css/*.scss', ['concact_css']);
 
   gulp.watch([
-    'app/*/*/*.js',
-    'app/*/*.js',
-    'app/*.js',
-    ], ['compile-browerserify', reload]);
+    'app/*/*/*',
+    'app/*/*',
+    'app/*',
+
+    ], ['compile-browerserify']);
 
 });
 

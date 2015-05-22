@@ -14,19 +14,20 @@ module.exports = Backbone.View.extend({
 
   //Start Listen events
   initialize: function() {
-    console.log('start photo render');
-    pubsub.on("photo:render", this.render, this);
+    var _this = this;
+    
+    _this.listenTo(pubsub, "view:remove", _this.remove, _this);
+    _this.listenTo(pubsub, "photo:render", _this.loadPhoto, _this);
   },
 
-  render: function(file) {
-    var imageType = /image.*/;
-    var img;
+  loadPhoto: function(file) {
 
-    if (file.type.match(imageType)) {
+    if (file.type.match(/image.*/)) {
+
       var reader = new FileReader();
 
-      reader.onload = function(e) {
-        img = new Image();
+      reader.onload = function() {
+        var img = new Image();
 
         img.src = reader.result;
 
@@ -42,21 +43,14 @@ module.exports = Backbone.View.extend({
       $('.preloader').removeClass('hidden');
 
       _.delay(function() {
-         $('.preloader').addClass('hidden');
         pubsub.trigger("photo:crop", picture.find('img'));
+        $('.preloader').addClass('hidden');
       }, 400);
 
     } else {
-      alert("File not supported!");
+      alert("Tipo de archivo no permitido");
     }
 
-    // var img = {img: "/uploads/"+data};
-    // var t = templateCrop(img);
-    // var $el = $(this.el);
-    // var $image = $('.img-to-crop');
-    // $el.html(t);
-    // $("#app-container").html($el);
   },
-
 
 });

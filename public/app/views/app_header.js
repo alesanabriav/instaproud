@@ -16,7 +16,17 @@ module.exports = Backbone.View.extend({
 
   //Listen events
   initialize: function() {
+    var _this = this;
+    pubsub.on('appHeader:showNext', _this.showNext, _this);
+    pubsub.on('appHeader:hideNext', _this.hideNext, _this);
+  },
 
+  showNext: function() {
+    $('next-action').removeClass('hidden');
+  },
+
+  hideNext: function() {
+    $('next-action').addClass('hidden');
   },
 
   //execute event

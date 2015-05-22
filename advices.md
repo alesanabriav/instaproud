@@ -2,7 +2,7 @@
 
 ### Don't be clever.
 
-Don't try to write complicated code on purpose to show how smart you are
+Don't try to write complicated code on purpose to show how smart you are.
 
 ### SRP (single responsibility principle)
 "Clean Code" by Uncle Bob
@@ -24,9 +24,7 @@ That includes your manager. It's your job to elicit their true needs.
 ### Beware of dogma
 There's usually more than one way of doing things. The term "best practice" is overused. There are some good practices in software development, but beware someone telling you that something is the "best" way of doing something.  
 
-
 ### There's no such thing as perfect
-
 
 ###If you don't design for scalability, your code won't scale.
 

@@ -11,9 +11,12 @@ module.exports = Backbone.View.extend({
 
   //Start Listen events
   initialize: function() {
-    pubsub.on("photo:crop", this.startCrop, this);
-    pubsub.on("app:next", this.sendCrop, this);
-    this.data = '';
+    var _this = this;
+    
+    _this.listenTo(pubsub, "view:remove", _this.remove, _this);
+    _this.listenTo(pubsub, "photo:crop", _this.startCrop, _this);
+    _this.listenTo(pubsub, "app:next", _this.sendCrop, _this);
+    _this.data = '';
   },
 
   startCrop: function() {

@@ -1,3 +1,4 @@
+//Dependencies
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -6,9 +7,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 
+//Routes
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var photos = require('./routes/photos');
+var authentication = require('./routes/authentication');
 
 var app = express();
 
@@ -16,7 +19,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-// uncomment after placing your favicon in /public
+// Middlewares
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -24,7 +27,7 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Parse files and stores on uploads
+//Parse files
 app.use(multer({
   dest: 'public/uploads',
   onFileUploadComplete: function (file, req, res) {
@@ -33,6 +36,7 @@ app.use(multer({
 }));
 
 app.use('/', routes);
+app.use(authentication);
 app.use(users);
 app.use(photos);
 

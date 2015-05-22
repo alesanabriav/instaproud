@@ -4,7 +4,7 @@ var Jimp = require("jimp");
 var server = require('http').Server(app);
 var async = require('async');
 
-var rename = require('../helpers/rename');
+var rename = require('../lib/createName');
 var filters = require('../lib/photoFilters');
 
 /**
@@ -13,7 +13,7 @@ var filters = require('../lib/photoFilters');
  * @param  res   
  * @return object
  */
-app.post('/photos', function(req, res, next) {
+app.post('/photos', function(req, res) {
   var img = new Buffer(req.body.img ,'base64');
   var hash = rename("1nstaPr0ud" + Math.random() );
   var name = hash + ".jpg";
@@ -34,7 +34,7 @@ app.post('/photos', function(req, res, next) {
  * @param  res   
  * @return object
  */
-app.post('/photos/filter', function(req, res, next) {
+app.post('/photos/filter', function(req, res) {
 
   var src = "./public/"+req.body.src;
   var filter = req.body.filter;
@@ -42,7 +42,10 @@ app.post('/photos/filter', function(req, res, next) {
     return res.json({photo: photo});
   });
   
-  
+});
+
+app.post('/photos/select', function(req, res) {
+  console.log(res.body);
 });
 
 module.exports = app;

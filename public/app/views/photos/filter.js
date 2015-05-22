@@ -17,8 +17,11 @@ module.exports = Backbone.View.extend({
   
   //Start Listen events
   initialize: function() {
-    pubsub.on("photo:uploaded", this.render, this);
-    pubsub.on('app:next', this.select, this);
+    var _this = this;
+
+    _this.listenTo(pubsub, "view:remove", _this.remove, _this);
+    _this.listenTo(pubsub, "photo:uploaded", _this.render, _this);
+    _this.listenTo(pubsub, "app:next", _this.select, _this);
   },
 
   render: function(data) {
@@ -38,25 +41,28 @@ module.exports = Backbone.View.extend({
   },
 
   selectImage: function(e) {
+    
     var filter = $(e.currentTarget).data('filter');
     var src = $('.img-active').find('img').data('original');
-    var ajx = $.ajax({
+
+    $.ajax({
       type: "POST",
       url: '/photos/filter', 
-      data: {filter: filter, src: src}
-    });
-
-    ajx.then(function(res){
+      data: {filter: filter, src: src},
+      beforeSend: function showPreloader() {
+        $('.preloader').removeClass('hidden');
+      }
+    })
+    .then(function(res){
       $('.img-active').find('img').attr('src', "/images/"+res.photo);
+      $('.preloader').addClass('hidden');
     });
-    // var selected = $img.attr('src');
-
-    // 
   },
 
   select: function() {
-    var src = $(".img-active img").attr('src');
-    console.log(src);
+    var getSrc = $(".img-active img").attr('src');
+    var src = getSrc.split('/')[2];
+    
   }
 });
 

@@ -2,6 +2,8 @@ var PhotoUpload = require('views/photos/upload');
 var PhotoRender = require('views/photos/render');
 var PhotoCrop = require('views/photos/crop');
 var PhotoFilter = require('views/photos/filter');
+//Utils
+var pubsub = require('utils/pubsub');
 
 module.exports = {
   initialize: function() {
@@ -20,8 +22,11 @@ module.exports = {
     return new PhotoCrop();
   },
 
-  filter: function() {
-    return new PhotoFilter();
+  filter: function(src) {
+    var data;
+    new PhotoFilter();
+    data = {"original": src};
+    pubsub.trigger("photo:uploaded", data);
   }
 
  }

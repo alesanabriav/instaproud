@@ -8,8 +8,12 @@ Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
 
+  //listen events
   initialize: function() {
-    pubsub.on("photo:upload", this.upload, this);
+    var _this = this;
+    
+    this.listenTo(pubsub, "view:remove", _this.remove);
+    this.listenTo(pubsub, "photo:upload", _this.upload);
   },
 
   //Upload photo to server
@@ -21,7 +25,7 @@ module.exports = Backbone.View.extend({
       url: '/photos/',
       type: 'POST',
       data: {img: d[2]},
-      beforeSend: function() {
+      beforeSend: function showPreloader() {
         $('.preloader').removeClass('hidden');
       }
     };
@@ -29,7 +33,8 @@ module.exports = Backbone.View.extend({
     ajx = $.ajax(options);
 
     ajx.then(function(data) {
-      pubsub.trigger("photo:uploaded", data);
+      var src = data.original;
+      pubsub.trigger('navigator:change', 'filter/'+src);
       $('.preloader').addClass('hidden');
     });
   }

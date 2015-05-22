@@ -11,14 +11,16 @@ module.exports = Backbone.View.extend({
   el: ".footer-nav-actions",
   
   events: {
-    'change .uploadPhoto': 'uploadPhoto'
+    'change .uploadPhoto': 'getPhoto'
   },
 
   initialize: function() {
-    pubsub.on('footerNav:remove', this.remove, this);
+    var _this = this;
+    
+    _this.listenTo(pubsub, 'footerNav:remove', _this.remove, _this);
   },
 
-  uploadPhoto: function(e) {
+  getPhoto: function(e) {
     var $file = $(e.currentTarget)[0].files[0];
     pubsub.trigger('photo:render', $file);
   }
