@@ -1,17 +1,24 @@
 html{
   height: 100%;
 }
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
 
 body {
   background: #f1f1f1;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  padding-top: 40px;
-  padding-bottom: 100px;
+  font: 14px "Lato", Helvetica, Arial, sans-serif;
+  padding-top: 60px;
+  padding-bottom: 120px;
   height: 100%;
 }
 
 a {
   color: #00B7FF;
+}
+
+#app-container{
+  float: left;
+  width: 100%;
+  height: 100%;
 }
 
 .ui-header-next{
@@ -29,6 +36,7 @@ a {
 }
 
 .frame{
+  backface-visibility: hidden;
   width: 100%;
   overflow: scroll;
   height: 150px;
@@ -51,7 +59,6 @@ a {
   top: 0;
   width: 100%;
   height: 50px;
-  background: #124D7D;
   margin: 0;
   z-index: 999;
   padding: 10px 30px 0px 30px;
@@ -64,33 +71,40 @@ a {
 .preloader{
   display: block;
   margin: 60px auto;
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
+}
+
+#nav-container{
+  backface-visibility: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 999;
 }
 
 .footer-nav-actions{
   width: 100%;
   background: #212326;
   display: block;
-  position: fixed;
-  bottom: 0;
   margin: 0;
   padding: 0;
   z-index: 999;
-
   li{
+    background: #212326;
     display: inline-block;
+    float: left;
     list-style: none;
-    width: 19%;
-    padding: 15px 15px 0 10px;
+    width: 19.99%;
+    padding: 10px 15px 0 10px;
 
     &.active{
-      border-bottom: 4px solid #124D7D;
       background: #090A0A;
     }
 
     &.camera{
-      background: #124D7D;
+      position: relative;
+      background: #00509a;
       color: #fff;
     }
 
@@ -99,21 +113,42 @@ a {
       color: #9CA0A3;
       display: block;
       height: 50px;
-      font-size: 1.9em;
+      font-size: 2.2em;
     }
+    
     .btn-file{
       text-align: center;
       color: #ccc;
       display: block;
       height: 50px;
       font-size: 1.9em;
+      position: relative;
+      overflow: hidden;
+
+      input[type=file]{
+        position: absolute;
+        top: 0;
+        right: 0;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        cursor: inherit;
+        display: block;
+        width: 100%;
+      }
     }
   }
 }
 
-.btn-file {
+.edit-profile-img{
+  text-align: center;
+  color: #333;
+  display: block;
+  height: 50px;
+  font-size: 1em;
   position: relative;
   overflow: hidden;
+
   input[type=file]{
     position: absolute;
     top: 0;
@@ -123,8 +158,10 @@ a {
     outline: none;
     cursor: inherit;
     display: block;
+    width: 100%;
   }
 }
+
 
 .filters{
   padding: 0;
@@ -137,5 +174,62 @@ a {
      color: #fff;
     }
     
+  }
+}
+
+.profile-img-container{
+  position: relative;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  background: #fff;
+  float: left;
+  img{
+    width: 150%;
+    position: absolute;
+    top: 50%;  /* position the top  edge of the element at the middle of the parent */
+    left: 50%; /* position the left edge of the element at the middle of the parent */
+
+    transform: translate(-50%, -50%);
+  }
+}
+
+.feed_img{
+  background: #fff;
+  .img-main {
+    width: 100%;
+  }
+  .user-data{
+    padding: 5px;
+    float: left;
+    width: 100%;
+
+    .timeago{
+      float: right;
+      color: #ccc;
+      font-size: 0.9em;
+      padding-top: 10px;
+      padding-right: 15px;
+    }
+    .profile_link{
+      color: #111;
+      font-weight: bold;
+      font-size: 1.1em;
+      float: left;
+      padding-left: 15px;
+      padding-top: 5px;
+    }
+  }
+  &__container {
+
+  }
+  
+  &__actions {
+
+  }
+
+  &__comments {
+
   }
 }

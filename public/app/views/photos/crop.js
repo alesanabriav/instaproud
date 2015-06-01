@@ -52,6 +52,10 @@ module.exports = Backbone.View.extend({
         $(this).cropper('setCropBoxData',{width: '100%'});
       }
     });
+    
+    pubsub.trigger('footerNav:remove');
+    pubsub.trigger('appHeader:showNext');
+    $('.preloader').addClass('hidden');
 
   },
 

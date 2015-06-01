@@ -10,13 +10,13 @@ gulp.task('browser-sync', function() {
     });
 });
 
-gulp.task('watch', ['concact_css','compile-browerserify', 'browser-sync'], function() {
+gulp.task('watch', ['concact_css','compile-browerserify'], function() {
   gulp.watch('css/*.scss', ['concact_css']);
 
   gulp.watch([
-    'app/*/*/*',
-    'app/*/*',
-    'app/*',
+    'app/*/*/*.*',
+    'app/*/*.*',
+    'app/*.*',
 
     ], ['compile-browerserify']);
 

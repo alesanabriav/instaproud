@@ -12,14 +12,20 @@
     "backbone": "^1.1.2",
     "base64-image": "^0.1.0",
     "base64-img": "^1.0.3",
+    "browserify": "^10.2.1",
+    "browserify-shim": "^3.8.7",
     "caman": "^4.1.2",
     "filereader": "^0.10.3",
     "hammerjs": "^2.0.4",
     "handlebars": "^3.0.3",
     "imagesloaded": "^3.1.8",
     "jquery": "^2.1.4",
+    "jquery-autocomplete-js": "^1.1.0",
     "jquery-lazyload": "^1.9.5",
     "passport-local": "^1.0.0",
+    "selectize": "^0.12.1",
+    "typeahead": "^0.2.0",
+    "typeahead.js": "^0.11.1",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
@@ -34,5 +40,10 @@
     "hbsfy": "^2.2.1",
     "require-dir": "^0.3.0",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "browserify-shim": {
+    "./bower_components/typeahead.js/dist/typeahead.jquery.js": {
+      "exports": "typeahead"
+    }
   }
 }

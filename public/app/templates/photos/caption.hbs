@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-lg-3 col-xs-3">
+    <img src="/images/{{ path }}" class="img-responsive">
+  </div>
+
+  <div class="col-lg-9 col-xs-9">
+    <textarea class="caption form-control" rows="4"  placeholder="Caption">{{ caption }}</textarea>
+  </div>
+</div>
+<h5>Etiquetados</h5>
+
+{{#each tagged}}
+  <div class="label label-primary">{{ username }}</div>
+{{/each}}
+
+<p></p>

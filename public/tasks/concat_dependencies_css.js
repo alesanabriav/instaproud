@@ -6,7 +6,9 @@ gulp.task('concact_dependencies_css', function(){
   gulp.src([
     'bower_components/bootstrap/dist/css/bootstrap.min.css',
     'bower_components/font-awesome/css/font-awesome.min.css',
-    'bower_components/cropper/dist/cropper.css'
+    'bower_components/cropper/dist/cropper.css',
+    'bower_components/selectize/dist/css/selectize.bootstrap3.css',
+    'bower_components/animate.css/animate.min.css'
   ])
   .pipe(concat('dependencies.css'))
   .pipe(gulp.dest('css/dist'));

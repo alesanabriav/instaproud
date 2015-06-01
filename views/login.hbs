@@ -1,27 +1,121 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>{{title}}</title>
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel='stylesheet' href='/css/dist/dependencies.css' />
+<head>
+  <title>{{title}}</title>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel='stylesheet' href='/css/dist/dependencies.css' />
 </head>
-  
-<body id="app-instaproud">
 
-<form action="/login" method="POST" class="form col-lg-12">
-  <div class="form-group">
-    <label>Usuario</label>
-    <input type="text" class="form-control" name="usuario" placeholder=" @bvc.com"/>
-   
+<body id="app-instaproud">
+  <h1>Instaproud</h1>
+  <div role="tabpanel">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#login" aria-controls="login" role="tab" data-toggle="tab">INGRESAR</a></li>
+      <li role="presentation"><a href="#register" aria-controls="register" role="tab" data-toggle="tab">REGISTRO</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="login">
+      <p></p>
+        <form action="/login" method="post" class="form-login col-lg-12">
+        <div class="row">
+          <div class="form-group col-xs-6">
+            <input type="text" class="form-control" name="email" placeholder=" @bvc.com"/>
+          </div>
+          <div class="col-xs-6">bvc.com.co</div>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" name="password" />
+          </div>
+
+          <a href="#" class="form-login-btn btn btn-primary">Iniciar Sesión</a>
+        </form>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="register">
+      <p></p>
+        <form action="/users" method="post" class="form-register col-lg-12">
+          <div class="row">
+          <div class="form-group col-xs-6">
+            <input type="text" class="form-control" name="email" placeholder=" @bvc.com"/>
+          </div>
+          <div class="col-xs-6">bvc.com.co</div>
+          </div>
+
+          <div class="form-group">
+            <input type="password" class="form-control" name="password" />
+          </div>
+
+          <a href="#" class="form-register-btn btn btn-primary">REGISTRO</a>
+        </form>
+      </div>
+
+    </div>
+
   </div>
-  <div class="form-group">
-    <label>Password</label>
-    <input type="password" class="form-control" name="password" />
-  </div>
-  <button type="submit" />
-</form>
-   
-  </body>
+
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <script>
+
+    function removeDomain(email) {
+      if (email.indexOf('@') !== -1) {
+        var arr = email.split('@');
+        return arr[0];
+      }
+
+      return email;
+    }
+
+    $('.form-login-btn').on('click', function(e) {
+      e.preventDefault();
+
+      var email = $(".form-login").find("input[name='email']").val();
+      var emailChecked = removeDomain(email);
+      var password = $(".form-login").find("input[name='password']").val();
+      var data = {'email': emailChecked+"@bvc.com.co", 'password': password};
+
+      $.ajax({
+        url: "/login",
+        method: "POST",
+        data: data
+      }).then(function(res){
+
+        if (res.error) {
+          console.error(res.error.message);
+          return;
+        };
+
+        window.location.replace('/');
+      });
+    });
+
+    $('.form-register-btn').on('click', function(e) {
+      e.preventDefault();
+
+      var email = $(".form-register").find("input[name='email']").val();
+      var emailChecked = removeDomain(email);
+      var password = $(".form-register").find("input[name='password']").val();
+      var data = {'email': emailChecked+"@bvc.com.co", 'password': password};
+
+      $.ajax({
+        url: "/users",
+        method: "POST",
+        data: data
+      }).then(function(res){
+        if (res.error) {
+          console.error(res.error);
+        };
+
+        window.location.replace('/#profile/'+res.id+'/edit');
+      });
+    });
+
+  </script>
+
+</body>
 </html>

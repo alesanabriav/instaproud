@@ -1,0 +1,38 @@
+ <div class="feed_img" >
+  <div class="feed_img__container">
+  <div class="user-data">
+    
+    <div class="profile-img-container">
+      <img src="/images/{{owner.profile_image}}">
+    </div>
+    
+    <a class="profile_link" href="#profile/{{ owner.username }}">{{ owner.username }}</a>
+
+    <span class="timeago" title="{{ created }}">{{ created }}</span>
+  </div>
+
+  <img class="img-main" src="/images/{{ path }}">
+
+  <p></p>
+    <a href="#" class="like"><i class="fa fa-heart-o"></i> Like</a>
+  <p></p>
+  <i class="fa fa-heart"></i>
+  <p></p>
+  <p>{{caption}}</p>
+  
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Comentar...">
+      <span class="input-group-btn">
+        <button class="btn btn-default comment" type="button">Comentar</button>
+      </span>
+    </div><!-- /input-group -->
+    <hr>
+
+    <div class="feed_img__likes__box">
+
+    </div>
+
+    <ul class="comments__box"></ul>
+
+  </div>
+</div>

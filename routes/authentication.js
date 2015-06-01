@@ -1,17 +1,29 @@
 var app = require('express')();
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 
-app.post('/login',
-  passport.authenticate('local'),
-  function(req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    res.redirect('/users/' + req.user.username);
+app.post('/login', function(req, res, next) {
+  var user = req.body;
+  
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err); }
+
+    if (!user) { return res.json(info); }
+
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.json(user);
+    });
+  })(req, res, next);
+
 });
 
 app.get('/login', function(req, res) {
   res.render('login', {layout: 'login'});
+});
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
 });
 
 module.exports = app;

@@ -8,14 +8,14 @@ var pubsub = require('utils/pubsub');
 Backbone.$ = $;
 
 // Templates
-templateCrop = require('templates/photos/crop.hbs')
+var templateCrop = require('templates/photos/crop.hbs')
 
 module.exports = Backbone.View.extend({
 
   //Start Listen events
   initialize: function() {
     var _this = this;
-    
+    console.log('render');
     _this.listenTo(pubsub, "view:remove", _this.remove, _this);
     _this.listenTo(pubsub, "photo:render", _this.loadPhoto, _this);
   },
@@ -28,12 +28,11 @@ module.exports = Backbone.View.extend({
 
       reader.onload = function() {
         var img = new Image();
-
+        var $container = $("#app-container");
         img.src = reader.result;
-
-        $("#app-container").find("img");
-
-        $("#app-container").html(img);
+        $container.empty();
+        $container.append(img);
+        $container.find("img").addClass('hidden');
       };
 
       reader.readAsDataURL(file);
@@ -44,7 +43,6 @@ module.exports = Backbone.View.extend({
 
       _.delay(function() {
         pubsub.trigger("photo:crop", picture.find('img'));
-        $('.preloader').addClass('hidden');
       }, 400);
 
     } else {

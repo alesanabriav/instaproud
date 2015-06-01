@@ -8,7 +8,7 @@ var pubsub = require('utils/pubsub');
 Backbone.$ = $;
 
 // Templates
-templateFilters = require('templates/photos/filters.hbs')
+var templateFilters = require('templates/photos/filters.hbs')
 
 module.exports = Backbone.View.extend({
   events: {
@@ -25,11 +25,10 @@ module.exports = Backbone.View.extend({
   },
 
   render: function(data) {
+    
     var template = templateFilters(data);
     var $el = $(this.el);
     $el.html(template);
-
-    pubsub.trigger('footerNav:remove');
 
     $("#app-container").html($el);
 
@@ -38,12 +37,20 @@ module.exports = Backbone.View.extend({
       var src = $(e.currentTarget).attr('src');
       $(e.currentTarget).attr('src', src);
     });
+
+    var count = $(".slidee").find('img').length;
+
+    $(".slidee").css('width', (count*105)+'px');
   },
 
   selectImage: function(e) {
     
     var filter = $(e.currentTarget).data('filter');
     var src = $('.img-active').find('img').data('original');
+    if (filter === "original") {
+      $('.img-active').find('img').attr('src', src);
+      return;
+    };
 
     $.ajax({
       type: "POST",
@@ -62,7 +69,16 @@ module.exports = Backbone.View.extend({
   select: function() {
     var getSrc = $(".img-active img").attr('src');
     var src = getSrc.split('/')[2];
-    
+
+    $.ajax({
+      url: "/photos/store",
+      type: 'POST',
+      data: {src: src}
+    })
+    .then( function(res) {
+      console.log(res);
+       pubsub.trigger('navigator:change', 'caption/'+res.id);
+    });
   }
 });
 

@@ -1,9 +1,13 @@
-var express = require('express');
-var router = express.Router();
+var app = require('express')();
+var Auth = require('../lib/checkAuth');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index');
+app.get('/', Auth, function(req, res) {
+  return res.render('layout');
 });
 
-module.exports = router;
+app.get('/register', function(req, res) {
+  console.log('register');
+  res.render('register');
+});
+
+module.exports = app;
