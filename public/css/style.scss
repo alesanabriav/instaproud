@@ -185,6 +185,7 @@ a {
   overflow: hidden;
   background: #fff;
   float: left;
+
   img{
     width: 150%;
     position: absolute;
@@ -221,6 +222,27 @@ a {
       padding-top: 5px;
     }
   }
+  
+  .like, .unlike{
+    font-size: 1.4em;
+    width: 100%;
+    display: block;
+    margin: 10px 0 10px 0;
+    color: #00509a;
+  }
+
+  .like{
+    color: #444;
+  }
+
+  .comments-box{
+    padding: 0;
+    li{
+      list-style: none;
+      width: 100%;
+    }
+  }
+
   &__container {
 
   }

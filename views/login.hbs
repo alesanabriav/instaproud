@@ -5,6 +5,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link rel='stylesheet' href='/css/dist/dependencies.css' />
+  <link rel="stylesheet" type="text/css" href="/node_modules/alertifyjs/build/css/alertify.css">
 </head>
 
 <body id="app-instaproud">
@@ -59,16 +60,21 @@
 
   <script src="/bower_components/jquery/dist/jquery.js"></script>
   <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
+  <script type="text/javascript" src="/node_modules/underscore/underscore.js"></script>
+  <script src="/node_modules/alertifyjs/build/alertify.js"></script>
   <script>
 
     function removeDomain(email) {
       if (email.indexOf('@') !== -1) {
         var arr = email.split('@');
-        return arr[0];
+        return arr[0]+"@bvc.com.co";
       }
 
-      return email;
+      if (email === "") {
+        return null;
+      };
+
+      return email+"@bvc.com.co";
     }
 
     $('.form-login-btn').on('click', function(e) {
@@ -77,21 +83,19 @@
       var email = $(".form-login").find("input[name='email']").val();
       var emailChecked = removeDomain(email);
       var password = $(".form-login").find("input[name='password']").val();
-      var data = {'email': emailChecked+"@bvc.com.co", 'password': password};
+      var data = {'email': emailChecked, 'password': password};
 
       $.ajax({
         url: "/login",
         method: "POST",
         data: data
       }).then(function(res){
-
-        if (res.error) {
-          console.error(res.error.message);
+        if (res.message) {
+          alertify.error("email o contraseña incorrecto");
           return;
         };
-
         window.location.replace('/');
-      });
+      })
     });
 
     $('.form-register-btn').on('click', function(e) {
@@ -100,18 +104,20 @@
       var email = $(".form-register").find("input[name='email']").val();
       var emailChecked = removeDomain(email);
       var password = $(".form-register").find("input[name='password']").val();
-      var data = {'email': emailChecked+"@bvc.com.co", 'password': password};
+      var data = {'email': emailChecked, 'password': password};
 
       $.ajax({
         url: "/users",
         method: "POST",
         data: data
       }).then(function(res){
-        if (res.error) {
-          console.error(res.error);
-        };
-
+        console.log(res);
         window.location.replace('/#profile/'+res.id+'/edit');
+      })
+      .fail(function(res) {
+        _.each(res.responseJSON, function(err, ind){
+          alertify.error(err.message);
+        })
       });
     });
 

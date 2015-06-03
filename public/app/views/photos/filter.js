@@ -47,6 +47,7 @@ module.exports = Backbone.View.extend({
     
     var filter = $(e.currentTarget).data('filter');
     var src = $('.img-active').find('img').data('original');
+
     if (filter === "original") {
       $('.img-active').find('img').attr('src', src);
       return;
@@ -61,22 +62,21 @@ module.exports = Backbone.View.extend({
       }
     })
     .then(function(res){
-      $('.img-active').find('img').attr('src', "/images/"+res.photo);
+      var folderUser = res.photo.split('_')[0];
+      $('.img-active').find('img').attr('src', "/images/"+folderUser+"/"+res.photo);
       $('.preloader').addClass('hidden');
     });
   },
 
   select: function() {
     var getSrc = $(".img-active img").attr('src');
-    var src = getSrc.split('/')[2];
-
+    var src = getSrc.split('/')[3];
     $.ajax({
       url: "/photos/store",
       type: 'POST',
       data: {src: src}
     })
     .then( function(res) {
-      console.log(res);
        pubsub.trigger('navigator:change', 'caption/'+res.id);
     });
   }

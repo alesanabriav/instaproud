@@ -179,3 +179,16 @@ a {
       float: left;
       padding-left: 15px;
       padding-top: 5px; }
+  .feed_img .like, .feed_img .unlike {
+    font-size: 1.4em;
+    width: 100%;
+    display: block;
+    margin: 10px 0 10px 0;
+    color: #00509a; }
+  .feed_img .like {
+    color: #444; }
+  .feed_img .comments-box {
+    padding: 0; }
+    .feed_img .comments-box li {
+      list-style: none;
+      width: 100%; }

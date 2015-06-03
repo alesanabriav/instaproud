@@ -7,9 +7,13 @@ var PhotoFilter = require('views/photos/filter');
 var PhotoCaption = require('views/photos/caption');
 var PhotoTag = require('views/photos/tag');
 var PhotoAutocomplete = require('views/photos/autocomplete');
+var PhotoLike = require('views/photos/like');
+var PhotoComments = require('views/photos/comments');
+var PhotoHashtag = require('views/photos/hashtag');
 
 //Models
 var models = require('models/photo');
+var CommentModels = require('models/comment');
 
 //Utils
 var pubsub = require('utils/pubsub');
@@ -23,6 +27,7 @@ module.exports = {
     var collection = new models.photos();
     new Photos({collection: collection});
     collection.fetch({reset: true});
+    new PhotoLike();
   },
 
   upload: function() {
@@ -66,6 +71,13 @@ module.exports = {
     photo = new models.photo({id: id});
     return new PhotoAutocomplete({model: photo});
     photo.fetch();
+  },
+
+  hashtag: function(hashtag) {
+    var headerData = {title: "#"+hashtag};
+    pubsub.trigger('appHeader:change', headerData);
+    var view = new PhotoHashtag();
+    view.pull(hashtag);
   }
 
  }

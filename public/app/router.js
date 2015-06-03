@@ -17,6 +17,9 @@ module.exports = Backbone.Router.extend({
     'filter/:src': "filters",
     'caption/:id': "caption",
     'profile/:id/edit': "profileEdit",
+    'profile/:username': "profileShow",
+    'profile': "profileShow",
+    'hashtag/:hashtag': "hashtagPhotos"
   },
 
   /**
@@ -49,6 +52,22 @@ module.exports = Backbone.Router.extend({
 
   profileEdit: function(id) {
     profilesController.edit(id);
+  },
+
+  profileShow: function(username) {
+    var getUsername = username;
+
+    if (!username) {
+      var getUser = localStorage.getItem('user');
+      getUsername = JSON.parse(getUser).username;
+    };
+
+    profilesController.item(getUsername);
+  },
+
+  hashtagPhotos: function(hashtag) {
+    photosController.hashtag(hashtag);
   }
+
 
 });

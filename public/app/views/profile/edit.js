@@ -13,10 +13,8 @@ Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   events: {
-    'focusout input': 'store',
-    'focusout textarea': 'store',
-    'change select': 'store',
-    'change .uploadPhoto': 'uploadImg'
+    'change .uploadPhoto': 'uploadImg',
+    'submit form': 'stopSubmit'
   },
 
   //listen events
@@ -25,31 +23,45 @@ module.exports = Backbone.View.extend({
     _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
     _this.listenTo(_this.model, 'change', _this.render, _this);
     _this.listenTo(pubsub, 'app:next', _this.next, _this);
+  },
 
+  stopSubmit: function(e) {
+    e.preventDefault();
   },
 
   //Render form
   render: function() {
     var _this = this;
-    var template = templateEdit( _this.model.toJSON() );
+    var birthday = _this.model.toJSON().birthday.split('-');
+    var year = birthday[0];
+    var month = birthday[1];
+    var day = birthday[1].split('T')[0];
+    var data = _.extend({year: year, month: month, day: day}, _this.model.toJSON());
+    var template = templateEdit( data );
     $(_this.el).html(template);
     $("#app-container").html(_this.el);
     return _this;
   },
 
-  store: function(e) {
-    var $input = $(e.currentTarget);
-    var nameAttr = $input.attr('name');
-    var val = $input.val();
-    var data = {};
-    data[nameAttr] = val;
+  store: function(data, cb) {
+    var _this = this;
+    
+    $.ajax({
+      url: "/users/"+_this.model.id,
+      method: "PUT",
+      data: data
+    })
+    .then(function(res) {
+      return cb(res);
+    })
   },
   
   uploadImg: function(e) {
+    var _this = this;
     var $file = $(e.currentTarget)[0].files[0];
     formData = new FormData();
     formData.append("profile_image", $file);
-    var id = this.model.id;
+    var id = _this.model.id;
 
     $.ajax({
       url: '/users/'+ id +'/image',
@@ -59,12 +71,33 @@ module.exports = Backbone.View.extend({
       contentType: false, //Not set any content type header
     })
     .then(function(res) {
-
+      _this.model.set(res);
     });
 
   },
 
   next: function() {
-    pubsub.trigger('navigator:change', '/');
+    var $form = this.$el.find('form');
+    var $name = $form.find('input[name="name"]').val();
+    var $gender = $form.find('select[name="gender"]').val();
+    var $day = $form.find('select[name="day"]').val();
+    var $month = $form.find('select[name="month"]').val();
+    var $year = $form.find('select[name="year"]').val();
+    var $area = $form.find('select[name="area"]').val();
+    var $bio = $form.find('textarea[name="bio"]').val();
+
+    var data = {
+      name: $name,
+      gender: $gender,
+      birthday: $year+"-"+$month+"-"+$day,
+      area: $area,
+      bio: $bio
+    };
+
+    this.store(data, function(res) {
+      pubsub.trigger('navigator:change', '/');
+    });
+
+    
   }
 });

@@ -11,28 +11,33 @@
     <span class="timeago" title="{{ created }}">{{ created }}</span>
   </div>
 
-  <img class="img-main" src="/images/{{ path }}">
+  <img class="img-main animated pulse" src="/images/{{owner.id}}/{{ path }}">
 
-  <p></p>
-    <a href="#" class="like"><i class="fa fa-heart-o"></i> Like</a>
-  <p></p>
+  {{#checkLiked liked }} {{/checkLiked}}
+
   <i class="fa fa-heart"></i>
+  {{#each liked}}
+    {{username}}
+  {{/each}}
   <p></p>
-  <p>{{caption}}</p>
   
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Comentar...">
+  <p>{{#convertHashtag caption}}{{/convertHashtag}}</p>
+  
+  <ul class="comments-box">
+    {{#each comments}}
+     <li>
+      <a href="/#profile/{{ commenter.username }}">{{ commenter.username }}</a> 
+      {{#convertHashtag text }}{{/convertHashtag}}
+     </li>
+    {{/each}}
+  </ul>
+
+    <div class="input-group commenter">
+      <input type="text" class="form-control commentText" placeholder="Comentar...">
       <span class="input-group-btn">
         <button class="btn btn-default comment" type="button">Comentar</button>
       </span>
     </div><!-- /input-group -->
+
     <hr>
-
-    <div class="feed_img__likes__box">
-
-    </div>
-
-    <ul class="comments__box"></ul>
-
-  </div>
 </div>

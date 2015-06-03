@@ -3,6 +3,7 @@ var $ = global.jQuery;
 
 var AppNavView = require('views/app_nav.js');
 var AppHeaderView = require('views/app_header.js');
+var AppPreloader = require('views/app_preloader.js');
 
 //Utils
 var pubsub = require('utils/pubsub');
@@ -16,6 +17,14 @@ module.exports = {
     
     _this.header();
     _this.nav();
+
+    $.ajax({
+      url: "/users/me/logged",
+      method: "POST"
+    }).then(function(user){
+      localStorage.setItem("user", JSON.stringify(user));
+    });
+    
   },
 
   header: function(data) {
@@ -26,7 +35,6 @@ module.exports = {
 
   nav: function() {
     var view = new AppNavView();
-    console.log(view);
     $("#nav-container").empty();
     $("#nav-container").append(view.render().el);
   }

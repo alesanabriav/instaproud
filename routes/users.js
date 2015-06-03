@@ -18,7 +18,12 @@ app.route('/users')
     var newUser = new User(data);
 
     newUser.save( function(err, user) {
-      if (err) throw err;
+      if (err) {
+        if (err.errors) {
+          return res.status(400).json(err.errors);
+        };
+        return res.status(400).json({ user: {"message": "El usuario ya existe"} });
+      }
 
       req.login(user, function(err) {
         if (err) { return next(err); }
@@ -43,11 +48,17 @@ app.route('/users/:id')
 
     User.update({_id: id}, data, { runValidators: true }, function(err, user) {
       if(err) res.status(400).json(err);
-      return res.json(user);
+
+      User.findOne({_id: id}, function(err, userUpadated){ 
+        if (err) throw err;
+        return res.json(userUpadated);
+      });
+
     });
   });
 
 app.post('/users/:id/image', function(req, res) {
+
   var userId = req.user._id;
   var img = req.files.profile_image.path;
   var name;
@@ -65,7 +76,13 @@ app.post('/users/:id/image', function(req, res) {
       if (err) throw err;
 
       User.findOneAndUpdate({_id: userId},{profile_image: name}, function(err, user) {
-          return res.json(user);
+        if (err) throw err;
+
+        User.findOne({_id: user.id}, function(err, userUpadated){ 
+          if (err) throw err;
+          return res.json(userUpadated);
+        })
+          
       });
 
     });
@@ -81,15 +98,29 @@ app.get('/users/search/:query', function(req, res) {
   });
 });
 
-app.get('/users/:id/photos', function(req, res) {
-  var id = req.params.id;
 
-  User.findOne({_id: id}, function(err, user) {
-    if (err) throw err;
-    Photo.find({owner: user._id}, function(err, photos) {
-      return res.json(photos);
-    });
+
+app.get('/users/:username/photos', function(req, res) {
+  var username = req.params.username;
+  var data;
+
+  User.findOne({username: username}, function(err, user) {
+    if (err) return res.status(400).json({message: "No existe"});
+    if (user) {
+      Photo.find({owner: user._id}, function(err, photos) {
+        if (err) throw err;
+        data = {user: user, photos: photos};
+        return res.json(data);
+      });
+
+    };
+
   });
 })
+
+app.post('/users/me/logged', function(req, res){
+  console.log(req.user);
+  return res.json(req.user);
+});
 
 module.exports = app;

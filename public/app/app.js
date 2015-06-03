@@ -1,6 +1,8 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
+var helpers = require('helpers/helpers_hbs');
+
 Backbone.$ = $;
 
 var Router = require('./router');

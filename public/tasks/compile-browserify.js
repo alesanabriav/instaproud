@@ -18,7 +18,8 @@ gulp.task('compile-browerserify', function () {
       './app/controllers/',
       './app/models/',
       './app/views/',
-      './app/templates/'
+      './app/templates/',
+      './app/helpers/'
     ]
   };
 

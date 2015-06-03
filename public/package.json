@@ -9,6 +9,7 @@
   "author": "Alejandro Sanabria <alejandro@brandspa.com>",
   "license": "ISC",
   "dependencies": {
+    "alertifyjs": "^1.4.1",
     "backbone": "^1.1.2",
     "base64-image": "^0.1.0",
     "base64-img": "^1.0.3",

@@ -1,13 +1,22 @@
 //views
 var edit = require('views/profile/edit');
+var item = require('views/profile/item');
+
 //models
 var UserModels = require('models/user');
+
 //Utils
 var pubsub = require('utils/pubsub');
+
 module.exports = {
 
   initialize: function() {
 
+  },
+
+  item: function(username) {
+    var view = new item();
+    view.pull(username);
   },
 
   edit: function(id) {

@@ -1,5 +1,11 @@
+//Dependencies
 var app = require('express')();
 var passport = require('passport');
+
+
+app.get('/register', function(req, res) {
+  res.render('register');
+});
 
 app.post('/login', function(req, res, next) {
   var user = req.body;

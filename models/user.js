@@ -5,11 +5,12 @@ var bcrypt = require('bcrypt');
 var UserSchema = new Schema({
   email: { 
     type: String, 
-    required: true 
+    required: '{PATH} requerido',
+    unique: true
   },
   password: { 
     type: String, 
-    required: true 
+    required: 'contraseña requerida'
   },
   salt: String,
   username: String,
@@ -38,12 +39,15 @@ var UserSchema = new Schema({
 });
 
 UserSchema.set('toJSON', {
- transform: function (doc, ret, options) {
-   ret.id = ret._id;
-   delete ret.password;
-   delete ret._id;
-   delete ret.__v;
- }
+  transform: function (doc, ret, options) {
+    ret.id = ret._id;
+    delete ret.password;
+    delete ret.created;
+    delete ret.updated;
+    delete ret.salt;
+    delete ret._id;
+    delete ret.__v;
+  }
 });
 
 UserSchema.methods.validPassword = function(password) {
@@ -56,8 +60,10 @@ UserSchema.pre('save', function(next) {
   user.updated = Date.now;
   username = user.email.split('@');
   user.username = username[0];
+  
   bcrypt.genSalt(10, function(err, salt) {
     bcrypt.hash(user.password, salt, function(err, hash) {
+      user.salt = salt;
       user.password = hash;
       next();
     });

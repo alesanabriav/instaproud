@@ -34,7 +34,6 @@ module.exports = Backbone.View.extend({
     });
     $(_this.el).html(views);
     $("#app-container").html(_this.el);
-    $("#app-container").find('span.timeago').timeago();
   },
 
 });
