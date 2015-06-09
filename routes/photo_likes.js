@@ -5,7 +5,7 @@ var app = require('express')();
 var User = require('../models/user');
 var Photo = require('../models/photo');
 
-app.post('/photos/:id/like', function() {
+app.post('/api/photos/:id/like', function() {
    var id = req.params.id;
   var userId = req.body.tagged;
 
@@ -25,7 +25,7 @@ app.post('/photos/:id/like', function() {
   });
 });
 
-app.post('/photos/:id/liked', function(req, res) {
+app.post('/api/photos/:id/liked', function(req, res) {
   var id = req.params.id;
   var userId = req.user._id;
 
@@ -42,7 +42,7 @@ app.post('/photos/:id/liked', function(req, res) {
   });
 });
 
-app.post('/photos/:id/unliked', function(req, res) {
+app.post('/api/photos/:id/unliked', function(req, res) {
   var id = req.params.id;
   var userId = req.user._id;
 

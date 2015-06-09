@@ -9,7 +9,7 @@ var User = require('../models/user');
 var Photo = require('../models/photo');
 var Comment = require('../models/comment');
 
-app.route('/photos/:id/comments')
+app.route('/api/photos/:id/comments')
   .post(function(req, res) {
     var commentText = req.body.comment;
     var photoId = req.params.id;
@@ -20,7 +20,7 @@ app.route('/photos/:id/comments')
 
     newComment.save(function(err, comment) {
       if (err) throw(err);
-      
+
       if (hashtags) {
         createHashtag.store(hashtags, photoId);
       };
@@ -28,14 +28,17 @@ app.route('/photos/:id/comments')
       Photo.findOneAndUpdate({_id: photoId},{$addToSet: {comments: comment._id} }, function(err, photo) {
         if (err) throw(err);
 
-        Comment.findOne({_id: comment._id}).populate('commenter').exec(function(err, commt) {
+        Comment.findOne({_id: comment._id})
+        .populate('commenter')
+        .exec(function(err, commt) {
           return res.status(201).json(commt);
         })
-        
+
       })
 
     });
   })
+
   .get(function(req, res) {
 
   });

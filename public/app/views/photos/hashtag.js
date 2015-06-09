@@ -1,3 +1,4 @@
+"use strict";
 //Dependencies
 global.jQuery = require("jquery");
 var $ = jQuery;
@@ -6,6 +7,7 @@ var _ = require('underscore');
 
 //Utils
 var pubsub = require('utils/pubsub');
+
 //Templates
 var templateItem = require('templates/photos/hashtag.hbs');
 
@@ -24,7 +26,7 @@ module.exports = Backbone.View.extend({
   },
 
   pull: function(hashtag) {
-    $.get('/hashtags/'+ hashtag +'/photos')
+    $.get('/api/hashtags/'+ hashtag +'/photos')
     .then(function(res) {
       pubsub.trigger("hashtag:render", res);
     });

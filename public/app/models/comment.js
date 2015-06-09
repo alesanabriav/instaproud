@@ -2,12 +2,12 @@ var Backbone = require('backbone');
 var _ = require('underscore');
 
 var comment = Backbone.Model.extend({
-  urlRoot: "/comments"
+  urlRoot: "/api/comments"
 });
 
 var comments = Backbone.Collection.extend({
   model: comment,
-  url: "/comments"
+  url: "/api/comments"
 });
 
 module.exports = {

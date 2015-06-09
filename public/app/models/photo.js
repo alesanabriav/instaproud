@@ -2,12 +2,12 @@ var Backbone = require('backbone');
 var _ = require('underscore');
 
 var photo = Backbone.Model.extend({
-  urlRoot: "/photos"
+  urlRoot: "/api/photos"
 });
 
 var photos = Backbone.Collection.extend({
   model: photo,
-  url: "/photos"
+  url: "/api/photos"
 });
 
 module.exports = {

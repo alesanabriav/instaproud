@@ -6,7 +6,6 @@ app.get('/', Auth, function(req, res) {
 });
 
 app.get('/register', function(req, res) {
-  console.log('register');
   res.render('register');
 });
 

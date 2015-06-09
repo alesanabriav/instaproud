@@ -94,6 +94,7 @@
           alertify.error("email o contraseña incorrecto");
           return;
         };
+        localStorage.setItem("user", JSON.stringify(res));
         window.location.replace('/');
       })
     });
@@ -111,7 +112,7 @@
         method: "POST",
         data: data
       }).then(function(res){
-        console.log(res);
+        localStorage.setItem("user", JSON.stringify(res));
         window.location.replace('/#profile/'+res.id+'/edit');
       })
       .fail(function(res) {

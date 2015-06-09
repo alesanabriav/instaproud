@@ -1,10 +1,11 @@
-//Dependencies
-global.jQuery = require('jquery');
-var $ = jQuery;
+"use strict";
+
+var $ = require('jquery');
 var Backbone = require('backbone');
 var _ = require('underscore');
-var pubsub = require('utils/pubsub');
 var cropper = require('cropper');
+var pubsub = require('utils/pubsub');
+
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
@@ -12,7 +13,7 @@ module.exports = Backbone.View.extend({
   //Start Listen events
   initialize: function() {
     var _this = this;
-    
+
     _this.listenTo(pubsub, "view:remove", _this.remove, _this);
     _this.listenTo(pubsub, "photo:crop", _this.startCrop, _this);
     _this.listenTo(pubsub, "app:next", _this.sendCrop, _this);
@@ -25,7 +26,7 @@ module.exports = Backbone.View.extend({
     var data;
     var $container = $('#app-container');
     var $img = $container.find('img');
-    
+
     $container.append('<canvas width="500" height="500" class="hidden" />');
 
     var canvas = $container.find('canvas').get(0);
@@ -52,7 +53,7 @@ module.exports = Backbone.View.extend({
         $(this).cropper('setCropBoxData',{width: '100%'});
       }
     });
-    
+
     pubsub.trigger('footerNav:remove');
     pubsub.trigger('appHeader:showNext');
     $('.preloader').addClass('hidden');

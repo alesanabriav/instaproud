@@ -19,6 +19,7 @@ var authentication = require('./routes/authentication');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var photos = require('./routes/photos');
+var photoTagged = require('./routes/photo_tagged');
 var photoComments = require('./routes/photo_comments');
 var photoLikes = require('./routes/photo_likes');
 var hashtags = require('./routes/hashtags');
@@ -46,7 +47,7 @@ app.use(cookieParser());
 app.use(session({
   secret: 'InstaProud',
   store: new redisStore({ host: 'localhost', port: 6379, client: redisClient }),
-  saveUninitialized: false, 
+  saveUninitialized: false,
   resave: true
 }));
 
@@ -68,6 +69,7 @@ app.use(index);
 app.use(authentication);
 app.use(users);
 app.use(photos);
+app.use(photoTagged);
 app.use(photoComments);
 app.use(photoLikes);
 app.use(hashtags);

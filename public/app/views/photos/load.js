@@ -1,21 +1,17 @@
-//Dependencies
-global.jQuery = require('jquery');
-var $ = jQuery;
-var Backbone = require('backbone');
-var _ = require('underscore');
-var imagesLoaded = require('imagesloaded');
-var pubsub = require('utils/pubsub');
-Backbone.$ = $;
+"use strict";
 
-// Templates
-var templateCrop = require('templates/photos/crop.hbs')
+var $ = require('jquery');
+var _ = require('underscore');
+var Backbone = require('backbone');
+var pubsub = require('utils/pubsub');
+
+Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
 
   //Start Listen events
   initialize: function() {
     var _this = this;
-    console.log('render');
     _this.listenTo(pubsub, "view:remove", _this.remove, _this);
     _this.listenTo(pubsub, "photo:render", _this.loadPhoto, _this);
   },
@@ -36,7 +32,7 @@ module.exports = Backbone.View.extend({
       };
 
       reader.readAsDataURL(file);
-      
+
       var picture = $("#app-container");
 
       $('.preloader').removeClass('hidden');

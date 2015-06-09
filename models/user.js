@@ -24,10 +24,10 @@ var UserSchema = new Schema({
     type: String, 
     default: 'consumer' 
   },
-  photos:  [{ 
-    type: Schema.Types.ObjectId, 
-    ref: 'Photo' 
-  }],
+  active: {
+    type: Boolean, 
+    default: false
+  },
   created: { 
     type: Date, 
     default: Date.now 

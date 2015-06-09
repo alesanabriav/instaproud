@@ -1,11 +1,8 @@
-//views
-var edit = require('views/profile/edit');
-var item = require('views/profile/item');
-
-//models
+"use strict";
+var Edit = require('views/profile/edit');
+var Item = require('views/profile/item');
+var Tagged = require('views/profile/tagged');
 var UserModels = require('models/user');
-
-//Utils
 var pubsub = require('utils/pubsub');
 
 module.exports = {
@@ -15,7 +12,12 @@ module.exports = {
   },
 
   item: function(username) {
-    var view = new item();
+    var view = new Item();
+    view.pull(username);
+  },
+
+  tagged: function(username) {
+    var view = new Tagged();
     view.pull(username);
   },
 
@@ -23,12 +25,12 @@ module.exports = {
     var data = {title: "Editar Perfil", bgColor: "444"};
 
     pubsub.trigger('appHeader:render', data);
-    
+
     pubsub.trigger('appHeader:showNext');
     pubsub.trigger('footerNav:remove');
     var model = new UserModels.user({id: id});
-    new edit({model: model});
+    new Edit({model: model});
     model.fetch();
   }
-  
+
 }

@@ -1,7 +1,5 @@
-//Dependencies
 var app = require('express')();
 var passport = require('passport');
-
 
 app.get('/register', function(req, res) {
   res.render('register');
@@ -9,7 +7,7 @@ app.get('/register', function(req, res) {
 
 app.post('/login', function(req, res, next) {
   var user = req.body;
-  
+
   passport.authenticate('local', function(err, user, info) {
     if (err) { return next(err); }
 

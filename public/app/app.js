@@ -7,10 +7,11 @@ Backbone.$ = $;
 
 var Router = require('./router');
 var router = new Router();
+
 Backbone.history.start();
 
 var Navigator = {
-  
+
   initialize: function() {
     pubsub.on('navigator:change', this.trigger, this);
   },

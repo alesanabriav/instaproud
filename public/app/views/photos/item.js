@@ -1,13 +1,11 @@
-//Dependencies
-global.jQuery = require("jquery");
-var $ = jQuery;
-var Backbone = require('backbone');
-var _ = require('underscore');
+"use strict";
 
-//Utils
+var $ = require("jquery");
+var _ = require('underscore');
+var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
-//Templates
-var templateItem = require('templates/photos/item.hbs');
+var template = require('templates/photos/item.hbs');
+
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
@@ -16,68 +14,72 @@ module.exports = Backbone.View.extend({
     'click .unlike': 'unlike',
     'click .comment': 'comment'
   },
+
   //Start Listen events
   initialize: function() {
     var _this = this;
     _this.listenTo(pubsub, "view:remove", _this.remove, _this);
-    _this.listenTo(pubsub, "photo:update", _this.remove, _this);
     _this.listenTo(_this.model, "change", _this.render, _this);
-  },
-
-  update: function(data) {
-    this.model.set(data);
   },
 
   render: function() {
     var _this = this;
-    var template = templateItem( _this.model.toJSON() );
     _this.$el.empty();
-    _this.$el.append(template);
+    _this.$el.append( template( _this.model.toJSON() ) );
     _this.$el.find('span.timeago').timeago();
     return _this;
   },
 
   like: function(e) {
-    e.preventDefault();
     var _this = this;
-    var heart = $(e.currentTarget);
-    heart.find('i').removeClass('fa-heart-o');
-    heart.find('i').addClass('fa-heart');
-    heart.find('i').addClass('animated jello');
-    
-    $.post('/photos/'+ _this.model.id  +'/liked', function(res) {
-      _this.model.set("liked", res.liked);
-    });
+    var $icon = $(e.currentTarget).find('i');
+
+    $icon
+    .removeClass('fa-heart-o')
+    .addClass('fa-heart')
+    .addClass('animated jello');
+
+    $.post('/api/photos/'+ _this.model.id  +'/liked')
+    .then(_this.update.bind(_this));
   },
 
   unlike: function(e) {
-    e.preventDefault();
     var _this = this;
-    var heart = $(e.currentTarget);
-    heart.find('i').removeClass('fa-heart-o');
-    heart.find('i').addClass('fa-heart');
-    heart.find('i').addClass('animated jello');
-    
-    $.post('/photos/'+ _this.model.id +'/unliked', function(res) {
-      _this.model.set("liked", res.liked);
-    });
+    var $icon = $(e.currentTarget).find('i');
+
+    $icon
+    .removeClass('fa-heart-o')
+    .addClass('fa-heart')
+    .addClass('animated jello');
+
+    $.post('/api/photos/'+ _this.model.id +'/unliked')
+    .then(_this.update.bind(_this));
   },
 
   comment: function(e) {
     e.preventDefault();
-    var _this = this;
-    var comment = $(e.currentTarget).closest('.commenter').find('.commentText').val();
     var comments;
+    var _this = this;
+    var comment = $(e.currentTarget)
+    .closest('.commenter')
+    .find('.commentText').val();
 
-    $.post('/photos/'+ _this.model.id + '/comments', {comment: comment}, function(res) {
-      comments = _this.model.get('comments');
-      comments.push(res);
-      _this.model.set("comments", comments);
-      _this.model.trigger('change');
-    });
+    $.post('/api/photos/'+ _this.model.id + '/comments', {comment: comment})
+    .then(_this.updateComments.bind(_this));
+  },
+
+  //search first the model then set
+  update: function(data) {
+    this.model.set(data);
+  },
+
+  updateComments: function(comment) {
+    console.log(this);
+    var _this = this;
+    var comments = _this.model.get('comments');
+    comments.push(comment);
+    _this.model.set("comments", comments);
+    _this.model.trigger('change');
   }
 
 });
-
-
-//each image should have name of the filter 

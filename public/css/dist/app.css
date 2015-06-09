@@ -9,6 +9,13 @@ body {
   padding-bottom: 120px;
   height: 100%; }
 
+img {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0); }
+
 a {
   color: #00B7FF; }
 
@@ -161,6 +168,8 @@ a {
 .feed_img {
   background: #fff; }
   .feed_img .img-main {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
     width: 100%; }
   .feed_img .user-data {
     padding: 5px;
@@ -184,7 +193,8 @@ a {
     width: 100%;
     display: block;
     margin: 10px 0 10px 0;
-    color: #00509a; }
+    color: #00509a;
+    cursor: pointer; }
   .feed_img .like {
     color: #444; }
   .feed_img .comments-box {

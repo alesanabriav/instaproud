@@ -12,31 +12,24 @@ module.exports = {
 
   initialize: function() {
     var _this = this;
-    pubsub.on('AppNav:show', _this.nav, _this);
-    pubsub.on('appHeader:render', _this.header, _this);
-    
     _this.header();
     _this.nav();
-
-    $.ajax({
-      url: "/users/me/logged",
-      method: "POST"
-    }).then(function(user){
-      localStorage.setItem("user", JSON.stringify(user));
-    });
-    
+    pubsub.on('AppNav:show', _this.nav, _this);
+    pubsub.on('appHeader:render', _this.header, _this);
   },
 
   header: function(data) {
     var view = new AppHeaderView();
-    $("#header-container").empty();
-    $("#header-container").append(view.render(data).el);
+    var $header =  $("#header-container");
+    $header.empty();
+    $header.append(view.render(data).el);
   },
 
   nav: function() {
     var view = new AppNavView();
-    $("#nav-container").empty();
-    $("#nav-container").append(view.render().el);
+    var $nav = $("#nav-container");
+    $nav.empty();
+    $nav.append(view.render().el);
   }
 
  }

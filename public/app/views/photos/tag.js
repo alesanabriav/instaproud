@@ -1,3 +1,5 @@
+"use strict";
+
 //Dependencies
 global.jQuery = require("jquery");
 var $ = jQuery;
@@ -15,7 +17,7 @@ module.exports = Backbone.View.extend({
     "click .store": "store",
     "keydown .autocomplete": "autocomplete"
   },
-  
+
   //Start Listen events
   initialize: function() {
     var _this = this;
@@ -41,7 +43,7 @@ module.exports = Backbone.View.extend({
 
   autocomplete: function(e) {
     var query = $(e.currentTarget).val();
-    
+
     if (query.length) {
       $.ajax({
         url: "/users/search/"+ query,
@@ -53,6 +55,3 @@ module.exports = Backbone.View.extend({
     };
   }
 });
-
-
-//each image should have name of the filter 

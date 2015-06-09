@@ -8,11 +8,19 @@ Handlebars.registerHelper("checkLiked", function(users) {
   var username = {username: JSON.parse(user).username};
 
   if (_.where(users, username).length > 0) {
-    return '<a href="#" class="unlike"><i class="fa fa-heart"></i> Like</a>';
+    return '<span class="unlike"><i class="fa fa-heart"></i> Like</span>';
   } else {
-    return '<a href="#" class="like"><i class="fa fa-heart-o"></i> Like</a>';
+    return '<span class="like"><i class="fa fa-heart-o"></i> Like</span>';
   }
-  
+
+});
+
+Handlebars.registerHelper("removeCharacter", function(text, character) {
+  if (text && character) {
+    return text.replace(character, '');
+  } else {
+    return text;
+  }
 });
 
 Handlebars.registerHelper("convertHashtag", function(text) {

@@ -1,13 +1,17 @@
 <div class="row">
   <div class="col-lg-12">
-    <img src="/images/{{ user.profile_image }}" class="img-circle pull-left" width="40">
+    <div class="profile-img-container">
+      <img src="/images/{{ user.profile_image }}">
+    </div>
     <h5>{{#countArr photos}} {{/countArr}} Fotos</h5>
     {{ user.name }}
     {{ user.area }}
-    <a href="/#tagged/{{ user.username }}" class="tagged btn btn-primary">
-      <i class="fa fa-tags"></i>
+    <a href="/#profile/{{ user.username }}" class="tagged btn btn-primary">
+      <i class="fa fa-picture-o"></i>
     </a>
   </div>
+  <p></p>
+
 
 </div>
 <hr>

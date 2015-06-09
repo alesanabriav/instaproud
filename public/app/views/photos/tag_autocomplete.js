@@ -1,17 +1,22 @@
 "use strict";
-
-var $ = require("jquery");
-var _ = require('underscore');
+//Dependencies
+global.jQuery = require("jquery");
+var $ = jQuery;
 var Backbone = require('backbone');
+var _ = require('underscore');
+var imagesloaded = require('imagesloaded');
 var pubsub = require('utils/pubsub');
-var template = require('templates/photos/autocomplete.hbs');
 Backbone.$ = $;
+
+// Templates
+var templateAutocomplete = require('templates/photos/autocomplete.hbs')
 
 module.exports = Backbone.View.extend({
   events: {
-    "click .select": "store"
+    "click .select": "store",
   },
 
+  //Start Listen events
   initialize: function() {
     var _this = this;
     _this.listenTo(pubsub, "view:remove", _this.remove, _this);
@@ -19,10 +24,11 @@ module.exports = Backbone.View.extend({
   },
 
   render: function(users) {
-    var _this = this;
-    _this.$el.empty();
-    _this.$el.append( template( users ) );
-    $("#app-container").append(this.$el);
+    var template = templateAutocomplete( users );
+    var $el = $(this.el);
+    $el.empty();
+    $el.append(template);
+    $("#app-container").append($el);
   },
 
   store: function(e) {

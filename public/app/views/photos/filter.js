@@ -1,36 +1,33 @@
-//Dependencies
-global.jQuery = require('jquery');
-var $ = jQuery;
-var Backbone = require('backbone');
-var _ = require('underscore');
-var imagesloaded = require('imagesloaded');
-var pubsub = require('utils/pubsub');
-Backbone.$ = $;
+"use strict";
 
-// Templates
-var templateFilters = require('templates/photos/filters.hbs')
+var $ = require('jquery');
+var _ = require('underscore');
+var Backbone = require('backbone');
+var pubsub = require('utils/pubsub');
+var template = require('templates/photos/filters.hbs');
+
+Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   events: {
     "click .select-image": "selectImage"
   },
-  
+
   //Start Listen events
   initialize: function() {
     var _this = this;
 
     _this.listenTo(pubsub, "view:remove", _this.remove, _this);
     _this.listenTo(pubsub, "photo:uploaded", _this.render, _this);
-    _this.listenTo(pubsub, "app:next", _this.select, _this);
+    _this.listenTo(pubsub, "app:next", _this.store, _this);
   },
 
   render: function(data) {
-    
-    var template = templateFilters(data);
-    var $el = $(this.el);
-    $el.html(template);
-
-    $("#app-container").html($el);
+    var _this = this;
+    _this.$el.empty();
+    _this.$el.append(template(data));
+    $("#app-container").empty();
+    $("#app-container").append(_this.$el);
 
     $('.load-image').on('error', function(e) {
       var $el = $(e.currentTarget);
@@ -44,7 +41,7 @@ module.exports = Backbone.View.extend({
   },
 
   selectImage: function(e) {
-    
+
     var filter = $(e.currentTarget).data('filter');
     var src = $('.img-active').find('img').data('original');
 
@@ -55,7 +52,7 @@ module.exports = Backbone.View.extend({
 
     $.ajax({
       type: "POST",
-      url: '/photos/filter', 
+      url: '/api/photos/filter',
       data: {filter: filter, src: src},
       beforeSend: function showPreloader() {
         $('.preloader').removeClass('hidden');
@@ -68,19 +65,10 @@ module.exports = Backbone.View.extend({
     });
   },
 
-  select: function() {
+  store: function() {
     var getSrc = $(".img-active img").attr('src');
     var src = getSrc.split('/')[3];
-    $.ajax({
-      url: "/photos/store",
-      type: 'POST',
-      data: {src: src}
-    })
-    .then( function(res) {
-       pubsub.trigger('navigator:change', 'caption/'+res.id);
-    });
+    pubsub.trigger('photo:store', src);
   }
+
 });
-
-
-//each image should have name of the filter 

@@ -32,6 +32,9 @@ gulp.task('compile-browerserify', function () {
   .transform(debowerify)
   .transform(browserifyShim)
   .bundle()
+  .on('error', function(err) {
+    console.log(err.toString());
+  })
   .pipe(source('app.js'))
   .pipe(gulp.dest('js/dist'));
 });

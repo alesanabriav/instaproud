@@ -1,0 +1,8 @@
+{{#each []}}
+  <li class="list-group-item">
+  <a href="/#hashtag/{{#removeCharacter name '#'}}{{/removeCharacter}}">
+    {{ name }}
+    {{#countArr photos}} {{/countArr}} fotos
+  </a>
+  </li>
+{{/each}}

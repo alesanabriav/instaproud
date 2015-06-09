@@ -1,14 +1,9 @@
-//Dependencies
 var app = require('express')();
 var async = require('async');
-
-//Libs
 var checkAuth = require('../lib/checkAuth');
-
-//Models
 var Hashtag = require('../models/hashtag');
 
-app.get('/hashtags/:query', function(req, res) {
+app.get('/api/hashtags/:query', function(req, res) {
   var name = req.params.query;
 
   Hashtag
@@ -20,9 +15,8 @@ app.get('/hashtags/:query', function(req, res) {
   })
 });
 
-app.get('/hashtags/:hashtag/photos', function(req, res) {
+app.get('/api/hashtags/:hashtag/photos', function(req, res) {
   var hashtag = "#"+req.params.hashtag;
-
   Hashtag.findOne({name: hashtag})
   .populate('photos')
   .exec(function(err, hash) {
@@ -32,6 +26,5 @@ app.get('/hashtags/:hashtag/photos', function(req, res) {
   })
 
 });
-
 
 module.exports = app;

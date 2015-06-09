@@ -2,33 +2,33 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var PhotoSchema = new Schema({
-  owner: { 
-    type: Schema.Types.ObjectId, 
-    ref: 'User' 
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   },
   path: String,
   caption: String,
   likes: Number,
   liked: [{
-    type: Schema.Types.ObjectId, 
-    ref: 'User' 
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   }],
-  comments: [{ 
-    type: Schema.Types.ObjectId, 
+  comments: [{
+    type: Schema.Types.ObjectId,
     ref: 'Comment'
   }],
   tagged: [{
-    type: Schema.Types.ObjectId, 
+    type: Schema.Types.ObjectId,
     ref: 'User'
   }],
   hashtags: [],
-  created: { 
-    type: Date, 
-    default: Date.now 
+  created: {
+    type: Date,
+    default: Date.now
   },
-  updated: { 
-    type: Date, 
-    default: Date.now 
+  updated: {
+    type: Date,
+    default: Date.now
   },
 });
 
@@ -43,7 +43,7 @@ PhotoSchema.set('toJSON', {
 PhotoSchema.pre('save', function(next) {
   var user = this;
   user.updated = Date.now;
- 
+
   next();
 });
 
@@ -52,4 +52,3 @@ try {
 } catch (err) {
   module.exports = mongoose.model('Photo', PhotoSchema);
 }
- 

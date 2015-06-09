@@ -1,11 +1,9 @@
- <div class="feed_img" >
+ <div class="feed_img col-lg-4" >
   <div class="feed_img__container">
   <div class="user-data">
-    
-    <div class="profile-img-container">
-      <img src="/images/{{owner.profile_image}}">
-    </div>
-    
+
+    <img src="/images/{{owner.profile_image}}" class="img-circle pull-left" width="40">
+
     <a class="profile_link" href="#profile/{{ owner.username }}">{{ owner.username }}</a>
 
     <span class="timeago" title="{{ created }}">{{ created }}</span>
@@ -20,13 +18,13 @@
     {{username}}
   {{/each}}
   <p></p>
-  
+
   <p>{{#convertHashtag caption}}{{/convertHashtag}}</p>
-  
+
   <ul class="comments-box">
     {{#each comments}}
      <li>
-      <a href="/#profile/{{ commenter.username }}">{{ commenter.username }}</a> 
+      <a href="/#profile/{{ commenter.username }}">{{ commenter.username }}</a>
       {{#convertHashtag text }}{{/convertHashtag}}
      </li>
     {{/each}}
@@ -41,3 +39,4 @@
 
     <hr>
 </div>
+ </div>

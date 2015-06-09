@@ -1,21 +1,16 @@
-//Dependencies
-global.jQuery = require("jquery");
-var $ = jQuery;
-var Backbone = require('backbone');
+"use strict";
+
+var $ = require("jquery");
 var _ = require('underscore');
+var Backbone = require('backbone');
 var timeago = require('timeago');
 var pubsub = require('utils/pubsub');
-Backbone.$ = $;
-
-// Views
 var itemView = require('views/photos/item');
 
+Backbone.$ = $;
+
 module.exports = Backbone.View.extend({
-  events: {
-    "click .store": "store",
-    "keydown .autocomplete": "autocomplete"
-  },
-  
+
   //Start Listen events
   initialize: function() {
     var _this = this;
@@ -32,11 +27,11 @@ module.exports = Backbone.View.extend({
       view = new itemView({model: model});
       views.push(view.render().el);
     });
-    $(_this.el).html(views);
-    $("#app-container").html(_this.el);
-  },
 
+    _this.$el.empty();
+    _this.$el.css('padding-bottom', '40px');
+    _this.$el.append(views);
+    $("#app-container").empty();
+    $("#app-container").append(_this.el);
+  }
 });
-
-
-//each image should have name of the filter 
