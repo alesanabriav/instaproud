@@ -1,6 +1,5 @@
+"use strict";
 var app = require('express')();
-var async = require('async');
-var checkAuth = require('../lib/checkAuth');
 var Hashtag = require('../models/hashtag');
 
 app.get('/api/hashtags/:query', function(req, res) {

@@ -1,10 +1,12 @@
 <div class="media">
   <div class="media-body">
-    {{ from }} {{ text }}
+    <a href="/#profile/{{from.username}}">{{ from.name }}</a> {{ text }}
+    <span class="timeago" title="{{ created }}">{{ created }}</span>
   </div>
+
   <div class="media-right">
     <a href="/#photo/{{ photo.id }}">
-      <img src="/images/{{owner}}/{{ photo.path }}" width="40">
+      <img src="/images/{{photo.owner}}/{{ photo.path }}" width="40">
     </a>
   </div>
 </div>

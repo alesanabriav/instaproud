@@ -1,37 +1,37 @@
  <div class="feed_img col-lg-4" >
   <div class="feed_img__container">
-  <div class="user-data">
+    <div class="user-data">
 
-    <img src="/images/{{owner.profile_image}}" class="img-circle pull-left" width="40">
+      <img src="/images/{{owner.profile_image}}" class="img-circle pull-left" width="40">
 
-    <a class="profile_link" href="#profile/{{ owner.username }}">
-      <span>{{ owner.username }}</span></br>
-      <span>{{ owner.name }}</span>
-    </a>
+      <a class="profile_link" href="#profile/{{ owner.username }}">
+        <span>{{ owner.username }}</span></br>
+        <span>{{ owner.name }}</span>
+      </a>
 
-    <span class="timeago" title="{{ created }}">{{ created }}</span>
-  </div>
+      <span class="timeago" title="{{ created }}">{{ created }}</span>
+    </div>
 
-  <img class="img-main animated pulse" src="/images/{{owner.id}}/{{ path }}">
+    <img class="img-main" src="/images/{{owner.id}}/{{ path }}">
 
-  {{#checkLiked liked }} {{/checkLiked}}
+    {{#checkLiked liked }} {{/checkLiked}}
 
-  <i class="fa fa-heart"></i>
-  {{#each liked}}
+    <i class="fa fa-heart"></i>
+    {{#each liked}}
     {{username}}
-  {{/each}}
-  <p></p>
-
-  <p>{{#convertHashtag caption}}{{/convertHashtag}}</p>
-
-  <ul class="comments-box">
-    {{#each comments}}
-     <li>
-      <a href="/#profile/{{ commenter.username }}">{{ commenter.username }}</a>
-      {{#convertHashtag text }}{{/convertHashtag}}
-     </li>
     {{/each}}
-  </ul>
+    <p></p>
+
+    <p>{{#convertHashtag caption}}{{/convertHashtag}}</p>
+
+    <ul class="comments-box">
+      {{#each comments}}
+      <li>
+        <a href="/#profile/{{ commenter.username }}">{{ commenter.username }}</a>
+        {{#convertHashtag text }}{{/convertHashtag}}
+      </li>
+      {{/each}}
+    </ul>
 
     <div class="input-group commenter">
       <input type="text" class="form-control commentText" placeholder="Comentar...">
@@ -41,5 +41,5 @@
     </div><!-- /input-group -->
 
     <hr>
+  </div>
 </div>
- </div>

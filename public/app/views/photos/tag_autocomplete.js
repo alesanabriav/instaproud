@@ -1,14 +1,11 @@
 "use strict";
-//Dependencies
-global.jQuery = require("jquery");
-var $ = jQuery;
-var Backbone = require('backbone');
+
+var $ = require("jquery");
 var _ = require('underscore');
-var imagesloaded = require('imagesloaded');
+var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 Backbone.$ = $;
 
-// Templates
 var templateAutocomplete = require('templates/photos/autocomplete.hbs')
 
 module.exports = Backbone.View.extend({
@@ -25,10 +22,11 @@ module.exports = Backbone.View.extend({
 
   render: function(users) {
     var template = templateAutocomplete( users );
-    var $el = $(this.el);
-    $el.empty();
-    $el.append(template);
-    $("#app-container").append($el);
+    this.$el
+    .empty()
+    .append(template);
+    $("#app-container").append(this.$el);
+    return this;
   },
 
   store: function(e) {

@@ -1,11 +1,8 @@
 //Dependencies
-global.jQuery = require('jquery');
-var $ = jQuery;
-var Backbone = require('backbone');
+var $ = require('jquery');
 var _ = require('underscore');
-//Utils
+var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
-//Templates
 var templateNav = require('templates/app_nav.hbs');
 
 Backbone.$ = $;

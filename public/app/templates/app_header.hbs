@@ -1,11 +1,16 @@
-<div class="header-nav animated fadeInDown" 
-  style="background: {{#if bgColor}} #{{bgColor}} {{else}} #00509a {{/if}}" >
+<div class="header-nav animated" style="background: {{#if bgColor}} #{{bgColor}} {{else}} #00509a {{/if}}" >
 
-{{#if title}}
-  <h4 class="pull-left">{{ title }}</h4>
-{{else}}
-  <a href="#"><img src="/logo.png" width="100" class="pull-left"></a>
-{{/if}}
+  <a href="#" class="back-button pull-left" >
+    <i class="fa fa-arrow-left" style="font-size: 2em"></i>
+  </a>
 
-  <a href="#" class="ui-header-next hidden next-action animated slideInRight"><i class="fa fa-arrow-right"></i></a>
+  {{#if title}}
+    <h4 class="pull-left">{{ title }}</h4>
+  {{else}}
+    <a href="#"><img src="/logo.png" width="100" class="pull-left"></a>
+  {{/if}}
+
+  <a href="#" class="ui-header-next hidden next-action animated slideInRight">
+    <i class="fa fa-arrow-right"></i>
+  </a>
 </div>

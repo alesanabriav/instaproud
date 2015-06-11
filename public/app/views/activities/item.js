@@ -1,11 +1,10 @@
 "use strict";
-
 var $ = require("jquery");
 var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
-var templat = require('templates/activities/item.hbs');
-
+var template = require('templates/activities/item.hbs');
+var loadTimeago = require('utils/timeago');
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
@@ -22,10 +21,12 @@ module.exports = Backbone.View.extend({
 
   render: function(data) {
     var _this = this;
-    var template = templat( data );
-    _this.$el.empty();
-    _this.$el.append(template);
+    _this.$el
+    .empty()
+    .append(template( _this.model.toJSON() ));
+
     $("#app-container").html(_this.$el);
+    loadTimeago(_this.$el);
     return _this;
   }
 

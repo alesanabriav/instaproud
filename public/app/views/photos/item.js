@@ -1,9 +1,10 @@
 "use strict";
-
-var $ = require("jquery");
+global.jQuery = require("jquery");
+var $ = jQuery;
 var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
+var loadTimeago = require('utils/timeago');
 var template = require('templates/photos/item.hbs');
 
 Backbone.$ = $;
@@ -24,9 +25,10 @@ module.exports = Backbone.View.extend({
 
   render: function() {
     var _this = this;
-    _this.$el.empty();
-    _this.$el.append( template( _this.model.toJSON() ) );
-    _this.$el.find('span.timeago').timeago();
+    _this.$el
+    .empty()
+    .append( template( _this.model.toJSON() ) );
+    loadTimeago(_this.$el);
     return _this;
   },
 
@@ -34,14 +36,11 @@ module.exports = Backbone.View.extend({
     var _this = this;
     var $icon = $(e.currentTarget).find('i');
 
-    $icon
-    .removeClass('fa-heart-o')
-    .addClass('fa-heart')
-    .addClass('animated jello');
 
     $.post('/api/photos/'+ _this.model.id  +'/liked')
     .then(function(res) {
       _this.model.set('liked', res.liked);
+      pubsub.trigger('activity:store', {text: "le gusta", photo: _this.model.id});
     });
   },
 
@@ -49,14 +48,10 @@ module.exports = Backbone.View.extend({
     var _this = this;
     var $icon = $(e.currentTarget).find('i');
 
-    $icon
-    .removeClass('fa-heart-o')
-    .addClass('fa-heart')
-    .addClass('animated jello');
-
     $.post('/api/photos/'+ _this.model.id +'/unliked')
     .then(function(res) {
       _this.model.set('liked', res.liked);
+
     });
   },
 
@@ -80,9 +75,10 @@ module.exports = Backbone.View.extend({
   updateComments: function(data) {
     var _this = this;
     var comments = _this.model.get('comments');
-    comments.push(data.comment);
+    comments.push(data);
     _this.model.set("comments", comments);
-    pubsub.trigger('activity:store', {text: "comento", photo: data.photo.id});
+    _this.model.trigger('change');
+    pubsub.trigger('activity:store', {text: "comento", photo: _this.model.id});
   }
 
 });

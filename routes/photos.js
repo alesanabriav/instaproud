@@ -8,7 +8,6 @@ var sharp = require('sharp');
 var CreateName = require('../lib/createName');
 var hashtagStoreOrUpdate = require('../lib/hashtag_store_or_update');
 var filters = require('../lib/photo_filters');
-var checkAuth = require('../lib/checkAuth');
 
 var User = require('../models/user');
 var Photo = require('../models/photo');
@@ -25,7 +24,7 @@ Promise.promisifyAll(sharp);
  * @return object
  */
 
-app.route('/api/photos', checkAuth)
+app.route('/api/photos')
 
   /**
    * Store path to photo
@@ -96,7 +95,7 @@ app.route('/api/photos', checkAuth)
  * @param  res
  * @return json object
  */
-app.post('/api/photos/filter', checkAuth, function(req, res, next) {
+app.post('/api/photos/filter', function(req, res, next) {
 
   var path = "./public"+ req.body.src;
   var imageName = req.body.src.split('/')[3];
@@ -140,7 +139,7 @@ app.post('/api/photos/upload', function(req, res, next) {
 
   })
 
-app.route('/api/photos/:id', checkAuth)
+app.route('/api/photos/:id')
   .get(function(req, res, next) {
 
     Photo

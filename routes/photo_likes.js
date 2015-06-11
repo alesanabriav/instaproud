@@ -1,7 +1,5 @@
-//Dependencies
+"use strict";
 var app = require('express')();
-
-//Models
 var User = require('../models/user');
 var Photo = require('../models/photo');
 

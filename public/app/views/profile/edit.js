@@ -1,12 +1,11 @@
 //Dependencies
 global.jQuery = require('jquery');
 var $ = global.jQuery;
-var Backbone = require('backbone');
 var _ = require('underscore');
-var imagesloaded = require('imagesloaded');
-//Utils
+var Backbone = require('backbone');
+
 var pubsub = require('utils/pubsub');
-//Templates
+
 var templateEdit = require('templates/profile/edit.hbs');
 
 Backbone.$ = $;

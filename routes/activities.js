@@ -1,17 +1,21 @@
+"use strict";
 var app = require('express')();
 var Activity = require('../models/activity');
 
 app.route('/api/activities')
   .get(function(req, res) {
+
     Activity
     .find({})
-    .populate(['from', 'to'])
+    .sort({created: 'desc'})
+    .populate(['from', 'photo'])
     .exec(function(err, activities) {
       if (err) return res.status(400).json(err);
+
       return res.json(activities);
     });
-  })
 
+  })
   .post(function(req, res) {
     var data = req.body;
     var newActivity = new Activity(data);

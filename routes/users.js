@@ -1,4 +1,4 @@
-//Dependencies
+"use strict";
 var app = require('express')();
 var sharp = require('sharp');
 
@@ -12,7 +12,7 @@ app.route('/users')
   .post(function(req, res, next) {
     var data = req.body;
     var newUser = new User(data);
-    console.log(data);
+
     newUser.save( function(err, user) {
       if (err) {
         if (err.errors) {

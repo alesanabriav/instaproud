@@ -1,6 +1,8 @@
 "use strict";
 var pubsub = require('utils/pubsub');
 var store = require('views/activities/store');
+var list = require('views/activities/list');
+var models = require('models/activity');
 
 module.exports = {
   initialize: function() {
@@ -12,6 +14,8 @@ module.exports = {
   },
 
   feed: function() {
-
+    var collection = new models.activities();
+    var view = new list({collection: collection});
+    collection.fetch({reset: true});
   }
 }

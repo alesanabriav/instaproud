@@ -16,9 +16,11 @@ module.exports = Backbone.View.extend({
   },
 
   store: function(data) {
-    $.post("/api/activities", data)
+    var user = JSON.parse(localStorage.getItem('user'));
+    var dataNew = _.extend(data, {from: user.id});
+
+    $.post("/api/activities", dataNew)
     .then( function(res) {
-      console.log(res);
       pubsub.trigger('activity:stored', res);
     });
   }

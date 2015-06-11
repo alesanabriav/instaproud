@@ -1,14 +1,11 @@
-//Dependencies
-global.jQuery = require('jquery');
-var $ = jQuery;
+"use strict";
+var $ = require('jquery');
 var Backbone = require('backbone');
 var _ = require('underscore');
-Backbone.$ = $;
-//utils
 var pubsub = require('utils/pubsub');
-
-//templates
 var templateHeader = require('templates/app_header.hbs');
+
+Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   events: {
@@ -36,7 +33,7 @@ module.exports = Backbone.View.extend({
     } else {
       var template = templateHeader();
     }
-    
+
     $(_this.el).empty();
     $(_this.el).append(template);
     return _this;

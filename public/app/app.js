@@ -1,6 +1,8 @@
+"use strict";
 var $ = require('jquery');
 var _ = require('underscore');
 var Backbone = require('backbone');
+var attachFastClick = require('fastclick');
 var pubsub = require('utils/pubsub');
 var helpers = require('helpers/helpers_hbs');
 
@@ -8,7 +10,7 @@ Backbone.$ = $;
 
 var Router = require('./router');
 var router = new Router();
-
+attachFastClick(document.body);
 Backbone.history.start();
 
 var Navigator = {
@@ -33,5 +35,11 @@ $(window).scroll(_.throttle(function(){
   }
 
 }, 1000));
+
+$("body").on("click", ".back-button", function (event) {
+    event.preventDefault();
+    window.history.back();
+});
+
 
 Navigator.initialize();

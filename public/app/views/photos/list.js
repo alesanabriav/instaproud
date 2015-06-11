@@ -3,7 +3,6 @@
 var $ = require("jquery");
 var _ = require('underscore');
 var Backbone = require('backbone');
-var timeago = require('timeago');
 var pubsub = require('utils/pubsub');
 var itemView = require('views/photos/item');
 

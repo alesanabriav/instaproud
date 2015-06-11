@@ -15,7 +15,7 @@ var redis = require('redis');
 var redisStore = require('connect-redis')(session);
 var redisClient = redis.createClient();
 var Promise = require('bluebird');
-
+var requireAuthentication = require('./lib/checkAuth');
 //Routes
 var authentication = require('./routes/authentication');
 var index = require('./routes/index');
@@ -27,15 +27,13 @@ var photoLikes = require('./routes/photo_likes');
 var hashtags = require('./routes/hashtags');
 var activities = require('./routes/activities');
 
-
-//Promisify mongoose
-Promise.promisifyAll(mongoose);
-
-
 var app = express();
 
 // Config files
 var dbConfig =  require('./config/db.js');
+
+//Promisify mongoose
+Promise.promisifyAll(mongoose);
 
 //Database connection
 mongoose.connect(dbConfig.url);
@@ -73,15 +71,16 @@ app.use(multer({
 }));
 
 //Routes
-// app.use(index);
-// app.use(authentication);
-// app.use(users);
-// app.use(photos);
-// app.use(photoTagged);
-// app.use(photoComments);
-// app.use(photoLikes);
-// app.use(hashtags);
-// app.use(activities);
+app.all('/api/*', requireAuthentication);
+app.use(index);
+app.use(authentication);
+app.use(users);
+app.use(photos);
+app.use(photoTagged);
+app.use(photoComments);
+app.use(photoLikes);
+app.use(hashtags);
+app.use(activities);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

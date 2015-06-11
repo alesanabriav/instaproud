@@ -1,7 +1,7 @@
+"use strict";
 var app = require('express')();
-var Auth = require('../lib/checkAuth');
 
-app.get('/', Auth, function(req, res) {
+app.get('/', function(req, res) {
   return res.render('layout');
 });
 

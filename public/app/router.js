@@ -5,6 +5,7 @@ Backbone.$ = $;
 
 //Utils
 var pubsub = require('utils/pubsub');
+var checkUser = require('utils/check_user');
 
 //Controllers
 var AppController = require('controllers/app');
@@ -14,14 +15,16 @@ var activitiesController = require('controllers/activities');
 
 module.exports = Backbone.Router.extend({
   routes: {
-    '': "feed",
-    'filter/:src': "filters",
-    'caption/:id': "caption",
-    'profile/:id/edit': "profileEdit",
-    'profile/:username': "profileShow",
-    'profile': "profileShow",
-    'tagged/:username': "profileTagged",
-    'hashtag/:hashtag': "hashtagPhotos",
+    "login": "login",
+    "register": "register",
+    "": "feed",
+    "filter/:src": "filters",
+    "caption/:id": "caption",
+    "profile/:id/edit": "profileEdit",
+    "profile/:username": "profileShow",
+    "profile": "profileShow",
+    "tagged/:username": "profileTagged",
+    "hashtag/:hashtag": "hashtagPhotos",
     "photo/:id": "photoShow",
     "search": "photoSearch",
     "activity": "activity"
@@ -33,10 +36,29 @@ module.exports = Backbone.Router.extend({
    */
   execute: function(callback, args, name) {
     pubsub.trigger('view:remove');
+    var route = window.location.hash;
+
+    if (route !== "#register") {
+      checkUser(function(e) {
+        if (e === false) {
+          window.location.replace('/#login');
+        };
+      });
+    };
+
+
     AppController.initialize();
     activitiesController.store();
 
     if (callback) callback.apply(this, args);
+  },
+
+  login: function() {
+    profilesController.login();
+  },
+
+  register: function() {
+    profilesController.register();
   },
 
    filters: function(src) {
@@ -65,7 +87,10 @@ module.exports = Backbone.Router.extend({
   },
 
   profileEdit: function(id) {
-    profilesController.edit(id);
+    var user = JSON.parse(localStorage.getItem('user'));
+    if(user.id === id) {
+      profilesController.edit(id);
+    }
   },
 
   profileShow: function(username) {
@@ -103,7 +128,7 @@ module.exports = Backbone.Router.extend({
   },
 
   activity: function() {
-
+    activitiesController.feed();
   }
 
 

@@ -17,6 +17,9 @@ var PhotoAutocompleteUser = require('views/photos/autocomplete_user');
 var models = require('models/photo');
 var CommentModels = require('models/comment');
 
+var PageSlider = require('utils/pageslider');
+var slider = new PageSlider($('#app-container'));
+
 var pubsub = require('utils/pubsub');
 
 module.exports = {
@@ -34,7 +37,7 @@ module.exports = {
     var model = new models.photo({id: id});
     var view = new Photo({model: model});
     model.fetch();
-    $("#app-container").append(view.el);
+    slider.slidePage(view.el);
   },
 
   upload: function() {

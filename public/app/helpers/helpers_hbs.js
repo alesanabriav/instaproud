@@ -8,9 +8,9 @@ Handlebars.registerHelper("checkLiked", function(users) {
   var username = {username: JSON.parse(user).username};
 
   if (_.where(users, username).length > 0) {
-    return '<span class="unlike"><i class="fa fa-heart"></i> Like</span>';
+    return '<span class="unlike"><i class="fa fa-heart animated pulse"></i> Like</span>';
   } else {
-    return '<span class="like"><i class="fa fa-heart-o"></i> Like</span>';
+    return '<span class="like"><i class="fa fa-heart-o animated pulse"></i> Like</span>';
   }
 
 });
@@ -42,5 +42,16 @@ Handlebars.registerHelper("countArr", function(arr) {
   };
 
   return arr;
+});
+
+Handlebars.registerHelper("userAuthenticated", function(userId, options) {
+  var user = JSON.parse(localStorage.getItem('user'));
+
+  if (userId === user.id) {
+    return options.fn(this);
+
+  } else {
+    return options.inverse(this);
+  }
 });
 

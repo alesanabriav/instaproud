@@ -26,8 +26,7 @@ module.exports = Backbone.View.extend({
         var img = new Image();
         var $container = $("#app-container");
         img.src = reader.result;
-        $container.empty();
-        $container.append(img);
+        $container.empty().append(img);
         $container.find("img").addClass('hidden');
       };
 
