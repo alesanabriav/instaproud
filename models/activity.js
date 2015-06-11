@@ -1,17 +1,20 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
 var ActivitySchema;
+
 ActivitySchema = new Schema({
   from: {
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  to: {
+
+  photo: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'Photo'
   },
+
   text: String,
+
   created: {
     type: Date,
     default: Date.now

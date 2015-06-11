@@ -32,6 +32,8 @@ module.exports = Backbone.View.extend({
     var $current = $(e.currentTarget);
     var type = $current.data('type');
     var $search = this.$el.find('.search');
+    $('.nav-tabs').find('li').removeClass('active');
+    $current.parent().addClass('active');
     $search.data('type', type);
     this.search($search);
   },

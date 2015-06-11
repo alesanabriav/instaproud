@@ -4,7 +4,10 @@
 
     <img src="/images/{{owner.profile_image}}" class="img-circle pull-left" width="40">
 
-    <a class="profile_link" href="#profile/{{ owner.username }}">{{ owner.username }}</a>
+    <a class="profile_link" href="#profile/{{ owner.username }}">
+      <span>{{ owner.username }}</span></br>
+      <span>{{ owner.name }}</span>
+    </a>
 
     <span class="timeago" title="{{ created }}">{{ created }}</span>
   </div>

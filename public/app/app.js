@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var helpers = require('helpers/helpers_hbs');
@@ -21,5 +22,16 @@ var Navigator = {
   }
 
 }
+
+$(window).scroll(_.throttle(function(){
+  var body = document.body;
+  var tolerance = 400;
+  var threshold = body.scrollHeight - window.innerHeight - tolerance;
+
+  if($(window).scrollTop() > threshold) {
+    pubsub.trigger("general:scroll")
+  }
+
+}, 1000));
 
 Navigator.initialize();

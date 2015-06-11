@@ -1,8 +1,6 @@
-<div class="img-container" style="width: 60%; margin: 30px auto">
-  {{#if  profile_image}}
-  <img src="/images/{{profile_image}}" class="img-responsive" style="border-radius: 50%;">
-  {{/if}}
-</div>
+{{#if  profile_image}}
+  <img src="/images/{{profile_image}}" class="img-circle" width="67">
+{{/if}}
 
 <span class="edit-profile-img">
   <button class="btn btn-primary btn-xs">Subir Imagen de perfil</button>
@@ -34,7 +32,7 @@
     {{else}}
     <option value="">Día</option>
     {{/if}}
-    
+
     <option value="1">1</option>
     <option value="2">2</option>
     <option value="3">3</option>
@@ -53,7 +51,7 @@
     {{else}}
     <option value="">Mes</option>
     {{/if}}
-    
+
     <option value="1">Enero</option>
     <option value="2">Febrero</option>
     <option value="3">Marzo</option>

@@ -21,11 +21,14 @@ module.exports = Backbone.View.extend({
 
   comment: function(data) {
     data.el.preventDefault();
-    var comment = $(data.el.currentTarget).closest('.commenter').find('.commentText').val();
+    var comment = $(data.el.currentTarget)
+    .closest('.commenter')
+    .find('.commentText').val();
     var comments;
 
     $.post('/api/photos/'+ data.model.id + '/comments', {comment: comment})
     .then(function(res) {
+      console.log(res);
       pubsub.trigger('photo:addComment', {photo: data.model,  comment: res});
     });
   }

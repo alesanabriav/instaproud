@@ -40,7 +40,9 @@ module.exports = Backbone.View.extend({
     .addClass('animated jello');
 
     $.post('/api/photos/'+ _this.model.id  +'/liked')
-    .then(_this.update.bind(_this));
+    .then(function(res) {
+      _this.model.set('liked', res.liked);
+    });
   },
 
   unlike: function(e) {
@@ -53,7 +55,9 @@ module.exports = Backbone.View.extend({
     .addClass('animated jello');
 
     $.post('/api/photos/'+ _this.model.id +'/unliked')
-    .then(_this.update.bind(_this));
+    .then(function(res) {
+      _this.model.set('liked', res.liked);
+    });
   },
 
   comment: function(e) {
@@ -73,13 +77,12 @@ module.exports = Backbone.View.extend({
     this.model.set(data);
   },
 
-  updateComments: function(comment) {
-    console.log(this);
+  updateComments: function(data) {
     var _this = this;
     var comments = _this.model.get('comments');
-    comments.push(comment);
+    comments.push(data.comment);
     _this.model.set("comments", comments);
-    _this.model.trigger('change');
+    pubsub.trigger('activity:store', {text: "comento", photo: data.photo.id});
   }
 
 });

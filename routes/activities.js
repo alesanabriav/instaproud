@@ -2,13 +2,25 @@ var app = require('express')();
 var Activity = require('../models/activity');
 
 app.route('/api/activities')
+  .get(function(req, res) {
+    Activity
+    .find({})
+    .populate(['from', 'to'])
+    .exec(function(err, activities) {
+      if (err) return res.status(400).json(err);
+      return res.json(activities);
+    });
+  })
 
-.get(function(req, res) {
+  .post(function(req, res) {
+    var data = req.body;
+    var newActivity = new Activity(data);
 
-})
+    newActivity.save(function(err, activity) {
+      if (err) return res.status(400).json(err);
+      return res.status(201).json(activity);
+    });
 
-.post(function(req, res) {
-
-});
+  });
 
 module.exports = app;

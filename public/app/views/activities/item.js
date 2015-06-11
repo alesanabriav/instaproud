@@ -4,7 +4,7 @@ var $ = require("jquery");
 var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
-var templateItem = require('templates/photos/hashtag.hbs');
+var templat = require('templates/activities/item.hbs');
 
 Backbone.$ = $;
 
@@ -17,27 +17,15 @@ module.exports = Backbone.View.extend({
   initialize: function() {
     var _this = this;
     _this.listenTo(pubsub, "view:remove", _this.remove, _this);
-    _this.listenTo(pubsub, "hashtag:render", _this.render, _this);
-  },
-
-  pull: function(hashtag) {
-    $.get('/api/hashtags/'+ hashtag +'/photos')
-    .then(function(res) {
-      pubsub.trigger("hashtag:render", res);
-    });
+    _this.listenTo(pubsub, "profile:render", _this.render, _this);
   },
 
   render: function(data) {
     var _this = this;
-
-    _this.$el
-    .empty()
-    .append( templateItem( data ) );
-
-    $("#app-container")
-    .empty()
-    .append(_this.$el);
-
+    var template = templat( data );
+    _this.$el.empty();
+    _this.$el.append(template);
+    $("#app-container").html(_this.$el);
     return _this;
   }
 

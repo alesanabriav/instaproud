@@ -1,7 +1,11 @@
+"use strict";
+var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var PhotoSchema;
+var Photo;
 
-var PhotoSchema = new Schema({
+PhotoSchema = new Schema({
   owner: {
     type: Schema.Types.ObjectId,
     ref: 'User'
@@ -21,7 +25,6 @@ var PhotoSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   }],
-  hashtags: [],
   created: {
     type: Date,
     default: Date.now
@@ -33,22 +36,21 @@ var PhotoSchema = new Schema({
 });
 
 PhotoSchema.set('toJSON', {
- transform: function (doc, ret, options) {
+  transform: function (doc, ret, options) {
    ret.id = ret._id;
    delete ret._id;
    delete ret.__v;
- }
+  }
 });
 
 PhotoSchema.pre('save', function(next) {
   var user = this;
   user.updated = Date.now;
-
   next();
 });
 
-try {
-  module.exports = mongoose.model('Photo');
-} catch (err) {
-  module.exports = mongoose.model('Photo', PhotoSchema);
-}
+Photo = mongoose.model('Photo', PhotoSchema);
+
+Promise.promisifyAll(Photo);
+Promise.promisifyAll(Photo.prototype);
+module.exports = Photo;

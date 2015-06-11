@@ -10,6 +10,7 @@ var pubsub = require('utils/pubsub');
 var AppController = require('controllers/app');
 var photosController = require('controllers/photos');
 var profilesController = require('controllers/profiles');
+var activitiesController = require('controllers/activities');
 
 module.exports = Backbone.Router.extend({
   routes: {
@@ -22,7 +23,8 @@ module.exports = Backbone.Router.extend({
     'tagged/:username': "profileTagged",
     'hashtag/:hashtag': "hashtagPhotos",
     "photo/:id": "photoShow",
-    "search": "photoSearch"
+    "search": "photoSearch",
+    "activity": "activity"
   },
 
   /**
@@ -32,6 +34,8 @@ module.exports = Backbone.Router.extend({
   execute: function(callback, args, name) {
     pubsub.trigger('view:remove');
     AppController.initialize();
+    activitiesController.store();
+
     if (callback) callback.apply(this, args);
   },
 
@@ -96,6 +100,10 @@ module.exports = Backbone.Router.extend({
   photoSearch: function() {
     photosController.search();
     this.photoWork();
+  },
+
+  activity: function() {
+
   }
 
 

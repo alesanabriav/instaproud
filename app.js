@@ -1,4 +1,5 @@
 //Dependencies
+var fs = require('fs');
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
@@ -13,6 +14,7 @@ var mongoose = require('mongoose');
 var redis = require('redis');
 var redisStore = require('connect-redis')(session);
 var redisClient = redis.createClient();
+var Promise = require('bluebird');
 
 //Routes
 var authentication = require('./routes/authentication');
@@ -23,6 +25,12 @@ var photoTagged = require('./routes/photo_tagged');
 var photoComments = require('./routes/photo_comments');
 var photoLikes = require('./routes/photo_likes');
 var hashtags = require('./routes/hashtags');
+var activities = require('./routes/activities');
+
+
+//Promisify mongoose
+Promise.promisifyAll(mongoose);
+
 
 var app = express();
 
@@ -65,14 +73,15 @@ app.use(multer({
 }));
 
 //Routes
-app.use(index);
-app.use(authentication);
-app.use(users);
-app.use(photos);
-app.use(photoTagged);
-app.use(photoComments);
-app.use(photoLikes);
-app.use(hashtags);
+// app.use(index);
+// app.use(authentication);
+// app.use(users);
+// app.use(photos);
+// app.use(photoTagged);
+// app.use(photoComments);
+// app.use(photoLikes);
+// app.use(hashtags);
+// app.use(activities);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -87,8 +96,8 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
+    res.status(err.status || 500)
+    .json('error', {
       message: err.message,
       error: err
     });
@@ -98,10 +107,10 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
+  res.status(err.status || 500)
+  .json('error', {
     message: err.message,
-    error: {}
+    errors: err
   });
 });
 

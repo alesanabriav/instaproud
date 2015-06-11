@@ -32,20 +32,33 @@ module.exports = Backbone.View.extend({
   //Render form
   render: function() {
     var _this = this;
-    var birthday = _this.model.toJSON().birthday.split('-');
-    var year = birthday[0];
-    var month = birthday[1];
-    var day = birthday[1].split('T')[0];
-    var data = _.extend({year: year, month: month, day: day}, _this.model.toJSON());
+    var data;
+
+    if (_this.model.get('birthday')) {
+       var birthday = _this.model.get('birthday').split('-');
+      var year = birthday[0];
+      var month = birthday[1];
+      var day = birthday[1].split('T')[0];
+      data = _.extend({
+        year: year,
+        month: month,
+        day: day
+      },
+      _this.model.toJSON()
+      );
+    } else {
+      data = _this.model.toJSON();
+    }
+
     var template = templateEdit( data );
-    $(_this.el).html(template);
-    $("#app-container").html(_this.el);
+    _this.$el.empty().append(template);
+    $("#app-container").empty().append(_this.el);
     return _this;
   },
 
   store: function(data, cb) {
     var _this = this;
-    
+
     $.ajax({
       url: "/users/"+_this.model.id,
       method: "PUT",
@@ -55,7 +68,7 @@ module.exports = Backbone.View.extend({
       return cb(res);
     })
   },
-  
+
   uploadImg: function(e) {
     var _this = this;
     var $file = $(e.currentTarget)[0].files[0];
@@ -71,7 +84,7 @@ module.exports = Backbone.View.extend({
       contentType: false, //Not set any content type header
     })
     .then(function(res) {
-      _this.model.set(res);
+      _this.model.set("profile_image", res.profile_image);
     });
 
   },
@@ -98,6 +111,6 @@ module.exports = Backbone.View.extend({
       pubsub.trigger('navigator:change', '/');
     });
 
-    
+
   }
 });

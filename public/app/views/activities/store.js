@@ -12,13 +12,14 @@ module.exports = Backbone.View.extend({
   initialize: function() {
     var _this = this;
     _this.listenTo(pubsub, "view:remove", _this.remove, _this);
-    _this.listenTo(pubsub, "photo:store", _this.store, _this);
+    _this.listenTo(pubsub, "activity:store", _this.store, _this);
   },
 
-  store: function(src) {
-    $.post("/api/photos", {src: src})
+  store: function(data) {
+    $.post("/api/activities", data)
     .then( function(res) {
-      pubsub.trigger('navigator:change', 'caption/'+res.id);
+      console.log(res);
+      pubsub.trigger('activity:stored', res);
     });
   }
 });

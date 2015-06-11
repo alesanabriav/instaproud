@@ -1,11 +1,14 @@
+"use strict";
+var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var Hashtag;
 
 var HashtagSchema = new Schema({
-  name: String,  
+  name: String,
   photos: [{
-    type: Schema.Types.ObjectId, 
-    ref: 'Photo' 
+    type: Schema.Types.ObjectId,
+    ref: 'Photo'
   }]
 });
 
@@ -17,8 +20,9 @@ HashtagSchema.set('toJSON', {
  }
 });
 
-try {
-  module.exports = mongoose.model('Hashtag');
-} catch (err) {
-  module.exports = mongoose.model('Hashtag', HashtagSchema);
-}
+Hashtag = mongoose.model('Hashtag', HashtagSchema);
+
+Promise.promisifyAll(Hashtag);
+Promise.promisifyAll(Hashtag.prototype);
+module.exports = Hashtag;
+

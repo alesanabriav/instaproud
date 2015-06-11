@@ -1,15 +1,19 @@
+"use strict";
+var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt');
+var UserSchema;
+var User;
 
-var UserSchema = new Schema({
-  email: { 
-    type: String, 
+UserSchema = new Schema({
+  email: {
+    type: String,
     required: '{PATH} requerido',
     unique: true
   },
-  password: { 
-    type: String, 
+  password: {
+    type: String,
     required: 'contraseña requerida'
   },
   salt: String,
@@ -21,20 +25,20 @@ var UserSchema = new Schema({
   birthday: Date,
   gender: String,
   role: {
-    type: String, 
-    default: 'consumer' 
+    type: String,
+    default: 'consumer'
   },
   active: {
-    type: Boolean, 
+    type: Boolean,
     default: false
   },
-  created: { 
-    type: Date, 
-    default: Date.now 
+  created: {
+    type: Date,
+    default: Date.now
   },
-  updated: { 
-    type: Date, 
-    default: Date.now 
+  updated: {
+    type: Date,
+    default: Date.now
   },
 });
 
@@ -57,10 +61,9 @@ UserSchema.methods.validPassword = function(password) {
 
 UserSchema.pre('save', function(next) {
   var user = this;
-  user.updated = Date.now;
-  username = user.email.split('@');
+  var username = user.email.split('@');
   user.username = username[0];
-  
+  user.updated = Date.now;
   bcrypt.genSalt(10, function(err, salt) {
     bcrypt.hash(user.password, salt, function(err, hash) {
       user.salt = salt;
@@ -70,8 +73,8 @@ UserSchema.pre('save', function(next) {
   });
 });
 
-try {
-  module.exports = mongoose.model('User');
-} catch (err) {
-  module.exports = mongoose.model('User', UserSchema);
-}
+User = mongoose.model('User', UserSchema);
+Promise.promisifyAll(User);
+Promise.promisifyAll(User.prototype);
+
+module.exports = User;

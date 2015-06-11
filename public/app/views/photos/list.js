@@ -10,12 +10,24 @@ var itemView = require('views/photos/item');
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
+  events: {
+    'click .load-more': 'loadMore'
+  },
 
-  //Start Listen events
   initialize: function() {
     var _this = this;
     _this.listenTo(pubsub, "view:remove", _this.remove, _this);
+    _this.listenTo(pubsub, "general:scroll", _this.loadMore, _this);
     _this.listenTo(_this.collection, 'reset', _this.render);
+    _this.listenTo(_this.collection, 'add', _this.addMore);
+    _this.photosSkip = 5;
+  },
+
+  addMore: function(model) {
+    var _this = this;
+    var view;
+    view = new itemView({model: model});
+    _this.$el.append(view.render().el);
   },
 
   render: function() {
@@ -28,10 +40,21 @@ module.exports = Backbone.View.extend({
       views.push(view.render().el);
     });
 
-    _this.$el.empty();
-    _this.$el.css('padding-bottom', '40px');
-    _this.$el.append(views);
-    $("#app-container").empty();
-    $("#app-container").append(_this.el);
+    _this.$el.empty()
+    .css('padding-bottom', '40px')
+    .append(views);
+
+    $("#app-container")
+    .empty()
+    .append(_this.el);
+  },
+
+  loadMore: function(e) {
+    if (e) e.preventDefault();
+
+    var _this = this;
+    var skip = _this.photosSkip + 5;
+    _this.collection.fetch({data: {photosSkip: skip}});
+    _this.photosSkip = skip;
   }
 });

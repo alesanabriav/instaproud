@@ -2,21 +2,17 @@
 var app = require('express')();
 var sharp = require('sharp');
 
-//Models
 var User = require('../models/user');
 var Photo = require('../models/photo');
 
-//Libs
 var rename = require('../lib/createName');
 
 app.route('/users')
 
-  .post(function(req, res) {
-
+  .post(function(req, res, next) {
     var data = req.body;
-
     var newUser = new User(data);
-
+    console.log(data);
     newUser.save( function(err, user) {
       if (err) {
         if (err.errors) {
@@ -57,14 +53,14 @@ app.route('/users/:id')
     });
   });
 
-app.post('/users/:id/image', function(req, res) {
-
+app.post('/users/:id/image', function(req, res, next) {
   var userId = req.user._id;
   var img = req.files.profile_image.path;
   var name;
   var path;
 
-  rename(userId, function(hash) {
+  rename(userId, function(err, hash) {
+    if (err) return next(err);
 
     name = userId+"_"+hash + "_profile.jpeg";
     path = "./public/images/" + name;
