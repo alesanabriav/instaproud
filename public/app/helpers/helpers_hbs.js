@@ -1,16 +1,31 @@
 var Handlebars = require("hbsfy/runtime");
 var _ = require('underscore');
-
-Handlebars.registerHelper("checkLiked", function(users) {
+/**
+ * if a user liked the photo show something
+ * @param  {array} users  list of users
+ * @param  {object} options
+ * @return {object}
+ */
+Handlebars.registerHelper("checkLiked", function(users, options) {
 
   var user = localStorage.getItem('user');
 
   var username = {username: JSON.parse(user).username};
 
   if (_.where(users, username).length > 0) {
-    return '<span class="unlike"><i class="fa fa-heart animated pulse"></i> Like</span>';
+    return options.fn(this);
   } else {
-    return '<span class="like"><i class="fa fa-heart-o animated pulse"></i> Like</span>';
+    return options.inverse(this);
+  }
+
+});
+
+Handlebars.registerHelper("likesToCount", function(likes, options) {
+
+  if (likes.length > 1) {
+    return options.fn(this);
+  } else {
+    return options.inverse(this);
   }
 
 });

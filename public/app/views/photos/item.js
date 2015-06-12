@@ -5,7 +5,9 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var loadTimeago = require('utils/timeago');
+var unveil = require('unveil');
 var template = require('templates/photos/item.hbs');
+var urls = require('config/urls');
 
 Backbone.$ = $;
 
@@ -13,7 +15,9 @@ module.exports = Backbone.View.extend({
   events: {
     'click .like': 'like',
     'click .unlike': 'unlike',
-    'click .comment': 'comment'
+    'click .comment': 'comment',
+    'keyup .commentText': 'checkEnter',
+    'click .comment-focus': 'commentFocus'
   },
 
   //Start Listen events
@@ -29,6 +33,7 @@ module.exports = Backbone.View.extend({
     .empty()
     .append( template( _this.model.toJSON() ) );
     loadTimeago(_this.$el);
+    this.$el.find("img").unveil(200);
     return _this;
   },
 
@@ -36,8 +41,7 @@ module.exports = Backbone.View.extend({
     var _this = this;
     var $icon = $(e.currentTarget).find('i');
 
-
-    $.post('/api/photos/'+ _this.model.id  +'/liked')
+    $.post(urls.baseUrl+'/api/photos/'+ _this.model.id  +'/liked')
     .then(function(res) {
       _this.model.set('liked', res.liked);
       pubsub.trigger('activity:store', {text: "le gusta", photo: _this.model.id});
@@ -48,22 +52,35 @@ module.exports = Backbone.View.extend({
     var _this = this;
     var $icon = $(e.currentTarget).find('i');
 
-    $.post('/api/photos/'+ _this.model.id +'/unliked')
+    $.post(urls.baseUrl+'/api/photos/'+ _this.model.id +'/unliked')
     .then(function(res) {
       _this.model.set('liked', res.liked);
 
     });
   },
 
+  commentFocus: function(e) {
+    e.preventDefault();
+    this.$el.find('.commentText').focus();
+  },
+
+  checkEnter: function(e) {
+    var $icon = this.$el.find('.comment > i');
+    $icon.removeClass('fa-paper-plane-o');
+    $icon.addClass('fa-paper-plane');
+
+    if (e.keyCode === 13) {
+      this.comment(e);
+    };
+  },
+
   comment: function(e) {
     e.preventDefault();
     var comments;
     var _this = this;
-    var comment = $(e.currentTarget)
-    .closest('.commenter')
-    .find('.commentText').val();
+    var comment = _this.$el.find('.commentText').val();
 
-    $.post('/api/photos/'+ _this.model.id + '/comments', {comment: comment})
+    $.post(urls.baseUrl+'/api/photos/'+ _this.model.id + '/comments', {comment: comment})
     .then(_this.updateComments.bind(_this));
   },
 

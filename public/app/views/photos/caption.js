@@ -4,6 +4,7 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var template = require('templates/photos/caption.hbs');
+var urls = require('config/urls');
 
 Backbone.$ = $;
 
@@ -42,7 +43,7 @@ module.exports = Backbone.View.extend({
     var data = {caption: $('.caption').val()};
 
     $.ajax({
-      url: '/api/photos/'+id,
+      url: urls.baseUrl+'/api/photos/'+id,
       method: "PUT",
       data: data
     })
@@ -75,7 +76,7 @@ module.exports = Backbone.View.extend({
 
     var data = {"tagged": userId};
 
-    $.post('/api/photos/'+this.model.id+'/untagged', data)
+    $.post(urls.baseUrl+'/api/photos/'+this.model.id+'/untagged', data)
     .then(function() {
       $el.remove();
     });

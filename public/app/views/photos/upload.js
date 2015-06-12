@@ -1,8 +1,8 @@
 "use strict";
-
 var $ = require('jquery');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
+var urls = require('config/urls');
 
 Backbone.$ = $;
 
@@ -21,7 +21,7 @@ module.exports = Backbone.View.extend({
     var img = encodeURIComponent(d);
 
     $.ajax({
-      url: '/api/photos/upload',
+      url: urls.baseUrl+'/api/photos/upload',
       type: 'POST',
       data: {img: d[2]},
       beforeSend: function() {

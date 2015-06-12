@@ -1,0 +1,146 @@
+.mixin-profile-link {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mixin-button {
+  outline: 0;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.photo-feed {
+  background-color: #fff;
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto 0 auto;
+  padding-bottom: 30px;
+
+  > .header {
+    height: 65px;
+    padding: 14px 20px;
+
+    > .avatar-container {
+      display: inline-block;
+      position: relative;
+      border-radius: 50%;
+      border: 1px solid #cccfd0;
+      width: 30px;
+      height: 30px;
+      overflow: hidden;
+      margin-right: 10px;
+      z-index: 2;
+
+      > .avatar-image {
+        z-index: 1;
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        max-width: 100%;
+      }
+
+    }
+
+    > .owner-username-and-name {
+      display: inline-block;
+      font-size: 1em;
+      overflow: hidden;
+
+      > .profile_link, > .name {
+        margin-right: 100%;
+        max-width: 100%;
+        @extend .mixin-profile-link;
+      }
+
+      > .name {
+        font-weight: 200;
+      }
+
+    }
+
+    > .timeago {
+      float: right;
+      color: #ccc;
+    }
+
+  }
+
+  > .photo-container {
+    width: 100%;
+    border-bottom: 1px solid #eeefef;
+    border-top: 1px solid #eeefef;
+    background-color: #eeefef;
+    margin: -1px 0 0 0;
+
+    > .photo-image {
+      width: 100%;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+
+  }
+
+  > .info {
+    padding: 0 20px;
+
+    > .likes-info {
+      margin: 15px 0;
+      font-weight: 600;
+    }
+
+    > .comments {
+        display: block;
+        width: 100%;
+        margin-bottom: 7px;
+
+      ul {
+        padding: 0;
+        list-style: none;
+
+        li {
+          margin-bottom: 7px;
+
+          > .profile_link {
+            @extend .mixin-profile-link;
+          }
+
+        }
+
+      }
+
+    }
+
+    > .buttons-like-and-comment {
+      max-width: 100%;
+      padding: 7px 0;
+      border-bottom: 1px solid #eee;
+
+      > .like, > .unlike, > .comment-focus {
+        @extend .mixin-button;
+        margin-right: 7px;
+        i {
+          font-size: 25px;
+        }
+      }
+
+    }
+
+    > .comment-create-container {
+
+      > .input-group-btn{
+
+        > .comment {
+          box-shadow: none;
+        }
+
+      }
+
+    }
+  }
+}

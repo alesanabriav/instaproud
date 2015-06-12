@@ -17,14 +17,6 @@ module.exports = Backbone.View.extend({
   initialize: function() {
     var _this = this;
     _this.listenTo(pubsub, "view:remove", _this.remove, _this);
-    _this.listenTo(pubsub, "profile:render", _this.render, _this);
-  },
-
-  pull: function(username) {
-    $.get('/api/users/'+ username +'/photos')
-    .then(function(res) {
-      pubsub.trigger("profile:render", res);
-    });
   },
 
   render: function(data) {
@@ -32,7 +24,6 @@ module.exports = Backbone.View.extend({
     var template = templateItem( data );
     _this.$el.empty();
     _this.$el.append(template);
-    $("#app-container").html(_this.$el);
     return _this;
   }
 

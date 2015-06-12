@@ -5,7 +5,6 @@ Backbone.$ = $;
 
 //Utils
 var pubsub = require('utils/pubsub');
-var checkUser = require('utils/check_user');
 
 //Controllers
 var AppController = require('controllers/app');
@@ -16,6 +15,7 @@ var activitiesController = require('controllers/activities');
 module.exports = Backbone.Router.extend({
   routes: {
     "login": "login",
+    "logout": "logout",
     "register": "register",
     "": "feed",
     "filter/:src": "filters",
@@ -36,25 +36,17 @@ module.exports = Backbone.Router.extend({
    */
   execute: function(callback, args, name) {
     pubsub.trigger('view:remove');
-    var route = window.location.hash;
-
-    if (route !== "#register") {
-      checkUser(function(e) {
-        if (e === false) {
-          window.location.replace('/#login');
-        };
-      });
-    };
-
-
     AppController.initialize();
     activitiesController.store();
-
     if (callback) callback.apply(this, args);
   },
 
   login: function() {
     profilesController.login();
+  },
+
+  logout: function() {
+    profilesController.logout();
   },
 
   register: function() {
@@ -130,6 +122,4 @@ module.exports = Backbone.Router.extend({
   activity: function() {
     activitiesController.feed();
   }
-
-
 });

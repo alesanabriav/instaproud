@@ -5,6 +5,7 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var template = require('templates/photos/search.hbs');
+var urls = require('config/urls');
 
 Backbone.$ = $;
 
@@ -51,14 +52,14 @@ module.exports = Backbone.View.extend({
     if (query.length >  2) {
       if (type === "users") {
 
-        $.get("/users/search/"+ query)
+        $.get(urls.baseUrl+"/users/search/"+ query)
         .then(function(res) {
           pubsub.trigger("autocompleteUser:render", res);
         });
 
       } else if(type === "hashtags") {
 
-        $.get("/api/hashtags/"+ query)
+        $.get(urls.baseUrl+"/api/hashtags/"+ query)
         .then(function(res) {
           pubsub.trigger("autocompleteHashtag:render", res);
         });

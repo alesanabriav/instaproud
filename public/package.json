@@ -16,6 +16,7 @@
     "browserify": "^10.2.1",
     "browserify-shim": "^3.8.7",
     "caman": "^4.1.2",
+    "crypto": "0.0.3",
     "fastclick": "^1.0.6",
     "filereader": "^0.10.3",
     "hammerjs": "^2.0.4",
@@ -48,7 +49,7 @@
     "bootstrap": "./bower_components/bootstrap/dist/js/bootstrap.js"
   },
   "browserify-shim": {
-     "bootstrap": {
+    "bootstrap": {
       "depends": [
         "jquery:jQuery"
       ]

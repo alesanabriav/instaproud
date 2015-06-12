@@ -19,6 +19,11 @@ module.exports = {
     $("#app-container").empty().append(view.render().el);
   },
 
+  logout: function() {
+    localStorage.removeItem('user');
+     window.location.replace('/logout');
+  },
+
   register: function() {
     var view = new Register();
     $("#app-container").empty().append(view.render().el);
@@ -26,7 +31,11 @@ module.exports = {
 
   item: function(username) {
     var view = new Item();
-    view.pull(username);
+
+    $.get('/api/users/'+ username +'/photos')
+    .then(function(model) {
+       $("#app-container").empty().append(view.render(model).el);
+    });
   },
 
   tagged: function(username) {

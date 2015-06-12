@@ -4,6 +4,7 @@ var $ = require("jquery");
 var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
+var unveil = require('unveil');
 var itemView = require('views/photos/item');
 
 Backbone.$ = $;
@@ -46,6 +47,8 @@ module.exports = Backbone.View.extend({
     $("#app-container")
     .empty()
     .append(_this.el);
+
+    this.$el.find("img").unveil(200);
   },
 
   loadMore: function(e) {

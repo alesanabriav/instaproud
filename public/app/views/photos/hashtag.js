@@ -5,6 +5,7 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var templateItem = require('templates/photos/hashtag.hbs');
+var urls = require('config/urls');
 
 Backbone.$ = $;
 
@@ -21,7 +22,7 @@ module.exports = Backbone.View.extend({
   },
 
   pull: function(hashtag) {
-    $.get('/api/hashtags/'+ hashtag +'/photos')
+    $.get(urls.baseUrl+'/api/hashtags/'+ hashtag +'/photos')
     .then(function(res) {
       pubsub.trigger("hashtag:render", res);
     });

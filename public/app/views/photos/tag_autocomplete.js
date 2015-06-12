@@ -4,9 +4,9 @@ var $ = require("jquery");
 var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
+var urls = require('config/urls');
+var templateAutocomplete = require('templates/photos/autocomplete.hbs');
 Backbone.$ = $;
-
-var templateAutocomplete = require('templates/photos/autocomplete.hbs')
 
 module.exports = Backbone.View.extend({
   events: {
@@ -39,7 +39,7 @@ module.exports = Backbone.View.extend({
     var data = {"tagged": userId};
 
     $.ajax({
-      url: '/api/photos/'+ id +'/tagged',
+      url: urls.baseUrl+'/api/photos/'+ id +'/tagged',
       method: "POST",
       data: data
     })

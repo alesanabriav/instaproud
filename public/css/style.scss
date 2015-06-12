@@ -6,7 +6,7 @@ html{
 body {
   background: #f1f1f1;
   font: 14px "Lato", Helvetica, Arial, sans-serif;
-  padding-top: 60px;
+  padding-top: 50px;
   padding-bottom: 120px;
   height: 100%;
 }
@@ -209,65 +209,6 @@ a {
   }
 }
 
-.feed_img{
-  background: #fff;
-  .img-main {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    width: 100%;
-  }
-  .user-data{
-    padding: 5px;
-    float: left;
-    width: 100%;
 
-    .timeago{
-      float: right;
-      color: #ccc;
-      font-size: 0.9em;
-      padding-top: 10px;
-      padding-right: 15px;
-    }
-    .profile_link{
-      color: #111;
-      font-weight: bold;
-      font-size: 1.1em;
-      float: left;
-      padding-left: 15px;
-      padding-top: 5px;
-    }
-  }
+@import 'photos/item';
 
-  .like, .unlike{
-    font-size: 1.4em;
-    width: 100%;
-    display: block;
-    margin: 10px 0 10px 0;
-    color: #00509a;
-    cursor: pointer;
-  }
-
-  .like{
-    color: #444;
-  }
-
-  .comments-box{
-    padding: 0;
-    li{
-      list-style: none;
-      width: 100%;
-    }
-  }
-
-  &__container {
-
-  }
-
-  &__actions {
-
-  }
-
-  &__comments {
-
-  }
-}

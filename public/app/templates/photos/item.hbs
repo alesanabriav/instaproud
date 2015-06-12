@@ -1,45 +1,72 @@
- <div class="feed_img col-lg-4" >
-  <div class="feed_img__container">
-    <div class="user-data">
+<article class="photo-feed">
+  {{!-- Photo Header --}}
+  <header class="header">
 
-      <img src="/images/{{owner.profile_image}}" class="img-circle pull-left" width="40">
-
-      <a class="profile_link" href="#profile/{{ owner.username }}">
-        <span>{{ owner.username }}</span></br>
-        <span>{{ owner.name }}</span>
-      </a>
-
-      <span class="timeago" title="{{ created }}">{{ created }}</span>
+    <div class="avatar-container">
+      <img src="/images/{{owner.profile_image}}" class="avatar-image">
     </div>
 
-    <img class="img-main" src="/images/{{owner.id}}/{{ path }}">
+    <div class="owner-username-and-name">
+      <a class="profile_link" href="#profile/{{ owner.username }}">
+        {{ owner.username }}
+      </a>
+      <span class="name">{{ owner.name }}</span>
+    </div>
 
-    {{#checkLiked liked }} {{/checkLiked}}
+    <span class="timeago" title="{{ created }}">{{ created }}</span>
+  </header>
 
-    <i class="fa fa-heart"></i>
-    {{#each liked}}
-    {{username}}
-    {{/each}}
-    <p></p>
+  {{!-- Photo Image --}}
+  <div class="photo-container">
+    <img class="photo-image" src="/images/photo-placeholder.gif" data-src="/images/{{owner.id}}/{{ path }}">
+  </div>
 
-    <p>{{#convertHashtag caption}}{{/convertHashtag}}</p>
+  {{!-- Photo Info --}}
+  <div class="info">
 
-    <ul class="comments-box">
-      {{#each comments}}
-      <li>
-        <a href="/#profile/{{ commenter.username }}">{{ commenter.username }}</a>
-        {{#convertHashtag text }}{{/convertHashtag}}
-      </li>
-      {{/each}}
-    </ul>
+    <div class="buttons-like-and-comment">
+      {{#checkLiked liked }}
+        <button class="unlike"><i class="fa fa-heart"></i></button>
+        {{else}}
+        <button class="like"><i class="fa fa-heart-o"></i></button>
+      {{/checkLiked}}
 
-    <div class="input-group commenter">
+      <button class="comment-focus"><i class="fa fa-comment-o"></i></button>
+    </div>
+
+    <div class="likes-info">
+    {{#likesToCount liked}}
+      <span>{{#countArr liked}} {{/countArr}}</span>
+      <span>me gusta</span>
+    {{ else }}
+      <span>{{#each liked}} {{username}} {{/each}}</span>
+      <span>le gusta</span>
+    {{/likesToCount}}
+
+    </div>
+
+    {{!-- Photo Comments --}}
+    <div class="comments">
+      <ul>
+        <li>{{#convertHashtag caption}}{{/convertHashtag}}</li>
+        <li><a href="">Ver más comentarios</a></li>
+        {{#each comments}}
+          <li>
+            <a href="/#profile/{{ commenter.username }}" class="profile_link" >
+              {{ commenter.username }}
+            </a>
+            {{#convertHashtag text }}{{/convertHashtag}}
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+
+    <div class="input-group comment-create-container">
       <input type="text" class="form-control commentText" placeholder="Comentar...">
       <span class="input-group-btn">
-        <button class="btn btn-default comment" type="button">Comentar</button>
+        <button class="comment btn"><i class="fa fa-paper-plane-o"></i></button>
       </span>
-    </div><!-- /input-group -->
-
-    <hr>
+    </div>
   </div>
-</div>
+</article>
+

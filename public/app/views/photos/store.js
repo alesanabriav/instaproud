@@ -3,6 +3,7 @@ var $ = require('jquery');
 var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
+var urls = require('config/urls');
 
 Backbone.$ = $;
 
@@ -16,7 +17,7 @@ module.exports = Backbone.View.extend({
   },
 
   store: function(src) {
-    $.post("/api/photos", {src: src})
+    $.post(urls.baseUrl+"/api/photos", {src: src})
     .then( function(res) {
       pubsub.trigger('activity:store', {text: "compartio una nueva foto", photo: res.id});
       pubsub.trigger('navigator:change', 'caption/'+res.id);

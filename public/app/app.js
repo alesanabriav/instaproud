@@ -1,16 +1,18 @@
 "use strict";
-var $ = require('jquery');
+global.jQuery = require('jquery');
+var $ = jQuery;
 var _ = require('underscore');
 var Backbone = require('backbone');
 var attachFastClick = require('fastclick');
+var unveil = require('unveil');
 var pubsub = require('utils/pubsub');
 var helpers = require('helpers/helpers_hbs');
 
 Backbone.$ = $;
+attachFastClick(document.body);
 
 var Router = require('./router');
 var router = new Router();
-attachFastClick(document.body);
 Backbone.history.start();
 
 var Navigator = {
@@ -40,6 +42,25 @@ $("body").on("click", ".back-button", function (event) {
     event.preventDefault();
     window.history.back();
 });
+
+
+$( document ).ajaxError(function( event, jqxhr, settings, thrownError ) {
+  if (jqxhr.status === 403) {
+    window.location.replace('/#login');
+  };
+});
+
+
+
+// $.ajaxSetup({
+//    beforeSend: function() {
+//     $('.preloader').removeClass('hidden');
+//     $('.preloader').addClass('animated bounce');
+//    },
+//    complete: function() {
+//       $('.preloader').addClass('hidden');
+//    }
+// });
 
 
 Navigator.initialize();

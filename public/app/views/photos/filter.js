@@ -4,6 +4,7 @@ var $ = require('jquery');
 var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
+var urls = require('config/urls');
 var template = require('templates/photos/filters.hbs');
 
 Backbone.$ = $;
@@ -52,7 +53,7 @@ module.exports = Backbone.View.extend({
 
     $.ajax({
       type: "POST",
-      url: '/api/photos/filter',
+      url: urls.baseUrl+'/api/photos/filter',
       data: {filter: filter, src: src},
       beforeSend: function showPreloader() {
         $('.preloader').removeClass('hidden');

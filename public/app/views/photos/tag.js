@@ -1,12 +1,11 @@
 "use strict";
 
-//Dependencies
-global.jQuery = require("jquery");
-var $ = jQuery;
-var Backbone = require('backbone');
+var $ = require("jquery");
 var _ = require('underscore');
-var imagesloaded = require('imagesloaded');
+var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
+var urls = require('cnfig/urls');
+
 Backbone.$ = $;
 
 // Templates
@@ -45,10 +44,7 @@ module.exports = Backbone.View.extend({
     var query = $(e.currentTarget).val();
 
     if (query.length) {
-      $.ajax({
-        url: "/users/search/"+ query,
-        method: "GET"
-      })
+      $.get(urls.baseUrl+"/users/search/"+ query)
       .then(function(res) {
         pubsub.trigger('autocomplete:render', res);
       });

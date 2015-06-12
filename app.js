@@ -4,6 +4,8 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var session = require('express-session');
+var cors = require('express-cors');
+var csurf = require('csurf');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -16,6 +18,7 @@ var redisStore = require('connect-redis')(session);
 var redisClient = redis.createClient();
 var Promise = require('bluebird');
 var requireAuthentication = require('./lib/checkAuth');
+
 //Routes
 var authentication = require('./routes/authentication');
 var index = require('./routes/index');
@@ -28,6 +31,7 @@ var hashtags = require('./routes/hashtags');
 var activities = require('./routes/activities');
 
 var app = express();
+
 
 // Config files
 var dbConfig =  require('./config/db.js');
@@ -71,7 +75,9 @@ app.use(multer({
 }));
 
 //Routes
+
 app.all('/api/*', requireAuthentication);
+
 app.use(index);
 app.use(authentication);
 app.use(users);
@@ -109,7 +115,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500)
   .json('error', {
     message: err.message,
-    errors: err
+    errors: {}
   });
 });
 
