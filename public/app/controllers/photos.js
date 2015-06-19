@@ -58,6 +58,7 @@ module.exports = {
   crop: function() {
     pubsub.trigger('footerNav:remove');
     pubsub.trigger('appHeader:showNext');
+    pubsub.trigger('appHeader:showBack');
     var view = new PhotoCrop();
     view.startCrop();
   },
@@ -72,6 +73,7 @@ module.exports = {
     });
 
     pubsub.trigger('footerNav:remove');
+    pubsub.trigger('appHeader:showBack');
     pubsub.trigger('appHeader:showNext');
 
     new PhotoFilter();

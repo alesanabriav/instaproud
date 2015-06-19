@@ -16,11 +16,19 @@ module.exports = Backbone.View.extend({
   initialize: function() {
     var _this = this;
     _this.listenTo(pubsub, "view:remove", _this.remove, _this);
+    _this.listenTo(pubsub, 'appHeader:change', _this.render, _this);
+
     _this.listenTo(pubsub, 'appHeader:showNext', _this.showNext, _this);
+    _this.listenTo(pubsub, 'appHeader:hideNext', _this.hideNext, _this);
+
     _this.listenTo(pubsub, 'appHeader:showCheck', _this.showCheck, _this);
     _this.listenTo(pubsub, 'appHeader:hideCheck', _this.hideCheck, _this);
-    _this.listenTo(pubsub, 'appHeader:hideNext', _this.hideNext, _this);
-    _this.listenTo(pubsub, 'appHeader:change', _this.render, _this);
+
+    _this.listenTo(pubsub, 'appHeader:showBack', _this.showBack, _this);
+    _this.listenTo(pubsub, 'appHeader:hideBack', _this.hideBack, _this);
+
+    _this.listenTo(pubsub, 'appHeader:showClose', _this.showClose, _this);
+    _this.listenTo(pubsub, 'appHeader:hideClose', _this.hideClose, _this);
   },
 
   close: function() {

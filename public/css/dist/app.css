@@ -5,14 +5,12 @@
 /* Landscape phones and smaller */
 @import url(http://fonts.googleapis.com/css?family=Lato:400,700);
 html {
-  height: 100%;
-  margin-bottom: 120px; }
+  height: 100%; }
 
 body {
   background: #F2F2F2;
   font: 14px "Lato", Helvetica, Arial, sans-serif;
   padding-top: 50px;
-  margin-bottom: 120px;
   height: 100%; }
 
 img {
@@ -308,6 +306,7 @@ a {
   width: 100%; }
 
 .filters-frame {
+  max-width: 500px;
   backface-visibility: hidden;
   width: 100%;
   overflow-x: scroll;
@@ -339,6 +338,10 @@ a {
   .photo-caption > .image-and-caption textarea {
     width: 100%;
     border-radius: 0; }
+
+.search-hastag-or-users {
+  background: #fff;
+  padding: 20px; }
 
 .profile-page {
   max-width: 960px;
