@@ -1,12 +1,18 @@
+/* Large desktops and laptops */
+/* Portrait tablets and medium desktops */
+/* Portrait tablets and small desktops */
+/* Landscape phones and portrait tablets */
+/* Landscape phones and smaller */
 @import url(http://fonts.googleapis.com/css?family=Lato:400,700);
 html {
-  height: 100%; }
+  height: 100%;
+  margin-bottom: 120px; }
 
 body {
-  background: #f1f1f1;
+  background: #F2F2F2;
   font: 14px "Lato", Helvetica, Arial, sans-serif;
   padding-top: 50px;
-  padding-bottom: 120px;
+  margin-bottom: 120px;
   height: 100%; }
 
 img {
@@ -17,11 +23,12 @@ img {
   transform: translateZ(0); }
 
 a {
-  color: #00B7FF; }
+  color: #01509b; }
 
 #app-container {
-  float: left;
-  width: 100%; }
+  max-width: 500px;
+  margin: 0 auto;
+  margin-bottom: 50px; }
 
 .load-more {
   margin-bottom: 70px; }
@@ -32,38 +39,6 @@ a {
   font-size: 28px;
   color: #fff;
   margin-bottom: 5px; }
-
-.img-active img {
-  width: 100%; }
-
-.frame {
-  backface-visibility: hidden;
-  width: 100%;
-  overflow: scroll;
-  height: 150px;
-  position: fixed;
-  bottom: 0;
-  background: #161818; }
-  .frame ul {
-    padding: 0;
-    width: 600px; }
-    .frame ul li {
-      display: inline-block;
-      list-style: none;
-      width: 100px; }
-
-.header-nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 50px;
-  margin: 0;
-  z-index: 999;
-  padding: 10px 30px 0px 30px;
-  color: #fff; }
-  .header-nav h3, .header-nav h4 {
-    margin: 0;
-    color: #fff; }
 
 .preloader {
   display: block;
@@ -77,51 +52,11 @@ a {
   bottom: 0;
   width: 100%;
   z-index: 999; }
-
-.footer-nav-actions {
-  width: 100%;
-  background: #212326;
-  display: block;
-  margin: 0;
-  padding: 0;
-  z-index: 999; }
-  .footer-nav-actions li {
-    background: #212326;
-    display: inline-block;
-    float: left;
-    list-style: none;
-    width: 19.99%;
-    padding: 10px 15px 0 10px; }
-    .footer-nav-actions li.active {
-      background: #333; }
-    .footer-nav-actions li.camera {
-      position: relative;
-      background: #00509a;
-      color: #fff; }
-    .footer-nav-actions li a {
-      text-align: center;
-      color: #9CA0A3;
-      display: block;
-      height: 50px;
-      font-size: 2.2em; }
-    .footer-nav-actions li .btn-file {
-      text-align: center;
-      color: #ccc;
-      display: block;
-      height: 50px;
-      font-size: 1.9em;
-      position: relative;
-      overflow: hidden; }
-      .footer-nav-actions li .btn-file input[type=file] {
-        position: absolute;
-        top: 0;
-        right: 0;
-        filter: alpha(opacity=0);
-        opacity: 0;
-        outline: none;
-        cursor: inherit;
-        display: block;
-        width: 100%; }
+  @media (min-width: 768px) and (max-width: 991px), (min-width: 992px) and (max-width: 1199px), (min-width: 1200px) {
+    #nav-container {
+      top: 160px;
+      left: 30px;
+      width: 50px; } }
 
 .edit-profile-img {
   text-align: center;
@@ -168,6 +103,109 @@ a {
     /* position the left edge of the element at the middle of the parent */
     transform: translate(-50%, -50%); }
 
+.footer-nav-actions {
+  width: 100%;
+  background: #212326;
+  display: block;
+  margin: 0;
+  padding: 0;
+  z-index: 999; }
+  @media (min-width: 768px) and (max-width: 991px), (min-width: 992px) and (max-width: 1199px), (min-width: 1200px) {
+    .footer-nav-actions {
+      width: 50px; } }
+  .footer-nav-actions li {
+    background: #212326;
+    display: inline-block;
+    float: left;
+    width: 19.99%;
+    list-style: none;
+    padding: 10px 15px 0 10px; }
+    @media (min-width: 768px) and (max-width: 991px), (min-width: 992px) and (max-width: 1199px), (min-width: 1200px) {
+      .footer-nav-actions li {
+        float: none;
+        display: block; } }
+    .footer-nav-actions li > a {
+      display: block;
+      height: 50px; }
+      .footer-nav-actions li > a > span {
+        display: block;
+        background: url("../../images/nav-icons.png") 0 0 no-repeat;
+        background-size: 300px;
+        width: 40px;
+        height: 40px;
+        margin: 0 auto; }
+    .footer-nav-actions li.search > a > span {
+      background-position: -65px; }
+    .footer-nav-actions li.activity > a > span {
+      background-position: -200px; }
+    .footer-nav-actions li.profile > a > span {
+      background-position: -270px; }
+    .footer-nav-actions li.active {
+      background: #2d3034; }
+    .footer-nav-actions li.camera {
+      position: relative;
+      background: url("../images/nav-icons.png") #00509a;
+      color: #fff; }
+    .footer-nav-actions li .btn-file {
+      width: 44px;
+      margin: 0 auto;
+      text-align: center;
+      color: #ccc;
+      display: block;
+      height: 50px;
+      font-size: 1.9em;
+      position: relative;
+      overflow: hidden;
+      background: url("../../images/nav-icons.png") -123px 0 no-repeat;
+      background-size: 300px;
+      cursor: pointer; }
+      .footer-nav-actions li .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        cursor: inherit;
+        display: block;
+        width: 100%; }
+
+.header-nav {
+  position: fixed;
+  float: left;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  margin: 0;
+  z-index: 999;
+  padding: 0 0 0px 20px;
+  color: #fff;
+  overflow: hidden; }
+  .header-nav .logo {
+    margin-top: 7px; }
+  .header-nav h3, .header-nav h4 {
+    display: block;
+    margin: 15px 0 0 0;
+    color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+  .header-nav > .back-button {
+    color: #fff;
+    font-size: 2em;
+    margin: 7px 15px 0 -10px;
+    border-right: 1px solid #f1f1f1;
+    padding-right: 15px;
+    padding-left: 5px; }
+  .header-nav > .check-button, .header-nav > .next-button {
+    float: right;
+    font-size: 2em;
+    background: #016ace;
+    color: #fff;
+    height: 50px;
+    padding: 5px 10px; }
+  .header-nav > .next-button {
+    padding: 8px 15px; }
+
 .mixin-profile-link, .photo-feed > .header > .owner-username-and-name > .profile_link, .photo-feed > .header > .owner-username-and-name > .name, .photo-feed > .info > .comments ul li > .profile_link {
   font-weight: 600;
   overflow: hidden;
@@ -186,12 +224,14 @@ a {
   max-width: 500px;
   width: 100%;
   margin: 0 auto 0 auto;
-  padding-bottom: 30px; }
+  margin-bottom: 20px;
+  padding-bottom: 20px; }
   .photo-feed > .header {
     height: 65px;
-    padding: 14px 20px; }
+    padding: 14px 20px;
+    display: flex;
+    align-items: flex-start; }
     .photo-feed > .header > .avatar-container {
-      display: inline-block;
       position: relative;
       border-radius: 50%;
       border: 1px solid #cccfd0;
@@ -207,18 +247,18 @@ a {
         top: 0;
         right: 0;
         bottom: 0;
-        max-width: 100%; }
+        max-width: 100%;
+        margin: auto; }
     .photo-feed > .header > .owner-username-and-name {
-      display: inline-block;
       font-size: 1em;
-      overflow: hidden; }
+      overflow: hidden;
+      flex: 1; }
       .photo-feed > .header > .owner-username-and-name > .profile_link, .photo-feed > .header > .owner-username-and-name > .name {
         margin-right: 100%;
         max-width: 100%; }
       .photo-feed > .header > .owner-username-and-name > .name {
         font-weight: 200; }
     .photo-feed > .header > .timeago {
-      float: right;
       color: #ccc; }
   .photo-feed > .photo-container {
     width: 100%;
@@ -234,7 +274,8 @@ a {
     padding: 0 20px; }
     .photo-feed > .info > .likes-info {
       margin: 15px 0;
-      font-weight: 600; }
+      font-weight: 600;
+      color: #01509b; }
     .photo-feed > .info > .comments {
       display: block;
       width: 100%;
@@ -244,13 +285,195 @@ a {
         list-style: none; }
         .photo-feed > .info > .comments ul li {
           margin-bottom: 7px; }
+          .photo-feed > .info > .comments ul li > .see-more {
+            color: #a5a7aa; }
     .photo-feed > .info > .buttons-like-and-comment {
       max-width: 100%;
       padding: 7px 0;
       border-bottom: 1px solid #eee; }
       .photo-feed > .info > .buttons-like-and-comment > .like, .photo-feed > .info > .buttons-like-and-comment > .unlike, .photo-feed > .info > .buttons-like-and-comment > .comment-focus {
+        color: #C1C3C3;
         margin-right: 7px; }
         .photo-feed > .info > .buttons-like-and-comment > .like i, .photo-feed > .info > .buttons-like-and-comment > .unlike i, .photo-feed > .info > .buttons-like-and-comment > .comment-focus i {
           font-size: 25px; }
+      .photo-feed > .info > .buttons-like-and-comment > .unlike {
+        color: #015db4; }
     .photo-feed > .info > .comment-create-container > .input-group-btn > .comment {
-      box-shadow: none; }
+      color: #fff;
+      box-shadow: none;
+      border: 1px solid #015db4;
+      background: #015db4; }
+
+.img-active img {
+  width: 100%; }
+
+.filters-frame {
+  backface-visibility: hidden;
+  width: 100%;
+  overflow-x: scroll;
+  bottom: 0;
+  background: #161818; }
+  @media (max-width: 369px), (max-width: 767px) {
+    .filters-frame {
+      position: absolute; } }
+  .filters-frame ul {
+    padding: 0;
+    width: 600px; }
+    .filters-frame ul li {
+      display: inline-block;
+      list-style: none;
+      width: 100px; }
+      .filters-frame ul li > p {
+        font-size: 1.1em;
+        color: #fff;
+        text-align: center;
+        margin-top: 5px; }
+
+.photo-caption {
+  background: #fff;
+  padding: 20px; }
+  .photo-caption > .image-and-caption > img {
+    display: block;
+    float: left;
+    width: 100%; }
+  .photo-caption > .image-and-caption textarea {
+    width: 100%;
+    border-radius: 0; }
+
+.profile-page {
+  max-width: 960px;
+  margin: 0 auto; }
+  .profile-page > header {
+    padding: 15px;
+    background: #fff;
+    margin-bottom: 4px;
+    float: left;
+    width: 100%; }
+    .profile-page > header > .profile-image {
+      float: left;
+      width: 80px;
+      height: 80px;
+      position: relative;
+      border-radius: 50%;
+      border: 1px solid #cccfd0;
+      overflow: hidden;
+      margin-right: 10px;
+      z-index: 2; }
+      .profile-page > header > .profile-image > img {
+        z-index: 1;
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        max-width: 100%;
+        margin: auto; }
+    .profile-page > header > .profile-info {
+      float: left;
+      margin: 20px 0 0 10px;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+      .profile-page > header > .profile-info > .count-and-edit {
+        margin-bottom: 10px; }
+        .profile-page > header > .profile-info > .count-and-edit > .photos-count {
+          font-size: 1.3em;
+          display: block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap; }
+      .profile-page > header > .profile-info > .user-name {
+        font-weight: 600;
+        font-size: 1.2em; }
+      .profile-page > header > .profile-info > .user-area {
+        font-size: 1.1em;
+        color: #777; }
+    .profile-page > header > .profile-actions {
+      width: 100%;
+      float: left; }
+      .profile-page > header > .profile-actions > .btn {
+        border-radius: 15px;
+        border: 2px solid #0177e7;
+        color: #0177e7; }
+        @media (max-width: 369px) {
+          .profile-page > header > .profile-actions > .btn > .text {
+            display: none; } }
+      .profile-page > header > .profile-actions > .active {
+        background: #0177e7;
+        color: #fff; }
+  .profile-page > .photos-grid > .row {
+    margin: 0; }
+    .profile-page > .photos-grid > .row > a {
+      padding: 2px; }
+
+.login > header {
+  background: url("../../images/login-bg.jpg");
+  background-size: 100%;
+  width: 100%;
+  height: 150px;
+  padding-top: 50px;
+  margin-top: -50px; }
+  .login > header > .login {
+    display: block;
+    width: 200px;
+    margin: 0 auto; }
+
+.login > .tabs-and-form {
+  max-width: 500px;
+  margin: 0 auto;
+  background: #fff;
+  padding-bottom: 30px; }
+  .login > .tabs-and-form > .nav-tabs {
+    border: none;
+    width: 100%; }
+    .login > .tabs-and-form > .nav-tabs li {
+      width: 50%; }
+      .login > .tabs-and-form > .nav-tabs li a {
+        background: #004694;
+        border-radius: 0;
+        color: #fff;
+        text-align: center;
+        border: 0; }
+      .login > .tabs-and-form > .nav-tabs li.active a {
+        background-color: transparent;
+        color: #004694;
+        text-weight: 600; }
+  .login > .tabs-and-form > form {
+    margin-top: 30px; }
+    .login > .tabs-and-form > form > .form-login-btn, .login > .tabs-and-form > form > .form-register-btn {
+      width: 100%;
+      background: #1e91fe;
+      color: #fff;
+      text-transform: uppercase;
+      border-radius: 18px; }
+
+.profile-edit > header {
+  background: url("../../images/login-bg.jpg");
+  background-size: 100%;
+  width: 100%;
+  height: 200px;
+  padding-top: 30px; }
+  .profile-edit > header > .profile {
+    display: block;
+    width: 80px;
+    margin: 0 auto; }
+  .profile-edit > header > .edit-profile-img > button {
+    color: #fff;
+    background: transparent; }
+
+.profile-edit > form {
+  background: #fff;
+  padding: 15px;
+  max-width: 500px;
+  margin: 0 auto; }
+
+.activity-item {
+  max-width: 500px;
+  margin: 0 auto;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  background: #fff; }
+  .activity-item:first-child {
+    border-radius: 0; }
+  .activity-item > .media > .media-body > img {
+    float: left;
+    margin-right: 10px; }

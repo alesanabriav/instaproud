@@ -1,18 +1,19 @@
-<div class="row">
-  <div class="col-lg-3 col-xs-3">
-    <img src="/images/{{owner.id}}/{{ path }}" class="img-responsive">
+<section class="photo-caption">
+
+  <div class="image-and-caption">
+    <img src="/images/{{owner.id}}/{{ path }}">
+
+    <textarea class="caption form-control" placeholder="Título">{{ caption }}</textarea>
   </div>
 
-  <div class="col-lg-9 col-xs-9">
-    <textarea class="caption form-control" rows="4"  placeholder="Caption">{{ caption }}</textarea>
-  </div>
-</div>
+  <h5>Etiquetados</h5>
 
-<h5>Etiquetados</h5>
+  {{#each tagged}}
+    <div class="label label-primary tagged-remove" data-user="{{ id }}">{{ username }}</div>
+  {{/each}}
 
-{{#each tagged}}
-  <div class="label label-primary tagged-remove" data-user="{{ id }}">{{ username }}</div>
-{{/each}}
+  <p></p>
+  <input type="text" class="form-control autocomplete" placeholder="Etiqueta Amigos">
 
-<p></p>
-<input type="text" class="form-control autocomplete" placeholder="Etiqueta Amigos">
+  <a href="#" class="get-geolocation btn">Agregar localización</a>
+</section>

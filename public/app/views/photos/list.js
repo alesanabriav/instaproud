@@ -4,7 +4,7 @@ var $ = require("jquery");
 var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
-var unveil = require('unveil');
+var loadImages = require('utils/loadImages');
 var itemView = require('views/photos/item');
 
 Backbone.$ = $;
@@ -16,6 +16,7 @@ module.exports = Backbone.View.extend({
 
   initialize: function() {
     var _this = this;
+
     _this.listenTo(pubsub, "view:remove", _this.remove, _this);
     _this.listenTo(pubsub, "general:scroll", _this.loadMore, _this);
     _this.listenTo(_this.collection, 'reset', _this.render);
@@ -28,6 +29,7 @@ module.exports = Backbone.View.extend({
     var view;
     view = new itemView({model: model});
     _this.$el.append(view.render().el);
+    loadImages();
   },
 
   render: function() {
@@ -40,15 +42,13 @@ module.exports = Backbone.View.extend({
       views.push(view.render().el);
     });
 
-    _this.$el.empty()
-    .css('padding-bottom', '40px')
-    .append(views);
+    _this.$el.empty().append(views);
 
     $("#app-container")
     .empty()
     .append(_this.el);
 
-    this.$el.find("img").unveil(200);
+    loadImages();
   },
 
   loadMore: function(e) {

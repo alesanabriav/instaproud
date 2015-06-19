@@ -34,25 +34,51 @@ module.exports = Backbone.View.extend({
     var data;
 
     if (_this.model.get('birthday')) {
-       var birthday = _this.model.get('birthday').split('-');
-      var year = birthday[0];
-      var month = birthday[1];
-      var day = birthday[1].split('T')[0];
-      data = _.extend({
-        year: year,
-        month: month,
-        day: day
-      },
-      _this.model.toJSON()
-      );
+      data = _.extend(_this.parseDate(), _this.model.toJSON() );
     } else {
       data = _this.model.toJSON();
     }
-
-    var template = templateEdit( data );
+    console.log(_this.getYears());
+    var template = templateEdit( _.extend( data, _this.getYears(), _this.getDays() ) );
     _this.$el.empty().append(template);
     $("#app-container").empty().append(_this.el);
     return _this;
+  },
+
+  getDays: function() {
+    var i;
+    var days = [];
+
+    for(i = 1; i <= 31; i++) {
+      days.push(i);
+    }
+
+    return {days: days};
+  },
+
+  getYears: function() {
+    var i;
+    var years = [];
+
+    for(i = 1905; i <= 1999; i++) {
+      years.push(i);
+    }
+
+    return {years: years.sort(function(a, b){return b-a})};
+  },
+
+  parseDate: function() {
+    var _this = this;
+    var date = _this.model.get('birthday').split('-');
+    var year = date[0];
+    var month = date[1];
+    var day = date[1].split('T')[0];
+
+    return {
+      year: year,
+      month: month,
+      day: day
+    };
   },
 
   store: function(data, cb) {

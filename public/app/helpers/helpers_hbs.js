@@ -8,27 +8,58 @@ var _ = require('underscore');
  */
 Handlebars.registerHelper("checkLiked", function(users, options) {
 
-  var user = localStorage.getItem('user');
+  var user = JSON.parse(localStorage.getItem('user'));
 
-  var username = {username: JSON.parse(user).username};
+  var username = {username: user.username};
 
   if (_.where(users, username).length > 0) {
     return options.fn(this);
   } else {
     return options.inverse(this);
   }
-
 });
 
-Handlebars.registerHelper("likesToCount", function(likes, options) {
+Handlebars.registerHelper("itsHigher", function(arr, num, options) {
 
-  if (likes.length > 1) {
+  if (arr.length > num) {
     return options.fn(this);
   } else {
     return options.inverse(this);
   }
 
 });
+
+Handlebars.registerHelper("isNotEmpty", function(arr, options) {
+
+  if (arr.length > 0) {
+    return options.fn(this);
+  } else {
+    return options.inverse(this);
+  }
+
+});
+
+Handlebars.registerHelper('everyNth', function(context, every, options) {
+  var fn = options.fn;
+  var inverse = options.inverse;
+  var ret = "";
+
+  if(context && context.length > 0) {
+
+    for(var i=0, j=context.length; i<j; i++) {
+      var modZero = i % every === 0;
+      ret = ret + fn(_.extend({}, context[i], {
+        isModZero: modZero,
+        isModZeroNotFirst: modZero && i > 0,
+        isLast: i === context.length - 1
+      }));
+    }
+  } else {
+    ret = inverse(this);
+  }
+  return ret;
+});
+
 
 Handlebars.registerHelper("removeCharacter", function(text, character) {
   if (text && character) {

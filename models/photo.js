@@ -12,6 +12,10 @@ PhotoSchema = new Schema({
   },
   path: String,
   caption: String,
+  geolocation: {
+    Longitude: String,
+    Latitude: String
+  },
   likes: Number,
   liked: [{
     type: Schema.Types.ObjectId,

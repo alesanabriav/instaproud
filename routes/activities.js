@@ -8,6 +8,8 @@ app.route('/api/activities')
     Activity
     .find({})
     .sort({created: 'desc'})
+    .limit(20)
+    .skip(0)
     .populate(['from', 'photo'])
     .exec(function(err, activities) {
       if (err) return res.status(400).json(err);

@@ -8,7 +8,7 @@ var loadTimeago = require('utils/timeago');
 var unveil = require('unveil');
 var template = require('templates/photos/item.hbs');
 var urls = require('config/urls');
-
+var loadImages = require('utils/loadImages');
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
@@ -33,7 +33,7 @@ module.exports = Backbone.View.extend({
     .empty()
     .append( template( _this.model.toJSON() ) );
     loadTimeago(_this.$el);
-    this.$el.find("img").unveil(200);
+    loadImages();
     return _this;
   },
 

@@ -1,5 +1,8 @@
 "use strict";
-var $ = require('jquery');
+global.jQuery = require("jquery");
+var $ = jQuery;
+
+var unveil = require('unveil');
 var Photos = require('views/photos/list');
 var Photo = require('views/photos/item');
 var PhotoLoad = require('views/photos/load');
@@ -21,11 +24,9 @@ var PageSlider = require('utils/pageslider');
 var slider = new PageSlider($('#app-container'));
 
 var pubsub = require('utils/pubsub');
+var loadImages = require('utils/loadImages');
 
 module.exports = {
-  initialize: function() {
-
-  },
 
   list: function() {
     var collection = new models.photos();
@@ -36,8 +37,14 @@ module.exports = {
   item: function(id) {
     var model = new models.photo({id: id});
     var view = new Photo({model: model});
-    model.fetch();
-    slider.slidePage(view.el);
+
+    model.fetch({
+      success: function() {
+        $('#app-container').append(view.el);
+        $(view.el).find("img").unveil();
+      }
+    });
+
   },
 
   upload: function() {
@@ -49,29 +56,46 @@ module.exports = {
   },
 
   crop: function() {
-    return new PhotoCrop();
+    pubsub.trigger('footerNav:remove');
+    pubsub.trigger('appHeader:showNext');
+    var view = new PhotoCrop();
+    view.startCrop();
   },
 
   filter: function(src) {
-    var data;
     var folder = src.split("_");
+    var data = {"original": src, "folder": folder[0]};
+
 
     pubsub.trigger('appHeader:change', {
       title: "Editar Imagen", bgColor: "444"
     });
+
     pubsub.trigger('footerNav:remove');
     pubsub.trigger('appHeader:showNext');
 
     new PhotoFilter();
     new PhotoStore();
-    data = {"original": src, "folder": folder[0]};
+
     pubsub.trigger("photo:uploaded", data);
   },
 
   caption: function(id) {
+     pubsub.trigger('appHeader:change', {
+      title: "Compartir Imagen", bgColor: "444"
+    });
+
+    pubsub.trigger('footerNav:remove');
+    pubsub.trigger('appHeader:showCheck');
+
     var photo = new models.photo({id: id});
-    new PhotoCaption({model: photo});
-    photo.fetch();
+    var view = new PhotoCaption({model: photo});
+    photo.fetch({success: function() {
+      $("#app-container")
+      .empty()
+      .append(view.render().el);
+    }});
+
   },
 
   autocomplete: function(id) {
@@ -81,8 +105,7 @@ module.exports = {
   },
 
   hashtag: function(hashtag) {
-    var headerData = {title: "#"+hashtag};
-    pubsub.trigger('appHeader:change', headerData);
+    pubsub.trigger('appHeader:change', {title: "#"+hashtag});
     var view = new PhotoHashtag();
     view.pull(hashtag);
   },
@@ -91,8 +114,9 @@ module.exports = {
     var view = new PhotoSearch();
     new PhotoAutocompleteHashtag();
     new PhotoAutocompleteUser();
-    $("#app-container").empty();
-    $("#app-container").append(view.render().el);
+    $("#app-container")
+    .empty()
+    .append(view.render().el);
   }
 
  }

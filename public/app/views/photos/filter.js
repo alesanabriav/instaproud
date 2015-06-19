@@ -38,7 +38,7 @@ module.exports = Backbone.View.extend({
 
     var count = $(".slidee").find('img').length;
 
-    $(".slidee").css('width', (count*105)+'px');
+    $(".slidee").css('width', (count*104)+'px');
   },
 
   selectImage: function(e) {

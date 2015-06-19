@@ -21,20 +21,29 @@ module.exports = Backbone.View.extend({
   },
 
   startCrop: function() {
-    var image;
     var _this = this;
-    var data;
     var $container = $('#app-container');
     var $img = $container.find('img');
+    var image;
+    var data;
+    var canvas;
+    var context;
+    var storagedImage;
 
     $container.append('<canvas width="500" height="500" class="hidden" />');
+    $container.css("height", "100%");
 
-    var canvas = $container.find('canvas').get(0);
-    var context = canvas.getContext("2d");
+    canvas = $container.find('canvas').get(0);
+    context = canvas.getContext("2d");
+    storagedImage = localStorage.getItem('imageToCrop');
 
-    $img.cropper({
-      minCropBoxWidth: 1000,
-      minCropBoxHeight: 1000,
+    if ($img.attr('src') === undefined) {
+      $container.append('<img src="'+ storagedImage +'" class="hidden" />');
+    };
+
+    $container.find('img').cropper({
+      minCropBoxWidth: 500,
+      minCropBoxHeight: 500,
       responsive: false,
       aspectRatio: 1,
       resizable: false,
@@ -43,21 +52,17 @@ module.exports = Backbone.View.extend({
       dragCrop: false,
 
       crop: function(data) {
-        image = $img.get(0);
+        image = $container.find('img').get(0);
         context.drawImage(image, data.x, data.y, data.width, data.height, 0, 0, 500, 500);
         _this.data = canvas.toDataURL();
       },
 
       built: function () {
-        $(this).cropper('zoom', 2);
+        $(this).cropper('zoom', 1);
         $(this).cropper('setCropBoxData',{width: '100%'});
+        $('.preloader').addClass('hidden');
       }
     });
-
-    pubsub.trigger('footerNav:remove');
-    pubsub.trigger('appHeader:showNext');
-    $('.preloader').addClass('hidden');
-
   },
 
   sendCrop: function() {

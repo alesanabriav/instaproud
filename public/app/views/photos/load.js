@@ -17,33 +17,35 @@ module.exports = Backbone.View.extend({
   },
 
   loadPhoto: function(file) {
+    var $container = $("#app-container");
+    var img;
+    var reader;
 
     if (file.type.match(/image.*/)) {
-
-      var reader = new FileReader();
+      img = new Image();
+      reader = new FileReader();
 
       reader.onload = function() {
-        var img = new Image();
-        var $container = $("#app-container");
+        localStorage.setItem("imageToCrop", reader.result);
         img.src = reader.result;
-        $container.empty().append(img);
-        $container.find("img").addClass('hidden');
+        $container
+        .empty()
+        .append(img)
+        .find("img")
+        .addClass('hidden');
       };
 
       reader.readAsDataURL(file);
 
-      var picture = $("#app-container");
-
       $('.preloader').removeClass('hidden');
 
-      _.delay(function() {
-        pubsub.trigger("photo:crop", picture.find('img'));
+      return _.delay(function() {
+        pubsub.trigger('navigator:change', "#crop");
       }, 400);
 
-    } else {
-      alert("Tipo de archivo no permitido");
     }
 
-  },
+    alert("Tipo de archivo no permitido");
+  }
 
 });

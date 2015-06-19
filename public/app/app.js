@@ -3,13 +3,11 @@ global.jQuery = require('jquery');
 var $ = jQuery;
 var _ = require('underscore');
 var Backbone = require('backbone');
-var attachFastClick = require('fastclick');
-var unveil = require('unveil');
 var pubsub = require('utils/pubsub');
+var loadImages = require('utils/loadImages');
 var helpers = require('helpers/helpers_hbs');
-
+var fastclick = require('fastclick');
 Backbone.$ = $;
-attachFastClick(document.body);
 
 var Router = require('./router');
 var router = new Router();
@@ -22,14 +20,16 @@ var Navigator = {
   },
 
   trigger: function(url) {
-    router.navigate(url, {trigger: true, replace: true});
+    router.navigate(url, {trigger: true});
   }
 
 }
 
+Navigator.initialize();
+
 $(window).scroll(_.throttle(function(){
   var body = document.body;
-  var tolerance = 400;
+  var tolerance = 500;
   var threshold = body.scrollHeight - window.innerHeight - tolerance;
 
   if($(window).scrollTop() > threshold) {
@@ -37,6 +37,7 @@ $(window).scroll(_.throttle(function(){
   }
 
 }, 1000));
+
 
 $("body").on("click", ".back-button", function (event) {
     event.preventDefault();
@@ -46,21 +47,10 @@ $("body").on("click", ".back-button", function (event) {
 
 $( document ).ajaxError(function( event, jqxhr, settings, thrownError ) {
   if (jqxhr.status === 403) {
-    window.location.replace('/#login');
+    router.navigate('#login', {trigger: true, replace: true});
   };
 });
 
 
+window.onload = loadImages();
 
-// $.ajaxSetup({
-//    beforeSend: function() {
-//     $('.preloader').removeClass('hidden');
-//     $('.preloader').addClass('animated bounce');
-//    },
-//    complete: function() {
-//       $('.preloader').addClass('hidden');
-//    }
-// });
-
-
-Navigator.initialize();

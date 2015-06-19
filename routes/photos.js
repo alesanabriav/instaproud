@@ -65,20 +65,18 @@ app.route('/api/photos')
     .populate({
       path: 'comments',
       options: {
-        sort: {created: 'desc'},
+        sort: {created: 'asc'},
         limit: 5,
         skip: commentsSkip
       }
     })
     .execAsync()
     .then(function(photos) {
-
       return Photo
       .populate(photos, {
         path: 'comments.commenter',
         model: 'User'
       })
-
     })
     .then(function(photos) {
       return res.json(photos);
@@ -170,12 +168,11 @@ app.route('/api/photos/:id')
     var photoId = req.params.id;
     var body = req.body;
     var query = {_id: photoId};
-    var data = {caption: body.caption};
     var options = {new: true};
     var caption = body.caption;
     var hashtagData;
 
-    Photo.findOneAndUpdateAsync(query, data, options)
+    Photo.findOneAndUpdateAsync(query, body, options)
     .then(function(photo) {
 
       hashtagStoreOrUpdate(caption, photo._id, function() {

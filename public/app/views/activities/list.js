@@ -38,7 +38,6 @@ module.exports = Backbone.View.extend({
     });
 
     _this.$el.empty()
-    .css('padding-bottom', '40px')
     .append(views);
 
     $("#app-container")

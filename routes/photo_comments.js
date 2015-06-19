@@ -7,6 +7,7 @@ var Photo = require('../models/photo');
 var Comment = require('../models/comment');
 
 app.route('/api/photos/:id/comments')
+
 .post(function(req, res, next) {
   var commentText = req.body.comment;
   var photoId = req.params.id;

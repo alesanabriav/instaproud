@@ -18,14 +18,14 @@
 
   {{!-- Photo Image --}}
   <div class="photo-container">
-    <img class="photo-image" src="/images/photo-placeholder.gif" data-src="/images/{{owner.id}}/{{ path }}">
+    <img class="photo-image b-lazy" src="/images/photo-placeholder.gif" data-src="/images/{{owner.id}}/{{ path }}">
   </div>
 
   {{!-- Photo Info --}}
   <div class="info">
 
     <div class="buttons-like-and-comment">
-      {{#checkLiked liked }}
+      {{#checkLiked liked}}
         <button class="unlike"><i class="fa fa-heart"></i></button>
         {{else}}
         <button class="like"><i class="fa fa-heart-o"></i></button>
@@ -35,21 +35,24 @@
     </div>
 
     <div class="likes-info">
-    {{#likesToCount liked}}
-      <span>{{#countArr liked}} {{/countArr}}</span>
-      <span>me gusta</span>
-    {{ else }}
-      <span>{{#each liked}} {{username}} {{/each}}</span>
-      <span>le gusta</span>
-    {{/likesToCount}}
-
+      {{#itsHigher liked 1}}
+        <span>{{#countArr liked}} {{/countArr}}</span>
+        <span>me gusta</span>
+      {{ else }}
+        <span>{{#each liked}} {{username}} {{/each}}</span>
+        {{#isNotEmpty liked}}<span>le gusta</span>{{/isNotEmpty}}
+      {{/itsHigher}}
     </div>
 
     {{!-- Photo Comments --}}
     <div class="comments">
       <ul>
         <li>{{#convertHashtag caption}}{{/convertHashtag}}</li>
-        <li><a href="">Ver más comentarios</a></li>
+
+        {{#itsHigher comments 4}}
+          <li><a class="see-more" href="/#photo/{{ id }}">Ver más comentarios</a></li>
+        {{/itsHigher}}
+
         {{#each comments}}
           <li>
             <a href="/#profile/{{ commenter.username }}" class="profile_link" >
@@ -67,6 +70,7 @@
         <button class="comment btn"><i class="fa fa-paper-plane-o"></i></button>
       </span>
     </div>
+
   </div>
 </article>
 

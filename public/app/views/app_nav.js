@@ -1,4 +1,4 @@
-//Dependencies
+"use strict";
 var $ = require('jquery');
 var _ = require('underscore');
 var Backbone = require('backbone');
@@ -14,19 +14,17 @@ module.exports = Backbone.View.extend({
 
   initialize: function() {
     var _this = this;
-    _this.listenTo(pubsub, 'footerNav:remove', _this.close, _this);
-  },
-
-  close: function() {
-    var _this = this;
-    _this.remove();
-    _this.stopListening();
+    _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
+    _this.listenTo(pubsub, 'footerNav:remove', _this.remove, _this);
   },
 
   render: function() {
     var _this = this;
-    _this.$el.empty();
-    _this.$el.append(templateNav());
+
+    _this.$el
+    .empty()
+    .append(templateNav());
+
     return _this;
   },
 

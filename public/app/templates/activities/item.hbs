@@ -1,14 +1,15 @@
-<li class="list-group-item">
-<div class="media">
-  <div class="media-body">
-    <a href="/#profile/{{from.username}}">{{ from.name }}</a> {{ text }}
-    <span class="timeago" title="{{ created }}">{{ created }}</span>
-  </div>
+<div class="activity-item">
+  <div class="media">
+    <div class="media-body">
+       <img src="/images/{{ from.profile_image }}" width="40">
+      <a href="/#profile/{{from.username}}">{{ from.name }}</a> {{ text }}
+      <span class="timeago" title="{{ created }}">{{ created }}</span>
+    </div>
 
-  <div class="media-right">
-    <a href="/#photo/{{ photo.id }}">
-      <img src="/images/{{photo.owner}}/{{ photo.path }}" width="40">
-    </a>
+    <div class="media-right">
+      <a href="/#photo/{{ photo.id }}">
+        <img src="/images/{{photo.owner}}/{{ photo.path }}" width="40">
+      </a>
+    </div>
   </div>
 </div>
-</li>

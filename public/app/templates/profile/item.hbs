@@ -1,32 +1,51 @@
-<div class="row">
-  <div class="col-lg-12">
-    <img src="/images/{{ user.profile_image }}" class="img-circle pull-left" width="40">
-    <h5>{{#countArr photos}} {{/countArr}} Fotos</h5>
-    {{ user.name }}
-    {{ user.area }}
-    {{#userAuthenticated user.id}}
-    <a href="/#profile/{{ user.id }}/edit" class="tagged btn btn-primary">
-      Editar perfil
-    </a>
-    {{/userAuthenticated}}
-    <hr>
-    <ul class="nav nav-tabs" role="tablist">
-    <li class="active">
-      <a href="/#profile/{{ user.username }}">
-        <span class="oi oi-grid-three-up"></span>
+<article class="profile-page">
+  <header>
+
+    <div class="profile-image">
+      <img src="/images/{{ user.profile_image }}">
+    </div>
+
+    <div class="profile-info">
+    <span class="user-name">{{ user.name }}</span>
+    <br>
+      <span class="user-area">{{ user.area }}</span>
+
+      <div class="count-and-edit">
+        <span class="photos-count">{{#countArr photos}} {{/countArr}} Fotos</span>
+      </div>
+    </div>
+    <div class="profile-actions">
+      <a href="/#profile/{{ user.username }}" class="btn active">
+        <span class="oi oi-grid-three-up"></span> <span class="text">Tus fotos</span>
       </a>
-    </li>
-    <li><a href="/#tagged/{{ user.username }}"><i class="fa fa-picture-o"></i></a></li>
-    </ul>
 
+      <a href="/#tagged/{{ user.username }}" class="btn">
+        <i class="fa fa-tags"></i> <span class="text">Etiquetado</span>
+      </a>
+
+      {{#userAuthenticated user.id}}
+       <a href="/#profile/{{ user.id }}/edit" class="btn">
+          Editar perfil
+        </a>
+        {{/userAuthenticated}}
+    </div>
+  </header>
+
+  <div class="photos-grid">
+    {{#everyNth photos 3}}
+
+      {{#if isModZeroNotFirst}}
+    </div>
+    {{/if}}
+
+    {{#if isModZero}}
+      <div class="row">
+    {{/if}}
+
+      <a href="/#photo/{{ id }}" class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+        <img src="/images/photo-placeholder.gif" data-src="/images/{{ owner }}/{{ path }}" class="img-responsive"/>
+      </a>
+
+    {{/everyNth}}
   </div>
-</div>
-<hr>
-<div class="row">
-  {{#each photos}}
-  <a href="/#photo/{{ id }}">
-    <img src="/images/{{ owner }}/{{ path }}" alt="" class="col-xs-4 col-sm-4" style="padding:2px"/>
-  </a>
-  {{/each}}
-</div>
-
+</article>

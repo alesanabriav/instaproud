@@ -18,14 +18,16 @@
   max-width: 500px;
   width: 100%;
   margin: 0 auto 0 auto;
-  padding-bottom: 30px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
 
   > .header {
     height: 65px;
     padding: 14px 20px;
+    display: flex;
+    align-items: flex-start;
 
     > .avatar-container {
-      display: inline-block;
       position: relative;
       border-radius: 50%;
       border: 1px solid #cccfd0;
@@ -43,14 +45,15 @@
         right: 0;
         bottom: 0;
         max-width: 100%;
+        margin: auto;
       }
 
     }
 
     > .owner-username-and-name {
-      display: inline-block;
       font-size: 1em;
       overflow: hidden;
+      flex: 1;
 
       > .profile_link, > .name {
         margin-right: 100%;
@@ -65,7 +68,6 @@
     }
 
     > .timeago {
-      float: right;
       color: #ccc;
     }
 
@@ -92,6 +94,7 @@
     > .likes-info {
       margin: 15px 0;
       font-weight: 600;
+      color: $blue-main;
     }
 
     > .comments {
@@ -110,8 +113,10 @@
             @extend .mixin-profile-link;
           }
 
+          > .see-more {
+            color: #a5a7aa;
+          }
         }
-
       }
 
     }
@@ -123,10 +128,15 @@
 
       > .like, > .unlike, > .comment-focus {
         @extend .mixin-button;
+        color: #C1C3C3;
         margin-right: 7px;
         i {
           font-size: 25px;
         }
+      }
+
+      > .unlike {
+        color: lighten($blue-main, 5%);
       }
 
     }
@@ -136,7 +146,10 @@
       > .input-group-btn{
 
         > .comment {
+          color: #fff;
           box-shadow: none;
+          border: 1px solid lighten($blue-main, 5%);
+          background: lighten($blue-main, 5%);
         }
 
       }

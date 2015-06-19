@@ -4,7 +4,8 @@ var sharp = require('sharp');
 
 var User = require('../models/user');
 var Photo = require('../models/photo');
-
+var photosByOwner = require('../lib/photos/byOwner');
+var photosByTagged = require('../lib/photos/byTagged');
 var rename = require('../lib/createName');
 
 app.route('/users')
@@ -66,8 +67,8 @@ app.post('/users/:id/image', function(req, res, next) {
     path = "./public/images/" + name;
 
     sharp("./"+img)
-    .resize(300)
-    .quality(70)
+    .resize(150)
+    .quality(20)
     .toFile(path, function(err) {
       if (err) throw err;
 
@@ -98,45 +99,37 @@ app.get('/users/search/:query', function(req, res) {
   });
 });
 
-app.get('/api/users/:username/photos', function(req, res) {
+app.get('/api/users/:username/photos', function(req, res, next) {
   var username = req.params.username;
+  var photosSkip = parseInt(req.query.photosSkip) || 0;
   var data;
 
   User.findOne({username: username})
   .exec(function(err, user) {
     if (err) return res.status(400).json({message: "No existe"});
-    if (user) {
-      Photo.find({owner: user._id})
-      .sort({created: 'desc'})
-      .limit(20)
-      .skip(0)
-      .exec(function(err, photos) {
-        if (err) throw err;
-        data = {user: user, photos: photos};
-        return res.json(data);
-      });
 
-    };
+    photosByOwner(user, photosSkip, function(err, data) {
+      if (err) return next(err);
+      return res.json(data);
+    });
 
   });
 });
 
-app.get('/api/users/:username/tagged', function(req, res) {
+app.get('/api/users/:username/tagged', function(req, res, next) {
   var username = req.params.username;
+  var photosSkip = parseInt(req.query.photosSkip) || 0;
   var data;
 
   User.findOne({username: username}, function(err, user) {
     if (err) return res.status(400).json({message: "No existe"});
-    if (user) {
-      Photo.find({tagged: user._id}, function(err, photos) {
-        if (err) throw err;
-        data = {user: user, photos: photos};
-        return res.json(data);
-      });
 
-    };
-
+    photosByTagged(user, photosSkip, function(err, data) {
+      if (err) return next(err);
+      return res.json(data);
+    });
   });
+
 });
 
 app.post('/users/me/logged', function(req, res){

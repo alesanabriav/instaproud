@@ -15,9 +15,12 @@ module.exports = Backbone.View.extend({
   //Listen events
   initialize: function() {
     var _this = this;
-    pubsub.on('appHeader:showNext', _this.showNext, _this);
-    pubsub.on('appHeader:hideNext', _this.hideNext, _this);
-    pubsub.on('appHeader:change', _this.render, _this);
+    _this.listenTo(pubsub, "view:remove", _this.remove, _this);
+    _this.listenTo(pubsub, 'appHeader:showNext', _this.showNext, _this);
+    _this.listenTo(pubsub, 'appHeader:showCheck', _this.showCheck, _this);
+    _this.listenTo(pubsub, 'appHeader:hideCheck', _this.hideCheck, _this);
+    _this.listenTo(pubsub, 'appHeader:hideNext', _this.hideNext, _this);
+    _this.listenTo(pubsub, 'appHeader:change', _this.render, _this);
   },
 
   close: function() {
@@ -40,11 +43,19 @@ module.exports = Backbone.View.extend({
   },
 
   showNext: function() {
-    $('.next-action').removeClass('hidden');
+    this.$el.find('.next-button').removeClass('hidden');
+  },
+
+  showCheck: function() {
+    this.$el.find('.check-button').removeClass('hidden');
+  },
+
+  hideCheck: function() {
+    this.$el.find('.check-button').removeClass('hidden');
   },
 
   hideNext: function() {
-    $('.next-action').addClass('hidden');
+    this.$el.find('.next-button').addClass('hidden');
   },
 
   //execute event
