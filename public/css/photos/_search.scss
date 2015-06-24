@@ -1,0 +1,97 @@
+.search-hastag-or-users {
+  background: #fff;
+  padding: 20px;
+  float: left;
+  width: 100%;
+
+  > .search {
+    float: left;
+    margin-bottom: 10px;
+    width: 100%;
+
+    @media #{$desktop}, #{$desktop-lg} {
+      width: 60%;
+    }
+  }
+
+  > .options {
+    width: 100%;
+    padding: 0;
+    float: left;
+
+    @media #{$desktop}, #{$desktop-lg} {
+      width: 30%;
+      margin-left: 20px;
+    }
+
+    li {
+      list-style: none;
+      width: 50%;
+      float: left;
+      text-align: center;
+
+      @media #{$desktop}, #{$desktop-lg} {
+        width: 45%;
+        margin-right: 10px;
+      }
+
+      > .btn {
+        box-shadow: none;
+        width: 100%;
+        border-radius: 0;
+      }
+
+      > .active {
+        border-bottom: 2px solid lighten($blue-main, 15%);
+      }
+
+      @media #{$desktop}, #{$desktop-lg} {
+
+       > .btn {
+        border-radius: 15px;
+        border: 2px solid lighten($blue-main, 15%);
+        color: lighten($blue-main, 15%);
+        box-shadow: none;
+        margin-right: 10px;
+
+        > .text {
+          @media #{$mobile-xs} {
+            display: none;
+          }
+        }
+      }
+
+      > .active {
+        background: lighten($blue-main, 15%);
+        color: #fff;
+      }
+
+    }
+
+
+  }
+}
+
+> .active {
+  background: lighten($blue-main, 15%);
+  color: #fff;
+}
+
+> .search-autocomplete {
+  margin-top: 0px;
+  float: left;
+  width: 100%;
+  border-radius: 0;
+}
+
+}
+
+.search-user-profile {
+  > a {
+
+    > .profile-image {
+      float: left;
+      @include image_circle(50px, 50px, 1px solid #cccfd0);
+    }
+  }
+}

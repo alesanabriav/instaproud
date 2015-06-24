@@ -121,8 +121,9 @@ module.exports = Backbone.Router.extend({
   },
 
   hashtagPhotos: function(hashtag) {
-    photosController.hashtag(hashtag);
     AppController.initialize();
+    photosController.hashtag(hashtag);
+
     this.photoWork();
   },
 

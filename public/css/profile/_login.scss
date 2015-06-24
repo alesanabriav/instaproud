@@ -1,0 +1,64 @@
+.login {
+  > header {
+    background: url('../../images/login-bg.jpg');
+    background-size: 100%;
+    width: 100%;
+    height: 150px;
+    padding-top: 50px;
+    margin-top: -50px;
+
+    > .login {
+      display: block;
+      width: 200px;
+      margin: 0 auto;
+    }
+
+  }
+
+  > .tabs-and-form {
+    width: 100%;
+    float: left;
+    margin: 0 auto;
+    background: #fff;
+    padding-bottom: 30px;
+
+    > .nav-tabs {
+      border: none;
+      width: 100%;
+      li {
+        width: 50%;
+
+        a {
+          background: #004694;
+          border-radius: 0;
+          color: #fff;
+          text-align: center;
+          border: 0;
+        }
+
+        &.active {
+
+          a {
+            background-color: transparent;
+            color: #004694;
+            text-weight: 600;
+          }
+
+
+        }
+      }
+    }
+
+    > form {
+      margin-top: 30px;
+
+      > .form-login-btn, > .form-register-btn {
+        width: 100%;
+        background: lighten($blue-main, 25%);
+        color: #fff;;
+        text-transform: uppercase;
+        border-radius: 18px;
+      }
+    }
+  }
+}

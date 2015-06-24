@@ -1,0 +1,35 @@
+.img-active {
+  img{
+    width: 100%;
+  }
+}
+
+.filters-frame {
+  max-width: 100%;
+  backface-visibility: hidden;
+  width: 100%;
+  overflow-x: scroll;
+  bottom: 0;
+  background: #161818;
+
+  @media #{$mobile-xs}, #{$mobile} {
+    position: absolute;
+  }
+
+  ul {
+    padding: 0;
+    width: 600px;
+
+    li {
+      display: inline-block;
+      list-style: none;
+      width: 100px;
+      > p {
+        font-size: 1.1em;
+        color: #fff;
+        text-align: center;
+        margin-top: 5px;
+      }
+    }
+  }
+}

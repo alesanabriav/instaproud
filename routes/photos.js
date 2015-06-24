@@ -4,10 +4,10 @@ var Promise = require('bluebird');
 var async = require('async');
 var fs = require('fs-extra');
 var sharp = require('sharp');
-
 var CreateName = require('../lib/createName');
 var hashtagStoreOrUpdate = require('../lib/hashtag_store_or_update');
 var filters = require('../lib/photo_filters');
+var uploadToS3 = require('../lib/photos/uploadToS3');
 
 var User = require('../models/user');
 var Photo = require('../models/photo');
@@ -41,7 +41,13 @@ app.route('/api/photos')
 
     newPhoto.saveAsync()
     .spread(function(photo) {
-      return res.status(201).json(photo);
+
+      uploadToS3(src, req.user._id, function(err, data) {
+        if (err) return next(err);
+        console.log(data);
+        return res.status(201).json(photo);
+      });
+
     })
     .catch(function(err) {
       return res.status(400).json(err);
@@ -109,6 +115,7 @@ app.post('/api/photos/filter', function(req, res, next) {
 app.post('/api/photos/upload', function(req, res, next) {
     var user_id = req.user._id;
     var img = new Buffer(req.body.img ,'base64');
+    var time = Date.now();
     var name;
     var path;
     var folder;
@@ -116,7 +123,7 @@ app.post('/api/photos/upload', function(req, res, next) {
     CreateName(user_id, function(err, hash) {
       if (err) return next(err);
 
-      name = user_id+"_"+hash + ".jpeg";
+      name = user_id+"_"+hash + "_"+time + ".jpeg";
       folder = "./public/images/" + user_id;
       path = folder+"/"+ name;
 

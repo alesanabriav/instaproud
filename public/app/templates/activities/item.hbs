@@ -1,7 +1,11 @@
 <div class="activity-item">
   <div class="media">
     <div class="media-body">
-       <img src="/images/{{ from.profile_image }}" width="40">
+      <span class="profile-image">
+        <img src="/images/{{ from.profile_image }}">
+      </span>
+
+
       <a href="/#profile/{{from.username}}">{{ from.name }}</a> {{ text }}
       <span class="timeago" title="{{ created }}">{{ created }}</span>
     </div>

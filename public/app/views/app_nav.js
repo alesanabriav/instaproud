@@ -9,13 +9,24 @@ Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   events: {
-    'change input': 'getPhoto'
+    'change input': 'getPhoto',
+    'click a': 'changeState'
   },
 
   initialize: function() {
     var _this = this;
     _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
     _this.listenTo(pubsub, 'footerNav:remove', _this.remove, _this);
+    _this.listenTo(pubsub, 'input:onFocus', _this.hide, _this);
+    _this.listenTo(pubsub, 'input:onFocusOut', _this.show, _this);
+  },
+
+  hide: function() {
+    this.$el.hide();
+  },
+
+  show: function() {
+    this.$el.show();
   },
 
   render: function() {
@@ -31,5 +42,16 @@ module.exports = Backbone.View.extend({
   getPhoto: function(e) {
     var $file = $(e.currentTarget)[0].files[0];
     pubsub.trigger('photo:render', $file);
+  },
+
+  changeState: function(e) {
+    var $current = $(e.currentTarget);
+    var url = window.location.hash;
+    console.log(url, $current.attr('class'));
+
+    if (url === $current.attr('class')) {
+      $(e.currentTarget).parent().addClass('active');
+    };
+
   }
 });

@@ -17,6 +17,8 @@ module.exports = Backbone.View.extend({
     var _this = this;
     _this.listenTo(pubsub, "view:remove", _this.remove, _this);
     _this.listenTo(pubsub, 'appHeader:change', _this.render, _this);
+    // _this.listenTo(pubsub, 'input:onFocus', _this.hide, _this);
+    // _this.listenTo(pubsub, 'input:onFocusOut', _this.show, _this);
 
     _this.listenTo(pubsub, 'appHeader:showNext', _this.showNext, _this);
     _this.listenTo(pubsub, 'appHeader:hideNext', _this.hideNext, _this);
@@ -37,16 +39,27 @@ module.exports = Backbone.View.extend({
     _this.stopListening();
   },
 
+  hide: function() {
+    this.$el.parent().hide();
+  },
+
+  show: function() {
+    this.$el.parent().show();
+  },
+
   render: function(data) {
+
     var _this = this;
+
     if (data) {
       var template = templateHeader(data);
     } else {
       var template = templateHeader();
     }
 
-    $(_this.el).empty();
-    $(_this.el).append(template);
+    $(_this.el)
+    .empty()
+    .append(template);
     return _this;
   },
 

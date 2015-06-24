@@ -3,9 +3,10 @@ global.jQuery = require('jquery');
 var $ = global.jQuery;
 var _ = require('underscore');
 var Backbone = require('backbone');
-
 var pubsub = require('utils/pubsub');
-
+var getInterval = require('utils/get_interval');
+var parseDate = require('utils/parse_date');
+var alertify = require('alertifyjs');
 var templateEdit = require('templates/profile/edit.hbs');
 
 Backbone.$ = $;
@@ -34,51 +35,28 @@ module.exports = Backbone.View.extend({
     var data;
 
     if (_this.model.get('birthday')) {
-      data = _.extend(_this.parseDate(), _this.model.toJSON() );
+      data = _.extend(
+        parseDate(_this.model.get('birthday')),
+        _this.model.toJSON()
+        );
     } else {
       data = _this.model.toJSON();
     }
-    console.log(_this.getYears());
-    var template = templateEdit( _.extend( data, _this.getYears(), _this.getDays() ) );
-    _this.$el.empty().append(template);
-    $("#app-container").empty().append(_this.el);
-    return _this;
-  },
 
-  getDays: function() {
-    var i;
-    var days = [];
-
-    for(i = 1; i <= 31; i++) {
-      days.push(i);
-    }
-
-    return {days: days};
-  },
-
-  getYears: function() {
-    var i;
-    var years = [];
-
-    for(i = 1905; i <= 1999; i++) {
-      years.push(i);
-    }
-
-    return {years: years.sort(function(a, b){return b-a})};
-  },
-
-  parseDate: function() {
-    var _this = this;
-    var date = _this.model.get('birthday').split('-');
-    var year = date[0];
-    var month = date[1];
-    var day = date[1].split('T')[0];
-
-    return {
-      year: year,
-      month: month,
-      day: day
+    var years = {
+      years: getInterval(1905, 1999, true)
     };
+    var days = {
+      days: getInterval(1, 31)
+    };
+
+    var template = templateEdit( _.extend( data, years, days ) );
+
+    _this.$el.empty().append(template);
+
+    $("#app-container").empty().append(_this.el);
+
+    return _this;
   },
 
   store: function(data, cb) {
@@ -96,10 +74,12 @@ module.exports = Backbone.View.extend({
 
   uploadImg: function(e) {
     var _this = this;
+    var id = _this.model.id;
     var $file = $(e.currentTarget)[0].files[0];
     formData = new FormData();
     formData.append("profile_image", $file);
-    var id = _this.model.id;
+
+    console.log('uploadImg');
 
     $.ajax({
       url: '/users/'+ id +'/image',
@@ -109,7 +89,7 @@ module.exports = Backbone.View.extend({
       contentType: false, //Not set any content type header
     })
     .then(function(res) {
-      _this.model.set("profile_image", res.profile_image);
+      _this.model.set(res);
     });
 
   },
@@ -123,6 +103,10 @@ module.exports = Backbone.View.extend({
     var $year = $form.find('select[name="year"]').val();
     var $area = $form.find('select[name="area"]').val();
     var $bio = $form.find('textarea[name="bio"]').val();
+
+    if ($day === "" || $month === "" || $year === "") {
+      return alertify.error('Fecha incorrecta');
+    };
 
     var data = {
       name: $name,

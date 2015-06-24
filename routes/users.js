@@ -1,12 +1,12 @@
 "use strict";
 var app = require('express')();
 var sharp = require('sharp');
-
+var fs = require('fs');
 var User = require('../models/user');
 var Photo = require('../models/photo');
 var photosByOwner = require('../lib/photos/byOwner');
 var photosByTagged = require('../lib/photos/byTagged');
-var rename = require('../lib/createName');
+var generateHash = require('../lib/createName');
 
 app.route('/users')
 
@@ -44,10 +44,10 @@ app.route('/users/:id')
     var id = req.params.id;
 
     User.update({_id: id}, data, { runValidators: true }, function(err, user) {
-      if(err) res.status(400).json(err);
+      if(err) return res.status(400).json(err);
 
       User.findOne({_id: id}, function(err, userUpadated){
-        if (err) throw err;
+        if (err) return next(err);
         return res.json(userUpadated);
       });
 
@@ -57,31 +57,36 @@ app.route('/users/:id')
 app.post('/users/:id/image', function(req, res, next) {
   var userId = req.user._id;
   var img = req.files.profile_image.path;
+  var time = Date.now();
   var name;
   var path;
 
-  rename(userId, function(err, hash) {
+  generateHash(userId, function(err, hash) {
     if (err) return next(err);
 
-    name = userId+"_"+hash + "_profile.jpeg";
+    name = userId + "_" + hash  + "_" + time + "_profile.jpeg";
     path = "./public/images/" + name;
 
     sharp("./"+img)
     .resize(150)
     .quality(20)
     .toFile(path, function(err) {
-      if (err) throw err;
+      if (err) return next(err);
 
-      User.findOneAndUpdate({_id: userId},{profile_image: name}, function(err, user) {
-        if (err) throw err;
+      fs.unlink("./"+img, function(err) {
+        if (err) return next(err);
 
-        User.findOne({_id: user.id}, function(err, userUpadated){
-          if (err) throw err;
-          return res.json(userUpadated);
-        })
+        User.findOneAndUpdate({_id: userId},{profile_image: name}, function(err, user) {
+          if (err) return next(err);
 
-      });
+          User.findOne({_id: user.id}, function(err, userUpadated){
+            if (err) return next(err);
 
+            return res.json(userUpadated);
+          })
+
+        });
+       });
     });
   });
 });

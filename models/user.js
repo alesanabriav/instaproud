@@ -22,7 +22,9 @@ UserSchema = new Schema({
   name: String,
   area: String,
   bio: String,
-  birthday: Date,
+  birthday: {
+    type: Date
+  },
   gender: String,
   role: {
     type: String,

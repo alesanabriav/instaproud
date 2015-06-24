@@ -1,0 +1,16 @@
+.photo-caption {
+  background: #fff;
+  padding: 20px;
+  > .image-and-caption {
+    > img {
+      display: block;
+      float: left;
+      width: 100%;
+    }
+
+    textarea {
+      width: 100%;
+      border-radius: 0;
+    }
+  }
+}

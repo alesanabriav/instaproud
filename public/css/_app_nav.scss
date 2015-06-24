@@ -1,0 +1,116 @@
+.footer-nav-actions {
+  width: 100%;
+  background: $gray-main;
+  display: block;
+  margin: 0;
+  padding: 0;
+  z-index: 999;
+
+  @media #{$tablet}, #{$desktop}, #{$desktop-lg} {
+    width: 50px;
+  }
+
+  li{
+    background: #212326;
+    display: block;
+    float: left;
+    width: 19.99%;
+    list-style: none;
+
+    @media #{$tablet}, #{$desktop}, #{$desktop-lg} {
+      float: none;
+      display: block;
+      width: 100%;
+    }
+
+
+
+    > a {
+      display: block;
+      height: 50px;
+      width: 100%;
+      padding-top: 5px;
+
+      > span {
+        display: block;
+        background: url('../../images/nav-icons.png') 0 0 no-repeat;
+        background-size: 300px;
+        width: 40px;
+        height: 40px;
+        margin: 0 auto;
+      }
+
+    }
+
+    &.search {
+      > a {
+        > span {
+          background-position: -65px;
+        }
+      }
+    }
+
+    &.activity {
+      > a {
+        > span {
+          background-position: -200px;
+        }
+      }
+    }
+
+    &.profile {
+      > a {
+        > span {
+          background-position: -270px;
+        }
+      }
+    }
+
+    &.active{
+      background: lighten($gray-main, 5%);
+    }
+
+    &.camera{
+
+      position: relative;
+      background: url('../images/nav-icons.png') #00509a;
+      color: #fff;
+      cursor: pointer;
+
+      .btn-file {
+        padding-top: 7px;
+        width: 100%;
+        display: block;
+        height: 50px;
+        font-size: 1.9em;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+
+        > span {
+          cursor: pointer;
+          display: block;
+          width: 48px;
+          height: 40px;
+          margin: 0 auto;
+          background: url('../../images/nav-icons.png') -123px 0 no-repeat;
+          background-size: 300px;
+        }
+
+      input[type=file]{
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: 0;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        cursor: inherit;
+        display: block;
+        width: 100%;
+      }
+    }
+    }
+
+  }
+}

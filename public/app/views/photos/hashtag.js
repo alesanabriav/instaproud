@@ -4,6 +4,7 @@ var $ = require("jquery");
 var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
+var loadImages = require('utils/loadImages');
 var templateItem = require('templates/photos/hashtag.hbs');
 var urls = require('config/urls');
 
@@ -38,7 +39,7 @@ module.exports = Backbone.View.extend({
     $("#app-container")
     .empty()
     .append(_this.$el);
-
+    loadImages();
     return _this;
   }
 

@@ -83,7 +83,7 @@ module.exports = {
   },
 
   caption: function(id) {
-     pubsub.trigger('appHeader:change', {
+    pubsub.trigger('appHeader:change', {
       title: "Compartir Imagen", bgColor: "444"
     });
 
@@ -108,6 +108,7 @@ module.exports = {
 
   hashtag: function(hashtag) {
     pubsub.trigger('appHeader:change', {title: "#"+hashtag});
+    console.log('hashtag');
     var view = new PhotoHashtag();
     view.pull(hashtag);
   },

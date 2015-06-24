@@ -1,0 +1,21 @@
+@mixin image-circle($width, $height, $border) {
+  position: relative;
+  border-radius: 50%;
+  border: $border;
+  width: $width;
+  height: $height;
+  overflow: hidden;
+  margin-right: 10px;
+  z-index: 2;
+
+  > img {
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 100%;
+    margin: auto;
+  }
+}

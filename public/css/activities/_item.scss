@@ -1,0 +1,28 @@
+.activity-item {
+  max-width: 500px;
+  margin: 0 auto;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  background: #fff;
+
+  &:first-child {
+    border-radius: 0;
+  }
+
+  > .media {
+
+    > .media-body {
+
+      > .profile-image {
+        float: left;
+        margin-right: 10px;
+        @include image-circle(40px, 40px, 1px solid #cccfd0);
+      }
+
+      > .timeago {
+        color: #ccc;
+      }
+
+    }
+  }
+}

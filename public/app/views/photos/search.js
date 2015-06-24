@@ -12,6 +12,8 @@ Backbone.$ = $;
 module.exports = Backbone.View.extend({
   events: {
     'keyup .search': 'search',
+    'focus .search': 'onFocus',
+    'focusout .search': 'onFocusOut',
     'click .change-type': 'changeType'
   },
 
@@ -19,6 +21,14 @@ module.exports = Backbone.View.extend({
   initialize: function() {
     var _this = this;
     _this.listenTo(pubsub, "view:remove", _this.remove, _this);
+  },
+
+  onFocus: function() {
+    pubsub.trigger('input:onFocus');
+  },
+
+  onFocusOut: function() {
+    pubsub.trigger('input:onFocusOut');
   },
 
   render: function() {
@@ -33,14 +43,15 @@ module.exports = Backbone.View.extend({
     var $current = $(e.currentTarget);
     var type = $current.data('type');
     var $search = this.$el.find('.search');
+
     if (type === "users") {
       $search.attr('placeholder', 'Buscar por usuario');
     } else {
       $search.attr('placeholder','Buscar por hashtag');
     }
 
-    $('.nav-tabs').find('li').removeClass('active');
-    $current.parent().addClass('active');
+    this.$el.find('.change-type').removeClass('active');
+    $current.addClass('active');
     $search.data('type', type);
     this.search($search);
   },

@@ -1,0 +1,103 @@
+.profile-page {
+  max-width: 960px;
+  margin: 0 auto;
+
+
+  > header {
+    padding: 15px;
+    background: #fff;
+    margin-bottom: 4px;
+    float: left;
+    width: 100%;
+
+    > .profile-image {
+      float: left;
+      width: 80px;
+      height: 80px;
+      position: relative;
+      border-radius: 50%;
+      border: 1px solid #cccfd0;
+      overflow: hidden;
+      margin-right: 10px;
+      z-index: 2;
+
+      > img {
+        z-index: 1;
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        max-width: 100%;
+        margin: auto;
+      }
+    }
+
+    > .profile-info {
+      float: left;
+      margin: 20px 0 0 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      > .count-and-edit{
+        margin-bottom: 10px;
+
+        > .photos-count {
+          font-size: 1.3em;
+          display: block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+      }
+
+      > .user-name {
+      font-weight: 600;
+      font-size: 1.2em;
+    }
+
+    > .user-area {
+      font-size: 1.1em;
+      color: #777;
+    }
+
+    }
+
+    > .profile-actions {
+      width: 100%;
+      float: left;
+       > .btn {
+          border-radius: 15px;
+          border: 2px solid lighten($blue-main, 15%);
+          color: lighten($blue-main, 15%);
+          box-shadow: none;
+        > .text {
+          @media #{$mobile-xs} {
+            display: none;
+          }
+        }
+      }
+
+      > .active {
+        background: lighten($blue-main, 15%);
+        color: #fff;
+      }
+    }
+
+
+  }
+
+  > .photos-grid {
+
+    > .row {
+      margin: 0;
+
+      > a {
+        padding: 2px;
+      }
+    }
+
+  }
+
+}

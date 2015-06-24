@@ -1,0 +1,10 @@
+/* Large desktops and laptops */
+$desktop-lg: "(min-width: 1200px)";
+/* Portrait tablets and medium desktops */
+$desktop: "(min-width: 992px) and (max-width: 1199px)";
+/* Portrait tablets and small desktops */
+$tablet: "(min-width: 768px) and (max-width: 991px)";
+/* Landscape phones and portrait tablets */
+$mobile: "(max-width: 767px)";
+/* Landscape phones and smaller */
+$mobile-xs: "(max-width: 369px)";

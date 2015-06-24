@@ -1,0 +1,8 @@
+.photos-grid-mixin {
+  display: flex;
+  flex-shrink: 0;
+  align-items: stretch;
+  > .item {
+    flex-shrink: 1;
+  }
+}
