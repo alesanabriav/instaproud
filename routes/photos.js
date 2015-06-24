@@ -6,7 +6,7 @@ var fs = require('fs-extra');
 var sharp = require('sharp');
 var CreateName = require('../lib/createName');
 var hashtagStoreOrUpdate = require('../lib/hashtag_store_or_update');
-var filters = require('../lib/photo_filters');
+var filters = require('../lib/photos/filters');
 var uploadToS3 = require('../lib/photos/uploadToS3');
 
 var User = require('../models/user');
