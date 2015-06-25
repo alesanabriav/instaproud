@@ -8,6 +8,7 @@ var unveil = require('unveil');
 var templateItem = require('templates/profile/item.hbs');
 var templatePhotos = require('templates/profile/photos.hbs');
 var loadImages = require('utils/loadImages');
+var urls = require('config/urls');
 
 Backbone.$ = $;
 
@@ -30,7 +31,7 @@ module.exports = Backbone.View.extend({
     var username = JSON.parse(localStorage.getItem('user')).username;
 
     $.ajax({
-      url: '/api/users/'+ username +'/photos',
+      url: urls.baseUrl+'/api/users/'+ username +'/photos',
       method: 'GET',
       data: {photosSkip: skip}
     })

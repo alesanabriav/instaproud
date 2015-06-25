@@ -50,12 +50,12 @@
         <li>{{#convertHashtag caption}}{{/convertHashtag}}</li>
 
         {{#itsHigher comments 4}}
-          <li><a class="see-more" href="/#photo/{{ id }}">Ver más comentarios</a></li>
+          <li><a class="see-more" href="#photo/{{ id }}">Ver más comentarios</a></li>
         {{/itsHigher}}
 
         {{#each comments}}
           <li>
-            <a href="/#profile/{{ commenter.username }}" class="profile_link" >
+            <a href="#profile/{{ commenter.username }}" class="profile_link" >
               {{ commenter.username }}
             </a>
             {{#convertHashtag text }}{{/convertHashtag}}

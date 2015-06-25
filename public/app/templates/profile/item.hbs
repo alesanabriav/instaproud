@@ -2,7 +2,7 @@
   <header>
 
     <div class="profile-image">
-      <img src="/images/{{ user.profile_image }}">
+      <img src="images/{{ user.profile_image }}">
     </div>
 
     <div class="profile-info">
@@ -15,16 +15,16 @@
       </div>
     </div>
     <div class="profile-actions">
-      <a href="/#profile/{{ user.username }}" class="btn active">
+      <a href="#profile/{{ user.username }}" class="btn active">
         <span class="oi oi-grid-three-up"></span> <span class="text">Tus fotos</span>
       </a>
 
-      <a href="/#tagged/{{ user.username }}" class="btn">
+      <a href="#tagged/{{ user.username }}" class="btn">
         <i class="fa fa-tags"></i> <span class="text">Etiquetado</span>
       </a>
 
       {{#userAuthenticated user.id}}
-       <a href="/#profile/{{ user.id }}/edit" class="btn">
+       <a href="#profile/{{ user.id }}/edit" class="btn">
           Editar perfil
         </a>
         {{/userAuthenticated}}
@@ -42,8 +42,8 @@
       <div class="row">
     {{/if}}
 
-      <a href="/#photo/{{ id }}" class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
-        <img src="/images/photo-placeholder.gif" data-src="/images/{{ owner }}/{{ path }}" class="img-responsive"/>
+      <a href="#photo/{{ id }}" class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+        <img src="images/photo-placeholder.gif" data-src="images/{{ owner }}/{{ path }}" class="img-responsive"/>
       </a>
 
     {{/everyNth}}

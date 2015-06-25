@@ -46,6 +46,7 @@ module.exports = Backbone.View.extend({
     var years = {
       years: getInterval(1905, 1999, true)
     };
+
     var days = {
       days: getInterval(1, 31)
     };

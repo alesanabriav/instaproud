@@ -2,7 +2,7 @@ module.exports = function getInterval(from, until, sort) {
   var i;
   var interval = [];
 
-  for(i = 1; i <= 31; i++) {
+  for(i = from; i <= until; i++) {
     interval.push(i);
   }
 
