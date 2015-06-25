@@ -1,12 +1,13 @@
 "use strict";
 var app = require('express')();
-var sharp = require('sharp');
-var fs = require('fs');
 var User = require('../models/user');
-var Photo = require('../models/photo');
 var photosByOwner = require('../lib/photos/byOwner');
 var photosByTagged = require('../lib/photos/byTagged');
 var generateHash = require('../lib/createName');
+
+var processProfileImage = require('../lib/users/process_profile_image');
+var addProfileImage = require('../lib/users/add_profile_image');
+var uploadToS3 = require('../lib/photos/uploadToS3');
 
 app.route('/users')
 
@@ -56,7 +57,7 @@ app.route('/users/:id')
 
 app.post('/users/:id/image', function(req, res, next) {
   var userId = req.user._id;
-  var img = req.files.profile_image.path;
+  var image = req.files.profile_image.path;
   var time = Date.now();
   var name;
   var path;
@@ -64,29 +65,29 @@ app.post('/users/:id/image', function(req, res, next) {
   generateHash(userId, function(err, hash) {
     if (err) return next(err);
 
-    name = userId + "_" + hash  + "_" + time + "_profile.jpeg";
-    path = "./public/images/" + name;
+    name = hash + "_" + time + "_profile.jpeg";
+    path = "./public/images/" + userId +"/"+ name;
 
-    sharp("./"+img)
-    .resize(150)
-    .quality(20)
-    .toFile(path, function(err) {
+    //processImage
+    processProfileImage(image, path, function(err) {
       if (err) return next(err);
 
-      fs.unlink("./"+img, function(err) {
+      //add Profile image
+      addProfileImage(userId, name, function(err, user) {
         if (err) return next(err);
 
-        User.findOneAndUpdate({_id: userId},{profile_image: name}, function(err, user) {
+        //find one
+        User.findOne({_id: user.id}, function(err, userUpadated) {
           if (err) return next(err);
 
-          User.findOne({_id: user.id}, function(err, userUpadated){
+          //upload to s3
+          uploadToS3(name, req.user._id, function(err, data) {
             if (err) return next(err);
 
             return res.json(userUpadated);
-          })
-
+          });
         });
-       });
+      });
     });
   });
 });

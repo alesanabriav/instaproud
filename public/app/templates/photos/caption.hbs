@@ -1,7 +1,7 @@
 <section class="photo-caption">
 
   <div class="image-and-caption">
-    <img src="images/{{owner.id}}/{{ path }}">
+    <img src="{{#s3Url owner.id path}}{{/s3Url}}">
 
     <textarea class="caption form-control" placeholder="Título">{{ caption }}</textarea>
   </div>
@@ -15,5 +15,5 @@
   <p></p>
   <input type="text" class="form-control autocomplete" placeholder="Etiqueta Amigos">
 
-  <a href="#" class="get-geolocation btn">Agregar localización</a>
+  <a href="#" class="get-geolocation btn"><i class="fa fa-map-marker"></i> Agregar localización</a>
 </section>

@@ -1,21 +1,14 @@
 "use strict";
 var app = require('express')();
-var Promise = require('bluebird');
-var async = require('async');
-var fs = require('fs-extra');
-var sharp = require('sharp');
 var CreateName = require('../lib/createName');
 var hashtagStoreOrUpdate = require('../lib/hashtag_store_or_update');
 var filters = require('../lib/photos/filters');
 var uploadToS3 = require('../lib/photos/uploadToS3');
+var process = require('../lib/photos/process');
 
 var User = require('../models/user');
 var Photo = require('../models/photo');
 var Hashtag = require('../models/hashtag');
-
-//promisify
-Promise.promisifyAll(fs);
-Promise.promisifyAll(sharp);
 
 /**
  * create random name for image and stored on uploads
@@ -44,7 +37,6 @@ app.route('/api/photos')
 
       uploadToS3(src, req.user._id, function(err, data) {
         if (err) return next(err);
-        console.log(data);
         return res.status(201).json(photo);
       });
 
@@ -101,8 +93,9 @@ app.route('/api/photos')
  */
 app.post('/api/photos/filter', function(req, res, next) {
 
-  var path = "./public"+ req.body.src;
-  var imageName = req.body.src.split('/')[3];
+  var path = "./public/"+ req.body.src;
+
+  var imageName = req.body.src.split('/')[2];
   var filter = req.body.filter;
   var user = req.user;
 
@@ -127,17 +120,8 @@ app.post('/api/photos/upload', function(req, res, next) {
       folder = "./public/images/" + user_id;
       path = folder+"/"+ name;
 
-      fs.mkdirsAsync(folder)
-      .then(function () {
-        return sharp(img)
-        .quality(75)
-        .toFile(path);
-      })
-      .then(function() {
-         res.json({"original": name});
-      })
-      .catch(function(err) {
-        return next(err);
+      process(folder, img, path, function() {
+        res.json({"original": name});
       });
 
     });

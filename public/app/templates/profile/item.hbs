@@ -2,7 +2,7 @@
   <header>
 
     <div class="profile-image">
-      <img src="images/{{ user.profile_image }}">
+      <img src="{{#s3Url user.id user.profile_image}}{{/s3Url}}">
     </div>
 
     <div class="profile-info">

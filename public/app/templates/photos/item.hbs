@@ -3,7 +3,7 @@
   <header class="header">
 
     <div class="avatar-container">
-      <img src="images/{{owner.profile_image}}" class="avatar-image">
+      <img src="{{#s3Url owner.id owner.profile_image}}{{/s3Url}}" class="avatar-image">
     </div>
 
     <div class="owner-username-and-name">
@@ -18,7 +18,8 @@
 
   {{!-- Photo Image --}}
   <div class="photo-container">
-    <img class="photo-image b-lazy" src="images/photo-placeholder.gif" data-src="https://s3-sa-east-1.amazonaws.com/instaproud/{{owner.id}}/{{ path }}">
+    <img class="photo-image b-lazy" src="images/photo-placeholder.gif"
+    data-src="{{#s3Url owner.id path}}{{/s3Url}}">
   </div>
 
   {{!-- Photo Info --}}

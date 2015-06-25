@@ -30,12 +30,6 @@ module.exports = Backbone.View.extend({
     $("#app-container").empty();
     $("#app-container").append(_this.$el);
 
-    $('.load-image').on('error', function(e) {
-      var $el = $(e.currentTarget);
-      var src = $(e.currentTarget).attr('src');
-      $(e.currentTarget).attr('src', src);
-    });
-
     var count = $(".slidee").find('img').length;
 
     $(".slidee").css('width', (count*104)+'px');

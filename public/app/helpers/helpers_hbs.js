@@ -1,11 +1,26 @@
 var Handlebars = require("hbsfy/runtime");
 var _ = require('underscore');
+var urls = require('config/urls');
+
 /**
  * if a user liked the photo show something
  * @param  {array} users  list of users
  * @param  {object} options
  * @return {object}
  */
+Handlebars.registerHelper("checkLiked", function(users, options) {
+
+  var user = JSON.parse(localStorage.getItem('user'));
+
+  var username = {username: user.username};
+
+  if (_.where(users, username).length > 0) {
+    return options.fn(this);
+  } else {
+    return options.inverse(this);
+  }
+});
+
 Handlebars.registerHelper("checkLiked", function(users, options) {
 
   var user = JSON.parse(localStorage.getItem('user'));
@@ -27,6 +42,18 @@ Handlebars.registerHelper("itsHigher", function(arr, num, options) {
     return options.inverse(this);
   }
 
+});
+
+Handlebars.registerHelper("absoluteUrl", function(url, options) {
+  if (url !== "") {
+    return urls.baseUrl + "/" + url;
+  }
+});
+
+Handlebars.registerHelper("s3Url", function(folder, name, options) {
+  if (folder !== "" && name !== "") {
+    return urls.s3Bucket + "/" + folder + "/" + name;
+  }
 });
 
 Handlebars.registerHelper("isNotEmpty", function(arr, options) {
