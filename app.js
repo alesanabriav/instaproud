@@ -18,7 +18,6 @@ var redisStore = require('connect-redis')(session);
 var redisClient = redis.createClient();
 var Promise = require('bluebird');
 var requireAuthentication = require('./lib/checkAuth');
-var cronJob = require('./lib/cron_job');
 
 //Routes
 var authentication = require('./routes/authentication');

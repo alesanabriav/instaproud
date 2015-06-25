@@ -5,7 +5,7 @@ var Backbone = require('backbone');
 var alertify = require('alertifyjs');
 var emailDomain = require('utils/email_domain');
 var template = require('templates/profile/login.hbs');
-
+var urls = require('config/urls');
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
@@ -27,7 +27,7 @@ module.exports = Backbone.View.extend({
       var data = {'email': emailChecked, 'password': password};
 
       $.ajax({
-        url: "/login",
+        url: urls.baseUrl+"/login",
         method: "POST",
         data: data
       }).then(function(res){
@@ -36,7 +36,7 @@ module.exports = Backbone.View.extend({
           return;
         };
         localStorage.setItem("user", JSON.stringify(res));
-        window.location.replace('/#');
+        window.location.replace('#');
       })
   }
 });
