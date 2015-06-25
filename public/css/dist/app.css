@@ -152,6 +152,8 @@ a {
       background-position: -270px; }
     .footer-nav-actions li.active {
       background: #2d3034; }
+      .footer-nav-actions li.active > a {
+        border-bottom: 4px solid #015db4; }
     .footer-nav-actions li.camera {
       position: relative;
       background: url("../images/nav-icons.png") #00509a;

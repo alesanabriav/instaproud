@@ -16,6 +16,7 @@ module.exports = Backbone.View.extend({
   initialize: function() {
     var _this = this;
     _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
+    _this.listenTo(pubsub, 'footerNav:changeState', _this.changeState, _this);
     _this.listenTo(pubsub, 'footerNav:remove', _this.remove, _this);
     _this.listenTo(pubsub, 'input:onFocus', _this.hide, _this);
     _this.listenTo(pubsub, 'input:onFocusOut', _this.show, _this);
@@ -45,13 +46,21 @@ module.exports = Backbone.View.extend({
   },
 
   changeState: function(e) {
-    var $current = $(e.currentTarget);
+    var $btns = $(this.el).find('a');
     var url = window.location.hash;
-    console.log(url, $current.attr('class'));
+    console.log(url);
+    if (!url) {
+      console.log('fals');
+      $(this.el).find('.home').addClass('active');
+    }
 
-    if (url === $current.attr('class')) {
-      $(e.currentTarget).parent().addClass('active');
-    };
+    $btns.each(function(btn) {
+      console.log(this);
+
+      if (url === $(this).attr('href')) {
+        $(this).parent().addClass('active');
+      };
+    });
 
   }
 });

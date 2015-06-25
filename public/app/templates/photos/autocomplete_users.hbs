@@ -3,7 +3,7 @@
   <a href="#profile/{{ username }}">
     <span class="profile-image">
     {{#if profile_image }}
-      <img src="images/{{ profile_image }}" class="pull-left">
+      <img src="{{#s3Url id profile_image}}{{/s3Url}}" class="pull-left">
       {{else}}
       <img src="images/placeholders/placeholder_profile.png">
       {{/if}}

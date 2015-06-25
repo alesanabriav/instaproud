@@ -45,9 +45,10 @@ module.exports = {
   tagged: function(username) {
     var view = new Tagged();
 
-    $.get('/api/users/'+ username +'/tagged')
+    $.get(urls.baseUrl+'/api/users/'+ username +'/tagged')
     .then(function(model) {
       $("#app-container").empty().append(view.render(model).el);
+      loadImages();
     });
   },
 

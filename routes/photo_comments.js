@@ -1,6 +1,7 @@
 "use strict";
 var app = require('express')();
 var _ = require('underscore');
+var xssFilters = require('xss-filters');
 var hashtagStoreOrUpdate = require('../lib/hashtag_store_or_update');
 var User = require('../models/user');
 var Photo = require('../models/photo');
@@ -9,7 +10,7 @@ var Comment = require('../models/comment');
 app.route('/api/photos/:id/comments')
 
 .post(function(req, res, next) {
-  var commentText = req.body.comment;
+  var commentText = xssFilters.inHTMLData(req.body.comment);
   var photoId = req.params.id;
   var data = {};
 

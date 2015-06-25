@@ -30,6 +30,7 @@ module.exports = {
     $("#nav-container")
     .empty()
     .append(view.render().el);
+    pubsub.trigger('footerNav:changeState');
   }
 
  }

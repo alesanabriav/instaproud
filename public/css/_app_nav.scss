@@ -68,6 +68,10 @@
 
     &.active{
       background: lighten($gray-main, 5%);
+
+      > a {
+        border-bottom: 4px solid lighten($blue-main, 5%);
+      }
     }
 
     &.camera{
