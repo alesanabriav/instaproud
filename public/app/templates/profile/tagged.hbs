@@ -2,7 +2,7 @@
   <header>
 
     <div class="profile-image">
-      <img src="/images/{{ user.profile_image }}">
+      <img src="images/{{ user.profile_image }}">
     </div>
 
     <div class="profile-info">
@@ -14,17 +14,18 @@
         <span class="photos-count">{{#countArr photos}} {{/countArr}} Fotos</span>
       </div>
     </div>
+
     <div class="profile-actions">
-      <a href="/#profile/{{ user.username }}" class="btn">
+      <a href="#profile/{{ user.username }}" class="btn">
         <span class="oi oi-grid-three-up"></span> <span class="text">Tus fotos</span>
       </a>
 
-      <a href="/#tagged/{{ user.username }}" class="btn active">
+      <a href="#tagged/{{ user.username }}" class="btn active">
         <i class="fa fa-tags"></i> <span class="text">Etiquetado</span>
       </a>
 
       {{#userAuthenticated user.id}}
-       <a href="/#profile/{{ user.id }}/edit" class="btn">
+       <a href="#profile/{{ user.id }}/edit" class="btn">
           Editar perfil
         </a>
         {{/userAuthenticated}}
