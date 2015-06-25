@@ -28,6 +28,7 @@ module.exports = Backbone.Router.extend({
   },
 
   /**
+   *
    * execute appropriate method when the url match
    * @params callback, args, name
    */

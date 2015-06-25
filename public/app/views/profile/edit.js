@@ -65,7 +65,7 @@ module.exports = Backbone.View.extend({
     var _this = this;
 
     $.ajax({
-      url: "/users/"+_this.model.id,
+      url: urls.baseUrl+"/users/"+_this.model.id,
       method: "PUT",
       data: data
     })
