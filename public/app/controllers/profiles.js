@@ -8,6 +8,8 @@ var Tagged = require('views/profile/tagged');
 var UserModels = require('models/user');
 var pubsub = require('utils/pubsub');
 var loadImages = require('utils/loadImages');
+var urls = require('config/urls');
+
 module.exports = {
 
   initialize: function() {
@@ -33,7 +35,7 @@ module.exports = {
     pubsub.trigger('appHeader:change', {title: username});
     var view = new Item();
 
-    $.get('/api/users/'+ username +'/photos')
+    $.get(urls.baseUrl+'/api/users/'+ username +'/photos')
     .then(function(model) {
       $("#app-container").empty().append(view.render(model).el);
       loadImages();

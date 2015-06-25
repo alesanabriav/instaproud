@@ -43,8 +43,6 @@ module.exports = Backbone.View.extend({
     _this.photosSkip = skip;
   },
 
-
-
   render: function(data) {
     var _this = this;
     _this.$el.empty()

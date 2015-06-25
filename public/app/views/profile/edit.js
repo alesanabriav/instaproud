@@ -8,6 +8,7 @@ var getInterval = require('utils/get_interval');
 var parseDate = require('utils/parse_date');
 var alertify = require('alertifyjs');
 var templateEdit = require('templates/profile/edit.hbs');
+var urls = require('config/urls');
 
 Backbone.$ = $;
 
@@ -80,10 +81,8 @@ module.exports = Backbone.View.extend({
     formData = new FormData();
     formData.append("profile_image", $file);
 
-    console.log('uploadImg');
-
     $.ajax({
-      url: '/users/'+ id +'/image',
+      url: urls.baseUrl+'/users/'+ id +'/image',
       type: 'POST',
       data: formData,
       processData: false, //Avoid be processed by jquery
