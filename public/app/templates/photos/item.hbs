@@ -18,7 +18,8 @@
 
   {{!-- Photo Image --}}
   <div class="photo-container">
-    <img class="photo-image b-lazy" src="images/photo-placeholder.gif"
+    <img class="photo-image b-lazy"
+    src="{{#absoluteUrl 'images/photo-placeholder.gif'}}{{/absoluteUrl}}"
     data-src="{{#s3Url owner.id path}}{{/s3Url}}">
   </div>
 
