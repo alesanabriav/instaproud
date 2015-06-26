@@ -48,15 +48,12 @@ module.exports = Backbone.View.extend({
   changeState: function(e) {
     var $btns = $(this.el).find('a');
     var url = window.location.hash;
-    console.log(url);
+
     if (!url) {
-      console.log('fals');
       $(this.el).find('.home').addClass('active');
     }
 
     $btns.each(function(btn) {
-      console.log(this);
-
       if (url === $(this).attr('href')) {
         $(this).parent().addClass('active');
       };

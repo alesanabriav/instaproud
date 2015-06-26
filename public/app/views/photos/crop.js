@@ -35,11 +35,11 @@ module.exports = Backbone.View.extend({
 
     canvas = $container.find('canvas').get(0);
     context = canvas.getContext("2d");
-    storagedImage = localStorage.getItem('imageToCrop');
+    // storagedImage = localStorage.getItem('imageToCrop');
 
-    if ($img.attr('src') === undefined) {
-      $container.append('<img src="'+ storagedImage +'" class="hidden" />');
-    };
+    // if ($img.attr('src') === undefined) {
+    //   $container.append('<img src="'+ storagedImage +'" class="hidden" />');
+    // };
 
     $container.find('img').cropper({
       minCropBoxWidth: 500,

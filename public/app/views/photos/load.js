@@ -26,7 +26,7 @@ module.exports = Backbone.View.extend({
       reader = new FileReader();
 
       reader.onload = function() {
-        localStorage.setItem("imageToCrop", reader.result);
+        // localStorage.setItem("imageToCrop", reader.result);
         img.src = reader.result;
         $container
         .empty()
