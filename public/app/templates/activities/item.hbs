@@ -2,7 +2,12 @@
   <div class="media">
     <div class="media-body">
       <span class="profile-image">
+      {{#if from.profile_image}}
         <img src="{{#s3Url from.id from.profile_image}}{{/s3Url}}">
+      {{else}}
+        <img src="images/placeholders/placeholder_profile.png">
+      {{/if}}
+
       </span>
 
       <a href="#profile/{{from.username}}">{{ from.name }}</a> {{ text }}

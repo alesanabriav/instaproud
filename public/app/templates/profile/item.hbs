@@ -2,12 +2,16 @@
   <header>
 
     <div class="profile-image">
-      <img src="{{#s3Url user.id user.profile_image}}{{/s3Url}}">
+    {{#if user.profile_image}}
+        <img src="{{#s3Url user.id user.profile_image}}{{/s3Url}}">
+      {{else}}
+        <img src="images/placeholders/placeholder_profile.png">
+      {{/if}}
     </div>
 
     <div class="profile-info">
-    <span class="user-name">{{ user.name }}</span>
-    <br>
+      <span class="user-name">{{ user.name }}</span>
+      <br>
       <span class="user-area">{{ user.area }}</span>
 
       <div class="count-and-edit">
@@ -24,10 +28,10 @@
       </a>
 
       {{#userAuthenticated user.id}}
-       <a href="#profile/{{ user.id }}/edit" class="btn">
-          Editar perfil
-        </a>
-        {{/userAuthenticated}}
+      <a href="#profile/{{ user.id }}/edit" class="btn">
+        Editar perfil
+      </a>
+      {{/userAuthenticated}}
     </div>
   </header>
 
@@ -35,16 +39,16 @@
     {{#everyNth photos 3}}
 
     {{#if isModZeroNotFirst}}
-    </div>
+  </div>
+  {{/if}}
+
+  {{#if isModZero}}
+  <div class="row">
     {{/if}}
 
-    {{#if isModZero}}
-      <div class="row">
-    {{/if}}
-
-      <a href="#photo/{{ id }}" class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
-        <img src="images/photo-placeholder.gif" data-src="{{#s3Url owner path}}{{/s3Url}}" class="img-responsive"/>
-      </a>
+    <a href="#photo/{{ id }}" class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+      <img src="images/photo-placeholder.gif" data-src="{{#s3Url owner path}}{{/s3Url}}" class="img-responsive"/>
+    </a>
 
     {{/everyNth}}
   </div>
