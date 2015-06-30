@@ -37,6 +37,7 @@ module.exports = {
     model.fetch({
       success: function() {
         $('#app-container').append(view.el);
+        loadImages();
       }
     });
 
