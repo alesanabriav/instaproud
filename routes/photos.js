@@ -28,7 +28,7 @@ app.post('/api/photos', function(req, res, next) {
     owner: req.user._id
   };
 
-  store(data, function(err) {
+  store(data, function(err, photo) {
     if (err) return res.status(400).json(err);
     return res.status(201).json(photo);
   });
