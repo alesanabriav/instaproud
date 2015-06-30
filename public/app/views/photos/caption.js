@@ -32,6 +32,7 @@ module.exports = Backbone.View.extend({
   },
 
   render: function() {
+    $('.preloader').addClass('hidden');
     var _this = this;
     _this.$el
     .empty()

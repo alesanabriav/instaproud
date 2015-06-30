@@ -17,6 +17,7 @@ module.exports = Backbone.View.extend({
   },
 
   store: function(src) {
+    $('.preloader').removeClass('hidden');
     $.post(urls.baseUrl+"/api/photos", {src: src})
     .then( function(res) {
       pubsub.trigger('activity:store', {text: "compartio una nueva foto", photo: res.id});
