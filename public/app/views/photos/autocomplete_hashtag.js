@@ -8,7 +8,6 @@ var template = require('templates/photos/autocomplete_hashtag.hbs');
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
-
   initialize: function() {
     var _this = this;
     _this.listenTo(pubsub, "view:remove", _this.remove, _this);
@@ -25,4 +24,4 @@ module.exports = Backbone.View.extend({
     .empty()
     .append(this.$el);
   }
-});
+})

@@ -4,7 +4,6 @@ var $ = require("jquery");
 var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
-var unveil = require('unveil');
 var templateItem = require('templates/profile/item.hbs');
 var templatePhotos = require('templates/profile/photos.hbs');
 var loadImages = require('utils/loadImages');

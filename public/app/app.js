@@ -7,6 +7,7 @@ var pubsub = require('utils/pubsub');
 var loadImages = require('utils/loadImages');
 var helpers = require('helpers/helpers_hbs');
 var fastclick = require('fastclick');
+
 Backbone.$ = $;
 
 var Router = require('./router');

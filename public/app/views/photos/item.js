@@ -5,7 +5,6 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var loadTimeago = require('utils/timeago');
-var unveil = require('unveil');
 var template = require('templates/photos/item.hbs');
 var urls = require('config/urls');
 var loadImages = require('utils/loadImages');

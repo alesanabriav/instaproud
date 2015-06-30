@@ -9,7 +9,6 @@ var pubsub = require('utils/pubsub');
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
-
   //Start Listen events
   initialize: function() {
     var _this = this;
@@ -30,8 +29,9 @@ module.exports = Backbone.View.extend({
     var context;
     var storagedImage;
 
-    $container.append('<canvas width="500" height="500" class="hidden" />');
-    $container.css("height", "100%");
+    $container
+    .append('<canvas width="500" height="500" class="hidden" />')
+    .css("max-height", "500px");
 
     canvas = $container.find('canvas').get(0);
     context = canvas.getContext("2d");

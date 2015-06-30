@@ -25,4 +25,4 @@ module.exports = Backbone.View.extend({
     .empty()
     .append(this.$el);
   }
-});
+})

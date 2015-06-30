@@ -3,8 +3,8 @@ var $ = require("jquery");
 var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
-var template = require('templates/activities/item.hbs');
 var loadTimeago = require('utils/timeago');
+var template = require('templates/activities/item.hbs');
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({

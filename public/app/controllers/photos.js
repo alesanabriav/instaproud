@@ -2,7 +2,6 @@
 global.jQuery = require("jquery");
 var $ = jQuery;
 
-var unveil = require('unveil');
 var Photos = require('views/photos/list');
 var Photo = require('views/photos/item');
 var PhotoLoad = require('views/photos/load');
@@ -19,9 +18,6 @@ var PhotoAutocompleteUser = require('views/photos/autocomplete_user');
 
 var models = require('models/photo');
 var CommentModels = require('models/comment');
-
-var PageSlider = require('utils/pageslider');
-var slider = new PageSlider($('#app-container'));
 
 var pubsub = require('utils/pubsub');
 var loadImages = require('utils/loadImages');

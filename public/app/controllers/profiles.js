@@ -1,4 +1,5 @@
 "use strict";
+
 var $ = require('jquery');
 var Login = require('views/profile/login');
 var Register = require('views/profile/register');

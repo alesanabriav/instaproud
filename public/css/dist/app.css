@@ -22,6 +22,11 @@ img {
 a {
   color: #01509b; }
 
+.form-control {
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important; }
+
 #header-container {
   margin-top: 50px; }
 
@@ -58,7 +63,8 @@ a {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 999; }
+  z-index: 999;
+  color: #335377; }
 
 #nav-container {
   backface-visibility: hidden;
