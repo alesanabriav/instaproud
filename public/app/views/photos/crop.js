@@ -58,7 +58,6 @@ module.exports = Backbone.View.extend({
       },
 
       built: function () {
-        $(this).cropper('zoom', 1);
         $(this).cropper('setCropBoxData',{width: '100%'});
         $('.preloader').addClass('hidden');
       }
