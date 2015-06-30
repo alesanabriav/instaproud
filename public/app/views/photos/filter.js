@@ -45,13 +45,15 @@ module.exports = Backbone.View.extend({
 
     http.post('/api/photos/filter', {filter: filter, src: src}, function(res) {
       folderUser = res.photo.split('_')[0];
-      $('.img-active').find('img').attr('src', "/images/"+folderUser+"/"+res.photo);
+      $('.img-active').find('img').attr('src', "images/"+folderUser+"/"+res.photo);
     })
   },
 
   store: function() {
     var getSrc = $(".img-active img").attr('src');
-    var src = getSrc.split('/')[3];
+    console.log(getSrc);
+    var src = getSrc.split('/')[2];
+    console.log(src);
     pubsub.trigger('photo:store', src);
   }
 
