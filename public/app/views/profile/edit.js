@@ -79,9 +79,8 @@ module.exports = Backbone.View.extend({
     var _this = this;
     var id = _this.model.id;
     var $file = $(e.currentTarget)[0].files[0];
-    var url  = urls.baseUrl+'/users/'+ id +'/image';
 
-    uploadFile($file, "profile_image", url, function(res) {
+    uploadFile($file, "profile_image", '/users/'+ id +'/image', function(res) {
       _this.model.set(res);
     })
   },
