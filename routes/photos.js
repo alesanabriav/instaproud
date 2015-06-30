@@ -8,7 +8,6 @@ var compressImage = require(__base + 'lib/photos/compress_image');
 var process = require(__base + 'lib/photos/process');
 var CreateHash = require(__base + 'lib/createName');
 var filters = require(__base + 'lib/photos/filters');
-var uploadToS3 = require(__base + 'lib/photos/upload_to_S3');
 
 app.get('/api/photos', function(req, res, next) {
   var photosSkip = parseInt(req.query.photosSkip) || 0;
@@ -29,7 +28,7 @@ app.post('/api/photos', function(req, res, next) {
   };
 
   store(data, function(err, photo) {
-    if (err) return res.status(400).json(err);
+    if (err) res.status(400).json(err);
     return res.status(201).json(photo);
   });
 
