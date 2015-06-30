@@ -9,5 +9,8 @@ gulp.task('concact_css', function(){
   ])
   .pipe(sass())
   .pipe(concat('app.css'))
+  .on('error', function(err) {
+    console.log(err.toString());
+  })
   .pipe(gulp.dest('css/dist'));
 });

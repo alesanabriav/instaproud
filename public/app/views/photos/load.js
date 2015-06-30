@@ -18,6 +18,7 @@ module.exports = Backbone.View.extend({
   },
 
   uploadPhoto: function(file) {
+    $('.preloader').removeClass('hidden');
     uploadFile(file, "original_image", "/api/photos/compress", function(res) {
       $("#app-container")
       .empty()
