@@ -36,7 +36,7 @@ Handlebars.registerHelper("checkLiked", function(users, options) {
 
 Handlebars.registerHelper("itsHigher", function(arr, num, options) {
 
-  if (arr.length > num) {
+  if (arr && arr.length > num) {
     return options.fn(this);
   } else {
     return options.inverse(this);
@@ -58,7 +58,7 @@ Handlebars.registerHelper("s3Url", function(folder, name, options) {
 
 Handlebars.registerHelper("isNotEmpty", function(arr, options) {
 
-  if (arr.length > 0) {
+  if (arr && arr.length > 0) {
     return options.fn(this);
   } else {
     return options.inverse(this);

@@ -1,100 +1,84 @@
-"use strict";
+'use strict';
 var app = require('express')();
-var CreateName = require('../lib/createName');
-var hashtagStoreOrUpdate = require('../lib/hashtag_store_or_update');
-var filters = require('../lib/photos/filters');
-var uploadToS3 = require('../lib/photos/uploadToS3');
-var process = require('../lib/photos/process');
+var getAll = require(__base +'lib/photos/get_all');
+var byId = require(__base +'lib/photos/by_id');
+var store = require(__base +'lib/photos/store');
+var updateCaption = require(__base + 'lib/photos/update_caption');
+var compressImage = require(__base + 'lib/photos/compress_image');
+var process = require(__base + 'lib/photos/process');
+var CreateHash = require(__base + 'lib/createName');
+var filters = require(__base + 'lib/photos/filters');
+var uploadToS3 = require(__base + 'lib/photos/upload_to_S3');
 
-var User = require('../models/user');
-var Photo = require('../models/photo');
-var Hashtag = require('../models/hashtag');
+app.get('/api/photos', function(req, res, next) {
+  var photosSkip = parseInt(req.query.photosSkip) || 0;
+  var commentsSkip = parseInt(req.query.commentsSkip) || 0;
 
-/**
- * create random name for image and stored on uploads
- * @param  req  get request data
- * @param  res
- * @return object
- */
+  getAll(photosSkip, commentsSkip, function(err, photos) {
+    if (err) return next(err);
+    return res.json(photos);
+  });
+});
 
-app.route('/api/photos')
+app.post('/api/photos', function(req, res, next) {
+  var src = req.body.src;
 
-  /**
-   * Store path to photo
-   * @param  req
-   * @param  res
-   * @return json object
-   */
-  .post(function(req, res, next) {
-    var src = req.body.src;
-    var newPhoto = new Photo({
-      path: src,
-      owner: req.user._id
-    });
+  var data = {
+    path: src,
+    owner: req.user._id
+  };
 
-    newPhoto.saveAsync()
-    .spread(function(photo) {
-
-      uploadToS3(src, req.user._id, function(err, data) {
-        if (err) return next(err);
-        return res.status(201).json(photo);
-      });
-
-    })
-    .catch(function(err) {
-      return res.status(400).json(err);
-    })
-
-  })
-
-  /**
-   * Get all photos with his relationships
-   * @param  req
-   * @param  res
-   * @return object json with all photos
-   */
-  .get(function(req, res, next) {
-    var commentsSkip = parseInt(req.query.commentsSkip) || 0;
-    var photosSkip = parseInt(req.query.photosSkip) || 0;
-
-    Photo.find({}, null, {limit: 5, skip: photosSkip})
-    .sort({created: 'desc'})
-    .populate(['owner', 'liked'])
-    .populate({
-      path: 'comments',
-      options: {
-        sort: {created: 'asc'},
-        limit: 5,
-        skip: commentsSkip
-      }
-    })
-    .execAsync()
-    .then(function(photos) {
-      return Photo
-      .populate(photos, {
-        path: 'comments.commenter',
-        model: 'User'
-      })
-    })
-    .then(function(photos) {
-      return res.json(photos);
-    })
-    .catch(function(err) {
-      return next(err);
-    });
-
+  store(data, function(err) {
+    if (err) return res.status(400).json(err);
+    return res.status(201).json(photo);
   });
 
-/**
- * add to image caman filter
- * @param  req  get request data
- * @param  res
- * @return json object
- */
+});
+
+app.get('/api/photos/:id', function(req, res, next) {   
+  var id = req.params.id;
+
+  byId(id, function(err, photo) {
+    if (err) return next(err);
+    return res.json(photo);
+  });
+
+})
+
+app.put('/api/photos/:id', function(req, res, next) {
+  var photoId = req.params.id;
+  var body = req.body;
+  var caption = body.caption;
+
+  updateCaption(photoId, body, caption, function(err, photo) {
+    if (err) return res.status(400).json(err);
+    return res.status(200).json(photo);
+  });
+
+});
+
+app.post('/api/photos/compress', function(req, res, next) {
+  var file = req.files.original_image;
+  var user = req.user;
+
+  compressImage(file,user, function(err, path) {
+    if (err) return next(err);
+    return res.json(path);
+  });
+});
+
+app.post('/api/photos/upload', function(req, res, next) {
+  var user = req.user;
+  var img = new Buffer(req.body.img ,'base64');
+
+  process(img, user, function(err, name) {
+    res.json({"original": name});
+  });
+
+});
+
 app.post('/api/photos/filter', function(req, res, next) {
-
   var path = "./public/"+ req.body.src;
-
   var imageName = req.body.src.split('/')[2];
   var filter = req.body.filter;
   var user = req.user;
@@ -104,77 +88,5 @@ app.post('/api/photos/filter', function(req, res, next) {
   });
 
 });
-
-app.post('/api/photos/upload', function(req, res, next) {
-    var user_id = req.user._id;
-    var img = new Buffer(req.body.img ,'base64');
-    var time = Date.now();
-    var name;
-    var path;
-    var folder;
-
-    CreateName(user_id, function(err, hash) {
-      if (err) return next(err);
-
-      name = user_id+"_"+hash + "_"+time + ".jpeg";
-      folder = "./public/images/" + user_id;
-      path = folder+"/"+ name;
-
-      process(folder, img, path, function() {
-        res.json({"original": name});
-      });
-
-    });
-
-  })
-
-app.route('/api/photos/:id')
-  .get(function(req, res, next) {
-
-    Photo
-    .findById(req.params.id)
-    .populate([
-      'liked',
-      'owner',
-      'tagged',
-      'comments'
-      ])
-    .execAsync()
-    .then(function(photos) {
-      return Photo.populate(photos, {
-        path: 'comments.commenter',
-        model: 'User'
-      });
-    })
-    .then(function(photos) {
-      return res.json(photos);
-    })
-    .catch(function(err) {
-      return next(err);
-    })
-
-  })
-
-  .put(function(req, res, next) {
-    var photoId = req.params.id;
-    var body = req.body;
-    var query = {_id: photoId};
-    var options = {new: true};
-    var caption = body.caption;
-    var hashtagData;
-
-    Photo.findOneAndUpdateAsync(query, body, options)
-    .then(function(photo) {
-
-      hashtagStoreOrUpdate(caption, photo._id, function() {
-        return res.status(200).json(photo);
-      });
-
-    })
-    .catch(function(err) {
-      return next(err);
-    });
-
-  });
 
 module.exports = app;

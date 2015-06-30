@@ -5,6 +5,7 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var getInterval = require('utils/get_interval');
+var uploadFile = require('utils/upload_file');
 var parseDate = require('utils/parse_date');
 var alertify = require('alertifyjs');
 var templateEdit = require('templates/profile/edit.hbs');
@@ -78,20 +79,11 @@ module.exports = Backbone.View.extend({
     var _this = this;
     var id = _this.model.id;
     var $file = $(e.currentTarget)[0].files[0];
-    formData = new FormData();
-    formData.append("profile_image", $file);
+    var url  = urls.baseUrl+'/users/'+ id +'/image';
 
-    $.ajax({
-      url: urls.baseUrl+'/users/'+ id +'/image',
-      type: 'POST',
-      data: formData,
-      processData: false, //Avoid be processed by jquery
-      contentType: false, //Not set any content type header
-    })
-    .then(function(res) {
+    uploadFile($file, "profile_image", url, function(res) {
       _this.model.set(res);
-    });
-
+    })
   },
 
   next: function() {

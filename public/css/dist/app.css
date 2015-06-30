@@ -162,7 +162,7 @@ a {
         border-bottom: 4px solid #015db4; }
     .footer-nav-actions li.camera {
       position: relative;
-      background: url("../../images/nav-icons.png") #00509a;
+      background: #00509a;
       color: #fff;
       cursor: pointer; }
       .footer-nav-actions li.camera .btn-file {

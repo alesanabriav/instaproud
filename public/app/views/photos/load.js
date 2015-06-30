@@ -4,6 +4,7 @@ var $ = require('jquery');
 var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
+var uploadFile = require('utils/upload_file');
 
 Backbone.$ = $;
 
@@ -13,7 +14,16 @@ module.exports = Backbone.View.extend({
   initialize: function() {
     var _this = this;
     _this.listenTo(pubsub, "view:remove", _this.remove, _this);
-    _this.listenTo(pubsub, "photo:render", _this.loadPhoto, _this);
+    _this.listenTo(pubsub, "photo:render", _this.uploadPhoto, _this);
+  },
+
+  uploadPhoto: function(file) {
+    uploadFile(file, "original_image", "/api/photos/compress", function(res) {
+      $("#app-container")
+      .empty()
+      .append("<img src='"+ res + "' />");
+      pubsub.trigger('navigator:change', "#crop");
+    });
   },
 
   loadPhoto: function(file) {
@@ -26,7 +36,7 @@ module.exports = Backbone.View.extend({
       reader = new FileReader();
 
       reader.onload = function() {
-        // localStorage.setItem("imageToCrop", reader.result);
+        //localStorage.setItem("imageToCrop", reader.result);
         img.src = reader.result;
         $container
         .empty()

@@ -1,13 +1,13 @@
 "use strict";
 var app = require('express')();
 var User = require('../models/user');
-var photosByOwner = require('../lib/photos/byOwner');
-var photosByTagged = require('../lib/photos/byTagged');
+var photosByOwner = require('../lib/photos/by_owner');
+var photosByTagged = require('../lib/photos/by_tagged');
 var generateHash = require('../lib/createName');
 
 var processProfileImage = require('../lib/users/process_profile_image');
 var addProfileImage = require('../lib/users/add_profile_image');
-var uploadToS3 = require('../lib/photos/uploadToS3');
+var uploadToS3 = require('../lib/photos/upload_to_S3');
 
 app.route('/users')
 

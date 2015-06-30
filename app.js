@@ -19,16 +19,10 @@ var redisClient = redis.createClient();
 var Promise = require('bluebird');
 var requireAuthentication = require('./lib/checkAuth');
 
-//Routes
-var authentication = require('./routes/authentication');
+//Global path
+global.__base = __dirname + '/';
+
 var index = require('./routes/index');
-var users = require('./routes/users');
-var photos = require('./routes/photos');
-var photoTagged = require('./routes/photo_tagged');
-var photoComments = require('./routes/photo_comments');
-var photoLikes = require('./routes/photo_likes');
-var hashtags = require('./routes/hashtags');
-var activities = require('./routes/activities');
 
 var app = express();
 
@@ -75,18 +69,8 @@ app.use(multer({
 }));
 
 //Routes
-
 app.all('/api/*', requireAuthentication);
-
 app.use(index);
-app.use(authentication);
-app.use(users);
-app.use(photos);
-app.use(photoTagged);
-app.use(photoComments);
-app.use(photoLikes);
-app.use(hashtags);
-app.use(activities);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

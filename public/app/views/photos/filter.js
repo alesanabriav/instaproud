@@ -4,6 +4,7 @@ var $ = require('jquery');
 var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
+var http = require('utils/http');
 var urls = require('config/urls');
 var template = require('templates/photos/filters.hbs');
 
@@ -25,39 +26,27 @@ module.exports = Backbone.View.extend({
 
   render: function(data) {
     var _this = this;
-    _this.$el.empty();
-    _this.$el.append(template(data));
-    $("#app-container").empty();
-    $("#app-container").append(_this.$el);
+    _this.$el.empty().append(template(data));
+    $("#app-container").empty().append(_this.$el);
 
     var count = $(".slidee").find('img').length;
-
     $(".slidee").css('width', (count*104)+'px');
   },
 
   selectImage: function(e) {
-
     var filter = $(e.currentTarget).data('filter');
     var src = $('.img-active').find('img').data('original');
+    var folderUser;
 
     if (filter === "original") {
       $('.img-active').find('img').attr('src', src);
       return;
     };
 
-    $.ajax({
-      type: "POST",
-      url: urls.baseUrl+'/api/photos/filter',
-      data: {filter: filter, src: src},
-      beforeSend: function showPreloader() {
-        $('.preloader').removeClass('hidden');
-      }
-    })
-    .then(function(res){
-      var folderUser = res.photo.split('_')[0];
+    http.post('/api/photos/filter', {filter: filter, src: src}, function(res) {
+      folderUser = res.photo.split('_')[0];
       $('.img-active').find('img').attr('src', "/images/"+folderUser+"/"+res.photo);
-      $('.preloader').addClass('hidden');
-    });
+    })
   },
 
   store: function() {
