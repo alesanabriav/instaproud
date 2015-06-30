@@ -7,6 +7,7 @@ var pubsub = require('utils/pubsub');
 var loadImages = require('utils/loadImages');
 var helpers = require('helpers/helpers_hbs');
 var fastclick = require('fastclick');
+var nprogress = require('nprogress');
 
 Backbone.$ = $;
 
@@ -27,6 +28,15 @@ var Navigator = {
 }
 
 Navigator.initialize();
+
+
+$( document ).ajaxStart(function() {
+  nprogress.inc();
+});
+
+$( document ).ajaxComplete(function() {
+  nprogress.done();
+});
 
 $(window).scroll(_.throttle(function(){
   var body = document.body;

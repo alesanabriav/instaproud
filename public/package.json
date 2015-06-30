@@ -25,6 +25,7 @@
     "jquery": "^2.1.4",
     "jquery-autocomplete-js": "^1.1.0",
     "jquery-lazyload": "^1.9.5",
+    "nprogress": "^0.2.0",
     "passport-local": "^1.0.0",
     "selectize": "^0.12.1",
     "typeahead": "^0.2.0",

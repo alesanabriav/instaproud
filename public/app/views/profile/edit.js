@@ -81,7 +81,7 @@ module.exports = Backbone.View.extend({
     var $file = $(e.currentTarget)[0].files[0];
 
     uploadFile($file, "profile_image", '/users/'+ id +'/image', function(res) {
-      _this.model.set(res);
+      $('.profile-image').find('img').attr('src', urls.s3Bucket + "/" + res.id +"/"+ res.profile_image);
     })
   },
 

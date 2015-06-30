@@ -60,16 +60,18 @@ app.post('/users/:id/image', function(req, res, next) {
   var image = req.files.profile_image.path;
   var time = Date.now();
   var name;
+  var folder;
   var path;
 
   generateHash(userId, function(err, hash) {
     if (err) return next(err);
 
     name = hash + "_" + time + "_profile.jpeg";
-    path = "./public/images/" + userId +"/"+ name;
+    folder = "./public/images/" + userId;
+    path = folder + "/" + name;
 
     //processImage
-    processProfileImage(image, path, function(err) {
+    processProfileImage(image, folder, path, function(err) {
       if (err) return next(err);
 
       //add Profile image
