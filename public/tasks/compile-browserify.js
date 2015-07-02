@@ -1,10 +1,10 @@
 var gulp      = require('gulp');
 var browserify = require('browserify');
 var hbsfy = require("hbsfy"); // compile templates
-var source = require('vinyl-source-stream'); // Use conventional text streams at the start of your gulp
+var source = require('vinyl-source-stream'); // Use conventional text streams
 var sourcemaps = require('gulp-sourcemaps'); // Write inline source maps
-var debowerify = require('debowerify');
-var browserifyShim = require('browserify-shim');
+var debowerify = require('debowerify'); // use bower components like npm
+var browserifyShim = require('browserify-shim'); 
 
 // compile browersify app
 gulp.task('compile-browerserify', function () {
