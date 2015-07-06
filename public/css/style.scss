@@ -1,16 +1,14 @@
 @import 'variables/colors';
 @import 'variables/queries';
 
-
 html{
   height: 100%;
 }
 
-@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
-
 body {
   background: #F2F2F2;
-  font: 14px "Lato", Helvetica, Arial, sans-serif;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 14px;
   height: 100%;
 }
 

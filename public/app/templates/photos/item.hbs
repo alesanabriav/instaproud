@@ -12,9 +12,9 @@
 
     <div class="owner-username-and-name">
       <a class="profile_link" href="#profile/{{ owner.username }}">
-        {{ owner.username }}
+        {{ owner.name }}
       </a>
-      <span class="name">{{ owner.name }}</span>
+      <span class="area">{{  owner.area }}</span>
     </div>
 
     <span class="timeago" title="{{ created }}">{{ created }}</span>
@@ -32,12 +32,12 @@
 
     <div class="buttons-like-and-comment">
       {{#checkLiked liked}}
-        <button class="unlike"><i class="fa fa-heart"></i></button>
+        <button class="unlike"><i class="icon ion-ios-heart"></i></button>
         {{else}}
-        <button class="like"><i class="fa fa-heart-o"></i></button>
+        <button class="like"><i class="icon ion-ios-heart-outline"></i></button>
       {{/checkLiked}}
 
-      <button class="comment-focus"><i class="fa fa-comment-o"></i></button>
+      <button class="comment-focus"><i class="icon ion-ios-chatbubble-outline"></i></button>
     </div>
 
     <div class="likes-info">

@@ -1,0 +1,15 @@
+{
+"env": {
+  "browser": true,
+  "node": true
+  },
+
+  "plugins": [
+    "backbone"
+  ],
+
+  "rules": {
+    "quotes": [2, "single"],
+    curly: [2, "multi-line"]
+  }
+}

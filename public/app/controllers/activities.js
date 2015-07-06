@@ -1,5 +1,4 @@
-"use strict";
-var pubsub = require('utils/pubsub');
+'use strict';
 var store = require('views/activities/store');
 var list = require('views/activities/list');
 var models = require('models/activity');

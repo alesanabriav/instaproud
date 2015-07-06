@@ -1,6 +1,5 @@
 @mixin image-circle($width, $height, $border) {
   position: relative;
-  border-radius: 50%;
   border: $border;
   width: $width;
   height: $height;
