@@ -1,5 +1,6 @@
 .img-active {
   max-width: 500px;
+  margin: 0 auto;
   img{
     width: 100%;
   }
@@ -7,6 +8,7 @@
 
 .filters-frame {
   max-width: 500px;
+  margin: 0 auto;
   backface-visibility: hidden;
   width: 100%;
   overflow-x: scroll;
