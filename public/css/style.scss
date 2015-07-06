@@ -14,6 +14,13 @@ body {
 
 .form-control {
   border-radius: 0;
+  border: none;
+  border-bottom: 1px solid $blue-main;
+  transition: all 400ms;
+}
+
+.btn {
+  transition: all 400ms;
 }
 
 img{

@@ -2,12 +2,16 @@
   <header>
 
     <div class="profile-image">
-      <img src="images/{{#s3Url user.id user.profile_image}}{{/s3Url}}">
+    {{#if user.profile_image}}
+        <img src="{{#s3Url user.id user.profile_image}}{{/s3Url}}">
+      {{else}}
+        <img src="images/placeholders/placeholder_profile.png">
+      {{/if}}
     </div>
 
     <div class="profile-info">
-    <span class="user-name">{{ user.name }}</span>
-    <br>
+      <span class="user-name">{{ user.name }}</span>
+      <br>
       <span class="user-area">{{ user.area }}</span>
 
       <div class="count-and-edit">
@@ -17,35 +21,35 @@
 
     <div class="profile-actions">
       <a href="#profile/{{ user.username }}" class="btn">
-        <span class="oi oi-grid-three-up"></span> <span class="text">Tus fotos</span>
+        <span class="icon ion-ios-photos-outline"></span> <span class="text">Tus fotos</span>
       </a>
 
       <a href="#tagged/{{ user.username }}" class="btn active">
-        <i class="fa fa-tags"></i> <span class="text">Etiquetado</span>
+        <i class="icon ion-ios-pricetags-outline"></i> <span class="text">Etiquetado</span>
       </a>
 
       {{#userAuthenticated user.id}}
-       <a href="#profile/{{ user.id }}/edit" class="btn">
-          Editar perfil
-        </a>
-        {{/userAuthenticated}}
+      <a href="#profile/{{ user.id }}/edit" class="btn">
+        Editar perfil
+      </a>
+      {{/userAuthenticated}}
     </div>
   </header>
 
   <div class="photos-grid">
     {{#everyNth photos 3}}
 
-      {{#if isModZeroNotFirst}}
-    </div>
+    {{#if isModZeroNotFirst}}
+  </div>
+  {{/if}}
+
+  {{#if isModZero}}
+  <div class="row">
     {{/if}}
 
-    {{#if isModZero}}
-      <div class="row">
-    {{/if}}
-
-      <a href="/#photo/{{ id }}" class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
-        <img src="/images/photo-placeholder.gif" data-src="{{#s3Url owner path}}{{/s3Url}}" class="img-responsive"/>
-      </a>
+    <a href="#photo/{{ id }}" class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+      <img src="images/photo-placeholder.gif" data-src="{{#s3Url owner path}}{{/s3Url}}" class="img-responsive"/>
+    </a>
 
     {{/everyNth}}
   </div>

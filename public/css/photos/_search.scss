@@ -39,6 +39,9 @@
         box-shadow: none;
         width: 100%;
         border-radius: 0;
+        i {
+          font-size: 1.3em;
+        }
       }
 
       > .active {
@@ -48,9 +51,9 @@
       @media #{$desktop}, #{$desktop-lg} {
 
        > .btn {
-        border-radius: 15px;
-        border: 2px solid lighten($blue-main, 15%);
-        color: lighten($blue-main, 15%);
+        border-radius: 0;
+        border: 2px solid lighten($blue-main, 10%);
+        color: lighten($blue-main, 10%);
         box-shadow: none;
         margin-right: 10px;
 

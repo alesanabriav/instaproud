@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
@@ -18,7 +18,7 @@ UserSchema = new Schema({
   },
   salt: String,
   username: String,
-  profile_image: String,
+  'profile_image': String,
   name: String,
   area: String,
   bio: String,
@@ -41,11 +41,11 @@ UserSchema = new Schema({
   updated: {
     type: Date,
     default: Date.now
-  },
+  }
 });
 
 UserSchema.set('toJSON', {
-  transform: function (doc, ret, options) {
+  transform: function (doc, ret) {
     ret.id = ret._id;
     delete ret.password;
     delete ret.created;
@@ -58,7 +58,7 @@ UserSchema.set('toJSON', {
 
 UserSchema.methods.validPassword = function(password) {
   var user = this;
-  return bcrypt.compareSync(password,  user.password);
+  return bcrypt.compareSync(password, user.password);
 };
 
 UserSchema.pre('save', function(next) {
@@ -68,7 +68,8 @@ UserSchema.pre('save', function(next) {
   user.updated = Date.now;
   bcrypt.genSalt(10, function(err, salt) {
     bcrypt.hash(user.password, salt, function(err, hash) {
-      user.salt = salt;
+      if (err) return next(err);
+      user.salt = salt + Date.now();
       user.password = hash;
       next();
     });
