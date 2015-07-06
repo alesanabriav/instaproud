@@ -322,10 +322,8 @@ a {
       color: #ccc; }
   .photo-feed > .photo-container {
     width: 100%;
-    border-bottom: 1px solid #eeefef;
-    border-top: 1px solid #eeefef;
     background-color: #eeefef;
-    margin: -1px 0 0 0; }
+    margin: 0; }
     .photo-feed > .photo-container > .photo-image {
       width: 100%;
       -webkit-transform: translateZ(0);
@@ -654,7 +652,7 @@ a {
 .activity-item {
   max-width: 500px;
   margin: 0 auto;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #eee;
   padding: 10px;
   background: #fff; }
   .activity-item:first-child {
@@ -663,7 +661,7 @@ a {
     float: left;
     margin-right: 10px;
     position: relative;
-    border: 1px solid #cccfd0;
+    border: 0;
     width: 40px;
     height: 40px;
     overflow: hidden;
