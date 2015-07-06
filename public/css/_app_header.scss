@@ -32,40 +32,46 @@
     }
 
     .logo {
-      width: 100px;
+      width: 100%;
       margin: 7px auto;
-      display: block;
+      display:inline-block;
+      text-align: center;
     }
 
     h3, h4{
       display: block;
-      margin: 15px 0 0 0;
+      margin: 15px 0 0 70px;
       color: #fff;
       overflow: hidden;
       text-overflow: ellipsis;
       text-transform: uppercase;
     }
 
-    > .back-button {
+    > .back-button, >.close-button {
+      position: absolute;
+      left: 0;
+      top: 0;
       color: #fff;
       font-size: 2em;
-      margin: 7px 15px 0 -10px;
+      margin: 7px 10px 0 10px;
       border-right: 1px solid #f1f1f1;
-      padding-right: 15px;
-      padding-left: 5px;
+      padding-right: 20px;
+      padding-left: 10px;
     }
 
     > .check-button, > .next-button {
-      float: right;
+      position: absolute;
+      right: 0;
+      top: 0;
       font-size: 2em;
-      background: lighten($blue-main, 10%);
+      background: rgba(255,255,255,.3);
       color: #fff;
       height: 50px;
       padding: 5px 10px;
     }
 
     > .next-button {
-      padding: 8px 15px;
+      padding: 5px 20px;
     }
   }
 }

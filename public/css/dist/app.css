@@ -233,32 +233,38 @@ a {
       .header-nav > .container {
         max-width: 960px; } }
     .header-nav > .container .logo {
-      width: 100px;
+      width: 100%;
       margin: 7px auto;
-      display: block; }
+      display: inline-block;
+      text-align: center; }
     .header-nav > .container h3, .header-nav > .container h4 {
       display: block;
-      margin: 15px 0 0 0;
+      margin: 15px 0 0 70px;
       color: #fff;
       overflow: hidden;
       text-overflow: ellipsis;
       text-transform: uppercase; }
-    .header-nav > .container > .back-button {
+    .header-nav > .container > .back-button, .header-nav > .container > .close-button {
+      position: absolute;
+      left: 0;
+      top: 0;
       color: #fff;
       font-size: 2em;
-      margin: 7px 15px 0 -10px;
+      margin: 7px 10px 0 10px;
       border-right: 1px solid #f1f1f1;
-      padding-right: 15px;
-      padding-left: 5px; }
+      padding-right: 20px;
+      padding-left: 10px; }
     .header-nav > .container > .check-button, .header-nav > .container > .next-button {
-      float: right;
+      position: absolute;
+      right: 0;
+      top: 0;
       font-size: 2em;
-      background: #003aad;
+      background: rgba(255, 255, 255, 0.3);
       color: #fff;
       height: 50px;
       padding: 5px 10px; }
     .header-nav > .container > .next-button {
-      padding: 8px 15px; }
+      padding: 5px 20px; }
 
 .mixin-profile-link, .photo-feed > .header > .owner-username-and-name > .profile_link, .photo-feed > .header > .owner-username-and-name > .area, .photo-feed > .info > .comments ul li > .profile_link {
   font-weight: 600;
@@ -383,7 +389,6 @@ a {
   backface-visibility: hidden;
   width: 100%;
   overflow-x: scroll;
-  bottom: 0;
   background: #161818; }
   @media (max-width: 369px), (max-width: 767px) {
     .filters-frame {
@@ -448,11 +453,11 @@ a {
         .search-hastag-or-users > .options li > .btn i {
           font-size: 1.3em; }
       .search-hastag-or-users > .options li > .active {
-        border-bottom: 2px solid #0043c7; }
+        border-bottom: 1px solid #0043c7; }
       @media (min-width: 992px) and (max-width: 1199px), (min-width: 1200px) {
         .search-hastag-or-users > .options li > .btn {
           border-radius: 0;
-          border: 2px solid #003aad;
+          border: 1px solid #003aad;
           color: #003aad;
           box-shadow: none;
           margin-right: 10px; } }
@@ -475,7 +480,7 @@ a {
 .search-user-profile > a > .profile-image {
   float: left;
   position: relative;
-  border: 1px solid #cccfd0;
+  border: none;
   width: 50px;
   height: 50px;
   overflow: hidden;

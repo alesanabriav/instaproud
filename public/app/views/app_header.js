@@ -33,12 +33,6 @@ module.exports = Backbone.View.extend({
     _this.listenTo(pubsub, 'appHeader:hideClose', _this.hideClose, _this);
   },
 
-  close: function() {
-    var _this = this;
-    _this.remove();
-    _this.stopListening();
-  },
-
   hide: function() {
     this.$el.parent().hide();
   },
@@ -69,6 +63,14 @@ module.exports = Backbone.View.extend({
 
   showCheck: function() {
     this.$el.find('.check-button').removeClass('hidden');
+  },
+
+  showClose: function() {
+    this.$el.find('.close-button').removeClass('hidden');
+  },
+
+  backClose: function() {
+    this.$el.find('.back-button').removeClass('hidden');
   },
 
   hideCheck: function() {

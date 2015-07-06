@@ -45,14 +45,14 @@
       }
 
       > .active {
-        border-bottom: 2px solid lighten($blue-main, 15%);
+        border-bottom: 1px solid lighten($blue-main, 15%);
       }
 
       @media #{$desktop}, #{$desktop-lg} {
 
        > .btn {
         border-radius: 0;
-        border: 2px solid lighten($blue-main, 10%);
+        border: 1px solid lighten($blue-main, 10%);
         color: lighten($blue-main, 10%);
         box-shadow: none;
         margin-right: 10px;
@@ -94,7 +94,7 @@
 
     > .profile-image {
       float: left;
-      @include image_circle(50px, 50px, 1px solid #cccfd0);
+      @include image_circle(50px, 50px, none);
     }
   }
 }

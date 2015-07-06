@@ -69,7 +69,7 @@ module.exports = {
     });
 
     pubsub.trigger('footerNav:remove');
-    pubsub.trigger('appHeader:showBack');
+    pubsub.trigger('appHeader:showClose');
     pubsub.trigger('appHeader:showNext');
 
     new PhotoFilter();
