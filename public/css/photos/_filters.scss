@@ -10,9 +10,8 @@
   max-width: 500px;
   margin: 0 auto;
   backface-visibility: hidden;
-  width: 100%;
   overflow-x: scroll;
-  background: #161818;
+  background: #fff;
 
   @media #{$mobile-xs}, #{$mobile} {
     position: absolute;
@@ -28,7 +27,7 @@
       width: 100px;
       > p {
         font-size: 1.1em;
-        color: #fff;
+        color: $blue-main;
         text-align: center;
         margin-top: 5px;
       }

@@ -392,9 +392,8 @@ a {
   max-width: 500px;
   margin: 0 auto;
   backface-visibility: hidden;
-  width: 100%;
   overflow-x: scroll;
-  background: #161818; }
+  background: #fff; }
   @media (max-width: 369px), (max-width: 767px) {
     .filters-frame {
       position: absolute; } }
@@ -407,7 +406,7 @@ a {
       width: 100px; }
       .filters-frame ul li > p {
         font-size: 1.1em;
-        color: #fff;
+        color: #00297a;
         text-align: center;
         margin-top: 5px; }
 
