@@ -325,6 +325,7 @@ a {
         padding-top: -5px;
         color: #999; }
     .photo-feed > .header > .timeago {
+      margin: 20px 0 0 0;
       color: #ccc; }
   .photo-feed > .photo-container {
     width: 100%;
