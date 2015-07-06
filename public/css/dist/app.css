@@ -12,6 +12,9 @@ body {
   font-size: 14px;
   height: 100%; }
 
+.form-control {
+  border-radius: 0; }
+
 img {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -204,7 +207,7 @@ a {
   height: 50px;
   margin: 0;
   z-index: 999;
-  padding: 0 0 0px 20px;
+  padding: 0;
   color: #fff;
   overflow: hidden; }
   @media (min-width: 768px) and (max-width: 991px), (min-width: 992px) and (max-width: 1199px), (min-width: 1200px) {
@@ -321,11 +324,21 @@ a {
       -webkit-transform: translateZ(0);
       transform: translateZ(0); }
   .photo-feed > .info {
-    padding: 0 20px; }
+    padding: 0 20px;
+    position: relative; }
     .photo-feed > .info > .likes-info {
       margin: 15px 0;
       font-weight: 600;
       color: #00297a; }
+    .photo-feed > .info .counters {
+      position: absolute;
+      top: -10px;
+      right: 10px; }
+      .photo-feed > .info .counters .likes-count, .photo-feed > .info .counters .comments-count {
+        background: #001847;
+        color: #fff;
+        padding: 5px 10px;
+        font-weight: 200; }
     .photo-feed > .info > .comments {
       display: block;
       width: 100%;
@@ -334,24 +347,28 @@ a {
         padding: 0;
         list-style: none; }
         .photo-feed > .info > .comments ul li {
-          margin-bottom: 7px; }
+          margin-bottom: 7px;
+          font-size: 0.9em; }
           .photo-feed > .info > .comments ul li > .see-more {
             color: #a5a7aa; }
     .photo-feed > .info > .buttons-like-and-comment {
       max-width: 100%;
-      padding: 7px 0;
-      border-bottom: 1px solid #eee; }
+      padding: 0; }
       .photo-feed > .info > .buttons-like-and-comment > .like, .photo-feed > .info > .buttons-like-and-comment > .unlike, .photo-feed > .info > .buttons-like-and-comment > .comment-focus {
         color: #C1C3C3;
         margin-right: 7px;
         font-size: 2.2em; }
       .photo-feed > .info > .buttons-like-and-comment > .unlike {
         color: #003294; }
+    .photo-feed > .info > .comment-create-container .form-control {
+      border: none;
+      border-bottom: 1px solid #00297a; }
     .photo-feed > .info > .comment-create-container > .input-group-btn > .comment {
       color: #fff;
       box-shadow: none;
-      border: 1px solid #003294;
-      background: #003294; }
+      border: 1px solid #00297a;
+      background: #00297a;
+      border-radius: 0; }
 
 .img-active img {
   width: 100%; }

@@ -76,13 +76,30 @@
 
   }
 
+
+
+
+
   > .info {
     padding: 0 20px;
+    position: relative;
 
     > .likes-info {
       margin: 15px 0;
       font-weight: 600;
       color: $blue-main;
+    }
+
+    .counters {
+      position: absolute;
+      top: -10px;
+      right: 10px;
+      .likes-count, .comments-count {
+        background: darken($blue-main, 10%);
+        color: #fff;
+        padding: 5px 10px;
+        font-weight: 200;
+      }
     }
 
     > .comments {
@@ -96,6 +113,7 @@
 
         li {
           margin-bottom: 7px;
+          font-size: 0.9em;
 
           > .profile_link {
             @extend .mixin-profile-link;
@@ -111,8 +129,7 @@
 
     > .buttons-like-and-comment {
       max-width: 100%;
-      padding: 7px 0;
-      border-bottom: 1px solid #eee;
+      padding: 0;
 
       > .like, > .unlike, > .comment-focus {
         @extend .mixin-button;
@@ -128,14 +145,18 @@
     }
 
     > .comment-create-container {
+      .form-control {
+          border: none;
+          border-bottom: 1px solid $blue-main;
+        }
 
       > .input-group-btn{
-
         > .comment {
           color: #fff;
           box-shadow: none;
-          border: 1px solid lighten($blue-main, 5%);
-          background: lighten($blue-main, 5%);
+          border: 1px solid $blue-main;
+          background: $blue-main;
+          border-radius: 0;
         }
 
       }

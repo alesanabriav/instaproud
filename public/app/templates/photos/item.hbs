@@ -40,14 +40,10 @@
       <button class="comment-focus"><i class="icon ion-ios-chatbubble-outline"></i></button>
     </div>
 
-    <div class="likes-info">
-      {{#itsHigher liked 1}}
-        <span>{{#countArr liked}} {{/countArr}}</span>
-        <span>me gusta</span>
-      {{ else }}
-        <span>{{#each liked}} {{username}} {{/each}}</span>
-        {{#isNotEmpty liked}}<span>le gusta</span>{{/isNotEmpty}}
-      {{/itsHigher}}
+    <div class="counters">
+      <span class="likes-count"><i class="icon ion-ios-heart"></i> {{#countArr liked}} {{/countArr}}</span>
+
+        <span class="comments-count"><i class="icon ion-ios-chatbubble"></i> {{#countArr comments}} {{/countArr}}</span>
     </div>
 
     {{!-- Photo Comments --}}
@@ -73,7 +69,7 @@
     <div class="input-group comment-create-container">
       <input type="text" class="form-control commentText" placeholder="Comentar...">
       <span class="input-group-btn">
-        <button class="comment btn"><i class="fa fa-paper-plane-o"></i></button>
+        <button class="comment btn"><i class="icon ion-ios-paperplane-outline"></i></button>
       </span>
     </div>
 
