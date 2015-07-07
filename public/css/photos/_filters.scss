@@ -13,10 +13,6 @@
   overflow-x: scroll;
   background: #fff;
 
-  @media #{$mobile-xs}, #{$mobile} {
-    position: absolute;
-  }
-
   ul {
     padding: 0;
     width: 600px;

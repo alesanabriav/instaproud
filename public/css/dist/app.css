@@ -394,9 +394,6 @@ a {
   backface-visibility: hidden;
   overflow-x: scroll;
   background: #fff; }
-  @media (max-width: 369px), (max-width: 767px) {
-    .filters-frame {
-      position: absolute; } }
   .filters-frame ul {
     padding: 0;
     width: 600px; }
