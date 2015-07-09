@@ -34,7 +34,7 @@ app.post('/api/photos', function(req, res, next) {
 
 });
 
-app.get('/api/photos/:id', function(req, res, next) {   
+app.get('/api/photos/:id', function(req, res, next) {
   var id = req.params.id;
 
   byId(id, function(err, photo) {
@@ -42,9 +42,9 @@ app.get('/api/photos/:id', function(req, res, next) {
     return res.json(photo);
   });
 
-})
+});
 
-app.put('/api/photos/:id', function(req, res, next) {
+app.put('/api/photos/:id', function(req, res) {
   var photoId = req.params.id;
   var body = req.body;
   var caption = body.caption;
@@ -60,7 +60,7 @@ app.post('/api/photos/compress', function(req, res, next) {
   var file = req.files.original_image;
   var user = req.user;
 
-  compressImage(file,user, function(err, path) {
+  compressImage(file, user, function(err, path) {
     if (err) return next(err);
     return res.json(path);
   });

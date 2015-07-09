@@ -409,7 +409,9 @@ a {
 
 .photo-caption {
   background: #fff;
-  padding: 20px; }
+  padding: 20px;
+  max-width: 500px;
+  margin: 0 auto; }
   .photo-caption > .image-and-caption > img {
     display: block;
     float: left;
