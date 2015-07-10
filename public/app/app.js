@@ -29,13 +29,11 @@ var Navigator = {
 
 Navigator.initialize();
 
-
 $( document ).ajaxStart(function() {
   console.log(window.location.hash);
   if (window.location.hash !== "#register" && window.location.hash !== "#login") {
     nprogress.inc();
   }
-
 });
 
 $( document ).ajaxComplete(function() {
