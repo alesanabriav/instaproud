@@ -2,5 +2,3 @@ node_modules
 config
 public/node_modules
 public/bower_components
-public/uploads
-public/images
