@@ -635,7 +635,8 @@ a {
     margin-right: 10px;
     z-index: 2;
     display: block;
-    margin: 10px auto; }
+    margin: 10px auto;
+    background: #fff; }
     .profile-edit > header > .profile-image > img {
       z-index: 1;
       position: absolute;
