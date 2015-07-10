@@ -51,19 +51,16 @@ $(window).scroll(_.throttle(function(){
 
 }, 1000));
 
-
 $("body").on("click", ".back-button", function (event) {
     event.preventDefault();
     window.history.back();
 });
-
 
 $( document ).ajaxError(function( event, jqxhr, settings, thrownError ) {
   if (jqxhr.status === 403) {
     router.navigate('#login', {trigger: true, replace: true});
   };
 });
-
 
 window.onload = loadImages();
 
