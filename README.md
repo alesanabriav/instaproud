@@ -52,25 +52,40 @@
 
     npm i -g pm2
 
-## Install sharp
+## Install app
 
     curl -s https://raw.githubusercontent.com/lovell/sharp/master/preinstall.sh | sudo bash -
 
-## Install canvas
+    sudo apt-get install -y libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++
 
-    wget https://raw.githubusercontent.com/LearnBoost/node-canvas/master/install -O - | sh
+    cd && mkdir apps && cd apps
+
+    git clone git@bitbucket.org:alejandrobrandspa/instaproud.git
+
+    npm install
+
+    bower install ionicons --allow-root
+
+    cd instaproud
+
+    mkdir config
+
+    touch config/db.js
+    touch config/s3.js
+    touch config/passport.js
 
 ## Setup nginx vhost
     cd /etc/nginx/sites-available
+
     sudo nano default
 
     server {
       listen 80;
 
-      server_name [];
+      server_name <ChangeForUrl>;
 
       location / {
-          proxy_pass IPSERVER:3000;
+          proxy_pass http://127.0.0.1:3000;
           proxy_http_version 1.1;
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection 'upgrade';
@@ -79,5 +94,20 @@
       }
     }
 
+## Create swap
 
+    sudo swapon -s
 
+     sudo dd if=/dev/zero of=/swapfile bs=1024 count=2048k
+
+     sudo mkswap /swapfile
+
+     sudo swapon /swapfile
+
+     echo 10 | sudo tee /proc/sys/vm/swappiness
+
+     echo vm.swappiness = 10 | sudo tee -a /etc/sysctl.conf
+
+     sudo chown root:root /swapfile
+
+     sudo chmod 0600 /swapfile
