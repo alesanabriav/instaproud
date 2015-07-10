@@ -23,9 +23,6 @@ body {
 
 img {
   -webkit-transform: translateZ(0);
-  -moz-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  -o-transform: translateZ(0);
   transform: translateZ(0); }
 
 a {
@@ -49,8 +46,6 @@ a {
   height: 25px; }
 
 .form-control {
-  -webkit-box-shadow: none !important;
-  -moz-box-shadow: none !important;
   box-shadow: none !important; }
 
 #header-container {
@@ -93,6 +88,7 @@ a {
   color: #335377; }
 
 #nav-container {
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   position: fixed;
   bottom: 0;
@@ -147,6 +143,7 @@ a {
     /* position the top  edge of the element at the middle of the parent */
     left: 50%;
     /* position the left edge of the element at the middle of the parent */
+    -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%); }
 
 .footer-nav-actions {
@@ -292,7 +289,11 @@ a {
   .photo-feed > .header {
     height: 65px;
     padding: 10px 10px 20px 10px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
     align-items: flex-start;
     margin-bottom: -25px;
     height: 80px; }
@@ -317,6 +318,8 @@ a {
     .photo-feed > .header > .owner-username-and-name {
       font-size: 1em;
       overflow: hidden;
+      -webkit-flex: 1;
+      -ms-flex: 1;
       flex: 1; }
       .photo-feed > .header > .owner-username-and-name > .profile_link, .photo-feed > .header > .owner-username-and-name > .area {
         margin-right: 100%;
@@ -395,6 +398,7 @@ a {
 .filters-frame {
   max-width: 500px;
   margin: 0 auto;
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   overflow-x: scroll;
   background: #fff; }
