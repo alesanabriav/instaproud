@@ -9,7 +9,8 @@ Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   events: {
-    'click .next-action': 'next'
+    'click .next-action': 'next',
+    'click .rotate-button': 'rotate'
   },
 
   //Listen events
@@ -25,6 +26,9 @@ module.exports = Backbone.View.extend({
 
     _this.listenTo(pubsub, 'appHeader:showCheck', _this.showCheck, _this);
     _this.listenTo(pubsub, 'appHeader:hideCheck', _this.hideCheck, _this);
+
+    _this.listenTo(pubsub, 'appHeader:showRotate', _this.showRotate, _this);
+    _this.listenTo(pubsub, 'appHeader:hideRotate', _this.hideRotate, _this);
 
     _this.listenTo(pubsub, 'appHeader:showBack', _this.showBack, _this);
     _this.listenTo(pubsub, 'appHeader:hideBack', _this.hideBack, _this);
@@ -69,6 +73,10 @@ module.exports = Backbone.View.extend({
     this.$el.find('.close-button').removeClass('hidden');
   },
 
+  showRotate: function() {
+    this.$el.find('.rotate-button').removeClass('hidden');
+  },
+
   backClose: function() {
     this.$el.find('.back-button').removeClass('hidden');
   },
@@ -85,5 +93,10 @@ module.exports = Backbone.View.extend({
   next: function(e) {
     e.preventDefault();
     pubsub.trigger('app:next');
+  },
+
+  rotate: function(e) {
+    e.preventDefault();
+    pubsub.trigger('cropper:rotate');
   }
 });

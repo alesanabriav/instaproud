@@ -59,7 +59,7 @@
       padding-left: 10px;
     }
 
-    > .check-button, > .next-button {
+    > .check-button, > .next-button, .rotate-button {
       position: absolute;
       right: 0;
       top: 0;
@@ -68,6 +68,11 @@
       color: #fff;
       height: 50px;
       padding: 5px 10px;
+    }
+
+    .rotate-button {
+      right: 70px;
+      padding: 5px 20px;
     }
 
     > .next-button {

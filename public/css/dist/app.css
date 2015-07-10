@@ -254,7 +254,7 @@ a {
       border-right: 1px solid #f1f1f1;
       padding-right: 20px;
       padding-left: 10px; }
-    .header-nav > .container > .check-button, .header-nav > .container > .next-button {
+    .header-nav > .container > .check-button, .header-nav > .container > .next-button, .header-nav > .container .rotate-button {
       position: absolute;
       right: 0;
       top: 0;
@@ -263,6 +263,9 @@ a {
       color: #fff;
       height: 50px;
       padding: 5px 10px; }
+    .header-nav > .container .rotate-button {
+      right: 70px;
+      padding: 5px 20px; }
     .header-nav > .container > .next-button {
       padding: 5px 20px; }
 

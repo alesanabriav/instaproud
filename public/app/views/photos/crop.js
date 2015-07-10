@@ -9,6 +9,7 @@ var pubsub = require('utils/pubsub');
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
+
   //Start Listen events
   initialize: function() {
     var _this = this;
@@ -16,7 +17,9 @@ module.exports = Backbone.View.extend({
     _this.listenTo(pubsub, "view:remove", _this.remove, _this);
     _this.listenTo(pubsub, "photo:crop", _this.startCrop, _this);
     _this.listenTo(pubsub, "app:next", _this.sendCrop, _this);
+    _this.listenTo(pubsub, "cropper:rotate", _this.rotate, _this);
     _this.data = '';
+    _this.cropper;
   },
 
   startCrop: function() {
@@ -25,16 +28,8 @@ module.exports = Backbone.View.extend({
     var $img = $container.find('img');
     var image;
     var data;
-    var canvas;
     var context;
     var storagedImage;
-
-    $container
-    .append('<canvas width="500" height="500" class="hidden" />')
-    .css("max-height", "500px");
-
-    canvas = $container.find('canvas').get(0);
-    context = canvas.getContext("2d");
     // storagedImage = localStorage.getItem('imageToCrop');
 
     // if ($img.attr('src') === undefined) {
@@ -52,16 +47,25 @@ module.exports = Backbone.View.extend({
       dragCrop: false,
 
       crop: function(data) {
-        image = $container.find('img').get(0);
-        context.drawImage(image, data.x, data.y, data.width, data.height, 0, 0, 500, 500);
-        _this.data = canvas.toDataURL();
+        // image = $container.find('img').get(0);
+        // context.rotate(parseInt(data.rotate) * Math.PI / 180);
+        // context.drawImage(image, data.x, data.y, data.width, data.width, 0, 0, 500, 500);
+
+        _this.data = $(this).cropper('getCroppedCanvas').toDataURL();
       },
 
       built: function () {
+        _this.cropper = this;
         $(this).cropper('setCropBoxData',{width: '100%'});
         $('.preloader').addClass('hidden');
       }
     });
+
+    pubsub.trigger("appHeader:showRotate");
+  },
+
+  rotate: function() {
+    $(this.cropper).cropper('rotate', 90);
   },
 
   sendCrop: function() {
