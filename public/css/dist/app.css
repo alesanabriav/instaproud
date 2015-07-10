@@ -303,7 +303,8 @@ a {
       height: 50px;
       overflow: hidden;
       margin-right: 10px;
-      z-index: 2; }
+      z-index: 2;
+      background: #fff; }
       .photo-feed > .header > .avatar-container > img {
         z-index: 1;
         position: absolute;
