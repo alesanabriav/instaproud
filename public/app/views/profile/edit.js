@@ -156,8 +156,8 @@ module.exports = Backbone.View.extend({
       bio: $bio
     };
 
-    return this.update(data, function() {
-      pubsub.trigger('navigator:change', '/');
+    return this.update(data, function(res) {
+      pubsub.trigger('navigator:change', '/profile/' + res.username);
     });
   }
 });

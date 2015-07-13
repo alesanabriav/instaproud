@@ -1,6 +1,5 @@
-"use strict";
-var $ = require("jquery");
-var _ = require('underscore');
+'use strict';
+var $ = require('jquery');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var loadImages = require('utils/loadImages');
@@ -13,24 +12,27 @@ module.exports = Backbone.View.extend({
     'click .image-open': 'open'
   },
 
-  //Start Listen events
+  /** Start Listen events */
   initialize: function() {
-    var _this = this;
-    _this.listenTo(pubsub, "view:remove", _this.remove, _this);
+    this.listenTo(pubsub, 'view:remove', this.remove, this);
   },
 
+  /**
+   * attach template with data
+   * @param {object} data
+   * @return {object} this
+   */
   render: function(data) {
-    var _this = this;
-
-    _this.$el
+    this.$el
     .empty()
     .append(template( data ));
 
-    $("#app-container")
+    $('#app-container')
     .empty()
-    .append(_this.$el);
+    .append(this.$el);
     loadImages();
-    return _this;
+
+    return this;
   }
 
 });

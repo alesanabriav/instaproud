@@ -1,7 +1,6 @@
-"use strict";
+'use strict';
 var $ = require('jquery');
 var Backbone = require('backbone');
-var _ = require('underscore');
 var pubsub = require('utils/pubsub');
 var templateHeader = require('templates/app_header.hbs');
 
@@ -13,88 +12,67 @@ module.exports = Backbone.View.extend({
     'click .rotate-button': 'rotate'
   },
 
-  //Listen events
+  /** Start listen events */
   initialize: function() {
-    var _this = this;
-    _this.listenTo(pubsub, "view:remove", _this.remove, _this);
-    _this.listenTo(pubsub, 'appHeader:change', _this.render, _this);
-    // _this.listenTo(pubsub, 'input:onFocus', _this.hide, _this);
-    // _this.listenTo(pubsub, 'input:onFocusOut', _this.show, _this);
-
-    _this.listenTo(pubsub, 'appHeader:showNext', _this.showNext, _this);
-    _this.listenTo(pubsub, 'appHeader:hideNext', _this.hideNext, _this);
-
-    _this.listenTo(pubsub, 'appHeader:showCheck', _this.showCheck, _this);
-    _this.listenTo(pubsub, 'appHeader:hideCheck', _this.hideCheck, _this);
-
-    _this.listenTo(pubsub, 'appHeader:showRotate', _this.showRotate, _this);
-    _this.listenTo(pubsub, 'appHeader:hideRotate', _this.hideRotate, _this);
-
-    _this.listenTo(pubsub, 'appHeader:showBack', _this.showBack, _this);
-    _this.listenTo(pubsub, 'appHeader:hideBack', _this.hideBack, _this);
-
-    _this.listenTo(pubsub, 'appHeader:showClose', _this.showClose, _this);
-    _this.listenTo(pubsub, 'appHeader:hideClose', _this.hideClose, _this);
+    this.listenTo(pubsub, 'view:remove', this.remove, this);
+    this.listenTo(pubsub, 'appHeader:change', this.render, this);
+    this.listenTo(pubsub, 'appHeader:showNext', this.showElement('.next-button'), this);
+    this.listenTo(pubsub, 'appHeader:hideNext', this.hideElement('.next-button'), this);
+    this.listenTo(pubsub, 'appHeader:showCheck', this.showElement('.check-button'), this);
+    this.listenTo(pubsub, 'appHeader:hideCheck', this.hideElement('.check-button'), this);
+    this.listenTo(pubsub, 'appHeader:showRotate', this.showElement('.rotate-button'), this);
+    this.listenTo(pubsub, 'appHeader:hideRotate', this.hideElement('.rotate-button'), this);
+    this.listenTo(pubsub, 'appHeader:showBack', this.showElement('.back-button'), this);
+    this.listenTo(pubsub, 'appHeader:hideBack', this.hideElement('.back-button'), this);
+    this.listenTo(pubsub, 'appHeader:showClose', this.showClose, this);
+    this.listenTo(pubsub, 'appHeader:hideClose', this.hideClose, this);
   },
 
-  hide: function() {
-    this.$el.parent().hide();
+  /**
+   * attach template with data
+   * @param {object} data
+   * @return {object} this
+   */
+  render: function(data) {
+    var template;
+    if (data) {
+      template = templateHeader(data);
+    } else {
+      template = templateHeader();
+    }
+
+    $(this.el)
+    .empty()
+    .append(template);
+
+    return this;
   },
 
   show: function() {
     this.$el.parent().show();
   },
 
-  render: function(data) {
-
-    var _this = this;
-
-    if (data) {
-      var template = templateHeader(data);
-    } else {
-      var template = templateHeader();
-    }
-
-    $(_this.el)
-    .empty()
-    .append(template);
-    return _this;
+  hide: function() {
+    this.$el.parent().hide();
   },
 
-  showNext: function() {
-    this.$el.find('.next-button').removeClass('hidden');
+  /** show element hidden */
+  showElement: function(el) {
+    this.$el.find(el).removeClass('hidden');
   },
 
-  showCheck: function() {
-    this.$el.find('.check-button').removeClass('hidden');
+  /** hide element showed */
+  hideElement: function(el) {
+    this.$el.find(el).removeClass('hidden');
   },
 
-  showClose: function() {
-    this.$el.find('.close-button').removeClass('hidden');
-  },
-
-  showRotate: function() {
-    this.$el.find('.rotate-button').removeClass('hidden');
-  },
-
-  backClose: function() {
-    this.$el.find('.back-button').removeClass('hidden');
-  },
-
-  hideCheck: function() {
-    this.$el.find('.check-button').removeClass('hidden');
-  },
-
-  hideNext: function() {
-    this.$el.find('.next-button').addClass('hidden');
-  },
-
-  //execute event
+  /** Trigger event next */
   next: function(e) {
     e.preventDefault();
     pubsub.trigger('app:next');
   },
 
+  /** Trigger event rotate */
   rotate: function(e) {
     e.preventDefault();
     pubsub.trigger('cropper:rotate');

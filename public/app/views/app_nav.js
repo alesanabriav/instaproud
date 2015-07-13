@@ -1,6 +1,5 @@
-"use strict";
+'use strict';
 var $ = require('jquery');
-var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var templateNav = require('templates/app_nav.hbs');
@@ -13,39 +12,48 @@ module.exports = Backbone.View.extend({
     'click a': 'changeState'
   },
 
+  /** Start listen events */
   initialize: function() {
-    var _this = this;
-    _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
-    _this.listenTo(pubsub, 'footerNav:changeState', _this.changeState, _this);
-    _this.listenTo(pubsub, 'footerNav:remove', _this.remove, _this);
-    _this.listenTo(pubsub, 'input:onFocus', _this.hide, _this);
-    _this.listenTo(pubsub, 'input:onFocusOut', _this.show, _this);
+    this.listenTo(pubsub, 'view:remove', this.remove, this);
+    this.listenTo(pubsub, 'footerNav:changeState', this.changeState, this);
+    this.listenTo(pubsub, 'footerNav:remove', this.remove, this);
+    this.listenTo(pubsub, 'input:onFocus', this.hide, this);
+    this.listenTo(pubsub, 'input:onFocusOut', this.show, this);
   },
 
+  /**
+   * attach template with data
+   * @return {object} this
+   */
+  render: function() {
+    this.$el
+    .empty()
+    .append(templateNav());
+
+    return this;
+  },
+
+  /** hide this */
   hide: function() {
     this.$el.hide();
   },
 
+  /** show this */
   show: function() {
     this.$el.show();
   },
 
-  render: function() {
-    var _this = this;
-
-    _this.$el
-    .empty()
-    .append(templateNav());
-
-    return _this;
-  },
-
+  /**
+   * get file from input and trigger event
+   * @param  {object} e jquery event
+   */
   getPhoto: function(e) {
     var $file = $(e.currentTarget)[0].files[0];
-    pubsub.trigger('photo:render', $file);
+    return pubsub.trigger('photo:render', $file);
   },
 
-  changeState: function(e) {
+  /** Show section active */
+  changeState: function() {
     var $btns = $(this.el).find('a');
     var url = window.location.hash;
 
@@ -53,10 +61,10 @@ module.exports = Backbone.View.extend({
       $(this.el).find('.home').addClass('active');
     }
 
-    $btns.each(function(btn) {
+    $btns.each(function() {
       if (url === $(this).attr('href')) {
         $(this).parent().addClass('active');
-      };
+      }
     });
 
   }

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 global.jQuery = require('jquery');
 var $ = jQuery;
 var _ = require('underscore');
@@ -8,6 +8,8 @@ var loadImages = require('utils/loadImages');
 var helpers = require('helpers/helpers_hbs');
 var fastclick = require('fastclick');
 var nprogress = require('nprogress');
+var redirect = require('utils/redirect');
+var scrollTrigger = require('scroll-trigger');
 
 Backbone.$ = $;
 
@@ -15,51 +17,33 @@ var Router = require('./router');
 var router = new Router();
 Backbone.history.start();
 
-var Navigator = {
+redirect(router).initialize();
 
-  initialize: function() {
-    pubsub.on('navigator:change', this.trigger, this);
-  },
-
-  trigger: function(url) {
-    router.navigate(url, {trigger: true});
-  }
-
-}
-
-Navigator.initialize();
-
+/** On ajax start show preloader */
 $( document ).ajaxStart(function() {
   if (window.location.hash !== '#register' && window.location.hash !== '#login') {
     nprogress.inc();
   }
 });
 
+/** On ajax complete hide preloader */
 $( document ).ajaxComplete(function() {
   nprogress.done();
 });
 
-$(window).scroll(_.throttle(function(){
-  var body = document.body;
-  var tolerance = 500;
-  var threshold = body.scrollHeight - window.innerHeight - tolerance;
-
-  if($(window).scrollTop() > threshold) {
-    pubsub.trigger("general:scroll")
-  }
-
-}, 1000));
-
-$("body").on("click", ".back-button", function (event) {
-    event.preventDefault();
-    window.history.back();
+scrollTrigger(1000, 700, function() {
+  pubsub.trigger('general:scroll');
 });
 
-$( document ).ajaxError(function( event, jqxhr, settings, thrownError ) {
+$('body').on('click', '.back-button', function (event) {
+  event.preventDefault();
+  window.history.back();
+});
+
+$( document ).ajaxError(function( event, jqxhr) {
   if (jqxhr.status === 403) {
     router.navigate('#login', {trigger: true, replace: true});
-  };
+  }
 });
 
 window.onload = loadImages();
-

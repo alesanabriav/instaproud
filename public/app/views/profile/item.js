@@ -1,7 +1,5 @@
-"use strict";
-
-var $ = require("jquery");
-var _ = require('underscore');
+'use strict';
+var $ = require('jquery');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var templateItem = require('templates/profile/item.hbs');
@@ -13,41 +11,55 @@ Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
 
-  //Start Listen events
+  /** Start Listen events */
   initialize: function() {
-    var _this = this;
-    _this.photosSkip = 0;
-    _this.listenTo(pubsub, "view:remove", _this.remove, _this);
-    _this.listenTo(pubsub, "general:scroll", _this.loadMore, _this);
-    _this.listenTo(pubsub, "profile:addPhotos", _this.loadMore, _this);
+    this.listenTo(pubsub, 'view:remove', this.remove, this);
+    this.listenTo(pubsub, 'general:scroll', this.loadMore, this);
+    this.listenTo(pubsub, 'profile:addPhotos', this.loadMore, this);
+    this.photosSkip = 0;
   },
 
+  /**
+   * Get more photos from api
+   * @param  {object} e jquery event
+   */
   loadMore: function(e) {
     if (e) e.preventDefault();
-
-    var _this = this;
-    var skip = _this.photosSkip + 12;
+    var skip = this.photosSkip + 12;
     var username = JSON.parse(localStorage.getItem('user')).username;
 
     $.ajax({
-      url: urls.baseUrl+'/api/users/'+ username +'/photos',
+      url: urls.baseUrl + '/api/users/' + username + '/photos',
       method: 'GET',
       data: {photosSkip: skip}
     })
     .then(function(models) {
+      this.loadPhotos(models);
+    }.bind(this));
 
-      _this.$el.find('.photos-grid').append(templatePhotos(models));
-      loadImages();
-    });
-    _this.photosSkip = skip;
+    this.photosSkip = skip;
   },
 
+  /**
+   * attach template with photos
+   * @return {object} this
+   */
+  loadPhotos: function(models) {
+    this.$el.find('.photos-grid').append(templatePhotos(models));
+    loadImages();
+  },
+
+  /**
+   * attach template with data
+   * @param {object} data
+   * @return {object} this
+   */
   render: function(data) {
-    var _this = this;
-    _this.$el.empty()
+    this.$el
+    .empty()
     .append( templateItem( data ) );
     loadImages();
-    return _this;
+    return this;
   }
 
 });
