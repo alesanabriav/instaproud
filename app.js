@@ -2,11 +2,8 @@
 require('newrelic');
 var fs = require('fs');
 var express = require('express');
-var router = express.Router();
 var passport = require('passport');
 var session = require('express-session');
-var cors = require('express-cors');
-var csurf = require('csurf');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');

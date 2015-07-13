@@ -179,6 +179,16 @@ a {
   }
 }
 
+.alert {
+  padding: 10px;
+  border-radius: 0;
+  margin-bottom: 10px;
+}
+
+.alert-warning {
+  border: none;
+}
+
 @import 'mixins/image_circle';
 @import 'app_nav';
 @import 'app_header';

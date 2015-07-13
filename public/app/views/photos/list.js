@@ -17,8 +17,8 @@ module.exports = Backbone.View.extend({
   initialize: function() {
     var _this = this;
 
-    _this.listenTo(pubsub, "view:remove", _this.remove, _this);
-    _this.listenTo(pubsub, "general:scroll", _this.loadMore, _this);
+    _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
+    _this.listenTo(pubsub, 'general:scroll', _this.loadMore, _this);
     _this.listenTo(_this.collection, 'reset', _this.render);
     _this.listenTo(_this.collection, 'add', _this.addMore);
     _this.photosSkip = 5;
@@ -44,7 +44,7 @@ module.exports = Backbone.View.extend({
 
     _this.$el.empty().append(views);
 
-    $("#app-container")
+    $('#app-container')
     .empty()
     .append(_this.el);
 

@@ -30,9 +30,16 @@ UserSchema = new Schema({
     type: String,
     default: 'consumer'
   },
-  active: {
-    type: Boolean,
+  status: {
+    type: String,
     default: false
+  },
+  loginAttemps: {
+    type: Number,
+    default: 0
+  },
+  lastLogin: {
+    type: Date
   },
   created: {
     type: Date,
@@ -66,9 +73,13 @@ UserSchema.pre('save', function(next) {
   var username = user.email.split('@');
   user.username = username[0];
   user.updated = Date.now;
+
   bcrypt.genSalt(10, function(err, salt) {
+    if (err) return next(err);
+
     bcrypt.hash(user.password, salt, function(err, hash) {
       if (err) return next(err);
+
       user.salt = salt + Date.now();
       user.password = hash;
       next();
