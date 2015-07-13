@@ -1,4 +1,4 @@
-//Dependencies
+'use strict';
 global.jQuery = require('jquery');
 var $ = global.jQuery;
 var _ = require('underscore');
@@ -15,36 +15,24 @@ Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   events: {
-    'change .uploadPhoto': 'uploadImg',
+    'change .uploadPhoto': 'getProfileImage',
     'submit form': 'stopSubmit'
   },
 
-  //listen events
+  /** listen events */
   initialize: function() {
-    var _this = this;
-    _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
-    _this.listenTo(_this.model, 'change', _this.render, _this);
-    _this.listenTo(pubsub, 'app:next', _this.next, _this);
+    this.listenTo(pubsub, 'view:remove', this.remove, this);
+    this.listenTo(this.model, 'change', this.render, this);
+    this.listenTo(pubsub, 'app:next', this.getUserData, this);
   },
 
+  /** stop submit propagate event */
   stopSubmit: function(e) {
     e.preventDefault();
   },
 
-  //Render form
-  render: function() {
-    var _this = this;
-    var data;
-
-    if (_this.model.get('birthday')) {
-      data = _.extend(
-        parseDate(_this.model.get('birthday')),
-        _this.model.toJSON()
-        );
-    } else {
-      data = _this.model.toJSON();
-    }
-
+  /** merge years, days and data */
+  mergeData: function(data) {
     var years = {
       years: getInterval(1905, 1999, true)
     };
@@ -53,39 +41,100 @@ module.exports = Backbone.View.extend({
       days: getInterval(1, 31)
     };
 
-    var template = templateEdit( _.extend( data, years, days ) );
-
-    _this.$el.empty().append(template);
-
-    $("#app-container").empty().append(_this.el);
-
-    return _this;
+    return _.extend( data, years, days );
   },
 
-  store: function(data, cb) {
-    var _this = this;
+  /**
+   * attach template with data
+   * @return {object} this
+   */
+  render: function() {
+    var data;
 
+    /** if user has birthday merge birthday parsed with model */
+    if (this.model && this.model.get('birthday')) {
+      data = _.extend(
+        parseDate(this.model.get('birthday')),
+        this.model.toJSON()
+        );
+    } else {
+      data = this.model.toJSON();
+    }
+
+    this.$el
+    .empty()
+    .append(templateEdit( this.mergeData(data) ));
+
+    $('#app-container')
+    .empty()
+    .append(this.el);
+
+    return this;
+  },
+
+  /**
+   * store user data
+   * @param  {object}   data - user data
+   * @param  {Function} cb   - callback
+   * @return {Function} callback
+   */
+  update: function(data, cb) {
     $.ajax({
-      url: urls.baseUrl+"/users/"+_this.model.id,
-      method: "PUT",
+      url: urls.baseUrl + '/users/' + this.model.id,
+      method: 'PUT',
       data: data
     })
     .then(function(res) {
       return cb(res);
-    })
+    });
   },
 
-  uploadImg: function(e) {
-    var _this = this;
-    var id = _this.model.id;
+  /**
+   * get file from input
+   * @param  {object} e jquery event
+   * @return {Function}  execute uploadProfileImage
+   */
+  getProfileImage: function(e) {
     var $file = $(e.currentTarget)[0].files[0];
-
-    uploadFile($file, "profile_image", '/users/'+ id +'/image', function(res) {
-      $('.profile-image').find('img').attr('src', urls.s3Bucket + "/" + res.id +"/"+ res.profile_image);
-    })
+    this.uploadProfileImage($file);
   },
 
-  next: function() {
+  /**
+   * Upload file and show it
+   * @param {file} file - profile image
+   * @return {Function}  execute uploadFile module
+   */
+  uploadProfileImage: function(file) {
+    var id = this.model.id;
+    var $profileImage = $('.profile-image').find('img');
+    var name = 'profile_image';
+    var url = '/users/' + id + '/image';
+
+    return uploadFile(file, name, url, function(res) {
+      $profileImage.attr('src', urls.s3Bucket + '/' + res.id + '/' + res.profile_image);
+    });
+  },
+
+  /** validate birthday is not empty */
+  validateBirthday: function(day, month, year) {
+    if (day === '' || month === '' || year === '') {
+      return alertify.error('Fecha requerida');
+    }
+  },
+
+  /** validate field is not empty */
+  validateNotEmpty: function(field, name) {
+    if (field === '') {
+      return alertify.error(name + ' requerido');
+    }
+  },
+
+  /**
+   * get user data from user form
+   * @return {Function} execute update
+   */
+  getUserData: function() {
+    var data;
     var $form = this.$el.find('form');
     var $name = $form.find('input[name="name"]').val();
     var $gender = $form.find('select[name="gender"]').val();
@@ -95,22 +144,20 @@ module.exports = Backbone.View.extend({
     var $area = $form.find('select[name="area"]').val();
     var $bio = $form.find('textarea[name="bio"]').val();
 
-    if ($day === "" || $month === "" || $year === "") {
-      return alertify.error('Fecha incorrecta');
-    };
+    this.validateNotEmpty($name, 'Nombre');
+    this.validateNotEmpty($area, 'Seleccionar Areá');
+    this.validateBirthday($day, $month, $year);
 
-    var data = {
+    data = {
       name: $name,
       gender: $gender,
-      birthday: $year+"-"+$month+"-"+$day,
+      birthday: $year + '-' + $month + '-' + $day,
       area: $area,
       bio: $bio
     };
 
-    this.store(data, function(res) {
+    return this.update(data, function() {
       pubsub.trigger('navigator:change', '/');
     });
-
-
   }
 });

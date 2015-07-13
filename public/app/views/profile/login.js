@@ -11,32 +11,47 @@ Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   events: {
-    'click .form-login-btn': 'login'
+    'click .form-login-btn': 'getUserData'
   },
 
+  /** Attach template to element   */
   render: function() {
     this.$el.empty().append(template);
     return this;
   },
 
-  login: function(e) {
+  /**
+   * get Data from login form
+   * @param  {object} e - jquery event
+   * @return {function} login - execute login method
+   */
+  getUserData: function(e) {
     e.preventDefault();
-    var email = $('.form-login').find('input[name="email"]').val();
-      var emailChecked = emailDomain(email, '@bvc.com.co');
-      var password = $('.form-login').find('input[name="password"]').val();
-      var data = {'email': emailChecked, 'password': password};
+    var $formLogin = this.$('.form-login');
+    var email = $formLogin.find('input[name="email"]').val();
+    var password = $formLogin.find('input[name="password"]').val();
+    var emailChecked = emailDomain(email, '@bvc.com.co');
+    return this.login({'email': emailChecked, 'password': password});
+  },
 
-      $.ajax({
-        url: urls.baseUrl + '/login',
-        method: 'POST',
-        data: data
-      }).then(function(res){
-        if (res.message || res.error) {
-          alertify.error(res.message);
-          return;
-        }
-        localStorage.setItem('user', JSON.stringify(res));
-        window.location.replace('#');
-      });
+  /**
+   * try to login user
+   * @param  {object} data - user access
+   * @return {Function} ajax
+   */
+  login: function(data) {
+    return $.ajax({
+      url: urls.baseUrl + '/login',
+      method: 'POST',
+      data: data
+      })
+    .then(function(res){
+      if (res.message || res.error) {
+        alertify.error(res.message);
+        return;
+      }
+      localStorage.setItem('user', JSON.stringify(res));
+      window.location.replace('#');
+    });
   }
 });

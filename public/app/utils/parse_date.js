@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function parseDate(date) {
   var newDate = date.split('-');
   var year = newDate[0];
@@ -9,4 +11,4 @@ module.exports = function parseDate(date) {
     month: month,
     day: day
   };
-}
+};
