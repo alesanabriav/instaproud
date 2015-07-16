@@ -83,7 +83,7 @@ module.exports = Backbone.View.extend({
         _this.storeGeolocation(position, id);
       });
     } else {
-      alertify.error("Geolocalización no es soportada por este navegador");
+      alertify.error('Geolocalización no es soportada por este navegador');
     }
   },
 
@@ -111,7 +111,7 @@ module.exports = Backbone.View.extend({
 
     var data = {"tagged": userId};
 
-    $.post(urls.baseUrl+'/api/photos/'+this.model.id+'/untagged', data)
+    $.post(urls.baseUrl + '/api/photos/' + this.model.id + '/untagged', data)
     .then(function() {
       $el.remove();
     });
