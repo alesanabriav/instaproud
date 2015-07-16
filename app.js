@@ -1,6 +1,5 @@
-//Dependencies
+'use strict';
 require('newrelic');
-var fs = require('fs');
 var express = require('express');
 var passport = require('passport');
 var session = require('express-session');
@@ -23,7 +22,6 @@ global.__base = __dirname + '/';
 var index = require('./routes/index');
 
 var app = express();
-
 
 // Config files
 var dbConfig =  require('./config/db.js');

@@ -6,7 +6,6 @@ var store = require(__base +'lib/photos/store');
 var updateCaption = require(__base + 'lib/photos/update_caption');
 var compressImage = require(__base + 'lib/photos/compress_image');
 var process = require(__base + 'lib/photos/process');
-var CreateHash = require(__base + 'lib/createName');
 var filters = require(__base + 'lib/photos/filters');
 
 app.get('/api/photos', function(req, res, next) {
@@ -68,16 +67,15 @@ app.post('/api/photos/compress', function(req, res, next) {
 
 app.post('/api/photos/upload', function(req, res, next) {
   var user = req.user;
-  var img = new Buffer(req.body.img ,'base64');
-
+  var img = new Buffer(req.body.img, 'base64');
   process(img, user, function(err, name) {
-    res.json({"original": name});
+    if(err) return next(err);
+    res.json({'original': name});
   });
-
 });
 
 app.post('/api/photos/filter', function(req, res, next) {
-  var path = "./public/"+ req.body.src;
+  var path = './public/' + req.body.src;
   var imageName = req.body.src.split('/')[2];
   var filter = req.body.filter;
   var user = req.user;
