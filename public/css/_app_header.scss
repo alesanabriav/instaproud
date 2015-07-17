@@ -40,14 +40,15 @@
 
     h3, h4{
       display: block;
-      margin: 15px 0 0 70px;
+      margin: 15px 0 0 0;
       color: #fff;
       overflow: hidden;
       text-overflow: ellipsis;
       text-transform: uppercase;
+      text-align: center;
     }
 
-    > .back-button, >.close-button {
+    > .back-button, >.close-button{
       position: absolute;
       left: 0;
       top: 0;
@@ -59,7 +60,7 @@
       padding-left: 10px;
     }
 
-    > .check-button, > .next-button, .rotate-button {
+    > .check-button, > .next-button, .rotate-button, > .close-session-button  {
       position: absolute;
       right: 0;
       top: 0;
@@ -68,6 +69,11 @@
       color: #fff;
       height: 50px;
       padding: 5px 10px;
+    }
+
+    > .close-session-button {
+      padding-top: 15px;
+      font-size: 1em;
     }
 
     .rotate-button {

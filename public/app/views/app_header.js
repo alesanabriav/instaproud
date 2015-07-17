@@ -33,6 +33,9 @@ module.exports = Backbone.View.extend({
 
     this.listenTo(pubsub, 'appHeader:showClose', this.showClose, this);
     this.listenTo(pubsub, 'appHeader:hideClose', this.hideClose, this);
+
+    this.listenTo(pubsub, 'appHeader:showCloseSession', this.showCloseSession, this);
+    this.listenTo(pubsub, 'appHeader:hideCloseSession', this.hideCloseSession, this);
   },
 
   hide: function() {
@@ -62,12 +65,24 @@ module.exports = Backbone.View.extend({
     this.$el.find('.next-button').removeClass('hidden');
   },
 
+  hideNext: function() {
+    this.$el.find('.next-button').addClass('hidden');
+  },
+
   showCheck: function() {
+    this.$el.find('.check-button').removeClass('hidden');
+  },
+
+  hideCheck: function() {
     this.$el.find('.check-button').removeClass('hidden');
   },
 
   showClose: function() {
     this.$el.find('.close-button').removeClass('hidden');
+  },
+
+  showCloseSession: function() {
+    this.$el.find('.close-session-button').removeClass('hidden');
   },
 
   showRotate: function() {
@@ -76,14 +91,6 @@ module.exports = Backbone.View.extend({
 
   backClose: function() {
     this.$el.find('.back-button').removeClass('hidden');
-  },
-
-  hideCheck: function() {
-    this.$el.find('.check-button').removeClass('hidden');
-  },
-
-  hideNext: function() {
-    this.$el.find('.next-button').addClass('hidden');
   },
 
   //execute event

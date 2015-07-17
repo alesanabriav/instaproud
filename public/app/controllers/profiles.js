@@ -35,6 +35,7 @@ module.exports = {
 
   item: function(username) {
     pubsub.trigger('appHeader:change', {title: username});
+    pubsub.trigger('appHeader:showCloseSession');
     var view = new Item();
     // React.render(<Item username={username} /> , document.getElementById("app-container"));
 
@@ -50,6 +51,7 @@ module.exports = {
     var getUser = localStorage.getItem('user');
     var username = JSON.parse(getUser).username;
     pubsub.trigger('appHeader:change', {title: username});
+    pubsub.trigger('appHeader:showCloseSession');
     $.get(urls.baseUrl+'/api/users/'+ username +'/photos')
     .then(function(model) {
       $("#app-container").empty().append(view.render(model).el);

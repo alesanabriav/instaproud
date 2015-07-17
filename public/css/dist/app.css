@@ -260,11 +260,12 @@ a {
       text-align: center; }
     .header-nav > .container h3, .header-nav > .container h4 {
       display: block;
-      margin: 15px 0 0 70px;
+      margin: 15px 0 0 0;
       color: #fff;
       overflow: hidden;
       text-overflow: ellipsis;
-      text-transform: uppercase; }
+      text-transform: uppercase;
+      text-align: center; }
     .header-nav > .container > .back-button, .header-nav > .container > .close-button {
       position: absolute;
       left: 0;
@@ -275,7 +276,7 @@ a {
       border-right: 1px solid #f1f1f1;
       padding-right: 20px;
       padding-left: 10px; }
-    .header-nav > .container > .check-button, .header-nav > .container > .next-button, .header-nav > .container .rotate-button {
+    .header-nav > .container > .check-button, .header-nav > .container > .next-button, .header-nav > .container .rotate-button, .header-nav > .container > .close-session-button {
       position: absolute;
       right: 0;
       top: 0;
@@ -284,6 +285,9 @@ a {
       color: #fff;
       height: 50px;
       padding: 5px 10px; }
+    .header-nav > .container > .close-session-button {
+      padding-top: 15px;
+      font-size: 1em; }
     .header-nav > .container .rotate-button {
       right: 70px;
       padding: 5px 20px; }

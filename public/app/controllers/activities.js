@@ -2,15 +2,9 @@
 var Store = require('views/activities/store');
 var list = require('views/activities/list');
 var models = require('models/activity');
-var List = require('views/activities/list.jsx');
-var React = require('react');
-var $ = require('jquery');
+// var List = require('views/activities/list.jsx');
 
 module.exports = {
-  initialize: function() {
-
-  },
-
   store: function() {
     new Store();
   },

@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.1.35",
+    "base64-url": "^1.2.1",
     "bcrypt": "^0.8.2",
     "bluebird": "^2.9.27",
     "body-parser": "~1.12.0",

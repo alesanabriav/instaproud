@@ -1,18 +1,21 @@
-var gulp      = require('gulp');
+'use strict';
+
+var gulp = require('gulp');
+var watchify = require('watchify');
 var browserify = require('browserify');
-var uglify = require('gulp-uglify');
-var hbsfy = require("hbsfy"); // compile templates
-var source = require('vinyl-source-stream'); // Use conventional text streams
-var sourcemaps = require('gulp-sourcemaps'); // Write inline source maps
-var debowerify = require('debowerify'); // use bower components like npm
-var browserifyShim = require('browserify-shim');
-var fs = require('fs-extra');
+var hbsfy = require('hbsfy');
+var source = require('vinyl-source-stream');
+var sourcemaps = require('gulp-sourcemaps');
+var debowerify = require('debowerify');
 var reactify = require('reactify');
+var browserifyShim = require('browserify-shim');
 
 // compile browersify app
-gulp.task('compile-browerserify', function () {
+gulp.task('browserify', function () {
   var options = {
     insertGlobals: true,
+    cache: {},
+    packageCache: {},
     paths: [
       './node_modules',
       './app/',
@@ -30,7 +33,11 @@ gulp.task('compile-browerserify', function () {
     extensions: ['hbs']
   });
 
-    browserify('./app/app.js', options)
+  var b = browserify('./app/app.js', options);
+  var w = watchify(b);
+
+  var rebundle = function() {
+    w
     .transform(hbsfy)
     .transform(reactify)
     .transform(debowerify)
@@ -41,6 +48,9 @@ gulp.task('compile-browerserify', function () {
     })
     .pipe(source('app.js'))
     .pipe(gulp.dest('js/dist'));
+  };
 
-    console.log('finish browserify');
+  w.on('update', rebundle);
+  return rebundle();
 });
+
