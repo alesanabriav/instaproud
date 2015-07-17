@@ -4,7 +4,7 @@ var getAll = require(__base +'lib/photos/get_all');
 var byId = require(__base +'lib/photos/by_id');
 var store = require(__base +'lib/photos/store');
 var update = require(__base +'lib/photos/update');
-var updateCaption = require(__base + 'lib/photos/update_caption');
+var hashtagStoreOrUpdate = require(__base + 'lib/hashtags/store_or_update');
 var compressImage = require(__base + 'lib/photos/compress_image');
 var process = require(__base + 'lib/photos/process');
 var filters = require(__base + 'lib/photos/filters');
@@ -31,7 +31,6 @@ app.post('/api/photos', function(req, res, next) {
     if (err) res.status(400).json(err);
     return res.status(201).json(photo);
   });
-
 });
 
 app.get('/api/photos/:id', function(req, res, next) {
@@ -47,10 +46,17 @@ app.get('/api/photos/:id', function(req, res, next) {
 app.put('/api/photos/:id', function(req, res) {
   var photoId = req.params.id;
   var data = req.body;
-  console.log(data);
+
   update(photoId, data, function(err, photo) {
     if (err) return res.status(400).json(err);
-    return res.status(200).json(photo);
+    if (photo.caption && photo.caption !== '') {
+      hashtagStoreOrUpdate(photo.caption, photo.id, function() {
+        return res.status(200).json(photo);
+      });
+    } else {
+      return res.status(200).json(photo);
+    }
+
   });
 
 });
