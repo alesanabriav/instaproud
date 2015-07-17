@@ -25,7 +25,7 @@ module.exports = Backbone.View.extend({
    */
   loadMore: function(e) {
     if (e) e.preventDefault();
-    var skip = this.photosSkip + 12;
+    var skip = this.photosSkip + 1;
     var username = JSON.parse(localStorage.getItem('user')).username;
 
     $.ajax({
