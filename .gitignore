@@ -3,3 +3,4 @@ config
 public/node_modules
 public/bower_components
 newrelic.js
+newrelic_agent.log
