@@ -9,8 +9,7 @@ var User;
 UserSchema = new Schema({
   email: {
     type: String,
-    required: '{PATH} requerido',
-    unique: true
+    required: '{PATH} requerido'
   },
   password: {
     type: String,

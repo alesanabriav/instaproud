@@ -4,7 +4,7 @@ var $ = require('jquery');
 var Login = require('views/profile/login');
 var Register = require('views/profile/register');
 var Edit = require('views/profile/edit');
-var Item = require('views/profile/item.jsx');
+var Item = require('views/profile/item');
 var Tagged = require('views/profile/tagged');
 var UserModels = require('models/user');
 var pubsub = require('utils/pubsub');
@@ -20,7 +20,7 @@ module.exports = {
 
   login: function() {
     var view = new Login();
-    $("#app-container").empty().append(view.render().el);
+    $('#app-container').empty().append(view.render().el);
   },
 
   logout: function() {
@@ -35,34 +35,42 @@ module.exports = {
 
   item: function(username) {
     pubsub.trigger('appHeader:change', {title: username});
-    // var view = new Item();
-    React.render(<Item username={username} /> , document.getElementById("app-container"));
+    var view = new Item();
+    // React.render(<Item username={username} /> , document.getElementById("app-container"));
 
-    // $.get(urls.baseUrl+'/api/users/'+ username +'/photos')
-    // .then(function(model) {
-    //   $("#app-container").empty().append(view.render(model).el);
-    //   loadImages();
-    // });
-  },
-
-  itemWithoutUsername: function() {
-    var getUser = localStorage.getItem('user');
-    var getUsername = JSON.parse(getUser).username;
-    React.render(<Item username={getUsername} /> , document.getElementById("app-container"));
-  },
-
-  tagged: function(username) {
-    var view = new Tagged();
-
-    $.get(urls.baseUrl+'/api/users/'+ username +'/tagged')
+    $.get(urls.baseUrl+'/api/users/'+ username +'/photos')
     .then(function(model) {
       $("#app-container").empty().append(view.render(model).el);
       loadImages();
     });
   },
 
+  itemWithoutUsername: function() {
+    var view = new Item();
+    var getUser = localStorage.getItem('user');
+    var username = JSON.parse(getUser).username;
+    pubsub.trigger('appHeader:change', {title: username});
+    $.get(urls.baseUrl+'/api/users/'+ username +'/photos')
+    .then(function(model) {
+      $("#app-container").empty().append(view.render(model).el);
+      loadImages();
+    });
+
+    // React.render(<Item username={getUsername} /> , document.getElementById("app-container"));
+  },
+
+  tagged: function(username) {
+    var view = new Tagged();
+
+    $.get(urls.baseUrl + '/api/users/' + username + '/tagged')
+    .then(function(model) {
+      $('#app-container').empty().append(view.render(model).el);
+      loadImages();
+    });
+  },
+
   edit: function(id) {
-    var data = {title: "Editar Perfil"};
+    var data = {title: 'Editar Perfil'};
 
     pubsub.trigger('appHeader:render', data);
 

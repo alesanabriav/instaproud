@@ -11,7 +11,7 @@ module.exports = React.createClass({
     }
   },
 
-  componentDidMount : function() {
+  componentWillMount : function() {
     var _this = this;
     var collection = new models.activities();
     collection.fetch({success: function(activities) {

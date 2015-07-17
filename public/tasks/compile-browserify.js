@@ -12,7 +12,6 @@ var reactify = require('reactify');
 // compile browersify app
 gulp.task('compile-browerserify', function () {
   var options = {
-    debug: true,
     insertGlobals: true,
     paths: [
       './node_modules',

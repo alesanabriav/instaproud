@@ -1,14 +1,13 @@
 ## Backend Dependencies
 
 - express : Manage server
-- body-parser : Manage request
-- socket.io: Real time
+- socket.io: Real time sockets
 - multer : Manage form multipart data
 - caman : Edit images
-- mongoose : ORM
+- mongoose : ODM
 - passport : Authentication
 
-## Backend Development Dependencies
+## Testing Dependencies
 
 - mocha : asynchronous testing
 - chai : BDD : TDD assertion
@@ -20,7 +19,7 @@
 - Underscore: Functions helpers
 - Handlebars: Templates
 - Browserify: Node modules on browser
-- Gulp: Improve workflow
+- Gulp: Improve workflow automation builds
 - Bower: Package managment
 - NPM: Package managment
 
@@ -31,6 +30,7 @@
 - PM2: Production process manager and load balancer.
 - NGINX: Web server and load balancer.
 - Mongodb: Database
+- Redis: Cache & Sessions
 
 ## Server Machine
 
@@ -39,6 +39,6 @@
 - 40GB SSD Disk
 - 3TB Transfer
 
-## Alternative Storage
+## Storage
 
 - Amazon s3:  highly-scalable object storage.

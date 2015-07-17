@@ -11,7 +11,7 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var mongoose = require('mongoose');
 var redis = require('redis');
-var redisStore = require('connect-redis')(session);
+var RedisStore = require('connect-redis')(session);
 var redisClient = redis.createClient();
 var Promise = require('bluebird');
 var requireAuthentication = require('./lib/checkAuth');
@@ -37,7 +37,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 // Middlewares
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false }));
@@ -46,7 +46,7 @@ app.use(cookieParser());
 //Sessions with redis Config
 app.use(session({
   secret: 'InstaProud',
-  store: new redisStore({ host: 'localhost', port: 6379, client: redisClient }),
+  store: new RedisStore({ host: 'localhost', port: 6379, client: redisClient }),
   saveUninitialized: false,
   resave: true
 }));
@@ -80,7 +80,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
+  app.use(function(err, req, res) {
     res.status(err.status || 500)
     .json('error', {
       message: err.message,
@@ -91,7 +91,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   res.status(err.status || 500)
   .json('error', {
     message: err.message,

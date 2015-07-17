@@ -1,3 +1,5 @@
+# Advices for you reader coder
+
 ### Simpler is usually better
 
 ### Don't be clever.
@@ -22,7 +24,7 @@ That includes your manager. It's your job to elicit their true needs.
 ### SOLID principles are more importants than design patterns.
 
 ### Beware of dogma
-There's usually more than one way of doing things. The term "best practice" is overused. There are some good practices in software development, but beware someone telling you that something is the "best" way of doing something.  
+There's usually more than one way of doing things. The term "best practice" is overused. There are some good practices in software development, but beware someone telling you that something is the "best" way of doing something.
 
 ### There's no such thing as perfect
 
@@ -30,42 +32,42 @@ There's usually more than one way of doing things. The term "best practice" is o
 
 Same applies for all.
 
-###You are not your code
+### You are not your code
 
-###Test your work
+### Test your work
 Try writing tests before code
 
-###Learn multiple paradigms
+### Learn multiple paradigms
 
-###Never stop learning
+### Never stop learning
 
-###Don't ask permission to refactor, test, document etc. It's all part of "programming". Don't ask permission to do your job.
+### Don't ask permission to refactor, test, document etc. It's all part of "programming". Don't ask permission to do your job.
 
 ###Care about your work.
 Care about your customers. The code we write allows the users of our code to get their shit done, without our software getting in their way.
 
 
-###Always ask
+### Always ask
 
 "what problem am I trying to solve"?
 
 In general, stick to solving one problem at a time. When you spot other problems, note them and come back to them later.
 
 
-###Be where you're at.
+### Be where you're at.
 This is a life lesson that applies to software development. When you commit to doing something, focus on doing it. When your washing the dishes focus on washing the dishes - forget all the things that stressed you out that day. If you are spending time with your family, be there - turn off your phone, forget that tough problem you've been wrestling with. When you're in a meeting, participate - focus on the conversation and forget about the work that's piled up.
 
 SRP has broader applications than just to code.
 
-###"Premature optimization is the root of all evil" - Donald Knuth.
+### "Premature optimization is the root of all evil" - Donald Knuth.
 Start with a brute force algorithm until you find a reason to change.
 
-###Ask "what's the simplest thing that can possibly work?
+### Ask "what's the simplest thing that can possibly work?
 
-###Be OK with you.
+### Be OK with you.
 You will never know everything - that is impossible. Keep learning, but don't get caught up on what you don't know
 
-###Multi-tasking is an illusion
+### Multi-tasking is an illusion
 
 Computers get away with it because they can context switch really fast (most of the time). Context switching for us mere mortals has a high cost. Do one thing at a time, and do it well.
 
@@ -79,4 +81,4 @@ Computers get away with it because they can context switch really fast (most of 
 ### Refactor make it economic add new functionality
 
 
-### clean codes make you more fastest 
+### clean codes make you more fastest
