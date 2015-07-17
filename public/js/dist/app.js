@@ -3128,7 +3128,7 @@ module.exports = Backbone.View.extend({
   getUserData: function(e) {
     e.preventDefault();
     var $formLogin = this.$('.form-login');
-    var email = $formLogin.find('input[name="email"]').val();
+    var email = $formLogin.find('input[name="email"]').val().toLowerCase();
     var password = $formLogin.find('input[name="password"]').val();
     var emailChecked = emailDomain(email, '@bvc.com.co');
     return this.login({'email': emailChecked, 'password': password});
