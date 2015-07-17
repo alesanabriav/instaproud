@@ -12,7 +12,7 @@ var fastclick = require('fastclick');
 var nprogress = require('nprogress');
 var redirect = require('utils/redirect');
 var scrollTrigger = require('scroll-trigger');
-
+var alertify = require('alertifyjs');
 Backbone.$ = $;
 
 var Router = require('./router');
@@ -51,7 +51,7 @@ $( document ).ajaxError(function( event, jqxhr) {
 window.onload = loadImages();
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/app.js","/app")
-},{"./../bower_components/jquery/dist/jquery.js":67,"./router":12,"_process":75,"backbone":70,"buffer":71,"fastclick":76,"helpers/helpers_hbs":7,"nprogress":87,"scroll-trigger":243,"underscore":244,"utils/loadImages":34,"utils/pubsub":36,"utils/redirect":37}],2:[function(require,module,exports){
+},{"./../bower_components/jquery/dist/jquery.js":67,"./router":12,"_process":75,"alertifyjs":69,"backbone":70,"buffer":71,"fastclick":76,"helpers/helpers_hbs":7,"nprogress":87,"scroll-trigger":243,"underscore":244,"utils/loadImages":34,"utils/pubsub":36,"utils/redirect":37}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use stricts';
 
@@ -2410,13 +2410,13 @@ module.exports = Backbone.View.extend({
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/list.js","/app/views/photos")
 },{"./../../../bower_components/jquery/dist/jquery.js":67,"_process":75,"backbone":70,"buffer":71,"underscore":244,"utils/loadImages":34,"utils/pubsub":36,"views/photos/item":51}],53:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-"use strict";
-
+'use strict';
 var $ = require("./../../../bower_components/jquery/dist/jquery.js");
 var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var uploadFile = require('utils/upload_file');
+var alertify = require('alertifyjs');
 
 Backbone.$ = $;
 
@@ -2425,22 +2425,23 @@ module.exports = Backbone.View.extend({
   //Start Listen events
   initialize: function() {
     var _this = this;
-    _this.listenTo(pubsub, "view:remove", _this.remove, _this);
-    _this.listenTo(pubsub, "photo:render", _this.uploadPhoto, _this);
+    _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
+    _this.listenTo(pubsub, 'photo:render', _this.uploadPhoto, _this);
   },
 
   uploadPhoto: function(file) {
-    $('.preloader').removeClass('hidden');
-    uploadFile(file, "original_image", "/api/photos/compress", function(res) {
-      $("#app-container")
+    alertify.warning('Subiendo imagen... Tenga en cuenta que su conexion podria afectar el tiempo de espera.');
+
+    uploadFile(file, 'original_image', '/api/photos/compress', function(res) {
+      $('#app-container')
       .empty()
-      .append("<img src='"+ res + "' />");
-      pubsub.trigger('navigator:change', "#crop");
+      .append('<img src="' + res + '" />');
+      pubsub.trigger('navigator:change', '#crop');
     });
   },
 
   loadPhoto: function(file) {
-    var $container = $("#app-container");
+    var $container = $('#app-container');
     var img;
     var reader;
 
@@ -2449,12 +2450,12 @@ module.exports = Backbone.View.extend({
       reader = new FileReader();
 
       reader.onload = function() {
-        //localStorage.setItem("imageToCrop", reader.result);
+        //localStorage.setItem('imageToCrop', reader.result);
         img.src = reader.result;
         $container
         .empty()
         .append(img)
-        .find("img")
+        .find('img')
         .addClass('hidden');
       };
 
@@ -2463,18 +2464,18 @@ module.exports = Backbone.View.extend({
       $('.preloader').removeClass('hidden');
 
       return _.delay(function() {
-        pubsub.trigger('navigator:change', "#crop");
+        pubsub.trigger('navigator:change', '#crop');
       }, 400);
 
     }
 
-    alert("Tipo de archivo no permitido");
+    alert('Tipo de archivo no permitido');
   }
 
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/load.js","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":67,"_process":75,"backbone":70,"buffer":71,"underscore":244,"utils/pubsub":36,"utils/upload_file":39}],54:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":67,"_process":75,"alertifyjs":69,"backbone":70,"buffer":71,"underscore":244,"utils/pubsub":36,"utils/upload_file":39}],54:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 

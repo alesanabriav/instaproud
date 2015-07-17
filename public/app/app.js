@@ -10,7 +10,7 @@ var fastclick = require('fastclick');
 var nprogress = require('nprogress');
 var redirect = require('utils/redirect');
 var scrollTrigger = require('scroll-trigger');
-
+var alertify = require('alertifyjs');
 Backbone.$ = $;
 
 var Router = require('./router');

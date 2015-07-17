@@ -1,10 +1,10 @@
-"use strict";
-
+'use strict';
 var $ = require('jquery');
 var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var uploadFile = require('utils/upload_file');
+var alertify = require('alertifyjs');
 
 Backbone.$ = $;
 
@@ -13,22 +13,23 @@ module.exports = Backbone.View.extend({
   //Start Listen events
   initialize: function() {
     var _this = this;
-    _this.listenTo(pubsub, "view:remove", _this.remove, _this);
-    _this.listenTo(pubsub, "photo:render", _this.uploadPhoto, _this);
+    _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
+    _this.listenTo(pubsub, 'photo:render', _this.uploadPhoto, _this);
   },
 
   uploadPhoto: function(file) {
-    $('.preloader').removeClass('hidden');
-    uploadFile(file, "original_image", "/api/photos/compress", function(res) {
-      $("#app-container")
+    alertify.warning('Subiendo imagen... Tenga en cuenta que su conexion podria afectar el tiempo de espera.');
+
+    uploadFile(file, 'original_image', '/api/photos/compress', function(res) {
+      $('#app-container')
       .empty()
-      .append("<img src='"+ res + "' />");
-      pubsub.trigger('navigator:change', "#crop");
+      .append('<img src="' + res + '" />');
+      pubsub.trigger('navigator:change', '#crop');
     });
   },
 
   loadPhoto: function(file) {
-    var $container = $("#app-container");
+    var $container = $('#app-container');
     var img;
     var reader;
 
@@ -37,12 +38,12 @@ module.exports = Backbone.View.extend({
       reader = new FileReader();
 
       reader.onload = function() {
-        //localStorage.setItem("imageToCrop", reader.result);
+        //localStorage.setItem('imageToCrop', reader.result);
         img.src = reader.result;
         $container
         .empty()
         .append(img)
-        .find("img")
+        .find('img')
         .addClass('hidden');
       };
 
@@ -51,12 +52,12 @@ module.exports = Backbone.View.extend({
       $('.preloader').removeClass('hidden');
 
       return _.delay(function() {
-        pubsub.trigger('navigator:change', "#crop");
+        pubsub.trigger('navigator:change', '#crop');
       }, 400);
 
     }
 
-    alert("Tipo de archivo no permitido");
+    alert('Tipo de archivo no permitido');
   }
 
 });
