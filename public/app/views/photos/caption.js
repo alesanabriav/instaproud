@@ -1,6 +1,5 @@
-"use strict";
+'use strict';
 var $ = require('jquery');
-var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var template = require('templates/photos/caption.hbs');
@@ -31,21 +30,19 @@ module.exports = Backbone.View.extend({
   },
 
   render: function() {
-    $('.preloader').addClass('hidden');
-    var _this = this;
-    _this.$el
+    this.$el
     .empty()
-    .append( template( _this.model.toJSON() ) );
-    return _this;
+    .append( template( this.model.toJSON() ) );
+    return this;
   },
 
   store: function() {
     var id = this.model.id;
-    var data = {caption: $('.caption').val()};
+    var data = {caption: this.$('.caption').val()};
 
     $.ajax({
-      url: urls.baseUrl+'/api/photos/'+id,
-      method: "PUT",
+      url: urls.baseUrl + '/api/photos/' + id,
+      method: 'PUT',
       data: data
     })
     .then(function(res) {
@@ -73,7 +70,6 @@ module.exports = Backbone.View.extend({
 
   getGeolocation: function(e) {
     e.preventDefault();
-
     var _this = this;
     var id = _this.model.id;
 
@@ -99,16 +95,16 @@ module.exports = Backbone.View.extend({
       method: 'PUT',
       data: JSON.stringify(geolocation)
     })
-    .then(function(res) {
-      console.log(res)
+    .then(function() {
+
     });
   },
 
   removeTagged: function(e) {
-    var $el =  $(e.currentTarget);
+    var $el = this.$(e.currentTarget);
     var userId = $el.data('user');
 
-    var data = {"tagged": userId};
+    var data = {'tagged': userId};
 
     $.post(urls.baseUrl + '/api/photos/' + this.model.id + '/untagged', data)
     .then(function() {

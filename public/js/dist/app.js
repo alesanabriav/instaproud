@@ -866,11 +866,11 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"3":function(depth0,helpers,partials,data) {
     var helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
-  return "    <div class=\"label label-primary tagged-remove\" data-user=\""
+  return "    <a href=\"#\" class=\"btn btn-primary btn-xs tagged-remove\" data-user=\""
     + alias3(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"id","hash":{},"data":data}) : helper)))
-    + "\">"
+    + "\">\n    "
     + alias3(((helper = (helper = helpers.username || (depth0 != null ? depth0.username : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"username","hash":{},"data":data}) : helper)))
-    + "</div>\n";
+    + " <span class=\"icon ion-ios-close-empty\"></span>\n    </a>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing;
 
@@ -878,9 +878,9 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + ((stack1 = (helpers.s3Url || (depth0 && depth0.s3Url) || alias1).call(depth0,((stack1 = (depth0 != null ? depth0.owner : depth0)) != null ? stack1.id : stack1),(depth0 != null ? depth0.path : depth0),{"name":"s3Url","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\">\n\n    <textarea class=\"caption form-control\" placeholder=\"Título\">"
     + this.escapeExpression(((helper = (helper = helpers.caption || (depth0 != null ? depth0.caption : depth0)) != null ? helper : alias1),(typeof helper === "function" ? helper.call(depth0,{"name":"caption","hash":{},"data":data}) : helper)))
-    + "</textarea>\n  </div>\n\n  <h5>Etiquetados</h5>\n\n"
+    + "</textarea>\n  </div>\n\n  <a href=\"#\" class=\"get-geolocation btn btn-primary btn-xs\"><span class=\"icon ion-ios-location\"></span> Agregar localización</a>\n\n  <h5>Etiquetados</h5>\n\n"
     + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.tagged : depth0),{"name":"each","hash":{},"fn":this.program(3, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "\n  <p></p>\n  <input type=\"text\" class=\"form-control autocomplete\" placeholder=\"Etiqueta Amigos\">\n\n  <a href=\"#\" class=\"get-geolocation btn\"><i class=\"fa fa-map-marker\"></i> Agregar localización</a>\n</section>";
+    + "\n  <p></p>\n  <input type=\"text\" class=\"form-control autocomplete\" placeholder=\"Etiqueta Amigos\">\n</section>";
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/photos/caption.hbs","/app/templates/photos")
@@ -1920,9 +1920,8 @@ module.exports = Backbone.View.extend({
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/autocomplete_user.js","/app/views/photos")
 },{"./../../../bower_components/jquery/dist/jquery.js":67,"_process":75,"backbone":70,"buffer":71,"templates/photos/autocomplete_users.hbs":18,"underscore":244,"utils/pubsub":36}],47:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-"use strict";
+'use strict';
 var $ = require("./../../../bower_components/jquery/dist/jquery.js");
-var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var template = require('templates/photos/caption.hbs');
@@ -1953,21 +1952,19 @@ module.exports = Backbone.View.extend({
   },
 
   render: function() {
-    $('.preloader').addClass('hidden');
-    var _this = this;
-    _this.$el
+    this.$el
     .empty()
-    .append( template( _this.model.toJSON() ) );
-    return _this;
+    .append( template( this.model.toJSON() ) );
+    return this;
   },
 
   store: function() {
     var id = this.model.id;
-    var data = {caption: $('.caption').val()};
+    var data = {caption: this.$('.caption').val()};
 
     $.ajax({
-      url: urls.baseUrl+'/api/photos/'+id,
-      method: "PUT",
+      url: urls.baseUrl + '/api/photos/' + id,
+      method: 'PUT',
       data: data
     })
     .then(function(res) {
@@ -1995,7 +1992,6 @@ module.exports = Backbone.View.extend({
 
   getGeolocation: function(e) {
     e.preventDefault();
-
     var _this = this;
     var id = _this.model.id;
 
@@ -2021,16 +2017,16 @@ module.exports = Backbone.View.extend({
       method: 'PUT',
       data: JSON.stringify(geolocation)
     })
-    .then(function(res) {
-      console.log(res)
+    .then(function() {
+
     });
   },
 
   removeTagged: function(e) {
-    var $el =  $(e.currentTarget);
+    var $el = this.$(e.currentTarget);
     var userId = $el.data('user');
 
-    var data = {"tagged": userId};
+    var data = {'tagged': userId};
 
     $.post(urls.baseUrl + '/api/photos/' + this.model.id + '/untagged', data)
     .then(function() {
@@ -2042,7 +2038,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/caption.js","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":67,"_process":75,"alertifyjs":69,"backbone":70,"buffer":71,"config/urls":2,"templates/photos/caption.hbs":19,"underscore":244,"utils/pubsub":36}],48:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":67,"_process":75,"alertifyjs":69,"backbone":70,"buffer":71,"config/urls":2,"templates/photos/caption.hbs":19,"utils/pubsub":36}],48:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 
@@ -2763,10 +2759,9 @@ module.exports = Backbone.View.extend({
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/store.js","/app/views/photos")
 },{"./../../../bower_components/jquery/dist/jquery.js":67,"_process":75,"backbone":70,"buffer":71,"config/urls":2,"utils/pubsub":36}],59:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-"use strict";
+'use strict';
 
 var $ = require("./../../../bower_components/jquery/dist/jquery.js");
-var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var urls = require('config/urls');
@@ -2775,14 +2770,14 @@ Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   events: {
-    "click .select": "store",
+    'click .select': 'store'
   },
 
   //Start Listen events
   initialize: function() {
     var _this = this;
-    _this.listenTo(pubsub, "view:remove", _this.remove, _this);
-    _this.listenTo(pubsub, "autocomplete:render", _this.render, _this);
+    _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
+    _this.listenTo(pubsub, 'autocomplete:render', _this.render, _this);
   },
 
   render: function(users) {
@@ -2790,7 +2785,9 @@ module.exports = Backbone.View.extend({
     this.$el
     .empty()
     .append(template);
-    $("#app-container").append(this.$el);
+
+    $('.photo-caption').append(this.$el);
+    window.scrollBy(0, 100);
     return this;
   },
 
@@ -2801,11 +2798,11 @@ module.exports = Backbone.View.extend({
     var id = this.model.id;
     var userId = $(e.currentTarget).data('user');
 
-    var data = {"tagged": userId};
+    var data = {'tagged': userId};
 
     $.ajax({
-      url: urls.baseUrl+'/api/photos/'+ id +'/tagged',
-      method: "POST",
+      url: urls.baseUrl + '/api/photos/' + id + '/tagged',
+      method: 'POST',
       data: data
     })
     .then(function(res) {
@@ -2817,7 +2814,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/tag_autocomplete.js","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":67,"_process":75,"backbone":70,"buffer":71,"config/urls":2,"templates/photos/autocomplete.hbs":16,"underscore":244,"utils/pubsub":36}],60:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":67,"_process":75,"backbone":70,"buffer":71,"config/urls":2,"templates/photos/autocomplete.hbs":16,"utils/pubsub":36}],60:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var $ = require("./../../../bower_components/jquery/dist/jquery.js");

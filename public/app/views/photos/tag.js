@@ -1,7 +1,5 @@
-"use strict";
-
-var $ = require("jquery");
-var _ = require('underscore');
+'use strict';
+var $ = require('jquery');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var urls = require('cnfig/urls');
@@ -9,21 +7,21 @@ var urls = require('cnfig/urls');
 Backbone.$ = $;
 
 // Templates
-var templateTag = require('templates/photos/tag.hbs')
+var templateTag = require('templates/photos/tag.hbs');
 
 module.exports = Backbone.View.extend({
   events: {
-    "click .store": "store",
-    "keydown .autocomplete": "autocomplete"
+    'click .store': 'store',
+    'keydown .autocomplete': 'autocomplete'
   },
 
   //Start Listen events
   initialize: function() {
     var _this = this;
-    _this.listenTo(_this.model, "change", _this.render, _this);
-    _this.listenTo(pubsub, "view:remove", _this.remove, _this);
-    _this.listenTo(pubsub, "caption:render", _this.render, _this);
-    _this.listenTo(pubsub, "photo:tagged", _this.clean, _this);
+    _this.listenTo(_this.model, 'change', _this.render, _this);
+    _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
+    _this.listenTo(pubsub, 'caption:render', _this.render, _this);
+    _this.listenTo(pubsub, 'photo:tagged', _this.clean, _this);
   },
 
   render: function() {
@@ -31,7 +29,9 @@ module.exports = Backbone.View.extend({
     var template = templateTag( _this.model.toJSON() );
     var $el = $(_this.el);
     $el.html(template);
-    $("#app-container").append($el);
+    $('#app-container').append($el);
+
+    return this;
   },
 
   clean: function() {
@@ -44,10 +44,10 @@ module.exports = Backbone.View.extend({
     var query = $(e.currentTarget).val();
 
     if (query.length) {
-      $.get(urls.baseUrl+"/users/search/"+ query)
+      $.get(urls.baseUrl + '/users/search/' + query)
       .then(function(res) {
         pubsub.trigger('autocomplete:render', res);
       });
-    };
+    }
   }
 });

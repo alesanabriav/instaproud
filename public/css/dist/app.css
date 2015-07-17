@@ -448,13 +448,15 @@ a {
   padding: 20px;
   max-width: 500px;
   margin: 0 auto; }
-  .photo-caption > .image-and-caption > img {
-    display: block;
-    float: left;
-    width: 100%; }
-  .photo-caption > .image-and-caption textarea {
-    width: 100%;
-    border-radius: 0; }
+  .photo-caption > .image-and-caption {
+    margin-bottom: 10px; }
+    .photo-caption > .image-and-caption > img {
+      display: block;
+      float: left;
+      width: 100%; }
+    .photo-caption > .image-and-caption textarea {
+      width: 100%;
+      border-radius: 0; }
 
 .search-hastag-or-users {
   background: #fff;

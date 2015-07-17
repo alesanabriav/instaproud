@@ -6,14 +6,16 @@
     <textarea class="caption form-control" placeholder="Título">{{ caption }}</textarea>
   </div>
 
+  <a href="#" class="get-geolocation btn btn-primary btn-xs"><span class="icon ion-ios-location"></span> Agregar localización</a>
+
   <h5>Etiquetados</h5>
 
   {{#each tagged}}
-    <div class="label label-primary tagged-remove" data-user="{{ id }}">{{ username }}</div>
+    <a href="#" class="btn btn-primary btn-xs tagged-remove" data-user="{{ id }}">
+    {{ username }} <span class="icon ion-ios-close-empty"></span>
+    </a>
   {{/each}}
 
   <p></p>
   <input type="text" class="form-control autocomplete" placeholder="Etiqueta Amigos">
-
-  <a href="#" class="get-geolocation btn"><i class="fa fa-map-marker"></i> Agregar localización</a>
 </section>

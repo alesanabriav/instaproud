@@ -14,8 +14,6 @@ var browserifyShim = require('browserify-shim');
 gulp.task('browserify', function () {
   var options = {
     insertGlobals: true,
-    cache: {},
-    packageCache: {},
     paths: [
       './node_modules',
       './app/',
@@ -33,12 +31,8 @@ gulp.task('browserify', function () {
     extensions: ['hbs']
   });
 
-  var b = browserify('./app/app.js', options);
-  var w = watchify(b);
-
-  var rebundle = function() {
-    w
-    .transform(hbsfy)
+ browserify('./app/app.js', options)
+  .transform(hbsfy)
     .transform(reactify)
     .transform(debowerify)
     .transform(browserifyShim)
@@ -48,9 +42,6 @@ gulp.task('browserify', function () {
     })
     .pipe(source('app.js'))
     .pipe(gulp.dest('js/dist'));
-  };
 
-  w.on('update', rebundle);
-  return rebundle();
 });
 

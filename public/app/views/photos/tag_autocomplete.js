@@ -1,7 +1,6 @@
-"use strict";
+'use strict';
 
-var $ = require("jquery");
-var _ = require('underscore');
+var $ = require('jquery');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var urls = require('config/urls');
@@ -10,14 +9,14 @@ Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   events: {
-    "click .select": "store",
+    'click .select': 'store'
   },
 
   //Start Listen events
   initialize: function() {
     var _this = this;
-    _this.listenTo(pubsub, "view:remove", _this.remove, _this);
-    _this.listenTo(pubsub, "autocomplete:render", _this.render, _this);
+    _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
+    _this.listenTo(pubsub, 'autocomplete:render', _this.render, _this);
   },
 
   render: function(users) {
@@ -25,7 +24,9 @@ module.exports = Backbone.View.extend({
     this.$el
     .empty()
     .append(template);
-    $("#app-container").append(this.$el);
+
+    $('.photo-caption').append(this.$el);
+    window.scrollBy(0, 100);
     return this;
   },
 
@@ -36,11 +37,11 @@ module.exports = Backbone.View.extend({
     var id = this.model.id;
     var userId = $(e.currentTarget).data('user');
 
-    var data = {"tagged": userId};
+    var data = {'tagged': userId};
 
     $.ajax({
-      url: urls.baseUrl+'/api/photos/'+ id +'/tagged',
-      method: "POST",
+      url: urls.baseUrl + '/api/photos/' + id + '/tagged',
+      method: 'POST',
       data: data
     })
     .then(function(res) {
