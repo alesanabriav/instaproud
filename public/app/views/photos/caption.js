@@ -86,23 +86,24 @@ module.exports = Backbone.View.extend({
 
   storeGeolocation: function(position, id) {
     var $locationStatus = this.$('.location-name');
-    var obj = {};
-    obj.longitude = position.coords.longitude;
-    obj.latitude = position.coords.latitude;
+    var locationData = {};
+    locationData.longitude = position.coords.longitude;
+    locationData.latitude = position.coords.latitude;
 
-    $.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + obj.latitude + ',' + obj.longitude + '&key=AIzaSyDvIcrhqw1Zt09CL-Z-SBKomCkdQT9q8n8')
+    $.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + locationData.latitude + ',' + locationData.longitude + '&key=AIzaSyDvIcrhqw1Zt09CL-Z-SBKomCkdQT9q8n8')
     .then(function(res) {
-      $locationStatus.text(res.results[0].address_components[2].short_name);
-    });
-
-    $.ajax({
-      url: urls.baseUrl + '/api/photos/' + id,
-      method: 'PUT',
-      dataType: 'json',
-      data: {'geolocation': JSON.stringify(obj)}
-    })
-    .then(function(res) {
-      alertify.success('Localización agregada');
+      locationData.address = res.results[0].formatted_address;
+      locationData.name = res.results[0].address_components[2].short_name;
+      $locationStatus.text(locationData.name);
+        $.ajax({
+        url: urls.baseUrl + '/api/photos/' + id,
+        method: 'PUT',
+        dataType: 'json',
+        data: {'geolocation': JSON.stringify(locationData)}
+        })
+        .then(function(res) {
+          alertify.success('Localización agregada');
+        });
     });
   },
 

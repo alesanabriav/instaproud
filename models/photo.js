@@ -14,7 +14,9 @@ PhotoSchema = new Schema({
   caption: String,
   geolocation: {
     longitude: Number,
-    latitude: Number
+    latitude: Number,
+    name: String,
+    address: String
   },
   likes: Number,
   liked: [{
