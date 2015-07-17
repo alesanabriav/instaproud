@@ -25,8 +25,10 @@
     "jquery": "^2.1.4",
     "jquery-autocomplete-js": "^1.1.0",
     "jquery-lazyload": "^1.9.5",
+    "moment": "^2.10.3",
     "nprogress": "^0.2.0",
     "passport-local": "^1.0.0",
+    "react": "^0.13.3",
     "scroll-trigger": "^1.0.0",
     "selectize": "^0.12.1",
     "typeahead": "^0.2.0",
@@ -44,6 +46,7 @@
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.2.0",
     "hbsfy": "^2.2.1",
+    "reactify": "^1.1.1",
     "require-dir": "^0.3.0",
     "vinyl-source-stream": "^1.1.0"
   },

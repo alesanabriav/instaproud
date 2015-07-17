@@ -1,6 +1,7 @@
 "use strict";
 global.jQuery = require("jquery");
 var $ = jQuery;
+var React = require('react');
 
 var Photos = require('views/photos/list');
 var Photo = require('views/photos/item');
@@ -13,6 +14,7 @@ var PhotoCaption = require('views/photos/caption');
 var PhotoAutocomplete = require('views/photos/tag_autocomplete');
 var PhotoHashtag = require('views/photos/hashtag');
 var PhotoSearch = require('views/photos/search');
+var Search = require('views/photos/search.jsx');
 var PhotoAutocompleteHashtag = require('views/photos/autocomplete_hashtag');
 var PhotoAutocompleteUser = require('views/photos/autocomplete_user');
 
@@ -36,7 +38,7 @@ module.exports = {
 
     model.fetch({
       success: function() {
-        $('#app-container').append(view.el);
+        $('#app-container').empty().append(view.el);
         loadImages();
       }
     });
@@ -110,12 +112,14 @@ module.exports = {
   },
 
   search: function() {
-    var view = new PhotoSearch();
-    new PhotoAutocompleteHashtag();
-    new PhotoAutocompleteUser();
-    $("#app-container")
-    .empty()
-    .append(view.render().el);
+    // var view = new PhotoSearch();
+    // new PhotoAutocompleteHashtag();
+    // new PhotoAutocompleteUser();
+    // $("#app-container")
+    // .empty()
+    // .append(view.render().el);
+    //
+    React.render(<Search />, document.getElementById("app-container"));
   }
 
  }

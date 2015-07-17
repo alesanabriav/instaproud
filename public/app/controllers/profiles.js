@@ -4,12 +4,13 @@ var $ = require('jquery');
 var Login = require('views/profile/login');
 var Register = require('views/profile/register');
 var Edit = require('views/profile/edit');
-var Item = require('views/profile/item');
+var Item = require('views/profile/item.jsx');
 var Tagged = require('views/profile/tagged');
 var UserModels = require('models/user');
 var pubsub = require('utils/pubsub');
 var loadImages = require('utils/loadImages');
 var urls = require('config/urls');
+var React = require('react');
 
 module.exports = {
 
@@ -34,13 +35,20 @@ module.exports = {
 
   item: function(username) {
     pubsub.trigger('appHeader:change', {title: username});
-    var view = new Item();
+    // var view = new Item();
+    React.render(<Item username={username} /> , document.getElementById("app-container"));
 
-    $.get(urls.baseUrl+'/api/users/'+ username +'/photos')
-    .then(function(model) {
-      $("#app-container").empty().append(view.render(model).el);
-      loadImages();
-    });
+    // $.get(urls.baseUrl+'/api/users/'+ username +'/photos')
+    // .then(function(model) {
+    //   $("#app-container").empty().append(view.render(model).el);
+    //   loadImages();
+    // });
+  },
+
+  itemWithoutUsername: function() {
+    var getUser = localStorage.getItem('user');
+    var getUsername = JSON.parse(getUser).username;
+    React.render(<Item username={getUsername} /> , document.getElementById("app-container"));
   },
 
   tagged: function(username) {

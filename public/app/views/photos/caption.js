@@ -11,20 +11,19 @@ Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   events: {
-    "focusout .caption": "store",
-    "click .tagged-remove": "removeTagged",
-    "keydown .autocomplete": "autocomplete",
-    "click .get-geolocation": "getGeolocation"
+    'focusout .caption': 'store',
+    'click .tagged-remove': 'removeTagged',
+    'keydown .autocomplete': 'autocomplete',
+    'click .get-geolocation': 'getGeolocation'
   },
 
   //Start Listen events
   initialize: function() {
-    var _this = this;
-    _this.listenTo(_this.model, "change", _this.render, _this);
-    _this.listenTo(pubsub, "view:remove", _this.remove, _this);
-    _this.listenTo(pubsub, "caption:render", _this.render, _this);
-    _this.listenTo(pubsub, 'photo:tagged', _this.update, _this);
-    _this.listenTo(pubsub, "app:next", _this.show, _this);
+    this.listenTo(this.model, 'change', this.render, this);
+    this.listenTo(pubsub, 'view:remove', this.remove, this);
+    this.listenTo(pubsub, 'caption:render', this.render, this);
+    this.listenTo(pubsub, 'photo:tagged', this.update, this);
+    this.listenTo(pubsub, 'app:next', this.show, this);
   },
 
   update: function(data) {
@@ -50,7 +49,7 @@ module.exports = Backbone.View.extend({
       data: data
     })
     .then(function(res) {
-      console.log(res)
+      console.log(res);
     });
   },
 
@@ -63,13 +62,13 @@ module.exports = Backbone.View.extend({
 
     if (query.length) {
       $.ajax({
-        url: urls.baseUrl+"/users/search/"+ query,
-        method: "GET"
+        url: urls.baseUrl + '/users/search/' + query,
+        method: 'GET'
       })
       .then(function(res) {
         pubsub.trigger('autocomplete:render', res);
       });
-    };
+    }
   },
 
   getGeolocation: function(e) {
@@ -96,8 +95,8 @@ module.exports = Backbone.View.extend({
     };
 
     $.ajax({
-      url: urls.baseUrl+'/api/photos/'+id,
-      method: "PUT",
+      url: urls.baseUrl + '/api/photos/' + id,
+      method: 'PUT',
       data: JSON.stringify(geolocation)
     })
     .then(function(res) {

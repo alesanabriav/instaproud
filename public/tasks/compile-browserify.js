@@ -7,6 +7,7 @@ var sourcemaps = require('gulp-sourcemaps'); // Write inline source maps
 var debowerify = require('debowerify'); // use bower components like npm
 var browserifyShim = require('browserify-shim');
 var fs = require('fs-extra');
+var reactify = require('reactify');
 
 // compile browersify app
 gulp.task('compile-browerserify', function () {
@@ -30,11 +31,9 @@ gulp.task('compile-browerserify', function () {
     extensions: ['hbs']
   });
 
-  fs.remove('./js/dist/app.js', function(err) {
-    if (err) return console.log(err);
-
     browserify('./app/app.js', options)
     .transform(hbsfy)
+    .transform(reactify)
     .transform(debowerify)
     .transform(browserifyShim)
     .bundle()
@@ -43,5 +42,6 @@ gulp.task('compile-browerserify', function () {
     })
     .pipe(source('app.js'))
     .pipe(gulp.dest('js/dist'));
-  });
+
+    console.log('finish browserify');
 });

@@ -109,14 +109,16 @@ app.get('/users/search/:query', function(req, res) {
 
 app.get('/api/users/:username/photos', function(req, res, next) {
   var username = req.params.username;
-  var photosSkip = parseInt(req.query.photosSkip) || 0;
+  var limit = 12;
+  var page = parseInt(req.query.photosSkip) * limit;
+  var photosSkip = page || 0;
   var data;
 
   User.findOne({username: username})
   .exec(function(err, user) {
     if (err) return res.status(400).json({message: "No existe"});
 
-    photosByOwner(user, photosSkip, function(err, data) {
+    photosByOwner(user, limit, photosSkip, function(err, data) {
       if (err) return next(err);
       return res.json(data);
     });

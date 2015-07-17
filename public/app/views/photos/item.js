@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 global.jQuery = require("jquery");
 var $ = jQuery;
 var _ = require('underscore');

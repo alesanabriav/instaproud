@@ -20,8 +20,23 @@ body {
   transition: all 400ms;
 }
 
+button {
+  &:focus {
+    outline: none;
+    outline: 0;
+  }
+}
+
 .btn {
   transition: all 400ms;
+
+  &:focus {
+    outline: none;
+  }
+
+   &:active {
+    outline: none;
+  }
 }
 
 img{
@@ -62,6 +77,17 @@ a {
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
   box-shadow: none !important;
+}
+
+.list-group-item {
+  border: none;
+  border-bottom: 1px solid $blue-main;
+  border-top: 1px solid $blue-main;
+
+  &:first-child, &:last-child {
+    border-radius: 0;
+  }
+
 }
 
 #header-container{

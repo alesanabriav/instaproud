@@ -19,7 +19,7 @@ module.exports = Backbone.Router.extend({
     "filter/:src": "filters",
     "caption/:id": "caption",
     "profile/:username": "profileShow",
-    "profile": "profileShow",
+    "profile": "profileShowWithoutUsername",
     "tagged/:username": "profileTagged",
     "hashtag/:hashtag": "hashtagPhotos",
     "photo/:id": "photoShow",
@@ -95,17 +95,17 @@ module.exports = Backbone.Router.extend({
   },
 
   profileShow: function(username) {
-    var getUsername = username;
-    var getUser;
     AppController.initialize();
     this.photoWork();
 
-    if (!username) {
-      getUser = localStorage.getItem('user');
-      getUsername = JSON.parse(getUser).username;
-    };
+    profilesController.item(username);
+  },
 
-    profilesController.item(getUsername);
+  profileShowWithoutUsername: function() {
+    AppController.initialize();
+    this.photoWork();
+
+    profilesController.itemWithoutUsername();
   },
 
   profileTagged: function(username) {
@@ -114,7 +114,7 @@ module.exports = Backbone.Router.extend({
     if (!username) {
       var getUser = localStorage.getItem('user');
       getUsername = JSON.parse(getUser).username;
-    };
+    }
 
     profilesController.tagged(getUsername);
     AppController.initialize();
