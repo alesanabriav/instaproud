@@ -3,6 +3,7 @@ var app = require('express')();
 var getAll = require(__base +'lib/photos/get_all');
 var byId = require(__base +'lib/photos/by_id');
 var store = require(__base +'lib/photos/store');
+var update = require(__base +'lib/photos/update');
 var updateCaption = require(__base + 'lib/photos/update_caption');
 var compressImage = require(__base + 'lib/photos/compress_image');
 var process = require(__base + 'lib/photos/process');
@@ -45,10 +46,9 @@ app.get('/api/photos/:id', function(req, res, next) {
 
 app.put('/api/photos/:id', function(req, res) {
   var photoId = req.params.id;
-  var body = req.body;
-  var caption = body.caption;
-
-  updateCaption(photoId, body, caption, function(err, photo) {
+  var data = req.body;
+  console.log(data);
+  update(photoId, data, function(err, photo) {
     if (err) return res.status(400).json(err);
     return res.status(200).json(photo);
   });

@@ -11,6 +11,7 @@ function base64Encode(file) {
 describe('GET /api/photos', function() {
   var src;
   var srcPhotoWithFilter;
+  var photoId;
 
   before(function(done) {
     var user = {email: 'al3@bvc.com.co', password: '1234'};
@@ -81,6 +82,7 @@ describe('GET /api/photos', function() {
     .end(function(err, res) {
       if(err) return done(err);
       var body = res.body;
+      photoId = body.id;
       expect(body).to.have.property('path');
       expect(body).to.have.property('owner');
       expect(body).to.have.property('created');
@@ -88,6 +90,29 @@ describe('GET /api/photos', function() {
       expect(body).to.have.property('comments');
       expect(body).to.have.property('liked');
       expect(body).to.have.property('id');
+      done();
+    });
+  });
+
+  it('should update a photo data', function(done) {
+    var data = {
+      caption: 'test',
+      'geolocation': {
+        'longitude': -74.0271377,
+        'latitude': 4.7212798
+      }
+    };
+    agent
+    .put('/api/photos/' + photoId)
+    .send(data)
+    .set('Accept', 'application/json')
+    .expect(200)
+    .end(function(err, res) {
+      if(err) return done(err);
+      var body = res.body;
+      console.log(body);
+      expect(body).to.have.property('caption');
+      expect(body).to.have.property('geolocation');
       done();
     });
   });

@@ -17,17 +17,15 @@ module.exports = Backbone.View.extend({
 
   //Start Listen events
   initialize: function() {
-    var _this = this;
-    _this.listenTo(_this.model, 'change', _this.render, _this);
-    _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
-    _this.listenTo(pubsub, 'caption:render', _this.render, _this);
-    _this.listenTo(pubsub, 'photo:tagged', _this.clean, _this);
+    this.listenTo(pubsub, 'view:remove', this.remove, this);
+    this.listenTo(this.model, 'change', this.render, this);
+    this.listenTo(pubsub, 'caption:render', this.render, this);
+    this.listenTo(pubsub, 'photo:tagged', this.clean, this);
   },
 
   render: function() {
-    var _this = this;
-    var template = templateTag( _this.model.toJSON() );
-    var $el = $(_this.el);
+    var template = templateTag( this.model.toJSON() );
+    var $el = $(this.el);
     $el.html(template);
     $('#app-container').append($el);
 
@@ -35,9 +33,8 @@ module.exports = Backbone.View.extend({
   },
 
   clean: function() {
-    var _this = this;
-    $(_this.el).find('input').val('');
-    $(_this.el).find('input').focus();
+    var $input = $(this.el).find('input');
+    $input.val('').focus();
   },
 
   autocomplete: function(e) {

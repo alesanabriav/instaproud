@@ -27,8 +27,14 @@ button {
   }
 }
 
+.btn-primary {
+  background: $blue-main;
+  border-color: $blue-main;
+}
+
 .btn {
   transition: all 400ms;
+  border-radius: 0;
 
   &:focus {
     outline: none;

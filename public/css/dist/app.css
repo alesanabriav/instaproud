@@ -23,8 +23,13 @@ button:focus {
   outline: none;
   outline: 0; }
 
+.btn-primary {
+  background: #00297a;
+  border-color: #00297a; }
+
 .btn {
-  transition: all 400ms; }
+  transition: all 400ms;
+  border-radius: 0; }
   .btn:focus {
     outline: none; }
   .btn:active {

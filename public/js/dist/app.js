@@ -878,7 +878,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + ((stack1 = (helpers.s3Url || (depth0 && depth0.s3Url) || alias1).call(depth0,((stack1 = (depth0 != null ? depth0.owner : depth0)) != null ? stack1.id : stack1),(depth0 != null ? depth0.path : depth0),{"name":"s3Url","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\">\n\n    <textarea class=\"caption form-control\" placeholder=\"Título\">"
     + this.escapeExpression(((helper = (helper = helpers.caption || (depth0 != null ? depth0.caption : depth0)) != null ? helper : alias1),(typeof helper === "function" ? helper.call(depth0,{"name":"caption","hash":{},"data":data}) : helper)))
-    + "</textarea>\n  </div>\n\n  <a href=\"#\" class=\"get-geolocation btn btn-primary btn-xs\"><span class=\"icon ion-ios-location\"></span> Agregar localización</a>\n\n  <h5>Etiquetados</h5>\n\n"
+    + "</textarea>\n  </div>\n\n  <a href=\"#\" class=\"get-geolocation btn btn-primary btn-xs\"><span class=\"icon ion-ios-location\"></span> Agregar localización</a> <span class=\"location-name\"></span>\n\n  <h5>Etiquetados</h5>\n\n"
     + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.tagged : depth0),{"name":"each","hash":{},"fn":this.program(3, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n  <p></p>\n  <input type=\"text\" class=\"form-control autocomplete\" placeholder=\"Etiqueta Amigos\">\n</section>";
 },"useData":true});
@@ -1973,6 +1973,7 @@ module.exports = Backbone.View.extend({
   },
 
   show: function() {
+    this.store();
     pubsub.trigger('navigator:change', '/');
   },
 
@@ -1996,6 +1997,7 @@ module.exports = Backbone.View.extend({
     var id = _this.model.id;
 
     if (navigator.geolocation) {
+      this.$('.location-name').text('Agregando...');
       navigator.geolocation.getCurrentPosition(function(position) {
         _this.storeGeolocation(position, id);
       });
@@ -2005,24 +2007,29 @@ module.exports = Backbone.View.extend({
   },
 
   storeGeolocation: function(position, id) {
-    var geolocation = {
-      geolocation: {
-        longitude: position.coords.longitude,
-        latitude: position.coords.latitude,
-      }
-    };
+    var $locationStatus = this.$('.location-name');
+    var obj = {};
+    obj.longitude = position.coords.longitude;
+    obj.latitude = position.coords.latitude;
+
+    $.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + obj.latitude + ',' + obj.longitude + '&key=AIzaSyDvIcrhqw1Zt09CL-Z-SBKomCkdQT9q8n8')
+    .then(function(res) {
+      $locationStatus.text(res.results[0].address_components[2].short_name);
+    });
 
     $.ajax({
       url: urls.baseUrl + '/api/photos/' + id,
       method: 'PUT',
-      data: JSON.stringify(geolocation)
+      dataType: 'json',
+      data: {'geolocation': JSON.stringify(obj)}
     })
-    .then(function() {
-
+    .then(function(res) {
+      alertify.success('Localización agregada');
     });
   },
 
   removeTagged: function(e) {
+    if (e) e.preventDefault();
     var $el = this.$(e.currentTarget);
     var userId = $el.data('user');
 

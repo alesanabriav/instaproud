@@ -13,8 +13,8 @@ PhotoSchema = new Schema({
   path: String,
   caption: String,
   geolocation: {
-    Longitude: String,
-    Latitude: String
+    longitude: Number,
+    latitude: Number
   },
   likes: Number,
   liked: [{
