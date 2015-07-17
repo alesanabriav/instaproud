@@ -3214,8 +3214,8 @@ module.exports = Backbone.View.extend({
    */
   getUserData: function(e) {
     e.preventDefault();
-    var email = $('.form-register').find('input[name="email"]').val();
-    var password = $('.form-register').find('input[name="password"]').val();
+    var email = $('.form-register').find('input[name="email"]').val().toLowerCase();
+    var password = $('.form-register').find('input[name="password"]').val().toLowerCase();
     var emailChecked = emailDomain(email, '@bvc.com.co');
     return this.register({'email': emailChecked, 'password': password});
   },
