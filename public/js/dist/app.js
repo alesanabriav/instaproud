@@ -1209,23 +1209,23 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partials,data) {
-    var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
+    var stack1, helper, alias1=helpers.helperMissing;
 
   return "\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isModZeroNotFirst : depth0),{"name":"if","hash":{},"fn":this.program(2, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isModZero : depth0),{"name":"if","hash":{},"fn":this.program(4, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "\n  <a href=\"/#photo/"
-    + alias3(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"id","hash":{},"data":data}) : helper)))
-    + "\" class=\"col-lg-4 col-sm-4 col-md-4 col-xs-4\">\n    <img src=\"/images/photo-placeholder.gif\" data-src=\"/images/"
-    + alias3(((helper = (helper = helpers.owner || (depth0 != null ? depth0.owner : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"owner","hash":{},"data":data}) : helper)))
-    + "/"
-    + alias3(((helper = (helper = helpers.path || (depth0 != null ? depth0.path : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"path","hash":{},"data":data}) : helper)))
-    + "\" class=\"img-responsive\"/>\n  </a>\n\n";
+    + "  <a href=\"/#photo/"
+    + this.escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias1),(typeof helper === "function" ? helper.call(depth0,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" class=\"col-lg-4 col-sm-4 col-md-4 col-xs-4\">\n    <img src=\"/images/photo-placeholder.gif\" data-src=\""
+    + ((stack1 = (helpers.s3Url || (depth0 && depth0.s3Url) || alias1).call(depth0,(depth0 != null ? depth0.owner : depth0),(depth0 != null ? depth0.path : depth0),{"name":"s3Url","hash":{},"fn":this.program(6, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "\" class=\"img-responsive\"/>\n  </a>\n";
 },"2":function(depth0,helpers,partials,data) {
     return "</div>\n";
 },"4":function(depth0,helpers,partials,data) {
     return "<div class=\"row\">\n";
+},"6":function(depth0,helpers,partials,data) {
+    return "";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1;
 
