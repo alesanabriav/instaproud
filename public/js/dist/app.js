@@ -3,7 +3,6 @@
 'use strict';
 global.jQuery = require("./../bower_components/jquery/dist/jquery.js");
 var $ = jQuery;
-var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var loadImages = require('utils/loadImages');
@@ -12,7 +11,6 @@ var fastclick = require('fastclick');
 var nprogress = require('nprogress');
 var redirect = require('utils/redirect');
 var scrollTrigger = require('scroll-trigger');
-var alertify = require('alertifyjs');
 Backbone.$ = $;
 
 var Router = require('./router');
@@ -51,7 +49,7 @@ $( document ).ajaxError(function( event, jqxhr) {
 window.onload = loadImages();
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/app.js","/app")
-},{"./../bower_components/jquery/dist/jquery.js":67,"./router":12,"_process":75,"alertifyjs":69,"backbone":70,"buffer":71,"fastclick":76,"helpers/helpers_hbs":7,"nprogress":87,"scroll-trigger":243,"underscore":244,"utils/loadImages":34,"utils/pubsub":36,"utils/redirect":37}],2:[function(require,module,exports){
+},{"./../bower_components/jquery/dist/jquery.js":67,"./router":12,"_process":75,"backbone":70,"buffer":71,"fastclick":76,"helpers/helpers_hbs":7,"nprogress":87,"scroll-trigger":243,"utils/loadImages":34,"utils/pubsub":36,"utils/redirect":37}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use stricts';
 
@@ -294,7 +292,7 @@ module.exports = {
     pubsub.trigger('appHeader:showCloseSession');
 
 
-    if (username !== '') {
+    if (username === '') {
       username = JSON.parse( localStorage.getItem('user') ).username;
     }
 
@@ -330,7 +328,7 @@ module.exports = {
     model.fetch();
   }
 
-}
+};
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/controllers/profiles.js","/app/controllers")
 },{"./../../bower_components/jquery/dist/jquery.js":67,"_process":75,"buffer":71,"config/urls":2,"models/user":11,"react":242,"utils/loadImages":34,"utils/pubsub":36,"views/profile/edit":61,"views/profile/item":62,"views/profile/login":63,"views/profile/register":64,"views/profile/tagged":65}],7:[function(require,module,exports){

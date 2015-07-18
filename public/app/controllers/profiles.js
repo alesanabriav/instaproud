@@ -38,7 +38,7 @@ module.exports = {
     pubsub.trigger('appHeader:showCloseSession');
 
 
-    if (username !== '') {
+    if (username === '') {
       username = JSON.parse( localStorage.getItem('user') ).username;
     }
 
@@ -74,4 +74,4 @@ module.exports = {
     model.fetch();
   }
 
-}
+};

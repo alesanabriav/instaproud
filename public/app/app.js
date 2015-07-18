@@ -1,7 +1,6 @@
 'use strict';
 global.jQuery = require('jquery');
 var $ = jQuery;
-var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var loadImages = require('utils/loadImages');
@@ -10,7 +9,6 @@ var fastclick = require('fastclick');
 var nprogress = require('nprogress');
 var redirect = require('utils/redirect');
 var scrollTrigger = require('scroll-trigger');
-var alertify = require('alertifyjs');
 Backbone.$ = $;
 
 var Router = require('./router');
