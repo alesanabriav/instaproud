@@ -56,7 +56,7 @@ window.onload = loadImages();
 'use stricts';
 
 module.exports = {
-  baseUrl: 'http://instaproud.brandspa.ccs',
+  baseUrl: 'http://instaproud.brandspa.cc',
   s3Bucket: 'https://s3-sa-east-1.amazonaws.com/instaproud'
 };
 
