@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var $ = require('jquery');
 var Login = require('views/profile/login');
@@ -30,35 +30,24 @@ module.exports = {
 
   register: function() {
     var view = new Register();
-    $("#app-container").empty().append(view.render().el);
+    $('#app-container').empty().append(view.render().el);
   },
 
   item: function(username) {
     pubsub.trigger('appHeader:change', {title: username});
     pubsub.trigger('appHeader:showCloseSession');
-    var view = new Item();
-    // React.render(<Item username={username} /> , document.getElementById("app-container"));
 
-    $.get(urls.baseUrl+'/api/users/'+ username +'/photos')
+
+    if (username !== '') {
+      username = JSON.parse( localStorage.getItem('user') ).username;
+    }
+
+    $.get(urls.baseUrl + '/api/users/' + username + '/photos')
     .then(function(model) {
-      $("#app-container").empty().append(view.render(model).el);
+      var view = new Item({model: model});
+      $('#app-container').empty().append(view.render().el);
       loadImages();
     });
-  },
-
-  itemWithoutUsername: function() {
-    var view = new Item();
-    var getUser = localStorage.getItem('user');
-    var username = JSON.parse(getUser).username;
-    pubsub.trigger('appHeader:change', {title: username});
-    pubsub.trigger('appHeader:showCloseSession');
-    $.get(urls.baseUrl+'/api/users/'+ username +'/photos')
-    .then(function(model) {
-      $("#app-container").empty().append(view.render(model).el);
-      loadImages();
-    });
-
-    // React.render(<Item username={getUsername} /> , document.getElementById("app-container"));
   },
 
   tagged: function(username) {

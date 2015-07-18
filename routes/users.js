@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var app = require('express')();
 var User = require('../models/user');
 var photosByOwner = require('../lib/photos/by_owner');
@@ -20,7 +20,7 @@ app.route('/users')
         if (err.errors) {
           return res.status(400).json(err.errors);
         };
-        return res.status(400).json({ user: {"message": "El usuario ya existe"} });
+        return res.status(400).json({ user: {'message': 'El usuario ya existe'} });
       }
 
       req.login(user, function(err) {
@@ -66,9 +66,9 @@ app.post('/users/:id/image', function(req, res, next) {
   generateHash(userId, function(err, hash) {
     if (err) return next(err);
 
-    name = hash + "_" + time + "_profile.jpeg";
-    folder = "./public/images/" + userId;
-    path = folder + "/" + name;
+    name = hash + '_' + time + '_profile.jpeg';
+    folder = './public/images/' + userId;
+    path = folder + '/' + name;
 
     //processImage
     processProfileImage(image, folder, path, function(err) {
@@ -112,11 +112,10 @@ app.get('/api/users/:username/photos', function(req, res, next) {
   var limit = 12;
   var page = parseInt(req.query.photosSkip) * limit;
   var photosSkip = page || 0;
-  var data;
 
   User.findOne({username: username})
   .exec(function(err, user) {
-    if (err) return res.status(400).json({message: "No existe"});
+    if (err) return res.status(400).json({message: 'No existe'});
 
     photosByOwner(user, limit, photosSkip, function(err, data) {
       if (err) return next(err);
@@ -132,7 +131,7 @@ app.get('/api/users/:username/tagged', function(req, res, next) {
   var data;
 
   User.findOne({username: username}, function(err, user) {
-    if (err) return res.status(400).json({message: "No existe"});
+    if (err) return res.status(400).json({message: 'No existe'});
 
     photosByTagged(user, photosSkip, function(err, data) {
       if (err) return next(err);

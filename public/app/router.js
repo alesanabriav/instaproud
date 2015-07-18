@@ -10,21 +10,21 @@ Backbone.$ = $;
 
 module.exports = Backbone.Router.extend({
   routes: {
-    "login": "login",
-    "register": "register",
-    "profile/:id/edit": "profileEdit",
-    "logout": "logout",
-    "": "feed",
-    "crop": "crop",
-    "filter/:src": "filters",
-    "caption/:id": "caption",
-    "profile/:username": "profileShow",
-    "profile": "profileShowWithoutUsername",
-    "tagged/:username": "profileTagged",
-    "hashtag/:hashtag": "hashtagPhotos",
-    "photo/:id": "photoShow",
-    "search": "photoSearch",
-    "activity": "activity"
+    'login': 'login',
+    'register': 'register',
+    'profile/:id/edit': 'profileEdit',
+    'logout': 'logout',
+    '': 'feed',
+    'crop': 'crop',
+    'filter/:src': 'filters',
+    'caption/:id': 'caption',
+    'profile/:username': 'profileShow',
+    'profile': 'profileShow',
+    'tagged/:username': 'profileTagged',
+    'hashtag/:hashtag': 'hashtagPhotos',
+    'photo/:id': 'photoShow',
+    'search': 'photoSearch',
+    'activity': 'activity'
   },
 
   /**
@@ -32,7 +32,7 @@ module.exports = Backbone.Router.extend({
    * execute appropriate method when the url match
    * @params callback, args, name
    */
-  execute: function(callback, args, name) {
+  execute: function(callback, args) {
     pubsub.trigger('view:remove');
     $(window).scrollTop(0);
     activitiesController.store();
@@ -99,13 +99,6 @@ module.exports = Backbone.Router.extend({
     this.photoWork();
 
     profilesController.item(username);
-  },
-
-  profileShowWithoutUsername: function() {
-    AppController.initialize();
-    this.photoWork();
-
-    profilesController.itemWithoutUsername();
   },
 
   profileTagged: function(username) {

@@ -56,7 +56,7 @@ window.onload = loadImages();
 'use stricts';
 
 module.exports = {
-  baseUrl: 'http://instaproud.brandspa.cc',
+  baseUrl: 'http://localhost:3000',
   s3Bucket: 'https://s3-sa-east-1.amazonaws.com/instaproud'
 };
 
@@ -254,7 +254,7 @@ module.exports = {
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/controllers/photos.js","/app/controllers")
 },{"./../../bower_components/jquery/dist/jquery.js":67,"_process":75,"buffer":71,"models/comment":9,"models/photo":10,"react":242,"utils/loadImages":34,"utils/pubsub":36,"views/photos/autocomplete_hashtag":45,"views/photos/autocomplete_user":46,"views/photos/caption":47,"views/photos/crop":48,"views/photos/filter":49,"views/photos/hashtag":50,"views/photos/item":51,"views/photos/list":52,"views/photos/load":53,"views/photos/search":54,"views/photos/search.jsx":55,"views/photos/store":58,"views/photos/tag_autocomplete":59,"views/photos/upload":60}],6:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-"use strict";
+'use strict';
 
 var $ = require("./../../bower_components/jquery/dist/jquery.js");
 var Login = require('views/profile/login');
@@ -286,35 +286,24 @@ module.exports = {
 
   register: function() {
     var view = new Register();
-    $("#app-container").empty().append(view.render().el);
+    $('#app-container').empty().append(view.render().el);
   },
 
   item: function(username) {
     pubsub.trigger('appHeader:change', {title: username});
     pubsub.trigger('appHeader:showCloseSession');
-    var view = new Item();
-    // React.render(<Item username={username} /> , document.getElementById("app-container"));
 
-    $.get(urls.baseUrl+'/api/users/'+ username +'/photos')
+
+    if (username !== '') {
+      username = JSON.parse( localStorage.getItem('user') ).username;
+    }
+
+    $.get(urls.baseUrl + '/api/users/' + username + '/photos')
     .then(function(model) {
-      $("#app-container").empty().append(view.render(model).el);
+      var view = new Item({model: model});
+      $('#app-container').empty().append(view.render().el);
       loadImages();
     });
-  },
-
-  itemWithoutUsername: function() {
-    var view = new Item();
-    var getUser = localStorage.getItem('user');
-    var username = JSON.parse(getUser).username;
-    pubsub.trigger('appHeader:change', {title: username});
-    pubsub.trigger('appHeader:showCloseSession');
-    $.get(urls.baseUrl+'/api/users/'+ username +'/photos')
-    .then(function(model) {
-      $("#app-container").empty().append(view.render(model).el);
-      loadImages();
-    });
-
-    // React.render(<Item username={getUsername} /> , document.getElementById("app-container"));
   },
 
   tagged: function(username) {
@@ -575,21 +564,21 @@ Backbone.$ = $;
 
 module.exports = Backbone.Router.extend({
   routes: {
-    "login": "login",
-    "register": "register",
-    "profile/:id/edit": "profileEdit",
-    "logout": "logout",
-    "": "feed",
-    "crop": "crop",
-    "filter/:src": "filters",
-    "caption/:id": "caption",
-    "profile/:username": "profileShow",
-    "profile": "profileShowWithoutUsername",
-    "tagged/:username": "profileTagged",
-    "hashtag/:hashtag": "hashtagPhotos",
-    "photo/:id": "photoShow",
-    "search": "photoSearch",
-    "activity": "activity"
+    'login': 'login',
+    'register': 'register',
+    'profile/:id/edit': 'profileEdit',
+    'logout': 'logout',
+    '': 'feed',
+    'crop': 'crop',
+    'filter/:src': 'filters',
+    'caption/:id': 'caption',
+    'profile/:username': 'profileShow',
+    'profile': 'profileShow',
+    'tagged/:username': 'profileTagged',
+    'hashtag/:hashtag': 'hashtagPhotos',
+    'photo/:id': 'photoShow',
+    'search': 'photoSearch',
+    'activity': 'activity'
   },
 
   /**
@@ -597,7 +586,7 @@ module.exports = Backbone.Router.extend({
    * execute appropriate method when the url match
    * @params callback, args, name
    */
-  execute: function(callback, args, name) {
+  execute: function(callback, args) {
     pubsub.trigger('view:remove');
     $(window).scrollTop(0);
     activitiesController.store();
@@ -664,13 +653,6 @@ module.exports = Backbone.Router.extend({
     this.photoWork();
 
     profilesController.item(username);
-  },
-
-  profileShowWithoutUsername: function() {
-    AppController.initialize();
-    this.photoWork();
-
-    profilesController.itemWithoutUsername();
   },
 
   profileTagged: function(username) {
@@ -3057,7 +3039,7 @@ module.exports = Backbone.View.extend({
   loadMore: function(e) {
     if (e) e.preventDefault();
     var skip = this.photosSkip + 1;
-    var username = JSON.parse(localStorage.getItem('user')).username;
+    var username = this.model.user.username;
 
     $.ajax({
       url: urls.baseUrl + '/api/users/' + username + '/photos',
@@ -3085,10 +3067,10 @@ module.exports = Backbone.View.extend({
    * @param {object} data
    * @return {object} this
    */
-  render: function(data) {
+  render: function() {
     this.$el
     .empty()
-    .append( templateItem( data ) );
+    .append( templateItem( this.model ) );
     loadImages();
     return this;
   }

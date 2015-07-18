@@ -26,7 +26,7 @@ module.exports = Backbone.View.extend({
   loadMore: function(e) {
     if (e) e.preventDefault();
     var skip = this.photosSkip + 1;
-    var username = JSON.parse(localStorage.getItem('user')).username;
+    var username = this.model.user.username;
 
     $.ajax({
       url: urls.baseUrl + '/api/users/' + username + '/photos',
@@ -54,10 +54,10 @@ module.exports = Backbone.View.extend({
    * @param {object} data
    * @return {object} this
    */
-  render: function(data) {
+  render: function() {
     this.$el
     .empty()
-    .append( templateItem( data ) );
+    .append( templateItem( this.model ) );
     loadImages();
     return this;
   }
