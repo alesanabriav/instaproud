@@ -308,6 +308,7 @@ module.exports = {
 
   tagged: function(username) {
     var view = new Tagged();
+    React.render(React.createElement(Item, {username: username}) , document.getElementById("app-container"));
 
     $.get(urls.baseUrl + '/api/users/' + username + '/tagged')
     .then(function(model) {
@@ -3097,7 +3098,7 @@ module.exports = React.createClass({displayName: "exports",
   loadMore: function(e) {
     if (e) e.preventDefault();
     var photosSkip = this.state.skip;
-    var skip = photosSkip + 1;
+    var skip = photosSkip + 12;
     var photos = this.state.photos;
 
     $.ajax({
@@ -3119,10 +3120,6 @@ module.exports = React.createClass({displayName: "exports",
   componentDidMount: function() {
     this.fetchUser(this.props.username);
     this.listenTo(pubsub, 'general:scroll', this.loadMore);
-  },
-
-  componentWillUnmount: function() {
-    console.log('unmout');
   },
 
   componentWillReceiveProps: function(props) {

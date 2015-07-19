@@ -32,7 +32,7 @@ module.exports = React.createClass({
   loadMore: function(e) {
     if (e) e.preventDefault();
     var photosSkip = this.state.skip;
-    var skip = photosSkip + 1;
+    var skip = photosSkip + 12;
     var photos = this.state.photos;
 
     $.ajax({
@@ -54,10 +54,6 @@ module.exports = React.createClass({
   componentDidMount: function() {
     this.fetchUser(this.props.username);
     this.listenTo(pubsub, 'general:scroll', this.loadMore);
-  },
-
-  componentWillUnmount: function() {
-    console.log('unmout');
   },
 
   componentWillReceiveProps: function(props) {
