@@ -291,13 +291,13 @@ module.exports = {
   },
 
   item: function(username) {
-    pubsub.trigger('appHeader:change', {title: username});
-    pubsub.trigger('appHeader:showCloseSession');
     if (!username || username === '') {
       username = JSON.parse( localStorage.getItem('user') ).username;
     }
 
-    React.render(React.createElement(Item, {username: username}) , document.getElementById("app-container"));
+    React.render(React.createElement(Item, {username: username, prefix: 'photos'}) , document.getElementById("app-container"));
+    pubsub.trigger('appHeader:change', {title: username});
+    pubsub.trigger('appHeader:showCloseSession');
 
     // $.get(urls.baseUrl + '/api/users/' + username + '/photos')
     // .then(function(model) {
@@ -308,13 +308,16 @@ module.exports = {
   },
 
   tagged: function(username) {
-    var view = new Tagged();
+    React.render(React.createElement(Item, {username: username}) , document.getElementById("app-container"));
+    pubsub.trigger('appHeader:change', {title: username});
+    pubsub.trigger('appHeader:showCloseSession');
+    // var view = new Tagged();
 
-    $.get(urls.baseUrl + '/api/users/' + username + '/tagged')
-    .then(function(model) {
-      $('#app-container').empty().append(view.render(model).el);
-      loadImages();
-    });
+    // $.get(urls.baseUrl + '/api/users/' + username + '/tagged')
+    // .then(function(model) {
+    //   $('#app-container').empty().append(view.render(model).el);
+    //   loadImages();
+    // });
   },
 
   edit: function(id) {
@@ -3100,7 +3103,7 @@ module.exports = React.createClass({displayName: "exports",
     var photos = this.state.photos;
 
     $.ajax({
-      url: urls.baseUrl + '/api/users/' + this.props.username + '/photos',
+      url: urls.baseUrl + '/api/users/' + this.props.username + this.props.prefix,
       method: 'GET',
       data: {photosSkip: skip}
     })
