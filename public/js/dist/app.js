@@ -308,7 +308,6 @@ module.exports = {
 
   tagged: function(username) {
     var view = new Tagged();
-    React.render(React.createElement(Item, {username: username}) , document.getElementById("app-container"));
 
     $.get(urls.baseUrl + '/api/users/' + username + '/tagged')
     .then(function(model) {
@@ -753,9 +752,9 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 
   return "<div class=\"header-nav\" style=\"background: "
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.bgColor : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "\">\n  <div class=\"container\">\n    <a href=\"#\" class=\"back-button hidden pull-left animated slideInLeft\" >\n      <i class=\"icon ion-ios-arrow-back\"></i>\n    </a>\n\n    <a href=\"#\" class=\"close-button hidden pull-left animated slideInLeft\" >\n      <i class=\"icon ion-ios-close-empty\"></i>\n    </a>\n\n"
+    + "\">\n  <div class=\"container\">\n    <a href=\"#\" class=\"back-button hidden pull-left animated slideInLeft\" >\n      <i class=\"icon ion-ios-arrow-back\"></i>\n    </a>\n\n    <a href=\"#\" class=\"close-button hidden pull-left animated slideInLeft\" >\n      <i class=\"icon ion-ios-close-empty\"></i>\n    </a>\n\n    <a href=\"#\" class=\"rotate-button hidden animated slideInRight\">\n      <i class=\"icon ion-ios-refresh-empty\"></i>\n    </a>\n\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.title : depth0),{"name":"if","hash":{},"fn":this.program(3, data, 0),"inverse":this.program(5, data, 0),"data":data})) != null ? stack1 : "")
-    + "\n    <a href=\"#\" class=\"rotate-button hidden animated slideInRight\">\n      <i class=\"icon ion-ios-refresh-empty\"></i>\n    </a>\n\n    <a href=\"#\" class=\"next-button hidden next-action animated slideInRight\">\n      <i class=\"icon ion-ios-arrow-forward\"></i>\n    </a>\n\n    <a href=\"#\" class=\"check-button hidden next-action\">\n      <i class=\"icon ion-checkmark\"></i>\n    </a>\n\n    <a href=\"#logout\" class=\"close-session-button hidden\">\n      Cerrar Sesion\n    </a>\n  </div>\n</div>";
+    + "\n\n    <a href=\"#\" class=\"next-button hidden next-action animated slideInRight\">\n      <i class=\"icon ion-ios-arrow-forward\"></i>\n    </a>\n\n    <a href=\"#\" class=\"check-button hidden next-action\">\n      <i class=\"icon ion-checkmark\"></i>\n    </a>\n\n    <a href=\"#logout\" class=\"close-session-button hidden\">\n      Cerrar Sesion\n    </a>\n  </div>\n</div>";
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/app_header.hbs","/app/templates")
@@ -3040,29 +3039,27 @@ module.exports = Backbone.View.extend({
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
+var loadImages = require('utils/loadImages');
 
 module.exports = React.createClass({displayName: "exports",
+  componentDidMount: function() {
+    loadImages();
+  },
 
   render: function() {
     var photo = this.props.photo;
-    var src = '';
-
-    if (photo.src) {
-      src = 'https://s3-sa-east-1.amazonaws.com/instaproud/' + photo.owner + '/' + photo.path;
-    } else {
-      src = 'images/photo-placeholder.gif';
-    }
+    var src = 'https://s3-sa-east-1.amazonaws.com/instaproud/' + photo.owner + '/' + photo.path;
 
     return (
       React.createElement("a", {href: "#photo/" + photo.id, className: "col-lg-4 col-sm-4 col-md-4 col-xs-4"}, 
-        React.createElement("img", {src: src, className: "img-responsive"})
+        React.createElement("img", {src: "images/photo-placeholder.gif", "data-src": src, className: "img-responsive"})
       )
     );
   }
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/grid_image.jsx","/app/views/profile")
-},{"_process":79,"buffer":75,"react":247}],64:[function(require,module,exports){
+},{"_process":79,"buffer":75,"react":247,"utils/loadImages":34}],64:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');

@@ -271,7 +271,7 @@ a {
       text-overflow: ellipsis;
       text-transform: uppercase;
       text-align: center; }
-    .header-nav > .container > .back-button, .header-nav > .container > .close-button {
+    .header-nav > .container > .back-button, .header-nav > .container > .close-button, .header-nav > .container > .rotate-button {
       position: absolute;
       left: 0;
       top: 0;
@@ -281,7 +281,7 @@ a {
       border-right: 1px solid #f1f1f1;
       padding-right: 20px;
       padding-left: 10px; }
-    .header-nav > .container > .check-button, .header-nav > .container > .next-button, .header-nav > .container .rotate-button, .header-nav > .container > .close-session-button {
+    .header-nav > .container > .check-button, .header-nav > .container > .next-button, .header-nav > .container > .close-session-button {
       position: absolute;
       right: 0;
       top: 0;
