@@ -19,8 +19,8 @@ module.exports = React.createClass({
     }
   },
 
-  fetchUser: function(username) {
-    $.get(urls.baseUrl + '/api/users/' + username +'/photos')
+  fetchUser: function(username, prefix) {
+    $.get(urls.baseUrl + '/api/users/' + username + '/' + prefix)
     .then(function(res) {
       this.setState({
         user: res.user,
@@ -34,9 +34,9 @@ module.exports = React.createClass({
     var photosSkip = this.state.skip;
     var skip = photosSkip + 12;
     var photos = this.state.photos;
-
+    console.log(this.props.prefix);
     $.ajax({
-      url: urls.baseUrl + '/api/users/' + this.props.username + this.props.prefix,
+      url: urls.baseUrl + '/api/users/' + this.props.username + '/' + this.props.prefix,
       method: 'GET',
       data: {photosSkip: skip}
     })
@@ -52,18 +52,18 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function() {
-    this.fetchUser(this.props.username);
+    this.fetchUser(this.props.username, this.props.prefix);
     this.listenTo(pubsub, 'general:scroll', this.loadMore);
   },
 
   componentWillReceiveProps: function(props) {
-    this.fetchUser(props.username);
+    this.fetchUser(props.username, props.prefix);
   },
 
   render: function() {
     return (
       <div className="profile-page">
-        <Header user={this.state.user} photos={this.state.photos} />
+        <Header user={this.state.user} photos={this.state.photos} prefix={this.props.prefix} />
         <Grid photos={this.state.photos} />
       </div>
     );

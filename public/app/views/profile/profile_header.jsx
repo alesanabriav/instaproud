@@ -17,6 +17,12 @@ module.exports = React.createClass({
       profileImage = (<img src={'images/placeholders/placeholder_profile.png'} />);
     }
 
+    if (this.props.prefix && this.props.prefix === 'photos') {
+      var yourPhotos = 'active';
+    } else {
+      var tagged = 'active';
+    }
+
     return (
       <header>
 
@@ -35,11 +41,11 @@ module.exports = React.createClass({
         </div>
 
         <div className="profile-actions">
-          <a href={'#profile/' + user.username} className="btn active">
+          <a href={'#profile/' + user.username} className={"btn " + yourPhotos}>
             <span className="icon ion-ios-photos-outline"></span> <span className="text">Tus fotos</span>
           </a>
 
-          <a href={'#tagged/' + user.username} className="btn">
+          <a href={'#tagged/' + user.username} className={"btn " + tagged}>
             <i className="icon ion-ios-pricetags-outline"></i> <span className="text">Etiquetado</span>
           </a>
 

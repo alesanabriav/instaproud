@@ -54,8 +54,8 @@ window.onload = loadImages();
 'use stricts';
 
 module.exports = {
-  baseUrl: 'http://instaproud.brandspa.cc',
-  // baseUrl: 'http://localhost:3000',
+  // baseUrl: 'http://instaproud.brandspa.cc',
+  baseUrl: 'http://localhost:3000',
   s3Bucket: 'https://s3-sa-east-1.amazonaws.com/instaproud'
 };
 
@@ -308,7 +308,7 @@ module.exports = {
   },
 
   tagged: function(username) {
-    React.render(React.createElement(Item, {username: username}) , document.getElementById("app-container"));
+    React.render(React.createElement(Item, {username: username, prefix: 'tagged'}) , document.getElementById("app-container"));
     pubsub.trigger('appHeader:change', {title: username});
     pubsub.trigger('appHeader:showCloseSession');
     // var view = new Tagged();
@@ -3086,8 +3086,8 @@ module.exports = React.createClass({displayName: "exports",
     }
   },
 
-  fetchUser: function(username) {
-    $.get(urls.baseUrl + '/api/users/' + username +'/photos')
+  fetchUser: function(username, prefix) {
+    $.get(urls.baseUrl + '/api/users/' + username + '/' + prefix)
     .then(function(res) {
       this.setState({
         user: res.user,
@@ -3101,9 +3101,9 @@ module.exports = React.createClass({displayName: "exports",
     var photosSkip = this.state.skip;
     var skip = photosSkip + 12;
     var photos = this.state.photos;
-
+    console.log(this.props.prefix);
     $.ajax({
-      url: urls.baseUrl + '/api/users/' + this.props.username + this.props.prefix,
+      url: urls.baseUrl + '/api/users/' + this.props.username + '/' + this.props.prefix,
       method: 'GET',
       data: {photosSkip: skip}
     })
@@ -3119,18 +3119,18 @@ module.exports = React.createClass({displayName: "exports",
   },
 
   componentDidMount: function() {
-    this.fetchUser(this.props.username);
+    this.fetchUser(this.props.username, this.props.prefix);
     this.listenTo(pubsub, 'general:scroll', this.loadMore);
   },
 
   componentWillReceiveProps: function(props) {
-    this.fetchUser(props.username);
+    this.fetchUser(props.username, props.prefix);
   },
 
   render: function() {
     return (
       React.createElement("div", {className: "profile-page"}, 
-        React.createElement(Header, {user: this.state.user, photos: this.state.photos}), 
+        React.createElement(Header, {user: this.state.user, photos: this.state.photos, prefix: this.props.prefix}), 
         React.createElement(Grid, {photos: this.state.photos})
       )
     );
@@ -3253,6 +3253,12 @@ module.exports = React.createClass({displayName: "exports",
       profileImage = (React.createElement("img", {src: 'images/placeholders/placeholder_profile.png'}));
     }
 
+    if (this.props.prefix && this.props.prefix === 'photos') {
+      var yourPhotos = 'active';
+    } else {
+      var tagged = 'active';
+    }
+
     return (
       React.createElement("header", null, 
 
@@ -3271,11 +3277,11 @@ module.exports = React.createClass({displayName: "exports",
         ), 
 
         React.createElement("div", {className: "profile-actions"}, 
-          React.createElement("a", {href: '#profile/' + user.username, className: "btn active"}, 
+          React.createElement("a", {href: '#profile/' + user.username, className: "btn " + yourPhotos}, 
             React.createElement("span", {className: "icon ion-ios-photos-outline"}), " ", React.createElement("span", {className: "text"}, "Tus fotos")
           ), 
 
-          React.createElement("a", {href: '#tagged/' + user.username, className: "btn"}, 
+          React.createElement("a", {href: '#tagged/' + user.username, className: "btn " + tagged}, 
             React.createElement("i", {className: "icon ion-ios-pricetags-outline"}), " ", React.createElement("span", {className: "text"}, "Etiquetado")
           ), 
 
