@@ -48,7 +48,7 @@
       text-align: center;
     }
 
-    > .back-button, >.close-button, > .rotate-button{
+    > .back-button, >.close-button{
       position: absolute;
       left: 0;
       top: 0;
@@ -60,7 +60,7 @@
       padding-left: 10px;
     }
 
-    > .check-button, > .next-button, > .close-session-button  {
+    > .check-button, > .next-button, > .rotate-button,  > .close-session-button  {
       position: absolute;
       right: 0;
       top: 0;
@@ -77,8 +77,9 @@
     }
 
     .rotate-button {
-      right: 70px;
+      right: auto;
       padding: 5px 20px;
+      left: 0;
     }
 
     > .next-button {
