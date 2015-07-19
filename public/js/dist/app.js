@@ -54,7 +54,7 @@ window.onload = loadImages();
 'use stricts';
 
 module.exports = {
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'http://instaproud.brandspa.cc',
   s3Bucket: 'https://s3-sa-east-1.amazonaws.com/instaproud'
 };
 
@@ -3099,7 +3099,6 @@ module.exports = React.createClass({displayName: "exports",
     var photosSkip = this.state.skip;
     var skip = photosSkip + 1;
     var photos = this.state.photos;
-    console.log(listenTo);
 
     $.ajax({
       url: urls.baseUrl + '/api/users/' + this.props.username + '/photos',

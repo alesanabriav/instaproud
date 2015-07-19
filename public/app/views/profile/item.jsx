@@ -34,7 +34,6 @@ module.exports = React.createClass({
     var photosSkip = this.state.skip;
     var skip = photosSkip + 1;
     var photos = this.state.photos;
-    console.log(listenTo);
 
     $.ajax({
       url: urls.baseUrl + '/api/users/' + this.props.username + '/photos',
