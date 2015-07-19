@@ -4,7 +4,9 @@ var $ = require('jquery');
 var Login = require('views/profile/login');
 var Register = require('views/profile/register');
 var Edit = require('views/profile/edit');
-var Item = require('views/profile/item');
+// var Item = require('views/profile/item');
+var Item = require('views/profile/item.jsx');
+var Grid = require('views/profile/grid');
 var Tagged = require('views/profile/tagged');
 var UserModels = require('models/user');
 var pubsub = require('utils/pubsub');
@@ -25,7 +27,7 @@ module.exports = {
 
   logout: function() {
     localStorage.removeItem('user');
-     window.location.replace('/logout');
+    window.location.replace('/logout');
   },
 
   register: function() {
@@ -36,18 +38,18 @@ module.exports = {
   item: function(username) {
     pubsub.trigger('appHeader:change', {title: username});
     pubsub.trigger('appHeader:showCloseSession');
-
-
-    if (username === '') {
+    if (!username || username === '') {
       username = JSON.parse( localStorage.getItem('user') ).username;
     }
 
-    $.get(urls.baseUrl + '/api/users/' + username + '/photos')
-    .then(function(model) {
-      var view = new Item({model: model});
-      $('#app-container').empty().append(view.render().el);
-      loadImages();
-    });
+    React.render(<Item  username={username} /> , document.getElementById("app-container"));
+
+    // $.get(urls.baseUrl + '/api/users/' + username + '/photos')
+    // .then(function(model) {
+    //   var view = new Item({model: model});
+    //   var grid = new Grid({collection: model});
+    //   loadImages();
+    // });
   },
 
   tagged: function(username) {

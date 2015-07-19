@@ -1,11 +1,13 @@
-"use strict";
+'use strict';
 var $ = require('jquery');
+var React = require('react');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var AppController = require('controllers/app');
 var photosController = require('controllers/photos');
 var profilesController = require('controllers/profiles');
 var activitiesController = require('controllers/activities');
+
 Backbone.$ = $;
 
 module.exports = Backbone.Router.extend({
@@ -34,6 +36,7 @@ module.exports = Backbone.Router.extend({
    */
   execute: function(callback, args) {
     pubsub.trigger('view:remove');
+    React.unmountComponentAtNode(document.getElementById('app-container'));
     $(window).scrollTop(0);
     activitiesController.store();
     if (callback) callback.apply(this, args);

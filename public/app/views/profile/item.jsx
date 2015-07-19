@@ -5,9 +5,12 @@ var Grid = require('views/profile/profile_grid.jsx');
 var urls = require('config/urls');
 var $  = require('jquery');
 var pubsub = require('utils/pubsub');
+var listenTo = require('react-listenTo');
 var _ = require('underscore');
 
 module.exports = React.createClass({
+  mixins: [listenTo],
+
   getInitialState: function() {
     return {
       user: {},
@@ -31,7 +34,8 @@ module.exports = React.createClass({
     var photosSkip = this.state.skip;
     var skip = photosSkip + 1;
     var photos = this.state.photos;
-    console.log('load more profile');
+    console.log(listenTo);
+
     $.ajax({
       url: urls.baseUrl + '/api/users/' + this.props.username + '/photos',
       method: 'GET',
@@ -50,12 +54,11 @@ module.exports = React.createClass({
 
   componentDidMount: function() {
     this.fetchUser(this.props.username);
-    pubsub.on('general:scroll', this.loadMore);
+    this.listenTo(pubsub, 'general:scroll', this.loadMore);
   },
 
   componentWillUnmount: function() {
-    console.log('unmount profile');
-    pubsub.off();
+    console.log('unmout');
   },
 
   componentWillReceiveProps: function(props) {

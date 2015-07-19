@@ -14,39 +14,6 @@ module.exports = Backbone.View.extend({
   /** Start Listen events */
   initialize: function() {
     this.listenTo(pubsub, 'view:remove', this.remove, this);
-    this.listenTo(pubsub, 'general:scroll', this.loadMore, this);
-    this.listenTo(pubsub, 'profile:addPhotos', this.loadMore, this);
-    this.photosSkip = 0;
-  },
-
-  /**
-   * Get more photos from api
-   * @param  {object} e jquery event
-   */
-  loadMore: function(e) {
-    if (e) e.preventDefault();
-    var skip = this.photosSkip + 1;
-    var username = this.model.user.username;
-
-    $.ajax({
-      url: urls.baseUrl + '/api/users/' + username + '/photos',
-      method: 'GET',
-      data: {photosSkip: skip}
-    })
-    .then(function(models) {
-      this.loadPhotos(models);
-    }.bind(this));
-
-    this.photosSkip = skip;
-  },
-
-  /**
-   * attach template with photos
-   * @return {object} this
-   */
-  loadPhotos: function(models) {
-    this.$el.find('.photos-grid').append(templatePhotos(models));
-    loadImages();
   },
 
   /**
@@ -59,6 +26,7 @@ module.exports = Backbone.View.extend({
     .empty()
     .append( templateItem( this.model ) );
     loadImages();
+    $('#app-container').empty().append(this.$el);
     return this;
   }
 
