@@ -35,7 +35,6 @@ gulp.task('browserify', function () {
   .transform(hbsfy)
     .transform(reactify)
     .transform(debowerify)
-    .transform(browserifyShim)
     .bundle()
     .on('error', function(err) {
       console.log(err.toString());
