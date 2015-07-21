@@ -54,8 +54,8 @@ window.onload = loadImages();
 'use stricts';
 
 module.exports = {
-  baseUrl: 'http://instaproud.brandspa.cc',
-  // baseUrl: 'http://localhost:3000',
+  // baseUrl: 'http://instaproud.brandspa.cc',
+  baseUrl: 'http://localhost:3000',
   s3Bucket: 'https://s3-sa-east-1.amazonaws.com/instaproud'
 };
 
@@ -1995,11 +1995,10 @@ module.exports = Backbone.View.extend({
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/caption.js","/app/views/photos")
 },{"./../../../bower_components/jquery/dist/jquery.js":75,"_process":83,"alertifyjs":77,"backbone":78,"buffer":79,"config/urls":2,"templates/photos/caption.hbs":19,"utils/pubsub":36}],48:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-"use strict";
+'use strict';
 
 var $ = require("./../../../bower_components/jquery/dist/jquery.js");
 var Backbone = require('backbone');
-var _ = require('underscore');
 var cropper = require("./../../../bower_components/cropper/dist/cropper.js");
 var pubsub = require('utils/pubsub');
 
@@ -2011,10 +2010,10 @@ module.exports = Backbone.View.extend({
   initialize: function() {
     var _this = this;
 
-    _this.listenTo(pubsub, "view:remove", _this.remove, _this);
-    _this.listenTo(pubsub, "photo:crop", _this.startCrop, _this);
-    _this.listenTo(pubsub, "app:next", _this.sendCrop, _this);
-    _this.listenTo(pubsub, "cropper:rotate", _this.rotate, _this);
+    _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
+    _this.listenTo(pubsub, 'photo:crop', _this.startCrop, _this);
+    _this.listenTo(pubsub, 'app:next', _this.sendCrop, _this);
+    _this.listenTo(pubsub, 'cropper:rotate', _this.rotate, _this);
     _this.data = '';
     _this.cropper;
   },
@@ -2030,7 +2029,7 @@ module.exports = Backbone.View.extend({
     // storagedImage = localStorage.getItem('imageToCrop');
 
     // if ($img.attr('src') === undefined) {
-    //   $container.append('<img src="'+ storagedImage +'" class="hidden" />');
+    //   $container.append('<img src=''+ storagedImage +'' class='hidden' />');
     // };
 
     $container.find('img').cropper({
@@ -2040,25 +2039,20 @@ module.exports = Backbone.View.extend({
       aspectRatio: 1,
       resizable: false,
       strict: true,
-      movable: false,
       dragCrop: false,
+      center: false,
 
       crop: function(data) {
-        // image = $container.find('img').get(0);
-        // context.rotate(parseInt(data.rotate) * Math.PI / 180);
-        // context.drawImage(image, data.x, data.y, data.width, data.width, 0, 0, 500, 500);
-
         _this.data = $(this).cropper('getCroppedCanvas').toDataURL();
       },
 
       built: function () {
         _this.cropper = this;
-        $(this).cropper('setCropBoxData',{width: '100%'});
-        $('.preloader').addClass('hidden');
+        $(this).cropper('setCropBoxData', {width: '100%'});
       }
     });
 
-    pubsub.trigger("appHeader:showRotate");
+    pubsub.trigger('appHeader:showRotate');
   },
 
   rotate: function() {
@@ -2066,12 +2060,12 @@ module.exports = Backbone.View.extend({
   },
 
   sendCrop: function() {
-    pubsub.trigger("photo:upload", this.data);
+    pubsub.trigger('photo:upload', this.data);
   }
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/crop.js","/app/views/photos")
-},{"./../../../bower_components/cropper/dist/cropper.js":74,"./../../../bower_components/jquery/dist/jquery.js":75,"_process":83,"backbone":78,"buffer":79,"underscore":254,"utils/pubsub":36}],49:[function(require,module,exports){
+},{"./../../../bower_components/cropper/dist/cropper.js":74,"./../../../bower_components/jquery/dist/jquery.js":75,"_process":83,"backbone":78,"buffer":79,"utils/pubsub":36}],49:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -2552,7 +2546,6 @@ module.exports = Backbone.View.extend({
   },
 
   showDependDevice: function(file) {
-    console.log(mobile());
     if (mobile()) {
      this.uploadPhoto(file);
     } else {
@@ -2566,7 +2559,7 @@ module.exports = Backbone.View.extend({
     uploadFile(file, 'original_image', '/api/photos/compress', function(res) {
       $('#app-container')
       .empty()
-      .append('<img src="' + res + '" width="500" />');
+      .append('<img src="' + res + '" height="100%" />');
       pubsub.trigger('navigator:change', '#crop');
     });
   },

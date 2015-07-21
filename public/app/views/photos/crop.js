@@ -1,8 +1,7 @@
-"use strict";
+'use strict';
 
 var $ = require('jquery');
 var Backbone = require('backbone');
-var _ = require('underscore');
 var cropper = require('cropper');
 var pubsub = require('utils/pubsub');
 
@@ -14,10 +13,10 @@ module.exports = Backbone.View.extend({
   initialize: function() {
     var _this = this;
 
-    _this.listenTo(pubsub, "view:remove", _this.remove, _this);
-    _this.listenTo(pubsub, "photo:crop", _this.startCrop, _this);
-    _this.listenTo(pubsub, "app:next", _this.sendCrop, _this);
-    _this.listenTo(pubsub, "cropper:rotate", _this.rotate, _this);
+    _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
+    _this.listenTo(pubsub, 'photo:crop', _this.startCrop, _this);
+    _this.listenTo(pubsub, 'app:next', _this.sendCrop, _this);
+    _this.listenTo(pubsub, 'cropper:rotate', _this.rotate, _this);
     _this.data = '';
     _this.cropper;
   },
@@ -33,7 +32,7 @@ module.exports = Backbone.View.extend({
     // storagedImage = localStorage.getItem('imageToCrop');
 
     // if ($img.attr('src') === undefined) {
-    //   $container.append('<img src="'+ storagedImage +'" class="hidden" />');
+    //   $container.append('<img src=''+ storagedImage +'' class='hidden' />');
     // };
 
     $container.find('img').cropper({
@@ -43,25 +42,20 @@ module.exports = Backbone.View.extend({
       aspectRatio: 1,
       resizable: false,
       strict: true,
-      movable: false,
       dragCrop: false,
+      center: false,
 
       crop: function(data) {
-        // image = $container.find('img').get(0);
-        // context.rotate(parseInt(data.rotate) * Math.PI / 180);
-        // context.drawImage(image, data.x, data.y, data.width, data.width, 0, 0, 500, 500);
-
         _this.data = $(this).cropper('getCroppedCanvas').toDataURL();
       },
 
       built: function () {
         _this.cropper = this;
-        $(this).cropper('setCropBoxData',{width: '100%'});
-        $('.preloader').addClass('hidden');
+        $(this).cropper('setCropBoxData', {width: '100%'});
       }
     });
 
-    pubsub.trigger("appHeader:showRotate");
+    pubsub.trigger('appHeader:showRotate');
   },
 
   rotate: function() {
@@ -69,6 +63,6 @@ module.exports = Backbone.View.extend({
   },
 
   sendCrop: function() {
-    pubsub.trigger("photo:upload", this.data);
+    pubsub.trigger('photo:upload', this.data);
   }
 });

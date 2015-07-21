@@ -19,7 +19,6 @@ module.exports = Backbone.View.extend({
   },
 
   showDependDevice: function(file) {
-    console.log(mobile());
     if (mobile()) {
      this.uploadPhoto(file);
     } else {
@@ -33,7 +32,7 @@ module.exports = Backbone.View.extend({
     uploadFile(file, 'original_image', '/api/photos/compress', function(res) {
       $('#app-container')
       .empty()
-      .append('<img src="' + res + '" width="500" />');
+      .append('<img src="' + res + '" height="100%" />');
       pubsub.trigger('navigator:change', '#crop');
     });
   },
