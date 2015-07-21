@@ -2551,11 +2551,12 @@ module.exports = Backbone.View.extend({
     _this.listenTo(pubsub, 'photo:render', _this.showDependDevice, _this);
   },
 
-  showDependDevice: function() {
+  showDependDevice: function(file) {
+    console.log(mobile());
     if (mobile()) {
-     this.uploadPhoto();
+     this.uploadPhoto(file);
     } else {
-      this.loadPhoto();
+      this.loadPhoto(file);
     }
   },
 
