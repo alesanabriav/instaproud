@@ -38,14 +38,13 @@ module.exports = Backbone.View.extend({
     $container.find('img').cropper({
       minCropBoxWidth: 500,
       minCropBoxHeight: 500,
-      responsive: false,
       aspectRatio: 1,
       resizable: false,
       strict: true,
+      movable: false,
       dragCrop: false,
       center: false,
-
-      crop: function(data) {
+      crop: function() {
         _this.data = $(this).cropper('getCroppedCanvas').toDataURL();
       },
 

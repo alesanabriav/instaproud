@@ -32,7 +32,7 @@ module.exports = Backbone.View.extend({
     uploadFile(file, 'original_image', '/api/photos/compress', function(res) {
       $('#app-container')
       .empty()
-      .append('<img src="' + res + '" height="100%" />');
+      .append('<div style="height:500px"><img src="' + res + '" height="100%" /></div>');
       pubsub.trigger('navigator:change', '#crop');
     });
   },
@@ -44,7 +44,7 @@ module.exports = Backbone.View.extend({
       reader = new FileReader();
 
       reader.onload = function() {
-        $('#app-container').empty().append('<img src="' + reader.result + '" width="100%" />');
+        $('#app-container').empty().append('<div style="height:500px"><img src="' + reader.result + '" width="500" /></div>');
       };
 
       reader.readAsDataURL(file);

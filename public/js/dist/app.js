@@ -54,8 +54,8 @@ window.onload = loadImages();
 'use stricts';
 
 module.exports = {
-  baseUrl: 'http://instaproud.brandspa.cc',
-  // baseUrl: 'http://localhost:3000',
+  // baseUrl: 'http://instaproud.brandspa.cc',
+  baseUrl: 'http://localhost:3000',
   s3Bucket: 'https://s3-sa-east-1.amazonaws.com/instaproud'
 };
 
@@ -2035,14 +2035,13 @@ module.exports = Backbone.View.extend({
     $container.find('img').cropper({
       minCropBoxWidth: 500,
       minCropBoxHeight: 500,
-      responsive: false,
       aspectRatio: 1,
       resizable: false,
       strict: true,
+      movable: false,
       dragCrop: false,
       center: false,
-
-      crop: function(data) {
+      crop: function() {
         _this.data = $(this).cropper('getCroppedCanvas').toDataURL();
       },
 
@@ -2559,7 +2558,7 @@ module.exports = Backbone.View.extend({
     uploadFile(file, 'original_image', '/api/photos/compress', function(res) {
       $('#app-container')
       .empty()
-      .append('<img src="' + res + '" height="100%" />');
+      .append('<div style="height:500px"><img src="' + res + '" height="100%" /></div>');
       pubsub.trigger('navigator:change', '#crop');
     });
   },
@@ -2571,7 +2570,7 @@ module.exports = Backbone.View.extend({
       reader = new FileReader();
 
       reader.onload = function() {
-        $('#app-container').empty().append('<img src="' + reader.result + '" width="100%" />');
+        $('#app-container').empty().append('<div style="height:500px"><img src="' + reader.result + '" width="500" /></div>');
       };
 
       reader.readAsDataURL(file);
