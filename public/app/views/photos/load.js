@@ -19,6 +19,7 @@ module.exports = Backbone.View.extend({
   },
 
   showDependDevice: function() {
+    console.log(mobile());
     if (mobile()) {
      this.uploadPhoto();
     } else {
