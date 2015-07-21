@@ -128,7 +128,7 @@ module.exports = {
 global.jQuery = require("./../../bower_components/jquery/dist/jquery.js");
 var $ = jQuery;
 var React = require('react');
-
+var _ = require('underscore');
 var Photos = require('views/photos/list');
 var Photo = require('views/photos/item');
 var PhotoLoad = require('views/photos/load');
@@ -168,7 +168,7 @@ module.exports = {
     model.fetch({
       success: function() {
         $('#app-container').empty().append(view.el);
-        loadImages();
+        _.delay(loadImages, 1000);
       }
     });
 
@@ -253,7 +253,7 @@ module.exports = {
  }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/controllers/photos.js","/app/controllers")
-},{"./../../bower_components/jquery/dist/jquery.js":75,"_process":83,"buffer":79,"models/comment":9,"models/photo":10,"react":252,"utils/loadImages":34,"utils/pubsub":36,"views/photos/autocomplete_hashtag":45,"views/photos/autocomplete_user":46,"views/photos/caption":47,"views/photos/crop":48,"views/photos/filter":49,"views/photos/hashtag":50,"views/photos/item":51,"views/photos/list":55,"views/photos/list.jsx":56,"views/photos/load":57,"views/photos/search":58,"views/photos/search.jsx":59,"views/photos/store":62,"views/photos/tag_autocomplete":63,"views/photos/upload":64}],6:[function(require,module,exports){
+},{"./../../bower_components/jquery/dist/jquery.js":75,"_process":83,"buffer":79,"models/comment":9,"models/photo":10,"react":252,"underscore":254,"utils/loadImages":34,"utils/pubsub":36,"views/photos/autocomplete_hashtag":45,"views/photos/autocomplete_user":46,"views/photos/caption":47,"views/photos/crop":48,"views/photos/filter":49,"views/photos/hashtag":50,"views/photos/item":51,"views/photos/list":55,"views/photos/list.jsx":56,"views/photos/load":57,"views/photos/search":58,"views/photos/search.jsx":59,"views/photos/store":62,"views/photos/tag_autocomplete":63,"views/photos/upload":64}],6:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -1162,9 +1162,9 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isModZeroNotFirst : depth0),{"name":"if","hash":{},"fn":this.program(2, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isModZero : depth0),{"name":"if","hash":{},"fn":this.program(4, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "  <a href=\"/#photo/"
+    + "  <a href=\"#photo/"
     + this.escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias1),(typeof helper === "function" ? helper.call(depth0,{"name":"id","hash":{},"data":data}) : helper)))
-    + "\" class=\"col-lg-4 col-sm-4 col-md-4 col-xs-4\">\n    <img src=\"/images/photo-placeholder.gif\" data-src=\""
+    + "\" class=\"col-lg-4 col-sm-4 col-md-4 col-xs-4\">\n    <img src=\"images/photo-placeholder.gif\" data-src=\""
     + ((stack1 = (helpers.s3Url || (depth0 && depth0.s3Url) || alias1).call(depth0,(depth0 != null ? depth0.owner : depth0),(depth0 != null ? depth0.path : depth0),{"name":"s3Url","hash":{},"fn":this.program(6, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\" class=\"img-responsive\"/>\n  </a>\n";
 },"2":function(depth0,helpers,partials,data) {
@@ -2182,7 +2182,7 @@ module.exports = Backbone.View.extend({
 'use strict';
 global.jQuery = require("./../../../bower_components/jquery/dist/jquery.js");
 var $ = jQuery;
-
+var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var loadTimeago = require('utils/timeago');
@@ -2203,26 +2203,23 @@ module.exports = Backbone.View.extend({
 
   //Start Listen events
   initialize: function() {
-    var _this = this;
-    _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
-    _this.listenTo(_this.model, 'change', _this.render, _this);
+    this.listenTo(pubsub, 'view:remove', this.remove, this);
+    this.listenTo(this.model, 'change', this.render, this);
   },
 
   render: function() {
-    var _this = this;
-    _this.$el
+    this.$el
     .empty()
-    .append( template( _this.model.toJSON() ) );
-    loadTimeago(_this.$el);
-    loadImages();
-    return _this;
+    .append( template( this.model.toJSON() ) );
+    loadTimeago(this.$el);
+    return this;
   },
 
   like: function(e) {
     var _this = this;
     var $icon = $(e.currentTarget).find('i');
 
-    $.post(urls.baseUrl+'/api/photos/'+ _this.model.id  +'/liked')
+    $.post(urls.baseUrl + '/api/photos/' + _this.model.id  + '/liked')
     .then(function(res) {
       _this.model.set('liked', res.liked);
       pubsub.trigger('activity:store', {text: 'le gusta', photo: _this.model.id});
@@ -2233,10 +2230,9 @@ module.exports = Backbone.View.extend({
     var _this = this;
     var $icon = $(e.currentTarget).find('i');
 
-    $.post(urls.baseUrl+'/api/photos/'+ _this.model.id +'/unliked')
+    $.post(urls.baseUrl + '/api/photos/' + _this.model.id + '/unliked')
     .then(function(res) {
       _this.model.set('liked', res.liked);
-
     });
   },
 
@@ -2257,17 +2253,15 @@ module.exports = Backbone.View.extend({
 
     if (e.keyCode === 13) {
       this.comment(e);
-    };
+    }
   },
 
   comment: function(e) {
     e.preventDefault();
-    var comments;
-    var _this = this;
-    var comment = _this.$el.find('.commentText').val();
+    var comment = this.$el.find('.commentText').val();
     pubsub.trigger('input:onFocusOut');
-    $.post(urls.baseUrl + '/api/photos/' + _this.model.id + '/comments', {comment: comment})
-    .then(_this.updateComments.bind(_this));
+    $.post(urls.baseUrl + '/api/photos/' + this.model.id + '/comments', {comment: comment})
+    .then(this.updateComments.bind(this));
   },
 
   //search first the model then set
@@ -2276,18 +2270,17 @@ module.exports = Backbone.View.extend({
   },
 
   updateComments: function(data) {
-    var _this = this;
-    var comments = _this.model.get('comments');
+    var comments = this.model.get('comments');
     comments.push(data);
-    _this.model.set('comments', comments);
-    _this.model.trigger('change');
-    pubsub.trigger('activity:store', {text: 'comento', photo: _this.model.id});
+    this.model.set('comments', comments);
+    this.model.trigger('change');
+    pubsub.trigger('activity:store', {text: 'comento', photo: this.model.id});
   }
 
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/item.js","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":75,"_process":83,"backbone":78,"buffer":79,"config/urls":2,"templates/photos/item.hbs":22,"utils/loadImages":34,"utils/pubsub":36,"utils/timeago":38}],52:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":75,"_process":83,"backbone":78,"buffer":79,"config/urls":2,"templates/photos/item.hbs":22,"underscore":254,"utils/loadImages":34,"utils/pubsub":36,"utils/timeago":38}],52:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -2433,7 +2426,7 @@ module.exports = React.createClass({displayName: "exports",
 },{"_process":83,"buffer":79,"react":252}],55:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
-
+var _ = require('underscore');
 var $ = require("./../../../bower_components/jquery/dist/jquery.js");
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
@@ -2460,7 +2453,7 @@ module.exports = Backbone.View.extend({
     var view;
     view = new itemView({model: model});
     _this.$el.append(view.render().el);
-    loadImages();
+    _.delay(loadImages, 1000);
   },
 
   render: function() {
@@ -2478,8 +2471,7 @@ module.exports = Backbone.View.extend({
     $('#app-container')
     .empty()
     .append(_this.el);
-
-    loadImages();
+    _.delay(loadImages, 1000);
   },
 
   loadMore: function(e) {
@@ -2493,7 +2485,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/list.js","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":75,"_process":83,"backbone":78,"buffer":79,"utils/loadImages":34,"utils/pubsub":36,"views/photos/item":51}],56:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":75,"_process":83,"backbone":78,"buffer":79,"underscore":254,"utils/loadImages":34,"utils/pubsub":36,"views/photos/item":51}],56:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');

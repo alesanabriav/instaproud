@@ -1,7 +1,7 @@
 'use strict';
 global.jQuery = require('jquery');
 var $ = jQuery;
-
+var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var loadTimeago = require('utils/timeago');
@@ -22,26 +22,23 @@ module.exports = Backbone.View.extend({
 
   //Start Listen events
   initialize: function() {
-    var _this = this;
-    _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
-    _this.listenTo(_this.model, 'change', _this.render, _this);
+    this.listenTo(pubsub, 'view:remove', this.remove, this);
+    this.listenTo(this.model, 'change', this.render, this);
   },
 
   render: function() {
-    var _this = this;
-    _this.$el
+    this.$el
     .empty()
-    .append( template( _this.model.toJSON() ) );
-    loadTimeago(_this.$el);
-    loadImages();
-    return _this;
+    .append( template( this.model.toJSON() ) );
+    loadTimeago(this.$el);
+    return this;
   },
 
   like: function(e) {
     var _this = this;
     var $icon = $(e.currentTarget).find('i');
 
-    $.post(urls.baseUrl+'/api/photos/'+ _this.model.id  +'/liked')
+    $.post(urls.baseUrl + '/api/photos/' + _this.model.id  + '/liked')
     .then(function(res) {
       _this.model.set('liked', res.liked);
       pubsub.trigger('activity:store', {text: 'le gusta', photo: _this.model.id});
@@ -52,10 +49,9 @@ module.exports = Backbone.View.extend({
     var _this = this;
     var $icon = $(e.currentTarget).find('i');
 
-    $.post(urls.baseUrl+'/api/photos/'+ _this.model.id +'/unliked')
+    $.post(urls.baseUrl + '/api/photos/' + _this.model.id + '/unliked')
     .then(function(res) {
       _this.model.set('liked', res.liked);
-
     });
   },
 
@@ -76,17 +72,15 @@ module.exports = Backbone.View.extend({
 
     if (e.keyCode === 13) {
       this.comment(e);
-    };
+    }
   },
 
   comment: function(e) {
     e.preventDefault();
-    var comments;
-    var _this = this;
-    var comment = _this.$el.find('.commentText').val();
+    var comment = this.$el.find('.commentText').val();
     pubsub.trigger('input:onFocusOut');
-    $.post(urls.baseUrl + '/api/photos/' + _this.model.id + '/comments', {comment: comment})
-    .then(_this.updateComments.bind(_this));
+    $.post(urls.baseUrl + '/api/photos/' + this.model.id + '/comments', {comment: comment})
+    .then(this.updateComments.bind(this));
   },
 
   //search first the model then set
@@ -95,12 +89,11 @@ module.exports = Backbone.View.extend({
   },
 
   updateComments: function(data) {
-    var _this = this;
-    var comments = _this.model.get('comments');
+    var comments = this.model.get('comments');
     comments.push(data);
-    _this.model.set('comments', comments);
-    _this.model.trigger('change');
-    pubsub.trigger('activity:store', {text: 'comento', photo: _this.model.id});
+    this.model.set('comments', comments);
+    this.model.trigger('change');
+    pubsub.trigger('activity:store', {text: 'comento', photo: this.model.id});
   }
 
 });

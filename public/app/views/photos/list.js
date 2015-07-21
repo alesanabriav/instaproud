@@ -1,5 +1,5 @@
 'use strict';
-
+var _ = require('underscore');
 var $ = require('jquery');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
@@ -26,7 +26,7 @@ module.exports = Backbone.View.extend({
     var view;
     view = new itemView({model: model});
     _this.$el.append(view.render().el);
-    loadImages();
+    _.delay(loadImages, 1000);
   },
 
   render: function() {
@@ -44,8 +44,7 @@ module.exports = Backbone.View.extend({
     $('#app-container')
     .empty()
     .append(_this.el);
-
-    loadImages();
+    _.delay(loadImages, 1000);
   },
 
   loadMore: function(e) {

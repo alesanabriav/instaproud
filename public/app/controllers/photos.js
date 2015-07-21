@@ -2,7 +2,7 @@
 global.jQuery = require("jquery");
 var $ = jQuery;
 var React = require('react');
-
+var _ = require('underscore');
 var Photos = require('views/photos/list');
 var Photo = require('views/photos/item');
 var PhotoLoad = require('views/photos/load');
@@ -42,7 +42,7 @@ module.exports = {
     model.fetch({
       success: function() {
         $('#app-container').empty().append(view.el);
-        loadImages();
+        _.delay(loadImages, 1000);
       }
     });
 
