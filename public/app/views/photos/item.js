@@ -16,7 +16,8 @@ module.exports = Backbone.View.extend({
     'click .unlike': 'unlike',
     'click .comment': 'comment',
     'keyup .commentText': 'checkEnter',
-    'click .comment-focus': 'commentFocus'
+    'click .commentText': 'commentFocus',
+    'focusout .commentText': 'commentFocusOut'
   },
 
   //Start Listen events
@@ -61,6 +62,11 @@ module.exports = Backbone.View.extend({
   commentFocus: function(e) {
     e.preventDefault();
     this.$el.find('.commentText').focus();
+    pubsub.trigger('input:onFocus');
+  },
+
+  commentFocusOut: function() {
+    pubsub.trigger('input:onFocusOut');
   },
 
   checkEnter: function(e) {
@@ -78,7 +84,7 @@ module.exports = Backbone.View.extend({
     var comments;
     var _this = this;
     var comment = _this.$el.find('.commentText').val();
-
+    pubsub.trigger('input:onFocusOut');
     $.post(urls.baseUrl + '/api/photos/' + _this.model.id + '/comments', {comment: comment})
     .then(_this.updateComments.bind(_this));
   },

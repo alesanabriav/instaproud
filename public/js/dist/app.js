@@ -1014,7 +1014,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + ((stack1 = (helpers.itsHigher || (depth0 && depth0.itsHigher) || alias3).call(depth0,(depth0 != null ? depth0.comments : depth0),4,{"name":"itsHigher","hash":{},"fn":this.program(12, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n"
     + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.comments : depth0),{"name":"each","hash":{},"fn":this.program(14, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "      </ul>\n    </div>\n\n    <div class=\"input-group comment-create-container\">\n      <input type=\"text\" class=\"form-control commentText\" placeholder=\"Comentar...\">\n      <span class=\"input-group-btn\">\n        <button class=\"comment btn\"><i class=\"icon ion-ios-paperplane-outline\"></i></button>\n      </span>\n    </div>\n\n  </div>\n</article>\n\n";
+    + "      </ul>\n    </div>\n\n    <div class=\"input-group comment-create-container\">\n      <input type=\"text\" class=\"form-control commentText\" placeholder=\"Comentar\">\n      <span class=\"input-group-btn\">\n        <button class=\"comment btn\"><i class=\"icon ion-ios-paperplane-outline\"></i></button>\n      </span>\n    </div>\n\n  </div>\n</article>\n\n";
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/photos/item.hbs","/app/templates/photos")
@@ -2197,7 +2197,8 @@ module.exports = Backbone.View.extend({
     'click .unlike': 'unlike',
     'click .comment': 'comment',
     'keyup .commentText': 'checkEnter',
-    'click .comment-focus': 'commentFocus'
+    'click .commentText': 'commentFocus',
+    'focusout .commentText': 'commentFocusOut'
   },
 
   //Start Listen events
@@ -2242,6 +2243,11 @@ module.exports = Backbone.View.extend({
   commentFocus: function(e) {
     e.preventDefault();
     this.$el.find('.commentText').focus();
+    pubsub.trigger('input:onFocus');
+  },
+
+  commentFocusOut: function() {
+    pubsub.trigger('input:onFocusOut');
   },
 
   checkEnter: function(e) {
@@ -2259,7 +2265,7 @@ module.exports = Backbone.View.extend({
     var comments;
     var _this = this;
     var comment = _this.$el.find('.commentText').val();
-
+    pubsub.trigger('input:onFocusOut');
     $.post(urls.baseUrl + '/api/photos/' + _this.model.id + '/comments', {comment: comment})
     .then(_this.updateComments.bind(_this));
   },
