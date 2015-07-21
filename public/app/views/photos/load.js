@@ -35,7 +35,7 @@ module.exports = Backbone.View.extend({
       reader = new FileReader();
 
       reader.onload = function() {
-        $('#app-container').empty().append('<img src="' + reader.result + '" width="500" />');
+        $('#app-container').empty().append('<img src="' + reader.result + '" width="100%" />');
       };
 
       reader.readAsDataURL(file);
