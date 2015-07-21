@@ -5,6 +5,7 @@ var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var uploadFile = require('utils/upload_file');
 var alertify = require('alertifyjs');
+var mobile = require('is-mobile');
 
 Backbone.$ = $;
 
@@ -14,7 +15,15 @@ module.exports = Backbone.View.extend({
   initialize: function() {
     var _this = this;
     _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
-    _this.listenTo(pubsub, 'photo:render', _this.loadPhoto, _this);
+    _this.listenTo(pubsub, 'photo:render', _this.showDependDevice, _this);
+  },
+
+  showDependDevice: function() {
+    if (mobile()) {
+     this.uploadPhoto();
+    } else {
+      this.loadPhoto();
+    }
   },
 
   uploadPhoto: function(file) {
@@ -23,7 +32,7 @@ module.exports = Backbone.View.extend({
     uploadFile(file, 'original_image', '/api/photos/compress', function(res) {
       $('#app-container')
       .empty()
-      .append('<img src="' + res + '" />');
+      .append('<img src="' + res + '" width="500" />');
       pubsub.trigger('navigator:change', '#crop');
     });
   },
