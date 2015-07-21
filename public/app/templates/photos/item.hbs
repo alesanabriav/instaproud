@@ -3,11 +3,11 @@
   <header class="header">
 
     <div class="avatar-container">
-    {{#if owner.profile_image}}
-      <img src="{{#s3Url owner.id owner.profile_image}}{{/s3Url}}" class="avatar-image">
-    {{else}}
-      <img src="images/placeholders/placeholder_profile.png">
-    {{/if}}
+      {{#if owner.profile_image}}
+        <img src="{{#s3Url owner.id owner.profile_image}}{{/s3Url}}" class="avatar-image">
+      {{else}}
+        <img src="images/placeholders/placeholder_profile.png">
+      {{/if}}
     </div>
 
     <div class="owner-username-and-name">

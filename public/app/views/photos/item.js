@@ -1,7 +1,7 @@
 'use strict';
-global.jQuery = require("jquery");
+global.jQuery = require('jquery');
 var $ = jQuery;
-var _ = require('underscore');
+
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var loadTimeago = require('utils/timeago');
@@ -22,8 +22,8 @@ module.exports = Backbone.View.extend({
   //Start Listen events
   initialize: function() {
     var _this = this;
-    _this.listenTo(pubsub, "view:remove", _this.remove, _this);
-    _this.listenTo(_this.model, "change", _this.render, _this);
+    _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
+    _this.listenTo(_this.model, 'change', _this.render, _this);
   },
 
   render: function() {
@@ -43,7 +43,7 @@ module.exports = Backbone.View.extend({
     $.post(urls.baseUrl+'/api/photos/'+ _this.model.id  +'/liked')
     .then(function(res) {
       _this.model.set('liked', res.liked);
-      pubsub.trigger('activity:store', {text: "le gusta", photo: _this.model.id});
+      pubsub.trigger('activity:store', {text: 'le gusta', photo: _this.model.id});
     });
   },
 
@@ -79,7 +79,7 @@ module.exports = Backbone.View.extend({
     var _this = this;
     var comment = _this.$el.find('.commentText').val();
 
-    $.post(urls.baseUrl+'/api/photos/'+ _this.model.id + '/comments', {comment: comment})
+    $.post(urls.baseUrl + '/api/photos/' + _this.model.id + '/comments', {comment: comment})
     .then(_this.updateComments.bind(_this));
   },
 
@@ -92,9 +92,9 @@ module.exports = Backbone.View.extend({
     var _this = this;
     var comments = _this.model.get('comments');
     comments.push(data);
-    _this.model.set("comments", comments);
+    _this.model.set('comments', comments);
     _this.model.trigger('change');
-    pubsub.trigger('activity:store', {text: "comento", photo: _this.model.id});
+    pubsub.trigger('activity:store', {text: 'comento', photo: _this.model.id});
   }
 
 });

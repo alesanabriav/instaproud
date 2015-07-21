@@ -100,8 +100,8 @@ Handlebars.registerHelper("convertHashtag", function(text) {
   var newText;
 
   if (text) {
-    newText = text.replace(/#(\S+)/g,'<a href="#hashtag/$1">#$1</a>');
-    newText = newText.replace(/@(\S+)/g,'<a href="#profile/$1">@$1</a>');
+    newText = text.replace(/#(\S+)/g, '<a href="#hashtag/$1">#$1</a>');
+    newText = newText.replace(/@(\S+)/g, '<a href="#profile/$1">@$1</a>');
     return newText;
   } else {
     return text;

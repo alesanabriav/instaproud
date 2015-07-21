@@ -23,6 +23,8 @@ var CommentModels = require('models/comment');
 
 var pubsub = require('utils/pubsub');
 var loadImages = require('utils/loadImages');
+var React = require('react');
+var List = require('views/photos/list.jsx');
 
 module.exports = {
 
@@ -30,6 +32,7 @@ module.exports = {
     var collection = new models.photos();
     new Photos({collection: collection});
     collection.fetch({reset: true});
+    // React.render(<List />, document.getElementById('app-container'));
   },
 
   item: function(id) {
@@ -64,7 +67,6 @@ module.exports = {
   filter: function(src) {
     var folder = src.split("_");
     var data = {"original": src, "folder": folder[0]};
-
 
     pubsub.trigger('appHeader:change', {
       title: "Editar Imagen", bgColor: "444"

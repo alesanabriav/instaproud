@@ -29,14 +29,13 @@ module.exports = Backbone.View.extend({
   },
 
   loadPhoto: function(file) {
-    var image;
     var reader;
 
     if (file.type.match(/image.*/)) {
       reader = new FileReader();
 
       reader.onload = function() {
-        $('#app-container').empty().append('<img src="' + reader.result + '" />');
+        $('#app-container').empty().append('<img src="' + reader.result + '" width="500" />');
       };
 
       reader.readAsDataURL(file);
@@ -46,10 +45,7 @@ module.exports = Backbone.View.extend({
       }, 400);
 
     } else {
-      alert('Tipo de archivo no permitido');
+      alertify.error('Tipo de archivo no permitido');
     }
-
-
   }
-
 });

@@ -1,7 +1,6 @@
-"use strict";
+'use strict';
 
-var $ = require("jquery");
-var _ = require('underscore');
+var $ = require('jquery');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var loadImages = require('utils/loadImages');
@@ -15,13 +14,11 @@ module.exports = Backbone.View.extend({
   },
 
   initialize: function() {
-    var _this = this;
-
-    _this.listenTo(pubsub, 'view:remove', _this.remove, _this);
-    _this.listenTo(pubsub, 'general:scroll', _this.loadMore, _this);
-    _this.listenTo(_this.collection, 'reset', _this.render);
-    _this.listenTo(_this.collection, 'add', _this.addMore);
-    _this.photosSkip = 5;
+    this.listenTo(pubsub, 'view:remove', this.remove, this);
+    this.listenTo(pubsub, 'general:scroll', this.loadMore, this);
+    this.listenTo(this.collection, 'reset', this.render);
+    this.listenTo(this.collection, 'add', this.addMore);
+    this.photosSkip = 5;
   },
 
   addMore: function(model) {
