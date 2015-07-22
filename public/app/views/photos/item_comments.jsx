@@ -6,21 +6,17 @@ module.exports = React.createClass({
   render: function() {
     var comments = this.props.comments;
 
-    if (comments.length > 4) {
-      var seeMore = (<li><a className="see-more" href="#photo/{{ id }}">Ver más comentarios</a></li>);
-    }
     return (
      <div className="comments">
        <ul>
-          {seeMore}
-
-          <li>
-            <a href="#profile/{{ commenter.username }}" className="profile_link" >
-              { commenter.username }
-            </a>
-
-          </li>
-
+        {comments.map(function(comment) {
+          return (
+            <li key={comment.id}>
+              <a href={"#profile/" + comment.commenter.username} className="profile_link" >
+              { comment.commenter.username }</a> {comment.text}
+            </li>
+          )
+        })}
        </ul>
      </div>
     );

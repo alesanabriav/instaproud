@@ -4,7 +4,7 @@ var $ = require('jquery');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var loadImages = require('utils/loadImages');
-var itemView = require('views/photos/item');
+var ItemView = require('views/photos/item');
 
 Backbone.$ = $;
 
@@ -24,9 +24,9 @@ module.exports = Backbone.View.extend({
   addMore: function(model) {
     var _this = this;
     var view;
-    view = new itemView({model: model});
+    view = new ItemView({model: model});
     _this.$el.append(view.render().el);
-    _.delay(loadImages, 1000);
+    _.delay(loadImages, 500);
   },
 
   render: function() {
@@ -35,7 +35,7 @@ module.exports = Backbone.View.extend({
     var view;
 
     _this.collection.each(function(model) {
-      view = new itemView({model: model});
+      view = new ItemView({model: model});
       views.push(view.render().el);
     });
 
@@ -44,7 +44,9 @@ module.exports = Backbone.View.extend({
     $('#app-container')
     .empty()
     .append(_this.el);
-    _.delay(loadImages, 1000);
+    _.delay(loadImages, 500);
+
+    return this;
   },
 
   loadMore: function(e) {

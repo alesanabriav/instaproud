@@ -46,6 +46,8 @@ PhotoSchema = new Schema({
 PhotoSchema.set('toJSON', {
   transform: function (doc, ret) {
    ret.id = ret._id;
+   ret.likesCount = ret.liked.length;
+   ret.commentsCount = ret.comments.length;
    delete ret._id;
    delete ret.__v;
   }

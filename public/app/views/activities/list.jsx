@@ -24,8 +24,8 @@ module.exports = React.createClass({
   render: function() {
     return (
       <ul className="list-group">
-        {this.state.activities.map(function(data, i) {
-          return (<Item activity={data} key={i} />)
+        {this.state.activities.map(function(data) {
+          return (<Item activity={data} key={data.id} />)
         })}
       </ul>
     );

@@ -29,10 +29,10 @@ var List = require('views/photos/list.jsx');
 module.exports = {
 
   list: function() {
-    var collection = new models.photos();
-    new Photos({collection: collection});
-    collection.fetch({reset: true});
-    // React.render(<List />, document.getElementById('app-container'));
+    // var collection = new models.photos();
+    // new Photos({collection: collection});
+    // collection.fetch({reset: true});
+    React.render(<List />, document.getElementById('app-container'));
   },
 
   item: function(id) {

@@ -34,7 +34,7 @@ module.exports = React.createClass({
     var photosSkip = this.state.skip;
     var skip = photosSkip + 12;
     var photos = this.state.photos;
-    console.log(this.props.prefix);
+
     $.ajax({
       url: urls.baseUrl + '/api/users/' + this.props.username + '/' + this.props.prefix,
       method: 'GET',

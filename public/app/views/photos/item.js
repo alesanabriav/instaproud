@@ -1,7 +1,6 @@
 'use strict';
 global.jQuery = require('jquery');
 var $ = jQuery;
-var _ = require('underscore');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var loadTimeago = require('utils/timeago');
@@ -31,28 +30,25 @@ module.exports = Backbone.View.extend({
     .empty()
     .append( template( this.model.toJSON() ) );
     loadTimeago(this.$el);
+    loadImages();
     return this;
   },
 
   like: function(e) {
-    var _this = this;
-    var $icon = $(e.currentTarget).find('i');
-
-    $.post(urls.baseUrl + '/api/photos/' + _this.model.id  + '/liked')
+    e.preventDefault();
+    $.post(urls.baseUrl + '/api/photos/' + this.model.id + '/liked')
     .then(function(res) {
-      _this.model.set('liked', res.liked);
-      pubsub.trigger('activity:store', {text: 'le gusta', photo: _this.model.id});
-    });
+      this.model.set('liked', res.liked);
+      pubsub.trigger('activity:store', {text: 'le gusta', photo: this.model.id});
+    }.bind(this));
   },
 
   unlike: function(e) {
-    var _this = this;
-    var $icon = $(e.currentTarget).find('i');
-
-    $.post(urls.baseUrl + '/api/photos/' + _this.model.id + '/unliked')
+    e.preventDefault();
+    $.post(urls.baseUrl + '/api/photos/' + this.model.id + '/unliked')
     .then(function(res) {
-      _this.model.set('liked', res.liked);
-    });
+      this.model.set('liked', res.liked);
+    }.bind(this));
   },
 
   commentFocus: function(e) {
@@ -66,10 +62,6 @@ module.exports = Backbone.View.extend({
   },
 
   checkEnter: function(e) {
-    var $icon = this.$el.find('.comment > i');
-    $icon.removeClass('fa-paper-plane-o');
-    $icon.addClass('fa-paper-plane');
-
     if (e.keyCode === 13) {
       this.comment(e);
     }
