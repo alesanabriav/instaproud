@@ -1,62 +1,40 @@
-"use strict";
+'use strict';
 var $ = require('jquery');
 var urls = require('config/urls');
 
 module.exports = {
-  preloaderShow: function() {
-    return $('.preloader').removeClass('hidden');
-  },
-
   post: function(url, data, cb) {
-
     $.ajax({
-      type: "POST",
+      type: 'POST',
       url: urls.baseUrl + url,
-      data: data,
-      beforeSend: this.preloaderShow
+      data: data
     })
-    .then(function(res){
-      $('.preloader').addClass('hidden');
-      return cb(res);
-    });
+    .then(cb);
   },
 
   get: function(url, data, cb) {
     $.ajax({
-      type: "GET",
+      type: 'GET',
       url: urls.baseUrl + url,
-      beforeSend: this.preloaderShow
+      data: data
     })
-    .then(function(res){
-      $('.preloader').addClass('hidden');
-      return cb(res);
-    });
-
+    .then(cb);
   },
 
-  put: function() {
+  put: function(url, data, cb) {
     $.ajax({
-      type: "PUT",
+      type: 'PUT',
       url: urls.baseUrl + url,
-      data: data,
-      beforeSend: this.preloaderShow
+      data: data
     })
-    .then(function(res){
-      $('.preloader').addClass('hidden');
-      return cb(res);
-    });
+    .then(cb);
   },
 
-  delete: function() {
+  delete: function(url, data, cb) {
     $.ajax({
-      type: "DELETE",
-      url: urls.baseUrl + url,
-      beforeSend: this.preloaderShow
+      type: 'DELETE',
+      url: urls.baseUrl + url
     })
-    .then(function(res){
-      $('.preloader').addClass('hidden');
-      return cb(res);
-    });
-
+    .then(cb);
   }
-}
+};

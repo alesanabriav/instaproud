@@ -5,26 +5,38 @@ var models = require('models/photo');
 var Item = require('views/photos/item.jsx');
 var loadImages = require('utils/loadImages');
 var pubsub = require('utils/pubsub');
+var $http = require('utils/http');
+var _ = require('underscore');
 
 module.exports = React.createClass({
   mixins: [listenTo],
 
   getInitialState: function() {
     return {
-      photos: []
+      photos: [],
+      skip: 0
     }
   },
 
   componentDidMount: function() {
-    var collection = new models.photos();
-    collection.fetch({reset: true, success: function(res) {
+    $http.get('/api/photos', null, function(res) {
       this.setState({photos: res});
-    }.bind(this)});
+    }.bind(this));
+
     this.listenTo(pubsub, 'general:scroll', this.loadMore);
   },
 
-  handleScroll: function() {
-    console.log('scroll list');
+  loadMore: function(e) {
+    if (e) e.preventDefault();
+    var skip = this.state.skip + 5;
+    var data = {photosSkip: skip};
+    var newPhotos;
+    $http.get('/api/photos', data, function(res) {
+      newPhotos = _.union(this.state.photos, res);
+      this.setState({photos: newPhotos});
+    }.bind(this));
+
+    this.state.skip = skip;
   },
 
   render: function() {

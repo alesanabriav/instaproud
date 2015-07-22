@@ -48,6 +48,7 @@ PhotoSchema.set('toJSON', {
    ret.id = ret._id;
    ret.likesCount = ret.liked.length;
    ret.commentsCount = ret.comments.length;
+   ret.taggedCount = ret.tagged.length;
    delete ret._id;
    delete ret.__v;
   }

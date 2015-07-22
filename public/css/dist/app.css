@@ -306,7 +306,7 @@ a {
   text-overflow: ellipsis;
   white-space: nowrap; }
 
-.mixin-button, .photo-feed > .info > .buttons-like-and-comment > .like, .photo-feed > .info > .buttons-like-and-comment > .unlike, .photo-feed > .info > .buttons-like-and-comment > .comment-focus {
+.mixin-button, .photo-feed > .info > .buttons-like-and-comment .like, .photo-feed > .info > .buttons-like-and-comment .unlike, .photo-feed > .info > .buttons-like-and-comment > .comment-focus {
   outline: 0;
   background: none;
   border: 0;
@@ -387,10 +387,11 @@ a {
       position: absolute;
       top: -10px;
       right: 10px; }
-      .photo-feed > .info .counters .likes-count, .photo-feed > .info .counters .comments-count {
+      .photo-feed > .info .counters .likes-count, .photo-feed > .info .counters .comments-count, .photo-feed > .info .counters .tagged-count {
         background: #001847;
         color: #fff;
         padding: 5px 10px;
+        margin-left: 5px;
         font-weight: 200; }
     .photo-feed > .info > .comments {
       display: block;
@@ -405,18 +406,21 @@ a {
           .photo-feed > .info > .comments ul li > .see-more {
             color: #a5a7aa; }
     .photo-feed > .info > .buttons-like-and-comment {
-      max-width: 100%;
-      padding: 0; }
-      .photo-feed > .info > .buttons-like-and-comment > .like, .photo-feed > .info > .buttons-like-and-comment > .unlike, .photo-feed > .info > .buttons-like-and-comment > .comment-focus {
+      min-width: 100%;
+      padding: 0;
+      float: left; }
+      .photo-feed > .info > .buttons-like-and-comment .like, .photo-feed > .info > .buttons-like-and-comment .unlike, .photo-feed > .info > .buttons-like-and-comment > .comment-focus {
         color: #C1C3C3;
         margin-right: 7px;
-        font-size: 2.2em; }
-      .photo-feed > .info > .buttons-like-and-comment > .unlike {
+        font-size: 2.2em;
+        float: left; }
+      .photo-feed > .info > .buttons-like-and-comment .unlike {
         color: #003294; }
-    .photo-feed > .info > .comment-create-container .form-control {
+    .photo-feed > .info .comment-create-container .form-control {
       border: none;
-      border-bottom: 1px solid #00297a; }
-    .photo-feed > .info > .comment-create-container > .input-group-btn > .comment {
+      border-bottom: 1px solid #00297a;
+      padding-left: 0; }
+    .photo-feed > .info .comment-create-container > .input-group-btn > .comment {
       color: #fff;
       box-shadow: none;
       border: 1px solid #00297a;
