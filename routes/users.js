@@ -100,7 +100,7 @@ app.get('/users/search/:query', function(req, res) {
   User.find({$or: [
     {username: new RegExp(query, 'i')},
     {name: new RegExp(query, 'i')}
-  ]})
+  ]}, 'name username')
   .exec(function(err, users) {
     if (err) throw err;
     return res.json(users);

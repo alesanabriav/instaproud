@@ -14,26 +14,25 @@ module.exports = React.createClass({
 
   _crop: function() {
     this.setState({
-      dataURL: this.refs.cropper.getCroppedCanvas().toDataURL()
+      dataURL: this.refs.cropper.getCroppedCanvas({width: 500, height: 500})
     });
   },
 
-  rotate: function(e) {
+  rotateRedo: function(e) {
     e.preventDefault();
     this.refs.cropper.rotate(90);
   },
 
+  rotateUndo: function(e) {
+    e.preventDefault();
+    this.refs.cropper.rotate(-90);
+  },
+
   handleNext: function(e) {
     e.preventDefault();
-    // var img = this.state.dataURL.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/)[2];
-    // var src;
-    localStorage.setItem('src', this.state.dataURL);
+    var data = this.state.dataURL.toDataURL();
+    localStorage.setItem('src', data);
     pubsub.trigger('navigator:change', 'filter');
-
-    // $http.post('/api/photos/upload', {img: img}, function(res) {
-    //   src = res.original;
-    //   pubsub.trigger('navigator:change', 'filter/');
-    // });
   },
 
   componentWillMount: function() {
@@ -49,22 +48,28 @@ module.exports = React.createClass({
       <Cropper
         ref='cropper'
         src={this.state.src}
-        style={{height: 500, width: '100%'}}
+        style={{height: 300, width: '100%'}}
         minCropBoxWidth={500}
         minCropBoxHeight={500}
         aspectRatio={1}
         guides={false}
         strict={true}
         cropBoxmovable={false}
+        movable={false}
         dragCrop={false}
         cropBoxResizable={false}
         background={false}
+        center={false}
         crop={this._crop} />
+
         <ul className="crop-options">
           <li><a href="#" ><i className="icon ion-ios-close-empty"></i></a></li>
-          <li><a herf="#" onClick={this.rotate}><i className="icon ion-ios-refresh-empty"></i></a></li>
+          <li><a herf="#" onClick={this.rotateUndo}><i className="icon ion-ios-undo-outline"></i></a></li>
+          <li><a herf="#" onClick={this.rotateRedo}><i className="icon ion-ios-redo-outline"></i></a></li>
           <li><a href="#" onClick={this.handleNext}><i className="icon ion-ios-arrow-forward"></i></a></li>
         </ul>
+
+        <canvas id="crop" width="500" height="500" />
       </div>
     );
 

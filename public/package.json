@@ -32,6 +32,7 @@
     "react": "^0.13.3",
     "react-cropper": "^0.3.0",
     "react-listento": "^0.1.0",
+    "react-typeahead": "^1.1.1",
     "scroll-trigger": "^1.0.0",
     "selectize": "^0.12.1",
     "semantic-ui-dropdown": "^2.0.5",
@@ -39,6 +40,7 @@
     "typeahead": "^0.2.0",
     "typeahead.js": "^0.11.1",
     "underscore": "^1.8.3",
+    "vintagejs": "^1.1.4",
     "watchify": "^3.2.3"
   },
   "devDependencies": {

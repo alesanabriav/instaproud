@@ -35,6 +35,9 @@ button:focus {
   .btn:active {
     outline: none; }
 
+li {
+  list-style: none; }
+
 img {
   -webkit-transform: translateZ(0);
   transform: translateZ(0); }
@@ -433,34 +436,55 @@ a {
   .img-active img {
     width: 100%; }
 
+.filter-options {
+  width: 100%;
+  height: 60px;
+  background: #25272a;
+  margin: 0; }
+  .filter-options li {
+    float: left;
+    color: #fff;
+    font-size: 1.5em;
+    text-align: center;
+    display: block;
+    width: 33%; }
+    .filter-options li a {
+      text-align: left;
+      color: #fff;
+      font-size: 2em; }
+
 .filters-frame {
   max-width: 500px;
   margin: 0 auto;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   overflow-x: scroll;
-  background: #fff; }
+  background: #161819;
+  padding: 10px; }
   .filters-frame ul {
     padding: 0;
     width: 600px; }
     .filters-frame ul li {
       display: inline-block;
       list-style: none;
-      width: 100px; }
+      width: 80px; }
+      .filters-frame ul li img {
+        display: block;
+        margin: 0 auto; }
       .filters-frame ul li > p {
+        color: #fff;
         font-size: 1.1em;
-        color: #00297a;
         text-align: center;
         margin-top: 5px; }
 
 .crop-options {
   width: 100%;
-  height: 60px;
+  height: 50px;
   background: #444; }
   .crop-options li {
     list-style: none;
     float: left;
-    width: 33%; }
+    width: 25%; }
     .crop-options li a {
       height: 50px;
       text-align: center;
@@ -472,7 +496,6 @@ a {
 
 .photo-caption {
   background: #fff;
-  padding: 20px;
   max-width: 500px;
   margin: 0 auto; }
   .photo-caption > .image-and-caption {

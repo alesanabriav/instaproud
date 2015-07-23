@@ -19,7 +19,7 @@ module.exports = Backbone.Router.extend({
     '': 'feed',
     'crop': 'crop',
     'filter': 'filters',
-    'caption/:id': 'caption',
+    'caption': 'caption',
     'profile/:username': 'profileShow',
     'profile': 'profileShow',
     'tagged/:username': 'profileTagged',
@@ -37,6 +37,13 @@ module.exports = Backbone.Router.extend({
   execute: function(callback, args) {
     pubsub.trigger('view:remove');
     React.unmountComponentAtNode(document.getElementById('app-container'));
+    var hash = location.hash;
+    AppController.initialize();
+    if (hash === '#login' || hash === '#register') {
+       React.unmountComponentAtNode(document.getElementById('header-container'));
+       React.unmountComponentAtNode(document.getElementById('nav-container'));
+    }
+
     $(window).scrollTop(0);
     activitiesController.store();
     if (callback) callback.apply(this, args);
@@ -55,38 +62,26 @@ module.exports = Backbone.Router.extend({
   },
 
   crop: function() {
-    AppController.initialize();
     photosController.crop();
-    photosController.upload();
   },
 
   filters: function() {
-    AppController.initialize();
     photosController.filter();
   },
 
-  caption: function(id) {
-    AppController.initialize();
-    photosController.caption(id);
-    photosController.autocomplete(id);
+  caption: function() {
+    photosController.caption();
   },
 
   feed: function() {
     photosController.list();
-    AppController.initialize();
-
   },
 
   photoShow: function(id) {
-    AppController.initialize();
-
-
     photosController.item(id);
   },
 
   profileEdit: function(id) {
-    AppController.initialize();
-
     var user = JSON.parse(localStorage.getItem('user'));
     if(user.id === id) {
       profilesController.edit(id);
@@ -94,9 +89,6 @@ module.exports = Backbone.Router.extend({
   },
 
   profileShow: function(username) {
-    AppController.initialize();
-
-
     profilesController.item(username);
   },
 
@@ -109,12 +101,10 @@ module.exports = Backbone.Router.extend({
     }
 
     profilesController.tagged(getUsername);
-    AppController.initialize();
 
   },
 
   hashtagPhotos: function(hashtag) {
-    AppController.initialize();
     photosController.hashtag(hashtag);
 
 
@@ -122,12 +112,10 @@ module.exports = Backbone.Router.extend({
 
   photoSearch: function() {
     photosController.search();
-    AppController.initialize();
 
   },
 
   activity: function() {
-    AppController.initialize();
     activitiesController.feed();
 
   }

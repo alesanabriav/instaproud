@@ -159,7 +159,7 @@ module.exports = React.createClass({
 
               <span className="comments-count"><i className="icon ion-ios-chatbubble"></i> {this.state.commentsCount}</span>
 
-              <span className="tagged-count"><i className="icon ion-ios-pricetag"></i> {this.state.taggedCount}</span>
+              <span className="tagged-count"><i className="icon ion-ios-person"></i> {this.state.taggedCount}</span>
           </div>
           {caption}
 

@@ -5,10 +5,6 @@ var React = require('react');
 var _ = require('underscore');
 var Photos = require('views/photos/list');
 var Photo = require('views/photos/item');
-var PhotoLoad = require('views/photos/load');
-var PhotoCrop = require('views/photos/crop');
-var PhotoUpload = require('views/photos/upload');
-var PhotoFilter = require('views/photos/filter');
 var PhotoStore = require('views/photos/store');
 var PhotoCaption = require('views/photos/caption');
 var PhotoAutocomplete = require('views/photos/tag_autocomplete');
@@ -27,7 +23,7 @@ var React = require('react');
 var List = require('views/photos/list.jsx');
 var Crop = require('views/photos/crop.jsx');
 var Filter = require('views/photos/filter.jsx');
-
+var Caption = require('views/photos/caption.jsx');
 
 module.exports = {
 
@@ -51,53 +47,32 @@ module.exports = {
 
   },
 
-  upload: function() {
-    return new PhotoUpload();
-  },
-
-  render: function() {
-    return new PhotoLoad();
-  },
-
   crop: function() {
-    pubsub.trigger('footerNav:remove');
+    React.unmountComponentAtNode(document.getElementById('nav-container'));
     pubsub.trigger('appHeader:change', {bgColor: "444"});
     React.render(<Crop />, document.getElementById('app-container'));
-    // var view = new PhotoCrop();
-    // view.startCrop();
   },
 
   filter: function(src) {
+    React.unmountComponentAtNode(document.getElementById('nav-container'));
     React.render(<Filter />, document.getElementById('app-container'));
-    // var folder = src.split("_");
-    // var data = {"original": src, "folder": folder[0]};
-
     pubsub.trigger('appHeader:change', {bgColor: "444"});
-    // pubsub.trigger('footerNav:remove');
-    // pubsub.trigger('appHeader:showClose');
-    // pubsub.trigger('appHeader:showNext');
-
-    // new PhotoFilter();
-    // new PhotoStore();
-
-    // pubsub.trigger("photo:uploaded", data);
   },
 
   caption: function(id) {
-    pubsub.trigger('appHeader:change', {
-      title: "Compartir Imagen", bgColor: "444"
-    });
+    pubsub.trigger('appHeader:change', { bgColor: "444"});
+    React.render(<Caption />, document.getElementById('app-container'));
 
-    pubsub.trigger('footerNav:remove');
-    pubsub.trigger('appHeader:showCheck');
+    // pubsub.trigger('footerNav:remove');
+    // pubsub.trigger('appHeader:showCheck');
 
-    var photo = new models.photo({id: id});
-    var view = new PhotoCaption({model: photo});
-    photo.fetch({success: function() {
-      $("#app-container")
-      .empty()
-      .append(view.render().el);
-    }});
+    // var photo = new models.photo({id: id});
+    // var view = new PhotoCaption({model: photo});
+    // photo.fetch({success: function() {
+    //   $("#app-container")
+    //   .empty()
+    //   .append(view.render().el);
+    // }});
 
   },
 

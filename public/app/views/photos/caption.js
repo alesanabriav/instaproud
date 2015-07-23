@@ -95,6 +95,7 @@ module.exports = Backbone.View.extend({
       locationData.address = res.results[0].formatted_address;
       locationData.name = res.results[0].address_components[2].short_name;
       $locationStatus.text(locationData.name);
+
         $.ajax({
         url: urls.baseUrl + '/api/photos/' + id,
         method: 'PUT',

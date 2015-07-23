@@ -6,12 +6,34 @@
   }
 }
 
+.filter-options {
+  width: 100%;
+  height: 60px;
+  background: #25272a;
+  margin: 0;
+
+  li {
+    float: left;
+    color: #fff;
+      font-size: 1.5em;
+      text-align: center;
+      display: block;
+      width: 33%;
+    a{
+      text-align: left;
+      color: #fff;
+      font-size: 2em;
+    }
+  }
+}
+
 .filters-frame {
   max-width: 500px;
   margin: 0 auto;
   backface-visibility: hidden;
   overflow-x: scroll;
-  background: #fff;
+  background: #161819;
+  padding: 10px;
 
   ul {
     padding: 0;
@@ -20,10 +42,16 @@
     li {
       display: inline-block;
       list-style: none;
-      width: 100px;
+      width: 80px;
+
+      img {
+        display: block;
+        margin: 0 auto;
+      }
+
       > p {
+        color: #fff;
         font-size: 1.1em;
-        color: $blue-main;
         text-align: center;
         margin-top: 5px;
       }

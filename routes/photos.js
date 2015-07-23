@@ -20,7 +20,7 @@ app.get('/api/photos', function(req, res, next) {
   });
 });
 
-app.post('/api/photos', function(req, res, next) {
+app.post('/api/photos', function(req, res) {
   var src = req.body.src;
 
   var data = {
