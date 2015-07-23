@@ -14,7 +14,7 @@ module.exports = React.createClass({
     var profileImage;
     var urlProfileImage = 'https://s3-sa-east-1.amazonaws.com/instaproud/' + user.id + '/' + user.profile_image;
 
-    if (user && user !== '') {
+    if (user && user.profile_image) {
       profileImage = (<img src={urlProfileImage} />);
     } else {
       profileImage = (<img src={'images/placeholders/placeholder_profile.png'} />);

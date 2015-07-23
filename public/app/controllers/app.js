@@ -1,6 +1,8 @@
 "use strict";
 var $ = require('jquery');
+var React = require('react');
 var AppNavView = require('views/app_nav.js');
+var AppNav = require('views/app_nav.jsx');
 var AppHeaderView = require('views/app_header.js');
 var pubsub = require('utils/pubsub');
 var checkUser = require('utils/check_user');
@@ -25,12 +27,14 @@ module.exports = {
   },
 
   nav: function() {
-    var view = new AppNavView();
+    React.render(<AppNav />, document.getElementById('nav-container'));
 
-    $("#nav-container")
-    .empty()
-    .append(view.render().el);
-    pubsub.trigger('footerNav:changeState');
+    // var view = new AppNavView();
+
+    // $("#nav-container")
+    // .empty()
+    // .append(view.render().el);
+    // pubsub.trigger('footerNav:changeState');
   }
 
  }

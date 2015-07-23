@@ -25,6 +25,9 @@ var pubsub = require('utils/pubsub');
 var loadImages = require('utils/loadImages');
 var React = require('react');
 var List = require('views/photos/list.jsx');
+var Crop = require('views/photos/crop.jsx');
+var Filter = require('views/photos/filter.jsx');
+
 
 module.exports = {
 
@@ -58,28 +61,26 @@ module.exports = {
 
   crop: function() {
     pubsub.trigger('footerNav:remove');
-    pubsub.trigger('appHeader:showNext');
-    pubsub.trigger('appHeader:showBack');
-    var view = new PhotoCrop();
-    view.startCrop();
+    pubsub.trigger('appHeader:change', {bgColor: "444"});
+    React.render(<Crop />, document.getElementById('app-container'));
+    // var view = new PhotoCrop();
+    // view.startCrop();
   },
 
   filter: function(src) {
-    var folder = src.split("_");
-    var data = {"original": src, "folder": folder[0]};
+    React.render(<Filter />, document.getElementById('app-container'));
+    // var folder = src.split("_");
+    // var data = {"original": src, "folder": folder[0]};
 
-    pubsub.trigger('appHeader:change', {
-      title: "Editar Imagen", bgColor: "444"
-    });
+    pubsub.trigger('appHeader:change', {bgColor: "444"});
+    // pubsub.trigger('footerNav:remove');
+    // pubsub.trigger('appHeader:showClose');
+    // pubsub.trigger('appHeader:showNext');
 
-    pubsub.trigger('footerNav:remove');
-    pubsub.trigger('appHeader:showClose');
-    pubsub.trigger('appHeader:showNext');
+    // new PhotoFilter();
+    // new PhotoStore();
 
-    new PhotoFilter();
-    new PhotoStore();
-
-    pubsub.trigger("photo:uploaded", data);
+    // pubsub.trigger("photo:uploaded", data);
   },
 
   caption: function(id) {

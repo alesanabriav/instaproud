@@ -18,7 +18,7 @@ module.exports = Backbone.Router.extend({
     'logout': 'logout',
     '': 'feed',
     'crop': 'crop',
-    'filter/:src': 'filters',
+    'filter': 'filters',
     'caption/:id': 'caption',
     'profile/:username': 'profileShow',
     'profile': 'profileShow',
@@ -60,9 +60,9 @@ module.exports = Backbone.Router.extend({
     photosController.upload();
   },
 
-  filters: function(src) {
+  filters: function() {
     AppController.initialize();
-    photosController.filter(src);
+    photosController.filter();
   },
 
   caption: function(id) {
@@ -71,19 +71,15 @@ module.exports = Backbone.Router.extend({
     photosController.autocomplete(id);
   },
 
-  photoWork: function() {
-    photosController.render();
-  },
-
   feed: function() {
     photosController.list();
     AppController.initialize();
-    this.photoWork();
+
   },
 
   photoShow: function(id) {
     AppController.initialize();
-    this.photoWork();
+
 
     photosController.item(id);
   },
@@ -99,7 +95,7 @@ module.exports = Backbone.Router.extend({
 
   profileShow: function(username) {
     AppController.initialize();
-    this.photoWork();
+
 
     profilesController.item(username);
   },
@@ -114,20 +110,20 @@ module.exports = Backbone.Router.extend({
 
     profilesController.tagged(getUsername);
     AppController.initialize();
-    this.photoWork();
+
   },
 
   hashtagPhotos: function(hashtag) {
     AppController.initialize();
     photosController.hashtag(hashtag);
 
-    this.photoWork();
+
   },
 
   photoSearch: function() {
     photosController.search();
     AppController.initialize();
-    this.photoWork();
+
   },
 
   activity: function() {

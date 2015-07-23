@@ -3,6 +3,7 @@ var app = require('express')();
 var getAll = require(__base +'lib/photos/get_all');
 var byId = require(__base +'lib/photos/by_id');
 var store = require(__base +'lib/photos/store');
+var destroy = require(__base +'lib/photos/destroy');
 var update = require(__base +'lib/photos/update');
 var hashtagStoreOrUpdate = require(__base + 'lib/hashtags/store_or_update');
 var compressImage = require(__base + 'lib/photos/compress_image');
@@ -59,6 +60,14 @@ app.put('/api/photos/:id', function(req, res) {
 
   });
 
+});
+
+app.delete('/api/photos/:id', function(req, res, next) {
+  var photoId = req.params.id;
+  destroy(photoId, function(err) {
+    if (err) return next(err);
+    return res.status(204).json({});
+  });
 });
 
 app.post('/api/photos/compress', function(req, res, next) {

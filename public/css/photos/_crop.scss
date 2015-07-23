@@ -1,0 +1,21 @@
+.crop-options{
+  width: 100%;
+  height: 60px;
+  background: #444;
+  li{
+    list-style: none;
+    float: left;
+    width: 33%;
+    a {
+      height: 50px;
+      text-align: center;
+      display: block;
+
+      i{
+        text-align: center;
+        font-size: 3em;
+        color: #fff;
+      }
+    }
+  }
+}

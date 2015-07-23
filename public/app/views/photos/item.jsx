@@ -1,5 +1,6 @@
 'use strict';
 var React = require('react');
+var $ = require('jquery');
 var $http = require('utils/http');
 var Comments = require('views/photos/item_comments.jsx');
 var CommentForm = require('views/photos/item_comment_form.jsx');
@@ -8,6 +9,8 @@ var Timeago = require('components/timeago.jsx');
 var ButtonLike = require('components/button_like.jsx');
 var loadImages = require('utils/loadImages');
 var pubsub = require('utils/pubsub');
+var dropdown = require('semantic-ui-dropdown/dropdown');
+require('semantic-ui-transition/transition');
 
 module.exports = React.createClass({
   getDefaultProps: function() {
@@ -33,6 +36,7 @@ module.exports = React.createClass({
 
   componentDidMount: function() {
     loadImages();
+    $('.ui.dropdown').dropdown();
   },
 
   handleComment: function(comment) {
@@ -86,13 +90,36 @@ module.exports = React.createClass({
     }.bind(this));
   },
 
+  handleDelete: function(e) {
+    e.preventDefault();
+    $http.delete('/api/photos/' + this.props.photo.id);
+    var node = React.findDOMNode(this);
+    React.unmountComponentAtNode(node);
+    node.remove();
+  },
+
+  componentWillUnmount: function() {
+    console.log('unmonut');
+  },
+
   render: function() {
     var photo = this.props.photo;
     var caption = '';
     var user = photo.owner;
+    var userlogged = JSON.parse(localStorage.getItem('user'));
+    var optionDelete;
+    var optionFixed;
 
     if (photo.caption) {
       caption = photo.caption.replace(/#(\S+)/g, '<a href="#hashtag/$1">#$1</a>').replace(/@(\S+)/g, '<a href="#tagged/$1">@$1</a>');
+    }
+
+    if (userlogged.id === user.id || userlogged.role === 'admin') {
+      optionDelete = (<a href="#" className="item" onClick={this.handleDelete}>Eliminar</a>);
+    }
+
+    if (userlogged.role === 'admin') {
+      optionFixed = (<a href="#" className="item" onClick={this.handleFixed}>Establecer</a>);
     }
 
     var src = 'https://s3-sa-east-1.amazonaws.com/instaproud/' + user.id + '/' + photo.path;
@@ -139,6 +166,14 @@ module.exports = React.createClass({
           <Comments comments={this.state.comments} id={photo.id} />
 
           <CommentForm onSubmitComment={this.handleComment} onTagUser={this.handleTag} />
+          <div className="ui dropdown float-right">
+            <i className="icon ion-ios-more"></i>
+            <div className="menu">
+              <a href="#" className="item">Reportar</a>
+              {optionDelete}
+              {optionFixed}
+          </div>
+          </div>
         </div>
       </article>
     );

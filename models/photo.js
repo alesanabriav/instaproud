@@ -39,7 +39,6 @@ PhotoSchema = new Schema({
     type: Date,
     default: Date.now
   },
-
   fixed: Boolean
 });
 

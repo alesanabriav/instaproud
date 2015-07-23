@@ -30,7 +30,7 @@ module.exports = {
     .then(cb);
   },
 
-  delete: function(url, data, cb) {
+  delete: function(url, cb) {
     $.ajax({
       type: 'DELETE',
       url: urls.baseUrl + url

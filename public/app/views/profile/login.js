@@ -50,7 +50,8 @@ module.exports = Backbone.View.extend({
         alertify.error(res.message);
         return;
       }
-      localStorage.setItem('user', JSON.stringify(res));
+      var userToStore = {id: res.id, username: res.username, role: res.role, active: res.active};
+      localStorage.setItem('user', JSON.stringify(userToStore));
       window.location.replace('#');
     });
   }

@@ -8,11 +8,20 @@ module.exports = React.createClass({
     var user = this.props.user;
     var photos = this.props.photos;
     var photosCount = photos.length;
-
+    var userlogged = JSON.parse(localStorage.getItem('user'));
+    var profileEdit;
     if (this.props.prefix && this.props.prefix === 'photos') {
       var yourPhotos = 'active';
     } else {
       var tagged = 'active';
+    }
+
+    if (userlogged.id === user.id) {
+      profileEdit = (
+        <a href={'#profile/' + user.id + '/edit'} className="btn">
+          Editar perfil
+        </a>
+      );
     }
 
     return (
@@ -34,9 +43,7 @@ module.exports = React.createClass({
             <span className="icon ion-ios-photos-outline"></span> <span className="text">Tus fotos</span>
           </a> <a href={'#tagged/' + user.username} className={"btn " + tagged}>
             <i className="icon ion-ios-pricetags-outline"></i> <span className="text">Etiquetado</span>
-          </a> <a href={'#profile/' + user.id + '/edit'} className="btn">
-            Editar perfil
-          </a>
+          </a> {profileEdit}
 
         </div>
       </header>

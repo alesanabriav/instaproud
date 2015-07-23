@@ -34,7 +34,7 @@ app.route('/users')
 app.route('/users/:id')
 
   .get(function(req, res) {
-    User.findById(req.params.id, function(err, user) {
+    User.findById(req.params.id, 'username name email profile_image role', function(err, user) {
       if(err) res.status(400).json(err);
       res.json(user);
     });
@@ -139,7 +139,7 @@ app.get('/api/users/:username/tagged', function(req, res, next) {
 
 });
 
-app.post('/users/me/logged', function(req, res){
+app.get('/users/me/logged', function(req, res){
   return res.json(req.user);
 });
 

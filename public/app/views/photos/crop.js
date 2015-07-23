@@ -44,6 +44,7 @@ module.exports = Backbone.View.extend({
       movable: false,
       dragCrop: false,
       center: false,
+      background: false,
       crop: function() {
         _this.data = $(this).cropper('getCroppedCanvas').toDataURL();
       },

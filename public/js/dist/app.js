@@ -49,7 +49,7 @@ $( document ).ajaxError(function( event, jqxhr) {
 window.onload = loadImages();
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/app.js","/app")
-},{"./../bower_components/jquery/dist/jquery.js":80,"./router":15,"_process":88,"backbone":83,"buffer":84,"fastclick":89,"helpers/helpers_hbs":10,"nprogress":103,"scroll-trigger":260,"utils/loadImages":37,"utils/pubsub":39,"utils/redirect":40}],2:[function(require,module,exports){
+},{"./../bower_components/jquery/dist/jquery.js":84,"./router":15,"_process":93,"backbone":87,"buffer":89,"fastclick":94,"helpers/helpers_hbs":10,"nprogress":108,"scroll-trigger":268,"utils/loadImages":37,"utils/pubsub":39,"utils/redirect":40}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -85,7 +85,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/button_like.jsx","/app/components")
-},{"_process":88,"buffer":84,"react":259,"underscore":261,"utils/http":36}],3:[function(require,module,exports){
+},{"_process":93,"buffer":89,"react":267,"underscore":271,"utils/http":36}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -103,7 +103,7 @@ module.exports = React.createClass({displayName: "exports",
     var profileImage;
     var urlProfileImage = 'https://s3-sa-east-1.amazonaws.com/instaproud/' + user.id + '/' + user.profile_image;
 
-    if (user && user !== '') {
+    if (user && user.profile_image) {
       profileImage = (React.createElement("img", {src: urlProfileImage}));
     } else {
       profileImage = (React.createElement("img", {src: 'images/placeholders/placeholder_profile.png'}));
@@ -118,7 +118,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/profile_image.jsx","/app/components")
-},{"_process":88,"buffer":84,"react":259}],4:[function(require,module,exports){
+},{"_process":93,"buffer":89,"react":267}],4:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -141,7 +141,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/timeago.jsx","/app/components")
-},{"_process":88,"buffer":84,"moment":102,"moment/locale/es":101,"react":259}],5:[function(require,module,exports){
+},{"_process":93,"buffer":89,"moment":107,"moment/locale/es":106,"react":267}],5:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use stricts';
 
@@ -152,7 +152,7 @@ module.exports = {
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/config/urls.js","/app/config")
-},{"_process":88,"buffer":84}],6:[function(require,module,exports){
+},{"_process":93,"buffer":89}],6:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -175,11 +175,13 @@ module.exports = {
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/controllers/activities.js","/app/controllers")
-},{"_process":88,"buffer":84,"models/activity":11,"react":259,"views/activities/list":45,"views/activities/list.jsx":46,"views/activities/store":47}],7:[function(require,module,exports){
+},{"_process":93,"buffer":89,"models/activity":11,"react":267,"views/activities/list":45,"views/activities/list.jsx":46,"views/activities/store":47}],7:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var $ = require("./../../bower_components/jquery/dist/jquery.js");
+var React = require('react');
 var AppNavView = require('views/app_nav.js');
+var AppNav = require('views/app_nav.jsx');
 var AppHeaderView = require('views/app_header.js');
 var pubsub = require('utils/pubsub');
 var checkUser = require('utils/check_user');
@@ -204,18 +206,20 @@ module.exports = {
   },
 
   nav: function() {
-    var view = new AppNavView();
+    React.render(React.createElement(AppNav, null), document.getElementById('nav-container'));
 
-    $("#nav-container")
-    .empty()
-    .append(view.render().el);
-    pubsub.trigger('footerNav:changeState');
+    // var view = new AppNavView();
+
+    // $("#nav-container")
+    // .empty()
+    // .append(view.render().el);
+    // pubsub.trigger('footerNav:changeState');
   }
 
  }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/controllers/app.js","/app/controllers")
-},{"./../../bower_components/jquery/dist/jquery.js":80,"_process":88,"buffer":84,"utils/check_user":33,"utils/pubsub":39,"views/app_header.js":48,"views/app_nav.js":49}],8:[function(require,module,exports){
+},{"./../../bower_components/jquery/dist/jquery.js":84,"_process":93,"buffer":89,"react":267,"utils/check_user":33,"utils/pubsub":39,"views/app_header.js":48,"views/app_nav.js":49,"views/app_nav.jsx":50}],8:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 global.jQuery = require("./../../bower_components/jquery/dist/jquery.js");
@@ -244,6 +248,9 @@ var pubsub = require('utils/pubsub');
 var loadImages = require('utils/loadImages');
 var React = require('react');
 var List = require('views/photos/list.jsx');
+var Crop = require('views/photos/crop.jsx');
+var Filter = require('views/photos/filter.jsx');
+
 
 module.exports = {
 
@@ -277,28 +284,26 @@ module.exports = {
 
   crop: function() {
     pubsub.trigger('footerNav:remove');
-    pubsub.trigger('appHeader:showNext');
-    pubsub.trigger('appHeader:showBack');
-    var view = new PhotoCrop();
-    view.startCrop();
+    pubsub.trigger('appHeader:change', {bgColor: "444"});
+    React.render(React.createElement(Crop, null), document.getElementById('app-container'));
+    // var view = new PhotoCrop();
+    // view.startCrop();
   },
 
   filter: function(src) {
-    var folder = src.split("_");
-    var data = {"original": src, "folder": folder[0]};
+    React.render(React.createElement(Filter, null), document.getElementById('app-container'));
+    // var folder = src.split("_");
+    // var data = {"original": src, "folder": folder[0]};
 
-    pubsub.trigger('appHeader:change', {
-      title: "Editar Imagen", bgColor: "444"
-    });
+    pubsub.trigger('appHeader:change', {bgColor: "444"});
+    // pubsub.trigger('footerNav:remove');
+    // pubsub.trigger('appHeader:showClose');
+    // pubsub.trigger('appHeader:showNext');
 
-    pubsub.trigger('footerNav:remove');
-    pubsub.trigger('appHeader:showClose');
-    pubsub.trigger('appHeader:showNext');
+    // new PhotoFilter();
+    // new PhotoStore();
 
-    new PhotoFilter();
-    new PhotoStore();
-
-    pubsub.trigger("photo:uploaded", data);
+    // pubsub.trigger("photo:uploaded", data);
   },
 
   caption: function(id) {
@@ -346,7 +351,7 @@ module.exports = {
  }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/controllers/photos.js","/app/controllers")
-},{"./../../bower_components/jquery/dist/jquery.js":80,"_process":88,"buffer":84,"models/comment":12,"models/photo":13,"react":259,"underscore":261,"utils/loadImages":37,"utils/pubsub":39,"views/photos/autocomplete_hashtag":50,"views/photos/autocomplete_user":51,"views/photos/caption":52,"views/photos/crop":53,"views/photos/filter":54,"views/photos/hashtag":55,"views/photos/item":56,"views/photos/list":60,"views/photos/list.jsx":61,"views/photos/load":62,"views/photos/search":63,"views/photos/search.jsx":64,"views/photos/store":67,"views/photos/tag_autocomplete":68,"views/photos/upload":69}],9:[function(require,module,exports){
+},{"./../../bower_components/jquery/dist/jquery.js":84,"_process":93,"buffer":89,"models/comment":12,"models/photo":13,"react":267,"underscore":271,"utils/loadImages":37,"utils/pubsub":39,"views/photos/autocomplete_hashtag":51,"views/photos/autocomplete_user":52,"views/photos/caption":53,"views/photos/crop":54,"views/photos/crop.jsx":55,"views/photos/filter":56,"views/photos/filter.jsx":57,"views/photos/hashtag":59,"views/photos/item":60,"views/photos/list":64,"views/photos/list.jsx":65,"views/photos/load":66,"views/photos/search":67,"views/photos/search.jsx":68,"views/photos/store":71,"views/photos/tag_autocomplete":72,"views/photos/upload":73}],9:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -432,7 +437,7 @@ module.exports = {
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/controllers/profiles.js","/app/controllers")
-},{"./../../bower_components/jquery/dist/jquery.js":80,"_process":88,"buffer":84,"config/urls":5,"models/user":14,"react":259,"utils/loadImages":37,"utils/pubsub":39,"views/profile/edit":70,"views/profile/grid":71,"views/profile/item.jsx":73,"views/profile/login":74,"views/profile/register":77,"views/profile/tagged":78}],10:[function(require,module,exports){
+},{"./../../bower_components/jquery/dist/jquery.js":84,"_process":93,"buffer":89,"config/urls":5,"models/user":14,"react":267,"utils/loadImages":37,"utils/pubsub":39,"views/profile/edit":74,"views/profile/grid":75,"views/profile/item.jsx":77,"views/profile/login":78,"views/profile/register":81,"views/profile/tagged":82}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var Handlebars = require("hbsfy/runtime");
 var _ = require('underscore');
@@ -565,7 +570,7 @@ Handlebars.registerHelper("userAuthenticated", function(userId, options) {
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/helpers/helpers_hbs.js","/app/helpers")
-},{"_process":88,"buffer":84,"config/urls":5,"hbsfy/runtime":98,"underscore":261}],11:[function(require,module,exports){
+},{"_process":93,"buffer":89,"config/urls":5,"hbsfy/runtime":103,"underscore":271}],11:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var Backbone = require('backbone');
 var _ = require('underscore');
@@ -586,7 +591,7 @@ module.exports = {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/models/activity.js","/app/models")
-},{"_process":88,"backbone":83,"buffer":84,"config/urls":5,"underscore":261}],12:[function(require,module,exports){
+},{"_process":93,"backbone":87,"buffer":89,"config/urls":5,"underscore":271}],12:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var Backbone = require('backbone');
 var _ = require('underscore');
@@ -607,7 +612,7 @@ module.exports = {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/models/comment.js","/app/models")
-},{"_process":88,"backbone":83,"buffer":84,"config/urls":5,"underscore":261}],13:[function(require,module,exports){
+},{"_process":93,"backbone":87,"buffer":89,"config/urls":5,"underscore":271}],13:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var Backbone = require('backbone');
 var _ = require('underscore');
@@ -628,7 +633,7 @@ module.exports = {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/models/photo.js","/app/models")
-},{"_process":88,"backbone":83,"buffer":84,"config/urls":5,"underscore":261}],14:[function(require,module,exports){
+},{"_process":93,"backbone":87,"buffer":89,"config/urls":5,"underscore":271}],14:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var Backbone = require('backbone');
 var _ = require('underscore');
@@ -649,7 +654,7 @@ module.exports = {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/models/user.js","/app/models")
-},{"_process":88,"backbone":83,"buffer":84,"config/urls":5,"underscore":261}],15:[function(require,module,exports){
+},{"_process":93,"backbone":87,"buffer":89,"config/urls":5,"underscore":271}],15:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var $ = require("./../bower_components/jquery/dist/jquery.js");
@@ -671,7 +676,7 @@ module.exports = Backbone.Router.extend({
     'logout': 'logout',
     '': 'feed',
     'crop': 'crop',
-    'filter/:src': 'filters',
+    'filter': 'filters',
     'caption/:id': 'caption',
     'profile/:username': 'profileShow',
     'profile': 'profileShow',
@@ -713,9 +718,9 @@ module.exports = Backbone.Router.extend({
     photosController.upload();
   },
 
-  filters: function(src) {
+  filters: function() {
     AppController.initialize();
-    photosController.filter(src);
+    photosController.filter();
   },
 
   caption: function(id) {
@@ -724,19 +729,15 @@ module.exports = Backbone.Router.extend({
     photosController.autocomplete(id);
   },
 
-  photoWork: function() {
-    photosController.render();
-  },
-
   feed: function() {
     photosController.list();
     AppController.initialize();
-    this.photoWork();
+
   },
 
   photoShow: function(id) {
     AppController.initialize();
-    this.photoWork();
+
 
     photosController.item(id);
   },
@@ -752,7 +753,7 @@ module.exports = Backbone.Router.extend({
 
   profileShow: function(username) {
     AppController.initialize();
-    this.photoWork();
+
 
     profilesController.item(username);
   },
@@ -767,20 +768,20 @@ module.exports = Backbone.Router.extend({
 
     profilesController.tagged(getUsername);
     AppController.initialize();
-    this.photoWork();
+
   },
 
   hashtagPhotos: function(hashtag) {
     AppController.initialize();
     photosController.hashtag(hashtag);
 
-    this.photoWork();
+
   },
 
   photoSearch: function() {
     photosController.search();
     AppController.initialize();
-    this.photoWork();
+
   },
 
   activity: function() {
@@ -791,7 +792,7 @@ module.exports = Backbone.Router.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/router.js","/app")
-},{"./../bower_components/jquery/dist/jquery.js":80,"_process":88,"backbone":83,"buffer":84,"controllers/activities":6,"controllers/app":7,"controllers/photos":8,"controllers/profiles":9,"react":259,"utils/pubsub":39}],16:[function(require,module,exports){
+},{"./../bower_components/jquery/dist/jquery.js":84,"_process":93,"backbone":87,"buffer":89,"controllers/activities":6,"controllers/app":7,"controllers/photos":8,"controllers/profiles":9,"react":267,"utils/pubsub":39}],16:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
@@ -828,7 +829,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/activities/item.hbs","/app/templates/activities")
-},{"_process":88,"buffer":84,"hbsfy/runtime":98}],17:[function(require,module,exports){
+},{"_process":93,"buffer":89,"hbsfy/runtime":103}],17:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
@@ -857,7 +858,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/app_header.hbs","/app/templates")
-},{"_process":88,"buffer":84,"hbsfy/runtime":98}],18:[function(require,module,exports){
+},{"_process":93,"buffer":89,"hbsfy/runtime":103}],18:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
@@ -866,7 +867,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/app_nav.hbs","/app/templates")
-},{"_process":88,"buffer":84,"hbsfy/runtime":98}],19:[function(require,module,exports){
+},{"_process":93,"buffer":89,"hbsfy/runtime":103}],19:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
@@ -887,7 +888,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/photos/autocomplete.hbs","/app/templates/photos")
-},{"_process":88,"buffer":84,"hbsfy/runtime":98}],20:[function(require,module,exports){
+},{"_process":93,"buffer":89,"hbsfy/runtime":103}],20:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
@@ -908,7 +909,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/photos/autocomplete_hashtag.hbs","/app/templates/photos")
-},{"_process":88,"buffer":84,"hbsfy/runtime":98}],21:[function(require,module,exports){
+},{"_process":93,"buffer":89,"hbsfy/runtime":103}],21:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
@@ -941,7 +942,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/photos/autocomplete_users.hbs","/app/templates/photos")
-},{"_process":88,"buffer":84,"hbsfy/runtime":98}],22:[function(require,module,exports){
+},{"_process":93,"buffer":89,"hbsfy/runtime":103}],22:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
@@ -968,7 +969,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/photos/caption.hbs","/app/templates/photos")
-},{"_process":88,"buffer":84,"hbsfy/runtime":98}],23:[function(require,module,exports){
+},{"_process":93,"buffer":89,"hbsfy/runtime":103}],23:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
@@ -1009,7 +1010,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/photos/filters.hbs","/app/templates/photos")
-},{"_process":88,"buffer":84,"hbsfy/runtime":98}],24:[function(require,module,exports){
+},{"_process":93,"buffer":89,"hbsfy/runtime":103}],24:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
@@ -1040,7 +1041,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/photos/hashtag.hbs","/app/templates/photos")
-},{"_process":88,"buffer":84,"hbsfy/runtime":98}],25:[function(require,module,exports){
+},{"_process":93,"buffer":89,"hbsfy/runtime":103}],25:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
@@ -1111,7 +1112,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/photos/item.hbs","/app/templates/photos")
-},{"_process":88,"buffer":84,"hbsfy/runtime":98}],26:[function(require,module,exports){
+},{"_process":93,"buffer":89,"hbsfy/runtime":103}],26:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
@@ -1120,7 +1121,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/photos/search.hbs","/app/templates/photos")
-},{"_process":88,"buffer":84,"hbsfy/runtime":98}],27:[function(require,module,exports){
+},{"_process":93,"buffer":89,"hbsfy/runtime":103}],27:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
@@ -1218,7 +1219,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/profile/edit.hbs","/app/templates/profile")
-},{"_process":88,"buffer":84,"hbsfy/runtime":98}],28:[function(require,module,exports){
+},{"_process":93,"buffer":89,"hbsfy/runtime":103}],28:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
@@ -1235,7 +1236,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/profile/grid.hbs","/app/templates/profile")
-},{"_process":88,"buffer":84,"hbsfy/runtime":98}],29:[function(require,module,exports){
+},{"_process":93,"buffer":89,"hbsfy/runtime":103}],29:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
@@ -1244,7 +1245,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/profile/login.hbs","/app/templates/profile")
-},{"_process":88,"buffer":84,"hbsfy/runtime":98}],30:[function(require,module,exports){
+},{"_process":93,"buffer":89,"hbsfy/runtime":103}],30:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
@@ -1273,7 +1274,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/profile/photos.hbs","/app/templates/profile")
-},{"_process":88,"buffer":84,"hbsfy/runtime":98}],31:[function(require,module,exports){
+},{"_process":93,"buffer":89,"hbsfy/runtime":103}],31:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
@@ -1282,7 +1283,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/profile/register.hbs","/app/templates/profile")
-},{"_process":88,"buffer":84,"hbsfy/runtime":98}],32:[function(require,module,exports){
+},{"_process":93,"buffer":89,"hbsfy/runtime":103}],32:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
@@ -1343,7 +1344,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"useData":true});
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/templates/profile/tagged.hbs","/app/templates/profile")
-},{"_process":88,"buffer":84,"hbsfy/runtime":98}],33:[function(require,module,exports){
+},{"_process":93,"buffer":89,"hbsfy/runtime":103}],33:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 
@@ -1358,7 +1359,7 @@ module.exports = function(cb) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/utils/check_user.js","/app/utils")
-},{"_process":88,"buffer":84}],34:[function(require,module,exports){
+},{"_process":93,"buffer":89}],34:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 
@@ -1377,7 +1378,7 @@ module.exports = function(email, domain) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/utils/email_domain.js","/app/utils")
-},{"_process":88,"buffer":84}],35:[function(require,module,exports){
+},{"_process":93,"buffer":89}],35:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 module.exports = function getInterval(from, until, sort) {
   var i;
@@ -1396,7 +1397,7 @@ module.exports = function getInterval(from, until, sort) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/utils/get_interval.js","/app/utils")
-},{"_process":88,"buffer":84}],36:[function(require,module,exports){
+},{"_process":93,"buffer":89}],36:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var $ = require("./../../bower_components/jquery/dist/jquery.js");
@@ -1430,7 +1431,7 @@ module.exports = {
     .then(cb);
   },
 
-  delete: function(url, data, cb) {
+  delete: function(url, cb) {
     $.ajax({
       type: 'DELETE',
       url: urls.baseUrl + url
@@ -1440,7 +1441,7 @@ module.exports = {
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/utils/http.js","/app/utils")
-},{"./../../bower_components/jquery/dist/jquery.js":80,"_process":88,"buffer":84,"config/urls":5}],37:[function(require,module,exports){
+},{"./../../bower_components/jquery/dist/jquery.js":84,"_process":93,"buffer":89,"config/urls":5}],37:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 module.exports = function loadImages() {
   var imgDefer = document.getElementsByTagName('img');
@@ -1455,7 +1456,7 @@ module.exports = function loadImages() {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/utils/loadImages.js","/app/utils")
-},{"_process":88,"buffer":84}],38:[function(require,module,exports){
+},{"_process":93,"buffer":89}],38:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -1473,7 +1474,7 @@ module.exports = function parseDate(date) {
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/utils/parse_date.js","/app/utils")
-},{"_process":88,"buffer":84}],39:[function(require,module,exports){
+},{"_process":93,"buffer":89}],39:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var _ = require('underscore');
 var Backbone = require('backbone');
@@ -1483,7 +1484,7 @@ _.extend(pubsub, Backbone.Events);
 module.exports = pubsub;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/utils/pubsub.js","/app/utils")
-},{"_process":88,"backbone":83,"buffer":84,"underscore":261}],40:[function(require,module,exports){
+},{"_process":93,"backbone":87,"buffer":89,"underscore":271}],40:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var pubsub = require('utils/pubsub');
@@ -1501,7 +1502,7 @@ module.exports = function(router) {
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/utils/redirect.js","/app/utils")
-},{"_process":88,"buffer":84,"utils/pubsub":39}],41:[function(require,module,exports){
+},{"_process":93,"buffer":89,"utils/pubsub":39}],41:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 global.jQuery = require("./../../bower_components/jquery/dist/jquery.js");
@@ -1533,7 +1534,7 @@ module.exports = function(el) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/utils/timeago.js","/app/utils")
-},{"./../../bower_components/jquery/dist/jquery.js":80,"./../../bower_components/timeago/jquery.timeago.js":81,"_process":88,"buffer":84}],42:[function(require,module,exports){
+},{"./../../bower_components/jquery/dist/jquery.js":84,"./../../bower_components/timeago/jquery.timeago.js":85,"_process":93,"buffer":89}],42:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var $ = require("./../../bower_components/jquery/dist/jquery.js");
@@ -1560,7 +1561,7 @@ module.exports = function uploadFile(file, fileName, url, cb) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/utils/upload_file.js","/app/utils")
-},{"./../../bower_components/jquery/dist/jquery.js":80,"_process":88,"buffer":84,"config/urls":5}],43:[function(require,module,exports){
+},{"./../../bower_components/jquery/dist/jquery.js":84,"_process":93,"buffer":89,"config/urls":5}],43:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var $ = require("./../../../bower_components/jquery/dist/jquery.js");
@@ -1597,7 +1598,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/activities/item.js","/app/views/activities")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"backbone":83,"buffer":84,"templates/activities/item.hbs":16,"underscore":261,"utils/pubsub":39,"utils/timeago":41}],44:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"backbone":87,"buffer":89,"templates/activities/item.hbs":16,"underscore":271,"utils/pubsub":39,"utils/timeago":41}],44:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -1605,12 +1606,25 @@ var ProfileImage = require('components/profile_image.jsx');
 var Timeago = require('components/timeago.jsx');
 
 module.exports = React.createClass({displayName: "exports",
+  getDefaultProps: function() {
+    return {
+      activity: {
+        photo: {path: ''}
+      }
+    }
+  },
 
   render: function() {
     var profileImage;
     var activity = this.props.activity.attributes;
-    var photo = 'https://s3-sa-east-1.amazonaws.com/instaproud/' + activity.from.id + '/' +
+    var photo;
+    var photoLink;
+
+    if (activity.photo) {
+      photo = 'https://s3-sa-east-1.amazonaws.com/instaproud/' + activity.from.id + '/' +
     activity.photo.path;
+      photoLink = '#photo/' + activity.photo.id
+    }
 
     return (
       React.createElement("div", {className: "activity-item"}, 
@@ -1620,7 +1634,7 @@ module.exports = React.createClass({displayName: "exports",
             React.createElement("a", {href: '#profile/' + activity.from.username},  activity.from.name), " ",  activity.text, " ", React.createElement(Timeago, {date: activity.created})
           ), 
           React.createElement("div", {className: "media-right"}, 
-            React.createElement("a", {href: '#photo/' + activity.photo.id}, 
+            React.createElement("a", {href: photoLink}, 
               React.createElement("img", {src:  photo, width: "40"})
             )
           )
@@ -1631,7 +1645,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/activities/item.jsx","/app/views/activities")
-},{"_process":88,"buffer":84,"components/profile_image.jsx":3,"components/timeago.jsx":4,"react":259}],45:[function(require,module,exports){
+},{"_process":93,"buffer":89,"components/profile_image.jsx":3,"components/timeago.jsx":4,"react":267}],45:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var $ = require("./../../../bower_components/jquery/dist/jquery.js");
@@ -1691,7 +1705,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/activities/list.js","/app/views/activities")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"backbone":83,"buffer":84,"underscore":261,"utils/pubsub":39,"views/activities/item":43}],46:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"backbone":87,"buffer":89,"underscore":271,"utils/pubsub":39,"views/activities/item":43}],46:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -1728,7 +1742,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/activities/list.jsx","/app/views/activities")
-},{"_process":88,"buffer":84,"models/activity":11,"moment":102,"react":259,"views/activities/item.jsx":44}],47:[function(require,module,exports){
+},{"_process":93,"buffer":89,"models/activity":11,"moment":107,"react":267,"views/activities/item.jsx":44}],47:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var $ = require("./../../../bower_components/jquery/dist/jquery.js");
@@ -1759,7 +1773,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/activities/store.js","/app/views/activities")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"backbone":83,"buffer":84,"underscore":261,"utils/pubsub":39}],48:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"backbone":87,"buffer":89,"underscore":271,"utils/pubsub":39}],48:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var $ = require("./../../bower_components/jquery/dist/jquery.js");
@@ -1869,7 +1883,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/app_header.js","/app/views")
-},{"./../../bower_components/jquery/dist/jquery.js":80,"_process":88,"backbone":83,"buffer":84,"templates/app_header.hbs":17,"utils/pubsub":39}],49:[function(require,module,exports){
+},{"./../../bower_components/jquery/dist/jquery.js":84,"_process":93,"backbone":87,"buffer":89,"templates/app_header.hbs":17,"utils/pubsub":39}],49:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var $ = require("./../../bower_components/jquery/dist/jquery.js");
@@ -1944,7 +1958,111 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/app_nav.js","/app/views")
-},{"./../../bower_components/jquery/dist/jquery.js":80,"_process":88,"backbone":83,"buffer":84,"templates/app_nav.hbs":18,"utils/pubsub":39}],50:[function(require,module,exports){
+},{"./../../bower_components/jquery/dist/jquery.js":84,"_process":93,"backbone":87,"buffer":89,"templates/app_nav.hbs":18,"utils/pubsub":39}],50:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+'use strict';
+var React = require('react');
+var listenTo = require('react-listenTo');
+var pubsub = require('utils/pubsub');
+var $ = require("./../../bower_components/jquery/dist/jquery.js");
+var uploadFile = require('utils/upload_file');
+var alertify = require('alertifyjs');
+var mobile = require('is-mobile');
+
+module.exports = React.createClass({displayName: "exports",
+  mixins: [listenTo],
+
+  componentDidMount: function() {
+    this.listenTo(pubsub, 'footerNav:changeState', this.changeState, this);
+    this.listenTo(pubsub, 'input:onFocus', this.hide, this);
+    this.listenTo(pubsub, 'input:onFocusOut', this.show, this);
+  },
+
+  hide: function() {
+    React.findDOMNode(this).hide();
+  },
+
+  /** show this */
+  show: function() {
+    React.findDOMNode(this).show();
+  },
+
+  handleFile: function(e) {
+    console.log('handle');
+    var file = $(e.target)[0].files[0];
+
+    if (mobile()) {
+     this.uploadPhoto(file);
+    } else {
+      this.loadPhoto(file);
+    }
+  },
+
+  uploadPhoto: function(file) {
+    alertify.warning('Subiendo imagen... Tenga en cuenta que su conexion podria afectar el tiempo de espera.');
+
+    uploadFile(file, 'original_image', '/api/photos/compress', function(res) {
+      localStorage.setItem('src', res);
+        pubsub.trigger('navigator:change', '#crop');
+    });
+  },
+
+  loadPhoto: function(file) {
+    var reader;
+
+    if (file.type.match(/image.*/)) {
+      reader = new FileReader();
+
+      reader.onload = function() {
+        localStorage.setItem('src', reader.result);
+        pubsub.trigger('navigator:change', '#crop');
+      };
+
+      reader.readAsDataURL(file);
+
+    } else {
+      alertify.error('Tipo de archivo no permitido');
+    }
+  },
+
+  render: function() {
+    return (
+      React.createElement("ul", {className: "footer-nav-actions"}, 
+
+        React.createElement("li", {className: "home"}, 
+          React.createElement("a", {href: "#"}, React.createElement("i", {className: "icon ion-ios-home-outline"}))
+        ), 
+
+        React.createElement("li", {className: "search"}, 
+          React.createElement("a", {href: "#search"}, React.createElement("i", {className: "icon ion-ios-search"}))
+        ), 
+
+        React.createElement("li", {className: "camera"}, 
+          React.createElement("span", {className: "btn-file"}, 
+            React.createElement("i", {className: "icon ion-ios-camera-outline"}), 
+            React.createElement("input", {type: "file", onChange: this.handleFile, className: "uploadPhoto", name: "photo"})
+          )
+        ), 
+
+        React.createElement("li", {className: "activity"}, 
+          React.createElement("a", {href: "#activity"}, 
+            React.createElement("i", {className: "icon ion-ios-chatbubble-outline"})
+          )
+        ), 
+
+        React.createElement("li", {className: "profile"}, 
+          React.createElement("a", {href: "#profile"}, 
+            React.createElement("i", {className: "icon ion-ios-person-outline"})
+          )
+        )
+
+      )
+    );
+  }
+});
+
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/app_nav.jsx","/app/views")
+},{"./../../bower_components/jquery/dist/jquery.js":84,"_process":93,"alertifyjs":86,"buffer":89,"is-mobile":104,"react":267,"react-listenTo":112,"utils/pubsub":39,"utils/upload_file":42}],51:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 
@@ -1975,7 +2093,7 @@ module.exports = Backbone.View.extend({
 })
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/autocomplete_hashtag.js","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"backbone":83,"buffer":84,"templates/photos/autocomplete_hashtag.hbs":20,"underscore":261,"utils/pubsub":39}],51:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"backbone":87,"buffer":89,"templates/photos/autocomplete_hashtag.hbs":20,"underscore":271,"utils/pubsub":39}],52:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 
@@ -2007,7 +2125,7 @@ module.exports = Backbone.View.extend({
 })
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/autocomplete_user.js","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"backbone":83,"buffer":84,"templates/photos/autocomplete_users.hbs":21,"underscore":261,"utils/pubsub":39}],52:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"backbone":87,"buffer":89,"templates/photos/autocomplete_users.hbs":21,"underscore":271,"utils/pubsub":39}],53:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var $ = require("./../../../bower_components/jquery/dist/jquery.js");
@@ -2135,7 +2253,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/caption.js","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"alertifyjs":82,"backbone":83,"buffer":84,"config/urls":5,"templates/photos/caption.hbs":22,"utils/pubsub":39}],53:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"alertifyjs":86,"backbone":87,"buffer":89,"config/urls":5,"templates/photos/caption.hbs":22,"utils/pubsub":39}],54:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -2183,6 +2301,7 @@ module.exports = Backbone.View.extend({
       movable: false,
       dragCrop: false,
       center: false,
+      background: false,
       crop: function() {
         _this.data = $(this).cropper('getCroppedCanvas').toDataURL();
       },
@@ -2206,7 +2325,83 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/crop.js","/app/views/photos")
-},{"./../../../bower_components/cropper/dist/cropper.js":79,"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"backbone":83,"buffer":84,"utils/pubsub":39}],54:[function(require,module,exports){
+},{"./../../../bower_components/cropper/dist/cropper.js":83,"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"backbone":87,"buffer":89,"utils/pubsub":39}],55:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+'use strict';
+var React = require('react');
+var Cropper = require('react-cropper');
+var pubsub = require('utils/pubsub');
+var $http = require('utils/http');
+
+module.exports = React.createClass({displayName: "exports",
+  getInitialState: function() {
+    return {
+      src: 'http://fengyuanchen.github.io/cropper/img/picture.jpg',
+      dataURL: ''
+    }
+  },
+
+  _crop: function() {
+    this.setState({
+      dataURL: this.refs.cropper.getCroppedCanvas().toDataURL()
+    });
+  },
+
+  rotate: function(e) {
+    e.preventDefault();
+    this.refs.cropper.rotate(90);
+  },
+
+  handleNext: function(e) {
+    e.preventDefault();
+    // var img = this.state.dataURL.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/)[2];
+    // var src;
+    localStorage.setItem('src', this.state.dataURL);
+    pubsub.trigger('navigator:change', 'filter');
+
+    // $http.post('/api/photos/upload', {img: img}, function(res) {
+    //   src = res.original;
+    //   pubsub.trigger('navigator:change', 'filter/');
+    // });
+  },
+
+  componentWillMount: function() {
+    var src = localStorage.getItem('src');
+    this.setState({
+      src: src
+    })
+  },
+
+  render: function() {
+    return (
+      React.createElement("div", null, 
+      React.createElement(Cropper, {
+        ref: "cropper", 
+        src: this.state.src, 
+        style: {height: 500, width: '100%'}, 
+        minCropBoxWidth: 500, 
+        minCropBoxHeight: 500, 
+        aspectRatio: 1, 
+        guides: false, 
+        strict: true, 
+        cropBoxmovable: false, 
+        dragCrop: false, 
+        cropBoxResizable: false, 
+        background: false, 
+        crop: this._crop}), 
+        React.createElement("ul", {className: "crop-options"}, 
+          React.createElement("li", null, React.createElement("a", {href: "#"}, React.createElement("i", {className: "icon ion-ios-close-empty"}))), 
+          React.createElement("li", null, React.createElement("a", {herf: "#", onClick: this.rotate}, React.createElement("i", {className: "icon ion-ios-refresh-empty"}))), 
+          React.createElement("li", null, React.createElement("a", {href: "#", onClick: this.handleNext}, React.createElement("i", {className: "icon ion-ios-arrow-forward"})))
+        )
+      )
+    );
+
+  }
+});
+
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/crop.jsx","/app/views/photos")
+},{"_process":93,"buffer":89,"react":267,"react-cropper":109,"utils/http":36,"utils/pubsub":39}],56:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -2269,7 +2464,77 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/filter.js","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"backbone":83,"buffer":84,"config/urls":5,"templates/photos/filters.hbs":23,"underscore":261,"utils/http":36,"utils/pubsub":39}],55:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"backbone":87,"buffer":89,"config/urls":5,"templates/photos/filters.hbs":23,"underscore":271,"utils/http":36,"utils/pubsub":39}],57:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+'use strict';
+var React = require('react');
+var Filters = require('views/photos/filter_filters.jsx');
+
+module.exports = React.createClass({displayName: "exports",
+  getInitialState: function() {
+    return {
+      src: ''
+    }
+  },
+
+  componentWillMount: function() {
+    var src = localStorage.getItem('src');
+    this.setState({
+      src: src
+    })
+  },
+
+  render: function() {
+    return (
+      React.createElement("div", null, 
+    React.createElement("div", {className: "img-active"}, 
+      React.createElement("img", {src: this.state.src, className: "img-responsive"})
+    ), 
+    React.createElement(Filters, null)
+    )
+    );
+  }
+});
+
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/filter.jsx","/app/views/photos")
+},{"_process":93,"buffer":89,"react":267,"views/photos/filter_filters.jsx":58}],58:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+'use strict';
+var React = require('react');
+
+module.exports = React.createClass({displayName: "exports",
+
+  render: function() {
+    var filters= [
+      'original',
+      'concentrate',
+      'crossProcess',
+      'herMajesty',
+      'jarques',
+      'love',
+      'Nostalgia',
+      'pinhole',
+      'sunrise',
+      'vintage'
+    ];
+
+    return (
+      React.createElement("div", {className: "filters-frame"}, 
+        React.createElement("ul", {className: "slidee"}, 
+          filters.map(function(filter, i) {
+        return (React.createElement("li", {key: i, className: "select-image", "data-filter": "sunrise"}, 
+          React.createElement("img", {src: 'images/placeholders/placeholder_' + filter +'.jpeg', className: "load-image", width: "50", heigh: "50"}), 
+            React.createElement("p", null, filter)
+            ))
+          })
+        )
+      )
+    );
+  }
+});
+
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/filter_filters.jsx","/app/views/photos")
+},{"_process":93,"buffer":89,"react":267}],59:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 
@@ -2319,7 +2584,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/hashtag.js","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"backbone":83,"buffer":84,"config/urls":5,"templates/photos/hashtag.hbs":24,"underscore":261,"utils/loadImages":37,"utils/pubsub":39}],56:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"backbone":87,"buffer":89,"config/urls":5,"templates/photos/hashtag.hbs":24,"underscore":271,"utils/loadImages":37,"utils/pubsub":39}],60:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 global.jQuery = require("./../../../bower_components/jquery/dist/jquery.js");
@@ -2414,10 +2679,11 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/item.js","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"backbone":83,"buffer":84,"config/urls":5,"templates/photos/item.hbs":25,"utils/loadImages":37,"utils/pubsub":39,"utils/timeago":41}],57:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"backbone":87,"buffer":89,"config/urls":5,"templates/photos/item.hbs":25,"utils/loadImages":37,"utils/pubsub":39,"utils/timeago":41}],61:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
+var $ = require("./../../../bower_components/jquery/dist/jquery.js");
 var $http = require('utils/http');
 var Comments = require('views/photos/item_comments.jsx');
 var CommentForm = require('views/photos/item_comment_form.jsx');
@@ -2426,6 +2692,8 @@ var Timeago = require('components/timeago.jsx');
 var ButtonLike = require('components/button_like.jsx');
 var loadImages = require('utils/loadImages');
 var pubsub = require('utils/pubsub');
+var dropdown = require('semantic-ui-dropdown/dropdown');
+require('semantic-ui-transition/transition');
 
 module.exports = React.createClass({displayName: "exports",
   getDefaultProps: function() {
@@ -2451,6 +2719,7 @@ module.exports = React.createClass({displayName: "exports",
 
   componentDidMount: function() {
     loadImages();
+    $('.ui.dropdown').dropdown();
   },
 
   handleComment: function(comment) {
@@ -2504,13 +2773,36 @@ module.exports = React.createClass({displayName: "exports",
     }.bind(this));
   },
 
+  handleDelete: function(e) {
+    e.preventDefault();
+    $http.delete('/api/photos/' + this.props.photo.id);
+    var node = React.findDOMNode(this);
+    React.unmountComponentAtNode(node);
+    node.remove();
+  },
+
+  componentWillUnmount: function() {
+    console.log('unmonut');
+  },
+
   render: function() {
     var photo = this.props.photo;
     var caption = '';
     var user = photo.owner;
+    var userlogged = JSON.parse(localStorage.getItem('user'));
+    var optionDelete;
+    var optionFixed;
 
     if (photo.caption) {
       caption = photo.caption.replace(/#(\S+)/g, '<a href="#hashtag/$1">#$1</a>').replace(/@(\S+)/g, '<a href="#tagged/$1">@$1</a>');
+    }
+
+    if (userlogged.id === user.id || userlogged.role === 'admin') {
+      optionDelete = (React.createElement("a", {href: "#", className: "item", onClick: this.handleDelete}, "Eliminar"));
+    }
+
+    if (userlogged.role === 'admin') {
+      optionFixed = (React.createElement("a", {href: "#", className: "item", onClick: this.handleFixed}, "Establecer"));
     }
 
     var src = 'https://s3-sa-east-1.amazonaws.com/instaproud/' + user.id + '/' + photo.path;
@@ -2556,7 +2848,15 @@ module.exports = React.createClass({displayName: "exports",
 
           React.createElement(Comments, {comments: this.state.comments, id: photo.id}), 
 
-          React.createElement(CommentForm, {onSubmitComment: this.handleComment, onTagUser: this.handleTag})
+          React.createElement(CommentForm, {onSubmitComment: this.handleComment, onTagUser: this.handleTag}), 
+          React.createElement("div", {className: "ui dropdown float-right"}, 
+            React.createElement("i", {className: "icon ion-ios-more"}), 
+            React.createElement("div", {className: "menu"}, 
+              React.createElement("a", {href: "#", className: "item"}, "Reportar"), 
+              optionDelete, 
+              optionFixed
+          )
+          )
         )
       )
     );
@@ -2564,7 +2864,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/item.jsx","/app/views/photos")
-},{"_process":88,"buffer":84,"components/button_like.jsx":2,"components/profile_image.jsx":3,"components/timeago.jsx":4,"react":259,"utils/http":36,"utils/loadImages":37,"utils/pubsub":39,"views/photos/item_comment_form.jsx":58,"views/photos/item_comments.jsx":59}],58:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"buffer":89,"components/button_like.jsx":2,"components/profile_image.jsx":3,"components/timeago.jsx":4,"react":267,"semantic-ui-dropdown/dropdown":269,"semantic-ui-transition/transition":270,"utils/http":36,"utils/loadImages":37,"utils/pubsub":39,"views/photos/item_comment_form.jsx":62,"views/photos/item_comments.jsx":63}],62:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -2643,7 +2943,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/item_comment_form.jsx","/app/views/photos")
-},{"_process":88,"buffer":84,"react":259,"utils/http":36}],59:[function(require,module,exports){
+},{"_process":93,"buffer":89,"react":267,"utils/http":36}],63:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -2683,7 +2983,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/item_comments.jsx","/app/views/photos")
-},{"_process":88,"buffer":84,"react":259,"underscore":261}],60:[function(require,module,exports){
+},{"_process":93,"buffer":89,"react":267,"underscore":271}],64:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var _ = require('underscore');
@@ -2747,7 +3047,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/list.js","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"backbone":83,"buffer":84,"underscore":261,"utils/loadImages":37,"utils/pubsub":39,"views/photos/item":56}],61:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"backbone":87,"buffer":89,"underscore":271,"utils/loadImages":37,"utils/pubsub":39,"views/photos/item":60}],65:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -2777,6 +3077,10 @@ module.exports = React.createClass({displayName: "exports",
     this.listenTo(pubsub, 'general:scroll', this.loadMore);
   },
 
+  componentWillUnmount: function() {
+    console.log('unmount list photos');
+  },
+
   loadMore: function(e) {
     if (e) e.preventDefault();
     var skip = this.state.skip + 5;
@@ -2803,7 +3107,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/list.jsx","/app/views/photos")
-},{"_process":88,"buffer":84,"models/photo":13,"react":259,"react-listenTo":104,"underscore":261,"utils/http":36,"utils/loadImages":37,"utils/pubsub":39,"views/photos/item.jsx":57}],62:[function(require,module,exports){
+},{"_process":93,"buffer":89,"models/photo":13,"react":267,"react-listenTo":112,"underscore":271,"utils/http":36,"utils/loadImages":37,"utils/pubsub":39,"views/photos/item.jsx":61}],66:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var $ = require("./../../../bower_components/jquery/dist/jquery.js");
@@ -2837,10 +3141,8 @@ module.exports = Backbone.View.extend({
     alertify.warning('Subiendo imagen... Tenga en cuenta que su conexion podria afectar el tiempo de espera.');
 
     uploadFile(file, 'original_image', '/api/photos/compress', function(res) {
-      $('#app-container')
-      .empty()
-      .append('<div style="height:500px"><img src="' + res + '" height="100%" /></div>');
-      pubsub.trigger('navigator:change', '#crop');
+
+      pubsub.trigger('navigator:change', '#crop/'+ res);
     });
   },
 
@@ -2851,7 +3153,7 @@ module.exports = Backbone.View.extend({
       reader = new FileReader();
 
       reader.onload = function() {
-        $('#app-container').empty().append('<div style="height:500px"><img src="' + reader.result + '" width="500" /></div>');
+        $('#app-container').empty().append('<div style="height:500px; margin: 0 auto"><img src="' + reader.result + '" width="100%" /></div>');
       };
 
       reader.readAsDataURL(file);
@@ -2867,7 +3169,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/load.js","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"alertifyjs":82,"backbone":83,"buffer":84,"is-mobile":99,"underscore":261,"utils/pubsub":39,"utils/upload_file":42}],63:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"alertifyjs":86,"backbone":87,"buffer":89,"is-mobile":104,"underscore":271,"utils/pubsub":39,"utils/upload_file":42}],67:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 
@@ -2959,7 +3261,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/search.js","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"backbone":83,"buffer":84,"config/urls":5,"templates/photos/search.hbs":26,"underscore":261,"utils/pubsub":39}],64:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"backbone":87,"buffer":89,"config/urls":5,"templates/photos/search.hbs":26,"underscore":271,"utils/pubsub":39}],68:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -3073,7 +3375,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/search.jsx","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"buffer":84,"config/urls":5,"react":259,"utils/pubsub":39,"views/photos/search_hashtag.jsx":65,"views/photos/search_user.jsx":66}],65:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"buffer":89,"config/urls":5,"react":267,"utils/pubsub":39,"views/photos/search_hashtag.jsx":69,"views/photos/search_user.jsx":70}],69:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -3095,7 +3397,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/search_hashtag.jsx","/app/views/photos")
-},{"_process":88,"buffer":84,"react":259}],66:[function(require,module,exports){
+},{"_process":93,"buffer":89,"react":267}],70:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -3128,7 +3430,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/search_user.jsx","/app/views/photos")
-},{"_process":88,"buffer":84,"react":259}],67:[function(require,module,exports){
+},{"_process":93,"buffer":89,"react":267}],71:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var $ = require("./../../../bower_components/jquery/dist/jquery.js");
@@ -3158,7 +3460,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/store.js","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"backbone":83,"buffer":84,"config/urls":5,"utils/pubsub":39}],68:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"backbone":87,"buffer":89,"config/urls":5,"utils/pubsub":39}],72:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -3215,7 +3517,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/tag_autocomplete.js","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"backbone":83,"buffer":84,"config/urls":5,"templates/photos/autocomplete.hbs":19,"utils/pubsub":39}],69:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"backbone":87,"buffer":89,"config/urls":5,"templates/photos/autocomplete.hbs":19,"utils/pubsub":39}],73:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var $ = require("./../../../bower_components/jquery/dist/jquery.js");
@@ -3253,7 +3555,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/upload.js","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"alertifyjs":82,"backbone":83,"buffer":84,"config/urls":5,"utils/pubsub":39}],70:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"alertifyjs":86,"backbone":87,"buffer":89,"config/urls":5,"utils/pubsub":39}],74:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 global.jQuery = require("./../../../bower_components/jquery/dist/jquery.js");
@@ -3420,7 +3722,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/edit.js","/app/views/profile")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"alertifyjs":82,"backbone":83,"buffer":84,"config/urls":5,"templates/profile/edit.hbs":27,"underscore":261,"utils/get_interval":35,"utils/parse_date":38,"utils/pubsub":39,"utils/upload_file":42}],71:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"alertifyjs":86,"backbone":87,"buffer":89,"config/urls":5,"templates/profile/edit.hbs":27,"underscore":271,"utils/get_interval":35,"utils/parse_date":38,"utils/pubsub":39,"utils/upload_file":42}],75:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var $ = require("./../../../bower_components/jquery/dist/jquery.js");
@@ -3495,7 +3797,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/grid.js","/app/views/profile")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"backbone":83,"buffer":84,"config/urls":5,"templates/profile/grid.hbs":28,"templates/profile/photos.hbs":30,"utils/loadImages":37,"utils/pubsub":39}],72:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"backbone":87,"buffer":89,"config/urls":5,"templates/profile/grid.hbs":28,"templates/profile/photos.hbs":30,"utils/loadImages":37,"utils/pubsub":39}],76:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -3519,7 +3821,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/grid_image.jsx","/app/views/profile")
-},{"_process":88,"buffer":84,"react":259,"utils/loadImages":37}],73:[function(require,module,exports){
+},{"_process":93,"buffer":89,"react":267,"utils/loadImages":37}],77:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -3594,7 +3896,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/item.jsx","/app/views/profile")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"buffer":84,"config/urls":5,"react":259,"react-listenTo":104,"underscore":261,"utils/pubsub":39,"views/profile/profile_grid.jsx":75,"views/profile/profile_header.jsx":76}],74:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"buffer":89,"config/urls":5,"react":267,"react-listenTo":112,"underscore":271,"utils/pubsub":39,"views/profile/profile_grid.jsx":79,"views/profile/profile_header.jsx":80}],78:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -3648,14 +3950,15 @@ module.exports = Backbone.View.extend({
         alertify.error(res.message);
         return;
       }
-      localStorage.setItem('user', JSON.stringify(res));
+      var userToStore = {id: res.id, username: res.username, role: res.role, active: res.active};
+      localStorage.setItem('user', JSON.stringify(userToStore));
       window.location.replace('#');
     });
   }
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/login.js","/app/views/profile")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"alertifyjs":82,"backbone":83,"buffer":84,"config/urls":5,"templates/profile/login.hbs":29,"utils/email_domain":34}],75:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"alertifyjs":86,"backbone":87,"buffer":89,"config/urls":5,"templates/profile/login.hbs":29,"utils/email_domain":34}],79:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -3690,7 +3993,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/profile_grid.jsx","/app/views/profile")
-},{"_process":88,"buffer":84,"react":259,"views/profile/grid_image.jsx":72}],76:[function(require,module,exports){
+},{"_process":93,"buffer":89,"react":267,"views/profile/grid_image.jsx":76}],80:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -3702,11 +4005,20 @@ module.exports = React.createClass({displayName: "exports",
     var user = this.props.user;
     var photos = this.props.photos;
     var photosCount = photos.length;
-
+    var userlogged = JSON.parse(localStorage.getItem('user'));
+    var profileEdit;
     if (this.props.prefix && this.props.prefix === 'photos') {
       var yourPhotos = 'active';
     } else {
       var tagged = 'active';
+    }
+
+    if (userlogged.id === user.id) {
+      profileEdit = (
+        React.createElement("a", {href: '#profile/' + user.id + '/edit', className: "btn"}, 
+          "Editar perfil"
+        )
+      );
     }
 
     return (
@@ -3728,9 +4040,7 @@ module.exports = React.createClass({displayName: "exports",
             React.createElement("span", {className: "icon ion-ios-photos-outline"}), " ", React.createElement("span", {className: "text"}, "Tus fotos")
           ), " ", React.createElement("a", {href: '#tagged/' + user.username, className: "btn " + tagged}, 
             React.createElement("i", {className: "icon ion-ios-pricetags-outline"}), " ", React.createElement("span", {className: "text"}, "Etiquetado")
-          ), " ", React.createElement("a", {href: '#profile/' + user.id + '/edit', className: "btn"}, 
-            "Editar perfil"
-          )
+          ), " ", profileEdit
 
         )
       )
@@ -3739,7 +4049,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/profile_header.jsx","/app/views/profile")
-},{"_process":88,"buffer":84,"components/profile_image.jsx":3,"react":259}],77:[function(require,module,exports){
+},{"_process":93,"buffer":89,"components/profile_image.jsx":3,"react":267}],81:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 global.jQuery = require("./../../../bower_components/jquery/dist/jquery.js");
@@ -3814,7 +4124,8 @@ module.exports = Backbone.View.extend({
       data: data
     })
     .then(function(res){
-      localStorage.setItem('user', JSON.stringify(res));
+      var userToStore = {id: res.id, username: res.username, role: res.role, active: res.active};
+      localStorage.setItem('user', JSON.stringify(userToStore));
       window.location.replace('#profile/' + res.id + '/edit');
     })
     .fail(function(res) {
@@ -3826,7 +4137,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/register.js","/app/views/profile")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"alertifyjs":82,"backbone":83,"buffer":84,"config/urls":5,"templates/profile/register.hbs":31,"underscore":261,"utils/email_domain":34}],78:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"alertifyjs":86,"backbone":87,"buffer":89,"config/urls":5,"templates/profile/register.hbs":31,"underscore":271,"utils/email_domain":34}],82:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var $ = require("./../../../bower_components/jquery/dist/jquery.js");
@@ -3868,7 +4179,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/tagged.js","/app/views/profile")
-},{"./../../../bower_components/jquery/dist/jquery.js":80,"_process":88,"backbone":83,"buffer":84,"templates/profile/tagged.hbs":32,"utils/loadImages":37,"utils/pubsub":39}],79:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":84,"_process":93,"backbone":87,"buffer":89,"templates/profile/tagged.hbs":32,"utils/loadImages":37,"utils/pubsub":39}],83:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /*!
  * Cropper v0.9.3
@@ -5905,7 +6216,7 @@ module.exports = Backbone.View.extend({
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/bower_components/cropper/dist/cropper.js","/bower_components/cropper/dist")
-},{"./../../jquery/dist/jquery.js":80,"_process":88,"buffer":84}],80:[function(require,module,exports){
+},{"./../../jquery/dist/jquery.js":84,"_process":93,"buffer":89}],84:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /*!
  * jQuery JavaScript Library v2.1.4
@@ -15119,7 +15430,7 @@ return jQuery;
 }));
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/bower_components/jquery/dist/jquery.js","/bower_components/jquery/dist")
-},{"_process":88,"buffer":84}],81:[function(require,module,exports){
+},{"_process":93,"buffer":89}],85:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Timeago is a jQuery plugin that makes it easy to support automatically
@@ -15337,7 +15648,7 @@ return jQuery;
 }));
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/bower_components/timeago/jquery.timeago.js","/bower_components/timeago")
-},{"_process":88,"buffer":84}],82:[function(require,module,exports){
+},{"_process":93,"buffer":89}],86:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * alertifyjs 1.4.1 http://alertifyjs.com
@@ -18690,7 +19001,7 @@ return jQuery;
 } ( typeof window !== 'undefined' ? window : this ) );
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/alertifyjs/build/alertify.js","/node_modules/alertifyjs/build")
-},{"_process":88,"buffer":84}],83:[function(require,module,exports){
+},{"_process":93,"buffer":89}],87:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 //     Backbone.js 1.1.2
 
@@ -20302,7 +20613,61 @@ return jQuery;
 }));
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/backbone/backbone.js","/node_modules/backbone")
-},{"_process":88,"buffer":84,"underscore":261}],84:[function(require,module,exports){
+},{"_process":93,"buffer":89,"underscore":271}],88:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+'use strict';
+// For more information about browser field, check out the browser field at https://github.com/substack/browserify-handbook#browser-field.
+
+module.exports = {
+    // Create a <link> tag with optional data attributes
+    createLink: function(href, attributes) {
+        var head = document.head || document.getElementsByTagName('head')[0];
+        var link = document.createElement('link');
+
+        link.href = href;
+        link.rel = 'stylesheet';
+
+        for (var key in attributes) {
+            if ( ! attributes.hasOwnProperty(key)) {
+                continue;
+            }
+            var value = attributes[key];
+            link.setAttribute('data-' + key, value);
+        }
+
+        head.appendChild(link);
+    },
+    // Create a <style> tag with optional data attributes
+    createStyle: function(cssText, attributes) {
+        var head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+
+        style.type = 'text/css';
+
+        for (var key in attributes) {
+            if ( ! attributes.hasOwnProperty(key)) {
+                continue;
+            }
+            var value = attributes[key];
+            style.setAttribute('data-' + key, value);
+        }
+        
+        if (style.sheet) { // for jsdom and IE9+
+            style.innerHTML = cssText;
+            style.sheet.cssText = cssText;
+            head.appendChild(style);
+        } else if (style.styleSheet) { // for IE8 and below
+            head.appendChild(style);
+            style.styleSheet.cssText = cssText;
+        } else { // for Chrome, Firefox, and Safari
+            style.appendChild(document.createTextNode(cssText));
+            head.appendChild(style);
+        }
+    }
+};
+
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/browserify-css/browser.js","/node_modules/browserify-css")
+},{"_process":93,"buffer":89}],89:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /*!
  * The buffer module from node.js, for the browser.
@@ -21720,7 +22085,7 @@ function decodeUtf8Char (str) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/browserify/node_modules/buffer/index.js","/node_modules/browserify/node_modules/buffer")
-},{"_process":88,"base64-js":85,"buffer":84,"ieee754":86,"is-array":87}],85:[function(require,module,exports){
+},{"_process":93,"base64-js":90,"buffer":89,"ieee754":91,"is-array":92}],90:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
@@ -21848,7 +22213,7 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 }(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/browserify/node_modules/buffer/node_modules/base64-js/lib/b64.js","/node_modules/browserify/node_modules/buffer/node_modules/base64-js/lib")
-},{"_process":88,"buffer":84}],86:[function(require,module,exports){
+},{"_process":93,"buffer":89}],91:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m,
@@ -21936,7 +22301,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/browserify/node_modules/buffer/node_modules/ieee754/index.js","/node_modules/browserify/node_modules/buffer/node_modules/ieee754")
-},{"_process":88,"buffer":84}],87:[function(require,module,exports){
+},{"_process":93,"buffer":89}],92:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 
 /**
@@ -21973,7 +22338,7 @@ module.exports = isArray || function (val) {
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/browserify/node_modules/buffer/node_modules/is-array/index.js","/node_modules/browserify/node_modules/buffer/node_modules/is-array")
-},{"_process":88,"buffer":84}],88:[function(require,module,exports){
+},{"_process":93,"buffer":89}],93:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // shim for using process in browser
 
@@ -22067,7 +22432,7 @@ process.chdir = function (dir) {
 process.umask = function() { return 0; };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/browserify/node_modules/process/browser.js","/node_modules/browserify/node_modules/process")
-},{"_process":88,"buffer":84}],89:[function(require,module,exports){
+},{"_process":93,"buffer":89}],94:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 ;(function () {
 	'use strict';
@@ -22912,7 +23277,7 @@ process.umask = function() { return 0; };
 }());
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/fastclick/lib/fastclick.js","/node_modules/fastclick/lib")
-},{"_process":88,"buffer":84}],90:[function(require,module,exports){
+},{"_process":93,"buffer":89}],95:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -22975,7 +23340,7 @@ inst['default'] = inst;
 exports['default'] = inst;
 module.exports = exports['default'];
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/handlebars/dist/cjs/handlebars.runtime.js","/node_modules/handlebars/dist/cjs")
-},{"./handlebars/base":91,"./handlebars/exception":92,"./handlebars/no-conflict":93,"./handlebars/runtime":94,"./handlebars/safe-string":95,"./handlebars/utils":96,"_process":88,"buffer":84}],91:[function(require,module,exports){
+},{"./handlebars/base":96,"./handlebars/exception":97,"./handlebars/no-conflict":98,"./handlebars/runtime":99,"./handlebars/safe-string":100,"./handlebars/utils":101,"_process":93,"buffer":89}],96:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -23251,7 +23616,7 @@ function createFrame(object) {
 
 /* [args, ]options */
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/handlebars/dist/cjs/handlebars/base.js","/node_modules/handlebars/dist/cjs/handlebars")
-},{"./exception":92,"./utils":96,"_process":88,"buffer":84}],92:[function(require,module,exports){
+},{"./exception":97,"./utils":101,"_process":93,"buffer":89}],97:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -23292,7 +23657,7 @@ Exception.prototype = new Error();
 exports['default'] = Exception;
 module.exports = exports['default'];
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/handlebars/dist/cjs/handlebars/exception.js","/node_modules/handlebars/dist/cjs/handlebars")
-},{"_process":88,"buffer":84}],93:[function(require,module,exports){
+},{"_process":93,"buffer":89}],98:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -23313,7 +23678,7 @@ exports['default'] = function (Handlebars) {
 
 module.exports = exports['default'];
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/handlebars/dist/cjs/handlebars/no-conflict.js","/node_modules/handlebars/dist/cjs/handlebars")
-},{"_process":88,"buffer":84}],94:[function(require,module,exports){
+},{"_process":93,"buffer":89}],99:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -23548,7 +23913,7 @@ function initData(context, data) {
   return data;
 }
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/handlebars/dist/cjs/handlebars/runtime.js","/node_modules/handlebars/dist/cjs/handlebars")
-},{"./base":91,"./exception":92,"./utils":96,"_process":88,"buffer":84}],95:[function(require,module,exports){
+},{"./base":96,"./exception":97,"./utils":101,"_process":93,"buffer":89}],100:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -23565,7 +23930,7 @@ SafeString.prototype.toString = SafeString.prototype.toHTML = function () {
 exports['default'] = SafeString;
 module.exports = exports['default'];
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/handlebars/dist/cjs/handlebars/safe-string.js","/node_modules/handlebars/dist/cjs/handlebars")
-},{"_process":88,"buffer":84}],96:[function(require,module,exports){
+},{"_process":93,"buffer":89}],101:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -23682,19 +24047,19 @@ function appendContextPath(contextPath, id) {
   return (contextPath ? contextPath + '.' : '') + id;
 }
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/handlebars/dist/cjs/handlebars/utils.js","/node_modules/handlebars/dist/cjs/handlebars")
-},{"_process":88,"buffer":84}],97:[function(require,module,exports){
+},{"_process":93,"buffer":89}],102:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // Create a simple path alias to allow browserify to resolve
 // the runtime on a supported path.
 module.exports = require('./dist/cjs/handlebars.runtime')['default'];
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/handlebars/runtime.js","/node_modules/handlebars")
-},{"./dist/cjs/handlebars.runtime":90,"_process":88,"buffer":84}],98:[function(require,module,exports){
+},{"./dist/cjs/handlebars.runtime":95,"_process":93,"buffer":89}],103:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 module.exports = require("handlebars/runtime")["default"];
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/hbsfy/runtime.js","/node_modules/hbsfy")
-},{"_process":88,"buffer":84,"handlebars/runtime":97}],99:[function(require,module,exports){
+},{"_process":93,"buffer":89,"handlebars/runtime":102}],104:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 module.exports = isMobile;
 
@@ -23710,7 +24075,7 @@ function isMobile (ua) {
 
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/is-mobile/index.js","/node_modules/is-mobile")
-},{"_process":88,"buffer":84}],100:[function(require,module,exports){
+},{"_process":93,"buffer":89}],105:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /*!
  * jQuery JavaScript Library v2.1.4
@@ -32924,7 +33289,7 @@ return jQuery;
 }));
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/jquery/dist/jquery.js","/node_modules/jquery/dist")
-},{"_process":88,"buffer":84}],101:[function(require,module,exports){
+},{"_process":93,"buffer":89}],106:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 //! moment.js locale configuration
 //! locale : spanish (es)
@@ -33005,7 +33370,7 @@ return jQuery;
 
 }));
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/moment/locale/es.js","/node_modules/moment/locale")
-},{"../moment":102,"_process":88,"buffer":84}],102:[function(require,module,exports){
+},{"../moment":107,"_process":93,"buffer":89}],107:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 //! moment.js
 //! version : 2.10.3
@@ -36119,7 +36484,7 @@ return jQuery;
 
 }));
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/moment/moment.js","/node_modules/moment")
-},{"_process":88,"buffer":84}],103:[function(require,module,exports){
+},{"_process":93,"buffer":89}],108:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /* NProgress, (c) 2013, 2014 Rico Sta. Cruz - http://ricostacruz.com/nprogress
  * @license MIT */
@@ -36599,7 +36964,2335 @@ return jQuery;
 
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/nprogress/nprogress.js","/node_modules/nprogress")
-},{"_process":88,"buffer":84}],104:[function(require,module,exports){
+},{"_process":93,"buffer":89}],109:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+require('cropper');
+
+require('cropper/dist/cropper.css');
+
+var Cropper = _react2['default'].createClass({
+  displayName: 'Cropper',
+
+  propTypes: {
+    // react cropper options
+    crossOrigin: _react2['default'].PropTypes.string,
+    src: _react2['default'].PropTypes.string,
+    alt: _react2['default'].PropTypes.string,
+
+    // cropper options
+    aspectRatio: _react2['default'].PropTypes.number,
+    crop: _react2['default'].PropTypes.func,
+    preview: _react2['default'].PropTypes.string,
+    strict: _react2['default'].PropTypes.bool,
+    responsive: _react2['default'].PropTypes.bool,
+    checkImageOrigin: _react2['default'].PropTypes.bool,
+    background: _react2['default'].PropTypes.bool,
+    modal: _react2['default'].PropTypes.bool,
+    guides: _react2['default'].PropTypes.bool,
+    highlight: _react2['default'].PropTypes.bool,
+    autoCrop: _react2['default'].PropTypes.bool,
+    autoCropArea: _react2['default'].PropTypes.number,
+    dragCrop: _react2['default'].PropTypes.bool,
+    movable: _react2['default'].PropTypes.bool,
+    cropBoxMovable: _react2['default'].PropTypes.bool,
+    cropBoxResizable: _react2['default'].PropTypes.bool,
+    doubleClickToggle: _react2['default'].PropTypes.bool,
+    zoomable: _react2['default'].PropTypes.bool,
+    mouseWheelZoom: _react2['default'].PropTypes.bool,
+    touchDragZoom: _react2['default'].PropTypes.bool,
+    rotatable: _react2['default'].PropTypes.bool,
+    minContainerWidth: _react2['default'].PropTypes.number,
+    minContainerHeight: _react2['default'].PropTypes.number,
+    minCanvasWidth: _react2['default'].PropTypes.number,
+    minCanvasHeight: _react2['default'].PropTypes.number,
+    minCropBoxWidth: _react2['default'].PropTypes.number,
+    minCropBoxHeight: _react2['default'].PropTypes.number,
+    build: _react2['default'].PropTypes.func,
+    built: _react2['default'].PropTypes.func,
+    dragstart: _react2['default'].PropTypes.func,
+    dragmove: _react2['default'].PropTypes.func,
+    dragend: _react2['default'].PropTypes.func,
+    zoomin: _react2['default'].PropTypes.func,
+    zoomout: _react2['default'].PropTypes.func
+  },
+
+  getDefaultProps: function getDefaultProps() {
+    return {
+      src: null
+    };
+  },
+
+  componentDidMount: function componentDidMount() {
+    var options = {};
+    for (var prop in this.props) {
+      if (prop !== 'src' && prop !== 'alt' && prop !== 'crossOrigin') {
+        options[prop] = this.props[prop];
+      }
+    }
+    this.$img = (0, _jquery2['default'])(_react2['default'].findDOMNode(this.refs.img));
+    this.$img.cropper(options);
+  },
+
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+    if (nextProps.src !== this.props.src) {
+      this.replace(nextProps.src);
+    }
+    if (nextProps.aspectRatio !== this.props.aspectRatio) {
+      this.setAspectRatio(nextProps.aspectRatio);
+    }
+  },
+
+  componentWillUnmount: function componentWillUnmount() {
+    if (this.$img) {
+      // Destroy the cropper, this makes sure events such as resize are cleaned up and do not leak
+      this.$img.cropper('destroy');
+      // While we're at it remove our reference to the jQuery instance
+      delete this.$img;
+    }
+  },
+
+  move: function move(offsetX, offsetY) {
+    return this.$img.cropper('move', offsetX, offsetY);
+  },
+
+  zoom: function zoom(ratio) {
+    return this.$img.cropper('zoom', ratio);
+  },
+
+  rotate: function rotate(degree) {
+    return this.$img.cropper('rotate', degree);
+  },
+
+  enable: function enable() {
+    return this.$img.cropper('enable');
+  },
+
+  disable: function disable() {
+    return this.$img.cropper('disable');
+  },
+
+  reset: function reset() {
+    return this.$img.cropper('reset');
+  },
+
+  clear: function clear() {
+    return this.$img.cropper('clear');
+  },
+
+  replace: function replace(url) {
+    return this.$img.cropper('replace', url);
+  },
+
+  getData: function getData() {
+    return this.$img.cropper('getData');
+  },
+
+  getContainerData: function getContainerData() {
+    return this.$img.cropper('getContainerData');
+  },
+
+  getImageData: function getImageData() {
+    return this.$img.cropper('getImageData');
+  },
+
+  getCanvasData: function getCanvasData() {
+    return this.$img.cropper('getCanvasData');
+  },
+
+  setCanvasData: function setCanvasData(data) {
+    return this.$img.cropper('setCanvasData', data);
+  },
+
+  getCropBoxData: function getCropBoxData() {
+    return this.$img.cropper('getCropBoxData');
+  },
+
+  setCropBoxData: function setCropBoxData(data) {
+    return this.$img.cropper('setCropBoxData', data);
+  },
+
+  getCroppedCanvas: function getCroppedCanvas(options) {
+    return this.$img.cropper('getCroppedCanvas', options);
+  },
+
+  setAspectRatio: function setAspectRatio(aspectRatio) {
+    return this.$img.cropper('setAspectRatio', aspectRatio);
+  },
+
+  setDragMode: function setDragMode() {
+    return this.$img.cropper('setDragMode');
+  },
+
+  on: function on(eventname, callback) {
+    return this.$img.on(eventname, callback);
+  },
+
+  render: function render() {
+    return _react2['default'].createElement(
+      'div',
+      _extends({}, this.props, { src: null, crossOrigin: null, alt: null }),
+      _react2['default'].createElement('img', {
+        crossOrigin: this.props.crossOrigin,
+        ref: 'img',
+        src: this.props.src,
+        alt: this.props.alt === undefined ? 'picture' : this.props.alt,
+        style: { opacity: 0 }
+      })
+    );
+  }
+});
+
+exports['default'] = Cropper;
+module.exports = exports['default'];
+
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react-cropper/dist/react-cropper.js","/node_modules/react-cropper/dist")
+},{"_process":93,"buffer":89,"cropper":111,"cropper/dist/cropper.css":110,"jquery":105,"react":267}],110:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+var css = "/*!\r\n * Cropper v0.10.1\r\n * https://github.com/fengyuanchen/cropper\r\n *\r\n * Copyright (c) 2014-2015 Fengyuan Chen and contributors\r\n * Released under the MIT license\r\n *\r\n * Date: 2015-07-05T10:44:58.203Z\r\n */\n.cropper-container {\n  position: relative;\n  overflow: hidden;\n  -ms-touch-action: none;\n  touch-action: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  direction: ltr !important;\n  -webkit-tap-highlight-color: transparent;\n  -webkit-touch-callout: none;\n}\n.cropper-container img {\n  display: block;\n  width: 100%;\n  min-width: 0 !important;\n  max-width: none !important;\n  height: 100%;\n  min-height: 0 !important;\n  max-height: none !important;\n  image-orientation: 0deg !important;\n}\n.cropper-canvas,\n.cropper-drag-box,\n.cropper-crop-box,\n.cropper-modal {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\n.cropper-drag-box {\n  background-color: #fff;\n  filter: alpha(opacity=0);\n  opacity: 0;\n}\n.cropper-modal {\n  background-color: #000;\n  filter: alpha(opacity=50);\n  opacity: .5;\n}\n.cropper-view-box {\n  display: block;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  outline: 1px solid #69f;\n  outline-color: rgba(102, 153, 255, .75);\n}\n.cropper-dashed {\n  position: absolute;\n  display: block;\n  filter: alpha(opacity=50);\n  border: 0 dashed #fff;\n  opacity: .5;\n}\n.cropper-dashed.dashed-h {\n  top: 33.33333333%;\n  left: 0;\n  width: 100%;\n  height: 33.33333333%;\n  border-top-width: 1px;\n  border-bottom-width: 1px;\n}\n.cropper-dashed.dashed-v {\n  top: 0;\n  left: 33.33333333%;\n  width: 33.33333333%;\n  height: 100%;\n  border-right-width: 1px;\n  border-left-width: 1px;\n}\n.cropper-center {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  display: block;\n  width: 0;\n  height: 0;\n  filter: alpha(opacity=75);\n  opacity: .75;\n}\n.cropper-center:before,\n.cropper-center:after {\n  position: absolute;\n  display: block;\n  content: \" \";\n  background-color: #fff;\n}\n.cropper-center:before {\n  top: 0;\n  left: -2px;\n  width: 5px;\n  height: 1px;\n}\n.cropper-center:after {\n  top: -2px;\n  left: 0;\n  width: 1px;\n  height: 5px;\n}\n.cropper-face,\n.cropper-line,\n.cropper-point {\n  position: absolute;\n  display: block;\n  width: 100%;\n  height: 100%;\n  filter: alpha(opacity=10);\n  opacity: .1;\n}\n.cropper-face {\n  top: 0;\n  left: 0;\n  background-color: #fff;\n}\n.cropper-line {\n  background-color: #69f;\n}\n.cropper-line.line-e {\n  top: 0;\n  right: -3px;\n  width: 5px;\n  cursor: e-resize;\n}\n.cropper-line.line-n {\n  top: -3px;\n  left: 0;\n  height: 5px;\n  cursor: n-resize;\n}\n.cropper-line.line-w {\n  top: 0;\n  left: -3px;\n  width: 5px;\n  cursor: w-resize;\n}\n.cropper-line.line-s {\n  bottom: -3px;\n  left: 0;\n  height: 5px;\n  cursor: s-resize;\n}\n.cropper-point {\n  width: 5px;\n  height: 5px;\n  background-color: #69f;\n  filter: alpha(opacity=75);\n  opacity: .75;\n}\n.cropper-point.point-e {\n  top: 50%;\n  right: -3px;\n  margin-top: -3px;\n  cursor: e-resize;\n}\n.cropper-point.point-n {\n  top: -3px;\n  left: 50%;\n  margin-left: -3px;\n  cursor: n-resize;\n}\n.cropper-point.point-w {\n  top: 50%;\n  left: -3px;\n  margin-top: -3px;\n  cursor: w-resize;\n}\n.cropper-point.point-s {\n  bottom: -3px;\n  left: 50%;\n  margin-left: -3px;\n  cursor: s-resize;\n}\n.cropper-point.point-ne {\n  top: -3px;\n  right: -3px;\n  cursor: ne-resize;\n}\n.cropper-point.point-nw {\n  top: -3px;\n  left: -3px;\n  cursor: nw-resize;\n}\n.cropper-point.point-sw {\n  bottom: -3px;\n  left: -3px;\n  cursor: sw-resize;\n}\n.cropper-point.point-se {\n  right: -3px;\n  bottom: -3px;\n  width: 20px;\n  height: 20px;\n  cursor: se-resize;\n  filter: alpha(opacity=100);\n  opacity: 1;\n}\n.cropper-point.point-se:before {\n  position: absolute;\n  right: -50%;\n  bottom: -50%;\n  display: block;\n  width: 200%;\n  height: 200%;\n  content: \" \";\n  background-color: #69f;\n  filter: alpha(opacity=0);\n  opacity: 0;\n}\n@media (min-width: 768px) {\n  .cropper-point.point-se {\n    width: 15px;\n    height: 15px;\n  }\n}\n@media (min-width: 992px) {\n  .cropper-point.point-se {\n    width: 10px;\n    height: 10px;\n  }\n}\n@media (min-width: 1200px) {\n  .cropper-point.point-se {\n    width: 5px;\n    height: 5px;\n    filter: alpha(opacity=75);\n    opacity: .75;\n  }\n}\n.cropper-bg {\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC\");\n}\n.cropper-invisible {\n  filter: alpha(opacity=0);\n  opacity: 0;\n}\n.cropper-hide {\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: -1;\n  width: auto!important;\n  min-width: 0!important;\n  max-width: none!important;\n  height: auto!important;\n  min-height: 0!important;\n  max-height: none!important;\n  filter: alpha(opacity=0);\n  opacity: 0;\n}\n.cropper-hidden {\n  display: none !important;\n}\n.cropper-move {\n  cursor: move;\n}\n.cropper-crop {\n  cursor: crosshair;\n}\n.cropper-disabled .cropper-drag-box,\n.cropper-disabled .cropper-face,\n.cropper-disabled .cropper-line,\n.cropper-disabled .cropper-point {\n  cursor: not-allowed;\n}\n"; (require("browserify-css").createStyle(css, { "href": "node_modules/react-cropper/node_modules/cropper/dist/cropper.css"})); module.exports = css;
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react-cropper/node_modules/cropper/dist/cropper.css","/node_modules/react-cropper/node_modules/cropper/dist")
+},{"_process":93,"browserify-css":88,"buffer":89}],111:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+/*!
+ * Cropper v0.10.1
+ * https://github.com/fengyuanchen/cropper
+ *
+ * Copyright (c) 2014-2015 Fengyuan Chen and contributors
+ * Released under the MIT license
+ *
+ * Date: 2015-07-05T10:44:58.203Z
+ */
+
+(function (factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as anonymous module.
+    define(['jquery'], factory);
+  } else if (typeof exports === 'object') {
+    // Node / CommonJS
+    factory(require('jquery'));
+  } else {
+    // Browser globals.
+    factory(jQuery);
+  }
+})(function ($) {
+
+  'use strict';
+
+  var $window = $(window),
+      $document = $(document),
+      location = window.location,
+
+      // Constants
+      CROPPER_NAMESPACE = '.cropper',
+      CROPPER_PREVIEW = 'preview' + CROPPER_NAMESPACE,
+
+      // RegExps
+      REGEXP_DRAG_TYPES = /^(e|n|w|s|ne|nw|sw|se|all|crop|move|zoom)$/,
+
+      // Classes
+      CLASS_MODAL = 'cropper-modal',
+      CLASS_HIDE = 'cropper-hide',
+      CLASS_HIDDEN = 'cropper-hidden',
+      CLASS_INVISIBLE = 'cropper-invisible',
+      CLASS_MOVE = 'cropper-move',
+      CLASS_CROP = 'cropper-crop',
+      CLASS_DISABLED = 'cropper-disabled',
+      CLASS_BG = 'cropper-bg',
+
+      // Events
+      EVENT_MOUSE_DOWN = 'mousedown touchstart pointerdown MSPointerDown',
+      EVENT_MOUSE_MOVE = 'mousemove touchmove pointermove MSPointerMove',
+      EVENT_MOUSE_UP = 'mouseup touchend touchcancel pointerup pointercancel MSPointerUp MSPointerCancel',
+      EVENT_WHEEL = 'wheel mousewheel DOMMouseScroll',
+      EVENT_DBLCLICK = 'dblclick',
+      EVENT_RESIZE = 'resize' + CROPPER_NAMESPACE, // Bind to window with namespace
+      EVENT_BUILD = 'build' + CROPPER_NAMESPACE,
+      EVENT_BUILT = 'built' + CROPPER_NAMESPACE,
+      EVENT_DRAG_START = 'dragstart' + CROPPER_NAMESPACE,
+      EVENT_DRAG_MOVE = 'dragmove' + CROPPER_NAMESPACE,
+      EVENT_DRAG_END = 'dragend' + CROPPER_NAMESPACE,
+      EVENT_ZOOM_IN = 'zoomin' + CROPPER_NAMESPACE,
+      EVENT_ZOOM_OUT = 'zoomout' + CROPPER_NAMESPACE,
+      EVENT_CHANGE = 'change' + CROPPER_NAMESPACE,
+
+      // Supports
+      SUPPORT_CANVAS = $.isFunction($('<canvas>')[0].getContext),
+
+      // Others
+      sqrt = Math.sqrt,
+      min = Math.min,
+      max = Math.max,
+      abs = Math.abs,
+      sin = Math.sin,
+      cos = Math.cos,
+      num = parseFloat,
+
+      // Prototype
+      prototype = {};
+
+  function isNumber(n) {
+    return typeof n === 'number' && !isNaN(n);
+  }
+
+  function isUndefined(n) {
+    return typeof n === 'undefined';
+  }
+
+  function toArray(obj, offset) {
+    var args = [];
+
+    if (isNumber(offset)) { // It's necessary for IE8
+      args.push(offset);
+    }
+
+    return args.slice.apply(obj, args);
+  }
+
+  // Custom proxy to avoid jQuery's guid
+  function proxy(fn, context) {
+    var args = toArray(arguments, 2);
+
+    return function () {
+      return fn.apply(context, args.concat(toArray(arguments)));
+    };
+  }
+
+  function isCrossOriginURL(url) {
+    var parts = url.match(/^(https?:)\/\/([^\:\/\?#]+):?(\d*)/i);
+
+    return parts && (parts[1] !== location.protocol || parts[2] !== location.hostname || parts[3] !== location.port);
+  }
+
+  function addTimestamp(url) {
+    var timestamp = 'timestamp=' + (new Date()).getTime();
+
+    return (url + (url.indexOf('?') === -1 ? '?' : '&') + timestamp);
+  }
+
+  function getRotateValue(degree) {
+    return degree ? 'rotate(' + degree + 'deg)' : 'none';
+  }
+
+  function getRotatedSizes(data, reverse) {
+    var deg = abs(data.degree) % 180,
+        arc = (deg > 90 ? (180 - deg) : deg) * Math.PI / 180,
+        sinArc = sin(arc),
+        cosArc = cos(arc),
+        width = data.width,
+        height = data.height,
+        aspectRatio = data.aspectRatio,
+        newWidth,
+        newHeight;
+
+    if (!reverse) {
+      newWidth = width * cosArc + height * sinArc;
+      newHeight = width * sinArc + height * cosArc;
+    } else {
+      newWidth = width / (cosArc + sinArc / aspectRatio);
+      newHeight = newWidth / aspectRatio;
+    }
+
+    return {
+      width: newWidth,
+      height: newHeight
+    };
+  }
+
+  function getSourceCanvas(image, data) {
+    var canvas = $('<canvas>')[0],
+        context = canvas.getContext('2d'),
+        width = data.naturalWidth,
+        height = data.naturalHeight,
+        rotate = data.rotate,
+        rotated = getRotatedSizes({
+          width: width,
+          height: height,
+          degree: rotate
+        });
+
+    if (rotate) {
+      canvas.width = rotated.width;
+      canvas.height = rotated.height;
+      context.save();
+      context.translate(rotated.width / 2, rotated.height / 2);
+      context.rotate(rotate * Math.PI / 180);
+      context.drawImage(image, -width / 2, -height / 2, width, height);
+      context.restore();
+    } else {
+      canvas.width = width;
+      canvas.height = height;
+      context.drawImage(image, 0, 0, width, height);
+    }
+
+    return canvas;
+  }
+
+  function Cropper(element, options) {
+    this.$element = $(element);
+    this.options = $.extend({}, Cropper.DEFAULTS, $.isPlainObject(options) && options);
+
+    this.ready = false;
+    this.built = false;
+    this.rotated = false;
+    this.cropped = false;
+    this.disabled = false;
+    this.replaced = false;
+    this.isImg = false;
+    this.originalUrl = '';
+    this.canvas = null;
+    this.cropBox = null;
+
+    this.init();
+  }
+
+  prototype.init = function () {
+    var $this = this.$element,
+        url;
+
+    if ($this.is('img')) {
+      this.isImg = true;
+      this.originalUrl = url = $this.attr('src'); // e.g.: "img/picture.jpg"
+
+      if (!url) { // Blank image
+        return;
+      }
+
+      url = $this.prop('src'); // e.g.: "http://example.com/img/picture.jpg"
+    } else if ($this.is('canvas') && SUPPORT_CANVAS) {
+      url = $this[0].toDataURL();
+    }
+
+    this.load(url);
+  };
+
+  prototype.load = function (url) {
+    var options = this.options,
+        $this = this.$element,
+        crossOrigin,
+        bustCacheUrl,
+        buildEvent,
+        $clone;
+
+    if (!url) {
+      return;
+    }
+
+    buildEvent = $.Event(EVENT_BUILD);
+    $this.one(EVENT_BUILD, options.build).trigger(buildEvent); // Only trigger once
+
+    if (buildEvent.isDefaultPrevented()) {
+      return;
+    }
+
+    if (options.checkImageOrigin && isCrossOriginURL(url)) {
+      crossOrigin = ' crossOrigin="anonymous"';
+
+      if (!$this.prop('crossOrigin')) { // Only when there was not a "crossOrigin" property
+        bustCacheUrl = addTimestamp(url); // Bust cache (#148)
+      }
+    }
+
+    // IE8 compatibility: Don't use "$().attr()" to set "src"
+    this.$clone = $clone = $('<img' + (crossOrigin || '') + ' src="' + (bustCacheUrl || url) + '">');
+
+    $clone.one('load', $.proxy(function () {
+      var image = $clone[0],
+          naturalWidth = image.naturalWidth || image.width,
+          naturalHeight = image.naturalHeight || image.height; // $clone.width() and $clone.height() will return 0 in IE8 (#319)
+
+      this.image = {
+        naturalWidth: naturalWidth,
+        naturalHeight: naturalHeight,
+        aspectRatio: naturalWidth / naturalHeight,
+        rotate: 0
+      };
+
+      this.url = url;
+      this.ready = true;
+      this.build();
+    }, this)).one('error', function () {
+      $clone.remove();
+    });
+
+    // Hide and insert into the document
+    $clone.addClass(CLASS_HIDE).insertAfter($this);
+  };
+
+  prototype.build = function () {
+    var $this = this.$element,
+        $clone = this.$clone,
+        options = this.options,
+        $cropper,
+        $cropBox,
+        $face;
+
+    if (!this.ready) {
+      return;
+    }
+
+    if (this.built) {
+      this.unbuild();
+    }
+
+    // Create cropper elements
+    this.$cropper = $cropper = $(Cropper.TEMPLATE);
+
+    // Hide the original image
+    $this.addClass(CLASS_HIDDEN);
+
+    // Show the clone iamge
+    $clone.removeClass(CLASS_HIDE);
+
+    this.$container = $this.parent().append($cropper);
+    this.$canvas = $cropper.find('.cropper-canvas').append($clone);
+    this.$dragBox = $cropper.find('.cropper-drag-box');
+    this.$cropBox = $cropBox = $cropper.find('.cropper-crop-box');
+    this.$viewBox = $cropper.find('.cropper-view-box');
+    this.$face = $face = $cropBox.find('.cropper-face');
+
+    this.addListeners();
+    this.initPreview();
+
+    // Format aspect ratio
+    options.aspectRatio = num(options.aspectRatio) || NaN; // 0 -> NaN
+
+    if (options.autoCrop) {
+      this.cropped = true;
+
+      if (options.modal) {
+        this.$dragBox.addClass(CLASS_MODAL);
+      }
+    } else {
+      $cropBox.addClass(CLASS_HIDDEN);
+    }
+
+    if (!options.guides) {
+      $cropBox.find('.cropper-dashed').addClass(CLASS_HIDDEN);
+    }
+
+    if (!options.center) {
+      $cropBox.find('.cropper-center').addClass(CLASS_HIDDEN);
+    }
+
+    if (options.cropBoxMovable) {
+      $face.addClass(CLASS_MOVE).data('drag', 'all');
+    }
+
+    if (!options.highlight) {
+      $face.addClass(CLASS_INVISIBLE);
+    }
+
+    if (options.background) {
+      $cropper.addClass(CLASS_BG);
+    }
+
+    if (!options.cropBoxResizable) {
+      $cropBox.find('.cropper-line, .cropper-point').addClass(CLASS_HIDDEN);
+    }
+
+    this.setDragMode(options.dragCrop ? 'crop' : options.movable ? 'move' : 'none');
+
+    this.built = true;
+    this.render();
+    this.setData(options.data);
+    $this.one(EVENT_BUILT, options.built).trigger(EVENT_BUILT); // Only trigger once
+  };
+
+  prototype.unbuild = function () {
+    if (!this.built) {
+      return;
+    }
+
+    this.built = false;
+    this.initialImage = null;
+    this.initialCanvas = null; // This is necessary when replace
+    this.initialCropBox = null;
+    this.container = null;
+    this.canvas = null;
+    this.cropBox = null; // This is necessary when replace
+    this.removeListeners();
+
+    this.resetPreview();
+    this.$preview = null;
+
+    this.$viewBox = null;
+    this.$cropBox = null;
+    this.$dragBox = null;
+    this.$canvas = null;
+    this.$container = null;
+
+    this.$cropper.remove();
+    this.$cropper = null;
+  };
+
+  $.extend(prototype, {
+    render: function () {
+      this.initContainer();
+      this.initCanvas();
+      this.initCropBox();
+
+      this.renderCanvas();
+
+      if (this.cropped) {
+        this.renderCropBox();
+      }
+    },
+
+    initContainer: function () {
+      var $this = this.$element,
+          $container = this.$container,
+          $cropper = this.$cropper,
+          options = this.options;
+
+      $cropper.addClass(CLASS_HIDDEN);
+      $this.removeClass(CLASS_HIDDEN);
+
+      $cropper.css((this.container = {
+        width: max($container.width(), num(options.minContainerWidth) || 200),
+        height: max($container.height(), num(options.minContainerHeight) || 100)
+      }));
+
+      $this.addClass(CLASS_HIDDEN);
+      $cropper.removeClass(CLASS_HIDDEN);
+    },
+
+    // image box (wrapper)
+    initCanvas: function () {
+      var container = this.container,
+          containerWidth = container.width,
+          containerHeight = container.height,
+          image = this.image,
+          aspectRatio = image.aspectRatio,
+          canvas = {
+            aspectRatio: aspectRatio,
+            width: containerWidth,
+            height: containerHeight
+          };
+
+      if (containerHeight * aspectRatio > containerWidth) {
+        canvas.height = containerWidth / aspectRatio;
+      } else {
+        canvas.width = containerHeight * aspectRatio;
+      }
+
+      canvas.oldLeft = canvas.left = (containerWidth - canvas.width) / 2;
+      canvas.oldTop = canvas.top = (containerHeight - canvas.height) / 2;
+
+      this.canvas = canvas;
+      this.limitCanvas(true, true);
+      this.initialImage = $.extend({}, image);
+      this.initialCanvas = $.extend({}, canvas);
+    },
+
+    limitCanvas: function (size, position) {
+      var options = this.options,
+          strict = options.strict,
+          container = this.container,
+          containerWidth = container.width,
+          containerHeight = container.height,
+          canvas = this.canvas,
+          aspectRatio = canvas.aspectRatio,
+          cropBox = this.cropBox,
+          cropped = this.cropped && cropBox,
+          initialCanvas = this.initialCanvas || canvas,
+          initialCanvasWidth = initialCanvas.width,
+          initialCanvasHeight = initialCanvas.height,
+          minCanvasWidth,
+          minCanvasHeight;
+
+      if (size) {
+        minCanvasWidth = num(options.minCanvasWidth) || 0;
+        minCanvasHeight = num(options.minCanvasHeight) || 0;
+
+        if (minCanvasWidth) {
+          if (strict) {
+            minCanvasWidth = max(cropped ? cropBox.width : initialCanvasWidth, minCanvasWidth);
+          }
+
+          minCanvasHeight = minCanvasWidth / aspectRatio;
+        } else if (minCanvasHeight) {
+          if (strict) {
+            minCanvasHeight = max(cropped ? cropBox.height : initialCanvasHeight, minCanvasHeight);
+          }
+
+          minCanvasWidth = minCanvasHeight * aspectRatio;
+        } else if (strict) {
+          if (cropped) {
+            minCanvasWidth = cropBox.width;
+            minCanvasHeight = cropBox.height;
+
+            if (minCanvasHeight * aspectRatio > minCanvasWidth) {
+              minCanvasWidth = minCanvasHeight * aspectRatio;
+            } else {
+              minCanvasHeight = minCanvasWidth / aspectRatio;
+            }
+          } else {
+            minCanvasWidth = initialCanvasWidth;
+            minCanvasHeight = initialCanvasHeight;
+          }
+        }
+
+        $.extend(canvas, {
+          minWidth: minCanvasWidth,
+          minHeight: minCanvasHeight,
+          maxWidth: Infinity,
+          maxHeight: Infinity
+        });
+      }
+
+      if (position) {
+        if (strict) {
+          if (cropped) {
+            canvas.minLeft = min(cropBox.left, (cropBox.left + cropBox.width) - canvas.width);
+            canvas.minTop = min(cropBox.top, (cropBox.top + cropBox.height) - canvas.height);
+            canvas.maxLeft = cropBox.left;
+            canvas.maxTop = cropBox.top;
+          } else {
+            canvas.minLeft = min(0, containerWidth - canvas.width);
+            canvas.minTop = min(0, containerHeight - canvas.height);
+            canvas.maxLeft = max(0, containerWidth - canvas.width);
+            canvas.maxTop = max(0, containerHeight - canvas.height);
+          }
+        } else {
+          canvas.minLeft = -canvas.width;
+          canvas.minTop = -canvas.height;
+          canvas.maxLeft = containerWidth;
+          canvas.maxTop = containerHeight;
+        }
+      }
+    },
+
+    renderCanvas: function (changed) {
+      var options = this.options,
+          canvas = this.canvas,
+          image = this.image,
+          aspectRatio,
+          rotated;
+
+      if (this.rotated) {
+        this.rotated = false;
+
+        // Computes rotatation sizes with image sizes
+        rotated = getRotatedSizes({
+          width: image.width,
+          height: image.height,
+          degree: image.rotate
+        });
+
+        aspectRatio = rotated.width / rotated.height;
+
+        if (aspectRatio !== canvas.aspectRatio) {
+          canvas.left -= (rotated.width - canvas.width) / 2;
+          canvas.top -= (rotated.height - canvas.height) / 2;
+          canvas.width = rotated.width;
+          canvas.height = rotated.height;
+          canvas.aspectRatio = aspectRatio;
+          this.limitCanvas(true, false);
+        }
+      }
+
+      if (canvas.width > canvas.maxWidth || canvas.width < canvas.minWidth) {
+        canvas.left = canvas.oldLeft;
+      }
+
+      if (canvas.height > canvas.maxHeight || canvas.height < canvas.minHeight) {
+        canvas.top = canvas.oldTop;
+      }
+
+      canvas.width = min(max(canvas.width, canvas.minWidth), canvas.maxWidth);
+      canvas.height = min(max(canvas.height, canvas.minHeight), canvas.maxHeight);
+
+      this.limitCanvas(false, true);
+
+      canvas.oldLeft = canvas.left = min(max(canvas.left, canvas.minLeft), canvas.maxLeft);
+      canvas.oldTop = canvas.top = min(max(canvas.top, canvas.minTop), canvas.maxTop);
+
+      this.$canvas.css({
+        width: canvas.width,
+        height: canvas.height,
+        left: canvas.left,
+        top: canvas.top
+      });
+
+      this.renderImage();
+
+      if (this.cropped && options.strict) {
+        this.limitCropBox(true, true);
+      }
+
+      if (changed) {
+        this.output();
+      }
+    },
+
+    renderImage: function () {
+      var canvas = this.canvas,
+          image = this.image,
+          reversed;
+
+      if (image.rotate) {
+        reversed = getRotatedSizes({
+          width: canvas.width,
+          height: canvas.height,
+          degree: image.rotate,
+          aspectRatio: image.aspectRatio
+        }, true);
+      }
+
+      $.extend(image, reversed ? {
+        width: reversed.width,
+        height: reversed.height,
+        left: (canvas.width - reversed.width) / 2,
+        top: (canvas.height - reversed.height) / 2
+      } : {
+        width: canvas.width,
+        height: canvas.height,
+        left: 0,
+        top: 0
+      });
+
+      this.$clone.css({
+        width: image.width,
+        height: image.height,
+        marginLeft: image.left,
+        marginTop: image.top,
+        transform: getRotateValue(image.rotate)
+      });
+    },
+
+    initCropBox: function () {
+      var options = this.options,
+          canvas = this.canvas,
+          aspectRatio = options.aspectRatio,
+          autoCropArea = num(options.autoCropArea) || 0.8,
+          cropBox = {
+            width: canvas.width,
+            height: canvas.height
+          };
+
+      if (aspectRatio) {
+        if (canvas.height * aspectRatio > canvas.width) {
+          cropBox.height = cropBox.width / aspectRatio;
+        } else {
+          cropBox.width = cropBox.height * aspectRatio;
+        }
+      }
+
+      this.cropBox = cropBox;
+      this.limitCropBox(true, true);
+
+      // Initialize auto crop area
+      cropBox.width = min(max(cropBox.width, cropBox.minWidth), cropBox.maxWidth);
+      cropBox.height = min(max(cropBox.height, cropBox.minHeight), cropBox.maxHeight);
+
+      // The width of auto crop area must large than "minWidth", and the height too. (#164)
+      cropBox.width = max(cropBox.minWidth, cropBox.width * autoCropArea);
+      cropBox.height = max(cropBox.minHeight, cropBox.height * autoCropArea);
+      cropBox.oldLeft = cropBox.left = canvas.left + (canvas.width - cropBox.width) / 2;
+      cropBox.oldTop = cropBox.top = canvas.top + (canvas.height - cropBox.height) / 2;
+
+      this.initialCropBox = $.extend({}, cropBox);
+    },
+
+    limitCropBox: function (size, position) {
+      var options = this.options,
+          strict = options.strict,
+          container = this.container,
+          containerWidth = container.width,
+          containerHeight = container.height,
+          canvas = this.canvas,
+          cropBox = this.cropBox,
+          aspectRatio = options.aspectRatio,
+          minCropBoxWidth,
+          minCropBoxHeight;
+
+      if (size) {
+        minCropBoxWidth = num(options.minCropBoxWidth) || 0;
+        minCropBoxHeight = num(options.minCropBoxHeight) || 0;
+
+        // min/maxCropBoxWidth/Height must less than conatiner width/height
+        cropBox.minWidth = min(containerWidth, minCropBoxWidth);
+        cropBox.minHeight = min(containerHeight, minCropBoxHeight);
+        cropBox.maxWidth = min(containerWidth, strict ? canvas.width : containerWidth);
+        cropBox.maxHeight = min(containerHeight, strict ? canvas.height : containerHeight);
+
+        if (aspectRatio) {
+          // compare crop box size with container first
+          if (cropBox.maxHeight * aspectRatio > cropBox.maxWidth) {
+            cropBox.minHeight = cropBox.minWidth / aspectRatio;
+            cropBox.maxHeight = cropBox.maxWidth / aspectRatio;
+          } else {
+            cropBox.minWidth = cropBox.minHeight * aspectRatio;
+            cropBox.maxWidth = cropBox.maxHeight * aspectRatio;
+          }
+        }
+
+        // The "minWidth" must be less than "maxWidth", and the "minHeight" too.
+        cropBox.minWidth = min(cropBox.maxWidth, cropBox.minWidth);
+        cropBox.minHeight = min(cropBox.maxHeight, cropBox.minHeight);
+      }
+
+      if (position) {
+        if (strict) {
+          cropBox.minLeft = max(0, canvas.left);
+          cropBox.minTop = max(0, canvas.top);
+          cropBox.maxLeft = min(containerWidth, canvas.left + canvas.width) - cropBox.width;
+          cropBox.maxTop = min(containerHeight, canvas.top + canvas.height) - cropBox.height;
+        } else {
+          cropBox.minLeft = 0;
+          cropBox.minTop = 0;
+          cropBox.maxLeft = containerWidth - cropBox.width;
+          cropBox.maxTop = containerHeight - cropBox.height;
+        }
+      }
+    },
+
+    renderCropBox: function () {
+      var options = this.options,
+          container = this.container,
+          containerWidth = container.width,
+          containerHeight = container.height,
+          cropBox = this.cropBox;
+
+      if (cropBox.width > cropBox.maxWidth || cropBox.width < cropBox.minWidth) {
+        cropBox.left = cropBox.oldLeft;
+      }
+
+      if (cropBox.height > cropBox.maxHeight || cropBox.height < cropBox.minHeight) {
+        cropBox.top = cropBox.oldTop;
+      }
+
+      cropBox.width = min(max(cropBox.width, cropBox.minWidth), cropBox.maxWidth);
+      cropBox.height = min(max(cropBox.height, cropBox.minHeight), cropBox.maxHeight);
+
+      this.limitCropBox(false, true);
+
+      cropBox.oldLeft = cropBox.left = min(max(cropBox.left, cropBox.minLeft), cropBox.maxLeft);
+      cropBox.oldTop = cropBox.top = min(max(cropBox.top, cropBox.minTop), cropBox.maxTop);
+
+      if (options.movable && options.cropBoxMovable) {
+        // Turn to move the canvas when the crop box is equal to the container
+        this.$face.data('drag', (cropBox.width === containerWidth && cropBox.height === containerHeight) ? 'move' : 'all');
+      }
+
+      this.$cropBox.css({
+        width: cropBox.width,
+        height: cropBox.height,
+        left: cropBox.left,
+        top: cropBox.top
+      });
+
+      if (this.cropped && options.strict) {
+        this.limitCanvas(true, true);
+      }
+
+      if (!this.disabled) {
+        this.output();
+      }
+    },
+
+    output: function () {
+      var options = this.options,
+          $this = this.$element;
+
+      this.preview();
+
+      if (options.crop) {
+        options.crop.call($this, this.getData());
+      }
+
+      $this.trigger(EVENT_CHANGE);
+    }
+  });
+
+  prototype.initPreview = function () {
+    var url = this.url;
+
+    this.$preview = $(this.options.preview);
+    this.$viewBox.html('<img src="' + url + '">');
+
+    // Override img element styles
+    // Add `display:block` to avoid margin top issue (Occur only when margin-top <= -height)
+    this.$preview.each(function () {
+      var $this = $(this);
+
+      $this.data(CROPPER_PREVIEW, {
+        width: $this.width(),
+        height: $this.height(),
+        original: $this.html()
+      }).html('<img src="' + url + '" style="display:block;width:100%;min-width:0!important;min-height:0!important;max-width:none!important;max-height:none!important;image-orientation: 0deg!important">');
+    });
+  };
+
+  prototype.resetPreview = function () {
+    this.$preview.each(function () {
+      var $this = $(this);
+
+      $this.html($this.data(CROPPER_PREVIEW).original).removeData(CROPPER_PREVIEW);
+    });
+  };
+
+  prototype.preview = function () {
+    var image = this.image,
+        canvas = this.canvas,
+        cropBox = this.cropBox,
+        width = image.width,
+        height = image.height,
+        left = cropBox.left - canvas.left - image.left,
+        top = cropBox.top - canvas.top - image.top,
+        rotate = image.rotate;
+
+    if (!this.cropped || this.disabled) {
+      return;
+    }
+
+    this.$viewBox.find('img').css({
+      width: width,
+      height: height,
+      marginLeft: -left,
+      marginTop: -top,
+      transform: getRotateValue(rotate)
+    });
+
+    this.$preview.each(function () {
+      var $this = $(this),
+          data = $this.data(CROPPER_PREVIEW),
+          ratio = data.width / cropBox.width,
+          newWidth = data.width,
+          newHeight = cropBox.height * ratio;
+
+      if (newHeight > data.height) {
+        ratio = data.height / cropBox.height;
+        newWidth = cropBox.width * ratio;
+        newHeight = data.height;
+      }
+
+      $this.width(newWidth).height(newHeight).find('img').css({
+        width: width * ratio,
+        height: height * ratio,
+        marginLeft: -left * ratio,
+        marginTop: -top * ratio,
+        transform: getRotateValue(rotate)
+      });
+    });
+  };
+
+  prototype.addListeners = function () {
+    var options = this.options,
+        $this = this.$element,
+        $cropper = this.$cropper;
+
+    if ($.isFunction(options.dragstart)) {
+      $this.on(EVENT_DRAG_START, options.dragstart);
+    }
+
+    if ($.isFunction(options.dragmove)) {
+      $this.on(EVENT_DRAG_MOVE, options.dragmove);
+    }
+
+    if ($.isFunction(options.dragend)) {
+      $this.on(EVENT_DRAG_END, options.dragend);
+    }
+
+    if ($.isFunction(options.zoomin)) {
+      $this.on(EVENT_ZOOM_IN, options.zoomin);
+    }
+
+    if ($.isFunction(options.zoomout)) {
+      $this.on(EVENT_ZOOM_OUT, options.zoomout);
+    }
+
+    if ($.isFunction(options.change)) {
+      $this.on(EVENT_CHANGE, options.change);
+    }
+
+    $cropper.on(EVENT_MOUSE_DOWN, $.proxy(this.dragstart, this));
+
+    if (options.zoomable && options.mouseWheelZoom) {
+      $cropper.on(EVENT_WHEEL, $.proxy(this.wheel, this));
+    }
+
+    if (options.doubleClickToggle) {
+      $cropper.on(EVENT_DBLCLICK, $.proxy(this.dblclick, this));
+    }
+
+    $document.on(EVENT_MOUSE_MOVE, (this._dragmove = proxy(this.dragmove, this))).on(EVENT_MOUSE_UP, (this._dragend = proxy(this.dragend, this)));
+
+    if (options.responsive) {
+      $window.on(EVENT_RESIZE, (this._resize = proxy(this.resize, this)));
+    }
+  };
+
+  prototype.removeListeners = function () {
+    var options = this.options,
+        $this = this.$element,
+        $cropper = this.$cropper;
+
+    if ($.isFunction(options.dragstart)) {
+      $this.off(EVENT_DRAG_START, options.dragstart);
+    }
+
+    if ($.isFunction(options.dragmove)) {
+      $this.off(EVENT_DRAG_MOVE, options.dragmove);
+    }
+
+    if ($.isFunction(options.dragend)) {
+      $this.off(EVENT_DRAG_END, options.dragend);
+    }
+
+    if ($.isFunction(options.zoomin)) {
+      $this.off(EVENT_ZOOM_IN, options.zoomin);
+    }
+
+    if ($.isFunction(options.zoomout)) {
+      $this.off(EVENT_ZOOM_OUT, options.zoomout);
+    }
+
+    if ($.isFunction(options.change)) {
+      $this.off(EVENT_CHANGE, options.change);
+    }
+
+    $cropper.off(EVENT_MOUSE_DOWN, this.dragstart);
+
+    if (options.zoomable && options.mouseWheelZoom) {
+      $cropper.off(EVENT_WHEEL, this.wheel);
+    }
+
+    if (options.doubleClickToggle) {
+      $cropper.off(EVENT_DBLCLICK, this.dblclick);
+    }
+
+    $document.off(EVENT_MOUSE_MOVE, this._dragmove).off(EVENT_MOUSE_UP, this._dragend);
+
+    if (options.responsive) {
+      $window.off(EVENT_RESIZE, this._resize);
+    }
+  };
+
+  $.extend(prototype, {
+    resize: function () {
+      var $container = this.$container,
+          container = this.container,
+          canvasData,
+          cropBoxData,
+          ratio;
+
+      if (this.disabled || !container) { // Check "container" for IE8
+        return;
+      }
+
+      ratio = $container.width() / container.width;
+
+      if (ratio !== 1 || $container.height() !== container.height) {
+        canvasData = this.getCanvasData();
+        cropBoxData = this.getCropBoxData();
+
+        this.render();
+        this.setCanvasData($.each(canvasData, function (i, n) {
+          canvasData[i] = n * ratio;
+        }));
+        this.setCropBoxData($.each(cropBoxData, function (i, n) {
+          cropBoxData[i] = n * ratio;
+        }));
+      }
+    },
+
+    dblclick: function () {
+      if (this.disabled) {
+        return;
+      }
+
+      if (this.$dragBox.hasClass(CLASS_CROP)) {
+        this.setDragMode('move');
+      } else {
+        this.setDragMode('crop');
+      }
+    },
+
+    wheel: function (event) {
+      var e = event.originalEvent,
+          delta = 1;
+
+      if (this.disabled) {
+        return;
+      }
+
+      event.preventDefault();
+
+      if (e.deltaY) {
+        delta = e.deltaY > 0 ? 1 : -1;
+      } else if (e.wheelDelta) {
+        delta = -e.wheelDelta / 120;
+      } else if (e.detail) {
+        delta = e.detail > 0 ? 1 : -1;
+      }
+
+      this.zoom(-delta * 0.1);
+    },
+
+    dragstart: function (event) {
+      var options = this.options,
+          originalEvent = event.originalEvent,
+          touches = originalEvent && originalEvent.touches,
+          e = event,
+          dragType,
+          dragStartEvent,
+          touchesLength;
+
+      if (this.disabled) {
+        return;
+      }
+
+      if (touches) {
+        touchesLength = touches.length;
+
+        if (touchesLength > 1) {
+          if (options.zoomable && options.touchDragZoom && touchesLength === 2) {
+            e = touches[1];
+            this.startX2 = e.pageX;
+            this.startY2 = e.pageY;
+            dragType = 'zoom';
+          } else {
+            return;
+          }
+        }
+
+        e = touches[0];
+      }
+
+      dragType = dragType || $(e.target).data('drag');
+
+      if (REGEXP_DRAG_TYPES.test(dragType)) {
+        event.preventDefault();
+
+        dragStartEvent = $.Event(EVENT_DRAG_START, {
+          originalEvent: originalEvent,
+          dragType: dragType
+        });
+
+        this.$element.trigger(dragStartEvent);
+
+        if (dragStartEvent.isDefaultPrevented()) {
+          return;
+        }
+
+        this.dragType = dragType;
+        this.cropping = false;
+        this.startX = e.pageX;
+        this.startY = e.pageY;
+
+        if (dragType === 'crop') {
+          this.cropping = true;
+          this.$dragBox.addClass(CLASS_MODAL);
+        }
+      }
+    },
+
+    dragmove: function (event) {
+      var options = this.options,
+          originalEvent = event.originalEvent,
+          touches = originalEvent && originalEvent.touches,
+          e = event,
+          dragType = this.dragType,
+          dragMoveEvent,
+          touchesLength;
+
+      if (this.disabled) {
+        return;
+      }
+
+      if (touches) {
+        touchesLength = touches.length;
+
+        if (touchesLength > 1) {
+          if (options.zoomable && options.touchDragZoom && touchesLength === 2) {
+            e = touches[1];
+            this.endX2 = e.pageX;
+            this.endY2 = e.pageY;
+          } else {
+            return;
+          }
+        }
+
+        e = touches[0];
+      }
+
+      if (dragType) {
+        event.preventDefault();
+
+        dragMoveEvent = $.Event(EVENT_DRAG_MOVE, {
+          originalEvent: originalEvent,
+          dragType: dragType
+        });
+
+        this.$element.trigger(dragMoveEvent);
+
+        if (dragMoveEvent.isDefaultPrevented()) {
+          return;
+        }
+
+        this.endX = e.pageX;
+        this.endY = e.pageY;
+
+        this.change(e.shiftKey);
+      }
+    },
+
+    dragend: function (event) {
+      var dragType = this.dragType,
+          dragEndEvent;
+
+      if (this.disabled) {
+        return;
+      }
+
+      if (dragType) {
+        event.preventDefault();
+
+        dragEndEvent = $.Event(EVENT_DRAG_END, {
+          originalEvent: event.originalEvent,
+          dragType: dragType
+        });
+
+        this.$element.trigger(dragEndEvent);
+
+        if (dragEndEvent.isDefaultPrevented()) {
+          return;
+        }
+
+        if (this.cropping) {
+          this.cropping = false;
+          this.$dragBox.toggleClass(CLASS_MODAL, this.cropped && this.options.modal);
+        }
+
+        this.dragType = '';
+      }
+    }
+  });
+
+  $.extend(prototype, {
+    crop: function () {
+      if (!this.built || this.disabled) {
+        return;
+      }
+
+      if (!this.cropped) {
+        this.cropped = true;
+        this.limitCropBox(true, true);
+
+        if (this.options.modal) {
+          this.$dragBox.addClass(CLASS_MODAL);
+        }
+
+        this.$cropBox.removeClass(CLASS_HIDDEN);
+      }
+
+      this.setCropBoxData(this.initialCropBox);
+    },
+
+    reset: function () {
+      if (!this.built || this.disabled) {
+        return;
+      }
+
+      this.image = $.extend({}, this.initialImage);
+      this.canvas = $.extend({}, this.initialCanvas);
+      this.cropBox = $.extend({}, this.initialCropBox); // required for strict mode
+
+      this.renderCanvas();
+
+      if (this.cropped) {
+        this.renderCropBox();
+      }
+    },
+
+    clear: function () {
+      if (!this.cropped || this.disabled) {
+        return;
+      }
+
+      $.extend(this.cropBox, {
+        left: 0,
+        top: 0,
+        width: 0,
+        height: 0
+      });
+
+      this.cropped = false;
+      this.renderCropBox();
+
+      this.limitCanvas();
+      this.renderCanvas(); // Render canvas after render crop box
+
+      this.$dragBox.removeClass(CLASS_MODAL);
+      this.$cropBox.addClass(CLASS_HIDDEN);
+    },
+
+    destroy: function () {
+      var $this = this.$element;
+
+      if (this.ready) {
+        if (this.isImg) {
+          $this.attr('src', this.originalUrl);
+        }
+
+        this.unbuild();
+        $this.removeClass(CLASS_HIDDEN);
+      } else if (this.$clone) {
+        this.$clone.remove();
+      }
+
+      $this.removeData('cropper');
+    },
+
+    replace: function (url) {
+      if (!this.disabled && url) {
+        if (this.isImg) {
+          this.$element.attr('src', url);
+        }
+
+        this.options.data = null; // Remove previous data
+        this.load(url);
+      }
+    },
+
+    enable: function () {
+      if (this.built) {
+        this.disabled = false;
+        this.$cropper.removeClass(CLASS_DISABLED);
+      }
+    },
+
+    disable: function () {
+      if (this.built) {
+        this.disabled = true;
+        this.$cropper.addClass(CLASS_DISABLED);
+      }
+    },
+
+    move: function (offsetX, offsetY) {
+      var canvas = this.canvas;
+
+      if (this.built && !this.disabled && this.options.movable && isNumber(offsetX) && isNumber(offsetY)) {
+        canvas.left += offsetX;
+        canvas.top += offsetY;
+        this.renderCanvas(true);
+      }
+    },
+
+    zoom: function (delta) {
+      var canvas = this.canvas,
+          zoomEvent,
+          width,
+          height;
+
+      delta = num(delta);
+
+      if (delta && this.built && !this.disabled && this.options.zoomable) {
+        zoomEvent = delta > 0 ? $.Event(EVENT_ZOOM_IN) : $.Event(EVENT_ZOOM_OUT);
+        this.$element.trigger(zoomEvent);
+
+        if (zoomEvent.isDefaultPrevented()) {
+          return;
+        }
+
+        delta = delta <= -1 ? 1 / (1 - delta) : delta <= 1 ? (1 + delta) : delta;
+        width = canvas.width * delta;
+        height = canvas.height * delta;
+        canvas.left -= (width - canvas.width) / 2;
+        canvas.top -= (height - canvas.height) / 2;
+        canvas.width = width;
+        canvas.height = height;
+        this.renderCanvas(true);
+        this.setDragMode('move');
+      }
+    },
+
+    rotate: function (degree) {
+      var image = this.image;
+
+      degree = num(degree);
+
+      if (degree && this.built && !this.disabled && this.options.rotatable) {
+        image.rotate = (image.rotate + degree) % 360;
+        this.rotated = true;
+        this.renderCanvas(true);
+      }
+    },
+
+    getData: function (rounded) {
+      var cropBox = this.cropBox,
+          canvas = this.canvas,
+          image = this.image,
+          ratio,
+          data;
+
+      if (this.built && this.cropped) {
+        data = {
+          x: cropBox.left - canvas.left,
+          y: cropBox.top - canvas.top,
+          width: cropBox.width,
+          height: cropBox.height
+        };
+
+        ratio = image.width / image.naturalWidth;
+
+        $.each(data, function (i, n) {
+          n = n / ratio;
+          data[i] = rounded ? Math.round(n) : n;
+        });
+
+      } else {
+        data = {
+          x: 0,
+          y: 0,
+          width: 0,
+          height: 0
+        };
+      }
+
+      data.rotate = this.ready ? image.rotate : 0;
+
+      return data;
+    },
+
+    setData: function (data) {
+      var image = this.image,
+          canvas = this.canvas,
+          cropBoxData = {},
+          ratio;
+
+      if (this.built && !this.disabled && $.isPlainObject(data)) {
+        if (isNumber(data.rotate) && data.rotate !== image.rotate && this.options.rotatable) {
+          image.rotate = data.rotate;
+          this.rotated = true;
+          this.renderCanvas(true);
+        }
+
+        ratio = image.width / image.naturalWidth;
+
+        if (isNumber(data.x)) {
+          cropBoxData.left = data.x * ratio + canvas.left;
+        }
+
+        if (isNumber(data.y)) {
+          cropBoxData.top = data.y * ratio + canvas.top;
+        }
+
+        if (isNumber(data.width)) {
+          cropBoxData.width = data.width * ratio;
+        }
+
+        if (isNumber(data.height)) {
+          cropBoxData.height = data.height * ratio;
+        }
+
+        this.setCropBoxData(cropBoxData);
+      }
+    },
+
+    getContainerData: function () {
+      return this.built ? this.container : {};
+    },
+
+    getImageData: function () {
+      return this.ready ? this.image : {};
+    },
+
+    getCanvasData: function () {
+      var canvas = this.canvas,
+          data;
+
+      if (this.built) {
+        data = {
+          left: canvas.left,
+          top: canvas.top,
+          width: canvas.width,
+          height: canvas.height
+        };
+      }
+
+      return data || {};
+    },
+
+    setCanvasData: function (data) {
+      var canvas = this.canvas,
+          aspectRatio = canvas.aspectRatio;
+
+      if (this.built && !this.disabled && $.isPlainObject(data)) {
+        if (isNumber(data.left)) {
+          canvas.left = data.left;
+        }
+
+        if (isNumber(data.top)) {
+          canvas.top = data.top;
+        }
+
+        if (isNumber(data.width)) {
+          canvas.width = data.width;
+          canvas.height = data.width / aspectRatio;
+        } else if (isNumber(data.height)) {
+          canvas.height = data.height;
+          canvas.width = data.height * aspectRatio;
+        }
+
+        this.renderCanvas(true);
+      }
+    },
+
+    getCropBoxData: function () {
+      var cropBox = this.cropBox,
+          data;
+
+      if (this.built && this.cropped) {
+        data = {
+          left: cropBox.left,
+          top: cropBox.top,
+          width: cropBox.width,
+          height: cropBox.height
+        };
+      }
+
+      return data || {};
+    },
+
+    setCropBoxData: function (data) {
+      var cropBox = this.cropBox,
+          aspectRatio = this.options.aspectRatio;
+
+      if (this.built && this.cropped && !this.disabled && $.isPlainObject(data)) {
+
+        if (isNumber(data.left)) {
+          cropBox.left = data.left;
+        }
+
+        if (isNumber(data.top)) {
+          cropBox.top = data.top;
+        }
+
+        if (isNumber(data.width)) {
+          cropBox.width = data.width;
+        }
+
+        if (isNumber(data.height)) {
+          cropBox.height = data.height;
+        }
+
+        if (aspectRatio) {
+          if (isNumber(data.width)) {
+            cropBox.height = cropBox.width / aspectRatio;
+          } else if (isNumber(data.height)) {
+            cropBox.width = cropBox.height * aspectRatio;
+          }
+        }
+
+        this.renderCropBox();
+      }
+    },
+
+    getCroppedCanvas: function (options) {
+      var originalWidth,
+          originalHeight,
+          canvasWidth,
+          canvasHeight,
+          scaledWidth,
+          scaledHeight,
+          scaledRatio,
+          aspectRatio,
+          canvas,
+          context,
+          data;
+
+      if (!this.built || !this.cropped || !SUPPORT_CANVAS) {
+        return;
+      }
+
+      if (!$.isPlainObject(options)) {
+        options = {};
+      }
+
+      data = this.getData();
+      originalWidth = data.width;
+      originalHeight = data.height;
+      aspectRatio = originalWidth / originalHeight;
+
+      if ($.isPlainObject(options)) {
+        scaledWidth = options.width;
+        scaledHeight = options.height;
+
+        if (scaledWidth) {
+          scaledHeight = scaledWidth / aspectRatio;
+          scaledRatio = scaledWidth / originalWidth;
+        } else if (scaledHeight) {
+          scaledWidth = scaledHeight * aspectRatio;
+          scaledRatio = scaledHeight / originalHeight;
+        }
+      }
+
+      canvasWidth = scaledWidth || originalWidth;
+      canvasHeight = scaledHeight || originalHeight;
+
+      canvas = $('<canvas>')[0];
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+      context = canvas.getContext('2d');
+
+      if (options.fillColor) {
+        context.fillStyle = options.fillColor;
+        context.fillRect(0, 0, canvasWidth, canvasHeight);
+      }
+
+      // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D.drawImage
+      context.drawImage.apply(context, (function () {
+        var source = getSourceCanvas(this.$clone[0], this.image),
+            sourceWidth = source.width,
+            sourceHeight = source.height,
+            args = [source],
+            srcX = data.x, // source canvas
+            srcY = data.y,
+            srcWidth,
+            srcHeight,
+            dstX, // destination canvas
+            dstY,
+            dstWidth,
+            dstHeight;
+
+        if (srcX <= -originalWidth || srcX > sourceWidth) {
+          srcX = srcWidth = dstX = dstWidth = 0;
+        } else if (srcX <= 0) {
+          dstX = -srcX;
+          srcX = 0;
+          srcWidth = dstWidth = min(sourceWidth, originalWidth + srcX);
+        } else if (srcX <= sourceWidth) {
+          dstX = 0;
+          srcWidth = dstWidth = min(originalWidth, sourceWidth - srcX);
+        }
+
+        if (srcWidth <= 0 || srcY <= -originalHeight || srcY > sourceHeight) {
+          srcY = srcHeight = dstY = dstHeight = 0;
+        } else if (srcY <= 0) {
+          dstY = -srcY;
+          srcY = 0;
+          srcHeight = dstHeight = min(sourceHeight, originalHeight + srcY);
+        } else if (srcY <= sourceHeight) {
+          dstY = 0;
+          srcHeight = dstHeight = min(originalHeight, sourceHeight - srcY);
+        }
+
+        args.push(srcX, srcY, srcWidth, srcHeight);
+
+        // Scale destination sizes
+        if (scaledRatio) {
+          dstX *= scaledRatio;
+          dstY *= scaledRatio;
+          dstWidth *= scaledRatio;
+          dstHeight *= scaledRatio;
+        }
+
+        // Avoid "IndexSizeError" in IE and Firefox
+        if (dstWidth > 0 && dstHeight > 0) {
+          args.push(dstX, dstY, dstWidth, dstHeight);
+        }
+
+        return args;
+      }).call(this));
+
+      return canvas;
+    },
+
+    setAspectRatio: function (aspectRatio) {
+      var options = this.options;
+
+      if (!this.disabled && !isUndefined(aspectRatio)) {
+        options.aspectRatio = num(aspectRatio) || NaN; // 0 -> NaN
+
+        if (this.built) {
+          this.initCropBox();
+
+          if (this.cropped) {
+            this.renderCropBox();
+          }
+        }
+      }
+    },
+
+    setDragMode: function (mode) {
+      var options = this.options,
+          croppable,
+          movable;
+
+      if (this.ready && !this.disabled) {
+        croppable = options.dragCrop && mode === 'crop';
+        movable = options.movable && mode === 'move';
+        mode = (croppable || movable) ? mode : 'none';
+
+        this.$dragBox.data('drag', mode).toggleClass(CLASS_CROP, croppable).toggleClass(CLASS_MOVE, movable);
+
+        if (!options.cropBoxMovable) {
+          // Sync drag mode to crop box when it is not movable(#300)
+          this.$face.data('drag', mode).toggleClass(CLASS_CROP, croppable).toggleClass(CLASS_MOVE, movable);
+        }
+      }
+    }
+  });
+
+  prototype.change = function (shiftKey) {
+    var dragType = this.dragType,
+        options = this.options,
+        canvas = this.canvas,
+        container = this.container,
+        cropBox = this.cropBox,
+        width = cropBox.width,
+        height = cropBox.height,
+        left = cropBox.left,
+        top = cropBox.top,
+        right = left + width,
+        bottom = top + height,
+        minLeft = 0,
+        minTop = 0,
+        maxWidth = container.width,
+        maxHeight = container.height,
+        renderable = true,
+        aspectRatio = options.aspectRatio,
+        range = {
+          x: this.endX - this.startX,
+          y: this.endY - this.startY
+        },
+        offset;
+
+    // Locking aspect ratio in "free mode" by holding shift key (#259)
+    if (!aspectRatio && shiftKey) {
+      aspectRatio = width && height ? width / height : 1;
+    }
+
+    if (options.strict) {
+      minLeft = cropBox.minLeft;
+      minTop = cropBox.minTop;
+      maxWidth = minLeft + min(container.width, canvas.width);
+      maxHeight = minTop + min(container.height, canvas.height);
+    }
+
+    if (aspectRatio) {
+      range.X = range.y * aspectRatio;
+      range.Y = range.x / aspectRatio;
+    }
+
+    switch (dragType) {
+      // Move cropBox
+      case 'all':
+        left += range.x;
+        top += range.y;
+        break;
+
+      // Resize cropBox
+      case 'e':
+        if (range.x >= 0 && (right >= maxWidth || aspectRatio && (top <= minTop || bottom >= maxHeight))) {
+          renderable = false;
+          break;
+        }
+
+        width += range.x;
+
+        if (aspectRatio) {
+          height = width / aspectRatio;
+          top -= range.Y / 2;
+        }
+
+        if (width < 0) {
+          dragType = 'w';
+          width = 0;
+        }
+
+        break;
+
+      case 'n':
+        if (range.y <= 0 && (top <= minTop || aspectRatio && (left <= minLeft || right >= maxWidth))) {
+          renderable = false;
+          break;
+        }
+
+        height -= range.y;
+        top += range.y;
+
+        if (aspectRatio) {
+          width = height * aspectRatio;
+          left += range.X / 2;
+        }
+
+        if (height < 0) {
+          dragType = 's';
+          height = 0;
+        }
+
+        break;
+
+      case 'w':
+        if (range.x <= 0 && (left <= minLeft || aspectRatio && (top <= minTop || bottom >= maxHeight))) {
+          renderable = false;
+          break;
+        }
+
+        width -= range.x;
+        left += range.x;
+
+        if (aspectRatio) {
+          height = width / aspectRatio;
+          top += range.Y / 2;
+        }
+
+        if (width < 0) {
+          dragType = 'e';
+          width = 0;
+        }
+
+        break;
+
+      case 's':
+        if (range.y >= 0 && (bottom >= maxHeight || aspectRatio && (left <= minLeft || right >= maxWidth))) {
+          renderable = false;
+          break;
+        }
+
+        height += range.y;
+
+        if (aspectRatio) {
+          width = height * aspectRatio;
+          left -= range.X / 2;
+        }
+
+        if (height < 0) {
+          dragType = 'n';
+          height = 0;
+        }
+
+        break;
+
+      case 'ne':
+        if (aspectRatio) {
+          if (range.y <= 0 && (top <= minTop || right >= maxWidth)) {
+            renderable = false;
+            break;
+          }
+
+          height -= range.y;
+          top += range.y;
+          width = height * aspectRatio;
+        } else {
+          if (range.x >= 0) {
+            if (right < maxWidth) {
+              width += range.x;
+            } else if (range.y <= 0 && top <= minTop) {
+              renderable = false;
+            }
+          } else {
+            width += range.x;
+          }
+
+          if (range.y <= 0) {
+            if (top > minTop) {
+              height -= range.y;
+              top += range.y;
+            }
+          } else {
+            height -= range.y;
+            top += range.y;
+          }
+        }
+
+        if (width < 0 && height < 0) {
+          dragType = 'sw';
+          height = 0;
+          width = 0;
+        } else if (width < 0) {
+          dragType = 'nw';
+          width = 0;
+        } else if (height < 0) {
+          dragType = 'se';
+          height = 0;
+        }
+
+        break;
+
+      case 'nw':
+        if (aspectRatio) {
+          if (range.y <= 0 && (top <= minTop || left <= minLeft)) {
+            renderable = false;
+            break;
+          }
+
+          height -= range.y;
+          top += range.y;
+          width = height * aspectRatio;
+          left += range.X;
+        } else {
+          if (range.x <= 0) {
+            if (left > minLeft) {
+              width -= range.x;
+              left += range.x;
+            } else if (range.y <= 0 && top <= minTop) {
+              renderable = false;
+            }
+          } else {
+            width -= range.x;
+            left += range.x;
+          }
+
+          if (range.y <= 0) {
+            if (top > minTop) {
+              height -= range.y;
+              top += range.y;
+            }
+          } else {
+            height -= range.y;
+            top += range.y;
+          }
+        }
+
+        if (width < 0 && height < 0) {
+          dragType = 'se';
+          height = 0;
+          width = 0;
+        } else if (width < 0) {
+          dragType = 'ne';
+          width = 0;
+        } else if (height < 0) {
+          dragType = 'sw';
+          height = 0;
+        }
+
+        break;
+
+      case 'sw':
+        if (aspectRatio) {
+          if (range.x <= 0 && (left <= minLeft || bottom >= maxHeight)) {
+            renderable = false;
+            break;
+          }
+
+          width -= range.x;
+          left += range.x;
+          height = width / aspectRatio;
+        } else {
+          if (range.x <= 0) {
+            if (left > minLeft) {
+              width -= range.x;
+              left += range.x;
+            } else if (range.y >= 0 && bottom >= maxHeight) {
+              renderable = false;
+            }
+          } else {
+            width -= range.x;
+            left += range.x;
+          }
+
+          if (range.y >= 0) {
+            if (bottom < maxHeight) {
+              height += range.y;
+            }
+          } else {
+            height += range.y;
+          }
+        }
+
+        if (width < 0 && height < 0) {
+          dragType = 'ne';
+          height = 0;
+          width = 0;
+        } else if (width < 0) {
+          dragType = 'se';
+          width = 0;
+        } else if (height < 0) {
+          dragType = 'nw';
+          height = 0;
+        }
+
+        break;
+
+      case 'se':
+        if (aspectRatio) {
+          if (range.x >= 0 && (right >= maxWidth || bottom >= maxHeight)) {
+            renderable = false;
+            break;
+          }
+
+          width += range.x;
+          height = width / aspectRatio;
+        } else {
+          if (range.x >= 0) {
+            if (right < maxWidth) {
+              width += range.x;
+            } else if (range.y >= 0 && bottom >= maxHeight) {
+              renderable = false;
+            }
+          } else {
+            width += range.x;
+          }
+
+          if (range.y >= 0) {
+            if (bottom < maxHeight) {
+              height += range.y;
+            }
+          } else {
+            height += range.y;
+          }
+        }
+
+        if (width < 0 && height < 0) {
+          dragType = 'nw';
+          height = 0;
+          width = 0;
+        } else if (width < 0) {
+          dragType = 'sw';
+          width = 0;
+        } else if (height < 0) {
+          dragType = 'ne';
+          height = 0;
+        }
+
+        break;
+
+      // Move image
+      case 'move':
+        canvas.left += range.x;
+        canvas.top += range.y;
+        this.renderCanvas(true);
+        renderable = false;
+        break;
+
+      // Scale image
+      case 'zoom':
+        this.zoom(function (x1, y1, x2, y2) {
+          var z1 = sqrt(x1 * x1 + y1 * y1),
+              z2 = sqrt(x2 * x2 + y2 * y2);
+
+          return (z2 - z1) / z1;
+        }(
+          abs(this.startX - this.startX2),
+          abs(this.startY - this.startY2),
+          abs(this.endX - this.endX2),
+          abs(this.endY - this.endY2)
+        ));
+
+        this.startX2 = this.endX2;
+        this.startY2 = this.endY2;
+        renderable = false;
+        break;
+
+      // Crop image
+      case 'crop':
+        if (range.x && range.y) {
+          offset = this.$cropper.offset();
+          left = this.startX - offset.left;
+          top = this.startY - offset.top;
+          width = cropBox.minWidth;
+          height = cropBox.minHeight;
+
+          if (range.x > 0) {
+            if (range.y > 0) {
+              dragType = 'se';
+            } else {
+              dragType = 'ne';
+              top -= height;
+            }
+          } else {
+            if (range.y > 0) {
+              dragType = 'sw';
+              left -= width;
+            } else {
+              dragType = 'nw';
+              left -= width;
+              top -= height;
+            }
+          }
+
+          // Show the cropBox if is hidden
+          if (!this.cropped) {
+            this.cropped = true;
+            this.$cropBox.removeClass(CLASS_HIDDEN);
+          }
+        }
+
+        break;
+
+      // No default
+    }
+
+    if (renderable) {
+      cropBox.width = width;
+      cropBox.height = height;
+      cropBox.left = left;
+      cropBox.top = top;
+      this.dragType = dragType;
+
+      this.renderCropBox();
+    }
+
+    // Override
+    this.startX = this.endX;
+    this.startY = this.endY;
+  };
+
+  $.extend(Cropper.prototype, prototype);
+
+  Cropper.DEFAULTS = {
+    // Defines the aspect ratio of the crop box
+    // Type: Number
+    aspectRatio: NaN,
+
+    // Defines the percentage of automatic cropping area when initializes
+    // Type: Number (Must large than 0 and less than 1)
+    autoCropArea: 0.8, // 80%
+
+    // Outputs the cropping results.
+    // Type: Function
+    crop: null,
+
+    // Previous/latest crop data
+    // Type: Object
+    data: null,
+
+    // Add extra containers for previewing
+    // Type: String (jQuery selector)
+    preview: '',
+
+    // Toggles
+    strict: true, // strict mode, the image cannot zoom out less than the container
+    responsive: true, // Rebuild when resize the window
+    checkImageOrigin: true, // Check if the target image is cross origin
+
+    modal: true, // Show the black modal
+    guides: true, // Show the dashed lines for guiding
+    center: true, // Show the center indicator for guiding
+    highlight: true, // Show the white modal to highlight the crop box
+    background: true, // Show the grid background
+
+    autoCrop: true, // Enable to crop the image automatically when initialize
+    dragCrop: true, // Enable to create new crop box by dragging over the image
+    movable: true, // Enable to move the image
+    rotatable: true, // Enable to rotate the image
+    zoomable: true, // Enable to zoom the image
+    touchDragZoom: true, // Enable to zoom the image by wheeling mouse
+    mouseWheelZoom: true, // Enable to zoom the image by dragging touch
+    cropBoxMovable: true, // Enable to move the crop box
+    cropBoxResizable: true, // Enable to resize the crop box
+    doubleClickToggle: true, // Toggle drag mode between "crop" and "move" when double click on the cropper
+
+    // Dimensions
+    minCanvasWidth: 0,
+    minCanvasHeight: 0,
+    minCropBoxWidth: 0,
+    minCropBoxHeight: 0,
+    minContainerWidth: 200,
+    minContainerHeight: 100,
+
+    // Events
+    build: null, // Function
+    built: null, // Function
+    dragstart: null, // Function
+    dragmove: null, // Function
+    dragend: null, // Function
+    zoomin: null, // Function
+    zoomout: null, // Function
+    change: null // Function
+  };
+
+  Cropper.setDefaults = function (options) {
+    $.extend(Cropper.DEFAULTS, options);
+  };
+
+  // Use the string compressor: Strmin (https://github.com/fengyuanchen/strmin)
+  Cropper.TEMPLATE = (function (source, words) {
+    words = words.split(',');
+    return source.replace(/\d+/g, function (i) {
+      return words[i];
+    });
+  })('<0 6="5-container"><0 6="5-canvas"></0><0 6="5-2-9"></0><0 6="5-crop-9"><1 6="5-view-9"></1><1 6="5-8 8-h"></1><1 6="5-8 8-v"></1><1 6="5-center"></1><1 6="5-face"></1><1 6="5-7 7-e" 3-2="e"></1><1 6="5-7 7-n" 3-2="n"></1><1 6="5-7 7-w" 3-2="w"></1><1 6="5-7 7-s" 3-2="s"></1><1 6="5-4 4-e" 3-2="e"></1><1 6="5-4 4-n" 3-2="n"></1><1 6="5-4 4-w" 3-2="w"></1><1 6="5-4 4-s" 3-2="s"></1><1 6="5-4 4-ne" 3-2="ne"></1><1 6="5-4 4-nw" 3-2="nw"></1><1 6="5-4 4-sw" 3-2="sw"></1><1 6="5-4 4-se" 3-2="se"></1></0></0>', 'div,span,drag,data,point,cropper,class,line,dashed,box');
+
+  /* Template source:
+  <div class="cropper-container">
+    <div class="cropper-canvas"></div>
+    <div class="cropper-drag-box"></div>
+    <div class="cropper-crop-box">
+      <span class="cropper-view-box"></span>
+      <span class="cropper-dashed dashed-h"></span>
+      <span class="cropper-dashed dashed-v"></span>
+      <span class="cropper-center"></span>
+      <span class="cropper-face"></span>
+      <span class="cropper-line line-e" data-drag="e"></span>
+      <span class="cropper-line line-n" data-drag="n"></span>
+      <span class="cropper-line line-w" data-drag="w"></span>
+      <span class="cropper-line line-s" data-drag="s"></span>
+      <span class="cropper-point point-e" data-drag="e"></span>
+      <span class="cropper-point point-n" data-drag="n"></span>
+      <span class="cropper-point point-w" data-drag="w"></span>
+      <span class="cropper-point point-s" data-drag="s"></span>
+      <span class="cropper-point point-ne" data-drag="ne"></span>
+      <span class="cropper-point point-nw" data-drag="nw"></span>
+      <span class="cropper-point point-sw" data-drag="sw"></span>
+      <span class="cropper-point point-se" data-drag="se"></span>
+    </div>
+  </div>
+  */
+
+  // Save the other cropper
+  Cropper.other = $.fn.cropper;
+
+  // Register as jQuery plugin
+  $.fn.cropper = function (options) {
+    var args = toArray(arguments, 1),
+        result;
+
+    this.each(function () {
+      var $this = $(this),
+          data = $this.data('cropper'),
+          fn;
+
+      if (!data) {
+        if (/destroy/.test(options)) {
+          return;
+        }
+
+        $this.data('cropper', (data = new Cropper(this, options)));
+      }
+
+      if (typeof options === 'string' && $.isFunction((fn = data[options]))) {
+        result = fn.apply(data, args);
+      }
+    });
+
+    return isUndefined(result) ? this : result;
+  };
+
+  $.fn.cropper.Constructor = Cropper;
+  $.fn.cropper.setDefaults = Cropper.setDefaults;
+
+  // No conflict
+  $.fn.cropper.noConflict = function () {
+    $.fn.cropper = Cropper.other;
+    return this;
+  };
+
+});
+
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react-cropper/node_modules/cropper/dist/cropper.js","/node_modules/react-cropper/node_modules/cropper/dist")
+},{"_process":93,"buffer":89,"jquery":105}],112:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var Mixin = {
 	listenTo: function(emitter, evtName, cb) {
@@ -36694,7 +39387,7 @@ function unbindEvent(emitter, evtName, cb) {
 module.exports = Mixin;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react-listenTo/listenTo.js","/node_modules/react-listenTo")
-},{"_process":88,"buffer":84}],105:[function(require,module,exports){
+},{"_process":93,"buffer":89}],113:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -36723,7 +39416,7 @@ var AutoFocusMixin = {
 module.exports = AutoFocusMixin;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/AutoFocusMixin.js","/node_modules/react/lib")
-},{"./focusNode":223,"_process":88,"buffer":84}],106:[function(require,module,exports){
+},{"./focusNode":231,"_process":93,"buffer":89}],114:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015 Facebook, Inc.
@@ -37220,7 +39913,7 @@ var BeforeInputEventPlugin = {
 module.exports = BeforeInputEventPlugin;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/BeforeInputEventPlugin.js","/node_modules/react/lib")
-},{"./EventConstants":118,"./EventPropagators":123,"./ExecutionEnvironment":124,"./FallbackCompositionState":125,"./SyntheticCompositionEvent":197,"./SyntheticInputEvent":201,"./keyOf":245,"_process":88,"buffer":84}],107:[function(require,module,exports){
+},{"./EventConstants":126,"./EventPropagators":131,"./ExecutionEnvironment":132,"./FallbackCompositionState":133,"./SyntheticCompositionEvent":205,"./SyntheticInputEvent":209,"./keyOf":253,"_process":93,"buffer":89}],115:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -37347,7 +40040,7 @@ var CSSProperty = {
 module.exports = CSSProperty;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/CSSProperty.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],108:[function(require,module,exports){
+},{"_process":93,"buffer":89}],116:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -37529,7 +40222,7 @@ var CSSPropertyOperations = {
 module.exports = CSSPropertyOperations;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/CSSPropertyOperations.js","/node_modules/react/lib")
-},{"./CSSProperty":107,"./ExecutionEnvironment":124,"./camelizeStyleName":212,"./dangerousStyleValue":217,"./hyphenateStyleName":237,"./memoizeStringOnly":247,"./warning":258,"_process":88,"buffer":84}],109:[function(require,module,exports){
+},{"./CSSProperty":115,"./ExecutionEnvironment":132,"./camelizeStyleName":220,"./dangerousStyleValue":225,"./hyphenateStyleName":245,"./memoizeStringOnly":255,"./warning":266,"_process":93,"buffer":89}],117:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -37629,7 +40322,7 @@ PooledClass.addPoolingTo(CallbackQueue);
 module.exports = CallbackQueue;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/CallbackQueue.js","/node_modules/react/lib")
-},{"./Object.assign":130,"./PooledClass":131,"./invariant":239,"_process":88,"buffer":84}],110:[function(require,module,exports){
+},{"./Object.assign":138,"./PooledClass":139,"./invariant":247,"_process":93,"buffer":89}],118:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -38013,7 +40706,7 @@ var ChangeEventPlugin = {
 module.exports = ChangeEventPlugin;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ChangeEventPlugin.js","/node_modules/react/lib")
-},{"./EventConstants":118,"./EventPluginHub":120,"./EventPropagators":123,"./ExecutionEnvironment":124,"./ReactUpdates":191,"./SyntheticEvent":199,"./isEventSupported":240,"./isTextInputElement":242,"./keyOf":245,"_process":88,"buffer":84}],111:[function(require,module,exports){
+},{"./EventConstants":126,"./EventPluginHub":128,"./EventPropagators":131,"./ExecutionEnvironment":132,"./ReactUpdates":199,"./SyntheticEvent":207,"./isEventSupported":248,"./isTextInputElement":250,"./keyOf":253,"_process":93,"buffer":89}],119:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -38040,7 +40733,7 @@ var ClientReactRootIndex = {
 module.exports = ClientReactRootIndex;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ClientReactRootIndex.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],112:[function(require,module,exports){
+},{"_process":93,"buffer":89}],120:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -38178,7 +40871,7 @@ var DOMChildrenOperations = {
 module.exports = DOMChildrenOperations;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/DOMChildrenOperations.js","/node_modules/react/lib")
-},{"./Danger":115,"./ReactMultiChildUpdateTypes":176,"./invariant":239,"./setTextContent":253,"_process":88,"buffer":84}],113:[function(require,module,exports){
+},{"./Danger":123,"./ReactMultiChildUpdateTypes":184,"./invariant":247,"./setTextContent":261,"_process":93,"buffer":89}],121:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -38477,7 +41170,7 @@ var DOMProperty = {
 module.exports = DOMProperty;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/DOMProperty.js","/node_modules/react/lib")
-},{"./invariant":239,"_process":88,"buffer":84}],114:[function(require,module,exports){
+},{"./invariant":247,"_process":93,"buffer":89}],122:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -38669,7 +41362,7 @@ var DOMPropertyOperations = {
 module.exports = DOMPropertyOperations;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/DOMPropertyOperations.js","/node_modules/react/lib")
-},{"./DOMProperty":113,"./quoteAttributeValueForBrowser":251,"./warning":258,"_process":88,"buffer":84}],115:[function(require,module,exports){
+},{"./DOMProperty":121,"./quoteAttributeValueForBrowser":259,"./warning":266,"_process":93,"buffer":89}],123:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -38856,7 +41549,7 @@ var Danger = {
 module.exports = Danger;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/Danger.js","/node_modules/react/lib")
-},{"./ExecutionEnvironment":124,"./createNodesFromMarkup":216,"./emptyFunction":218,"./getMarkupWrap":231,"./invariant":239,"_process":88,"buffer":84}],116:[function(require,module,exports){
+},{"./ExecutionEnvironment":132,"./createNodesFromMarkup":224,"./emptyFunction":226,"./getMarkupWrap":239,"./invariant":247,"_process":93,"buffer":89}],124:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -38897,7 +41590,7 @@ var DefaultEventPluginOrder = [
 module.exports = DefaultEventPluginOrder;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/DefaultEventPluginOrder.js","/node_modules/react/lib")
-},{"./keyOf":245,"_process":88,"buffer":84}],117:[function(require,module,exports){
+},{"./keyOf":253,"_process":93,"buffer":89}],125:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -39039,7 +41732,7 @@ var EnterLeaveEventPlugin = {
 module.exports = EnterLeaveEventPlugin;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/EnterLeaveEventPlugin.js","/node_modules/react/lib")
-},{"./EventConstants":118,"./EventPropagators":123,"./ReactMount":174,"./SyntheticMouseEvent":203,"./keyOf":245,"_process":88,"buffer":84}],118:[function(require,module,exports){
+},{"./EventConstants":126,"./EventPropagators":131,"./ReactMount":182,"./SyntheticMouseEvent":211,"./keyOf":253,"_process":93,"buffer":89}],126:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -39113,7 +41806,7 @@ var EventConstants = {
 module.exports = EventConstants;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/EventConstants.js","/node_modules/react/lib")
-},{"./keyMirror":244,"_process":88,"buffer":84}],119:[function(require,module,exports){
+},{"./keyMirror":252,"_process":93,"buffer":89}],127:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -39203,7 +41896,7 @@ var EventListener = {
 module.exports = EventListener;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/EventListener.js","/node_modules/react/lib")
-},{"./emptyFunction":218,"_process":88,"buffer":84}],120:[function(require,module,exports){
+},{"./emptyFunction":226,"_process":93,"buffer":89}],128:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -39481,7 +42174,7 @@ var EventPluginHub = {
 module.exports = EventPluginHub;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/EventPluginHub.js","/node_modules/react/lib")
-},{"./EventPluginRegistry":121,"./EventPluginUtils":122,"./accumulateInto":209,"./forEachAccumulated":224,"./invariant":239,"_process":88,"buffer":84}],121:[function(require,module,exports){
+},{"./EventPluginRegistry":129,"./EventPluginUtils":130,"./accumulateInto":217,"./forEachAccumulated":232,"./invariant":247,"_process":93,"buffer":89}],129:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -39761,7 +42454,7 @@ var EventPluginRegistry = {
 module.exports = EventPluginRegistry;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/EventPluginRegistry.js","/node_modules/react/lib")
-},{"./invariant":239,"_process":88,"buffer":84}],122:[function(require,module,exports){
+},{"./invariant":247,"_process":93,"buffer":89}],130:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -39982,7 +42675,7 @@ var EventPluginUtils = {
 module.exports = EventPluginUtils;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/EventPluginUtils.js","/node_modules/react/lib")
-},{"./EventConstants":118,"./invariant":239,"_process":88,"buffer":84}],123:[function(require,module,exports){
+},{"./EventConstants":126,"./invariant":247,"_process":93,"buffer":89}],131:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -40124,7 +42817,7 @@ var EventPropagators = {
 module.exports = EventPropagators;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/EventPropagators.js","/node_modules/react/lib")
-},{"./EventConstants":118,"./EventPluginHub":120,"./accumulateInto":209,"./forEachAccumulated":224,"_process":88,"buffer":84}],124:[function(require,module,exports){
+},{"./EventConstants":126,"./EventPluginHub":128,"./accumulateInto":217,"./forEachAccumulated":232,"_process":93,"buffer":89}],132:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -40170,7 +42863,7 @@ var ExecutionEnvironment = {
 module.exports = ExecutionEnvironment;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ExecutionEnvironment.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],125:[function(require,module,exports){
+},{"_process":93,"buffer":89}],133:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -40263,7 +42956,7 @@ PooledClass.addPoolingTo(FallbackCompositionState);
 module.exports = FallbackCompositionState;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/FallbackCompositionState.js","/node_modules/react/lib")
-},{"./Object.assign":130,"./PooledClass":131,"./getTextContentAccessor":234,"_process":88,"buffer":84}],126:[function(require,module,exports){
+},{"./Object.assign":138,"./PooledClass":139,"./getTextContentAccessor":242,"_process":93,"buffer":89}],134:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -40476,7 +43169,7 @@ var HTMLDOMPropertyConfig = {
 module.exports = HTMLDOMPropertyConfig;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/HTMLDOMPropertyConfig.js","/node_modules/react/lib")
-},{"./DOMProperty":113,"./ExecutionEnvironment":124,"_process":88,"buffer":84}],127:[function(require,module,exports){
+},{"./DOMProperty":121,"./ExecutionEnvironment":132,"_process":93,"buffer":89}],135:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -40632,7 +43325,7 @@ var LinkedValueUtils = {
 module.exports = LinkedValueUtils;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/LinkedValueUtils.js","/node_modules/react/lib")
-},{"./ReactPropTypes":182,"./invariant":239,"_process":88,"buffer":84}],128:[function(require,module,exports){
+},{"./ReactPropTypes":190,"./invariant":247,"_process":93,"buffer":89}],136:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -40689,7 +43382,7 @@ var LocalEventTrapMixin = {
 module.exports = LocalEventTrapMixin;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/LocalEventTrapMixin.js","/node_modules/react/lib")
-},{"./ReactBrowserEventEmitter":134,"./accumulateInto":209,"./forEachAccumulated":224,"./invariant":239,"_process":88,"buffer":84}],129:[function(require,module,exports){
+},{"./ReactBrowserEventEmitter":142,"./accumulateInto":217,"./forEachAccumulated":232,"./invariant":247,"_process":93,"buffer":89}],137:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -40749,7 +43442,7 @@ var MobileSafariClickEventPlugin = {
 module.exports = MobileSafariClickEventPlugin;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/MobileSafariClickEventPlugin.js","/node_modules/react/lib")
-},{"./EventConstants":118,"./emptyFunction":218,"_process":88,"buffer":84}],130:[function(require,module,exports){
+},{"./EventConstants":126,"./emptyFunction":226,"_process":93,"buffer":89}],138:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -40800,7 +43493,7 @@ function assign(target, sources) {
 module.exports = assign;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/Object.assign.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],131:[function(require,module,exports){
+},{"_process":93,"buffer":89}],139:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -40916,7 +43609,7 @@ var PooledClass = {
 module.exports = PooledClass;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/PooledClass.js","/node_modules/react/lib")
-},{"./invariant":239,"_process":88,"buffer":84}],132:[function(require,module,exports){
+},{"./invariant":247,"_process":93,"buffer":89}],140:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -41068,7 +43761,7 @@ React.version = '0.13.3';
 module.exports = React;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/React.js","/node_modules/react/lib")
-},{"./EventPluginUtils":122,"./ExecutionEnvironment":124,"./Object.assign":130,"./ReactChildren":136,"./ReactClass":137,"./ReactComponent":138,"./ReactContext":142,"./ReactCurrentOwner":143,"./ReactDOM":144,"./ReactDOMTextComponent":155,"./ReactDefaultInjection":158,"./ReactElement":161,"./ReactElementValidator":162,"./ReactInstanceHandles":170,"./ReactMount":174,"./ReactPerf":179,"./ReactPropTypes":182,"./ReactReconciler":185,"./ReactServerRendering":188,"./findDOMNode":221,"./onlyChild":248,"_process":88,"buffer":84}],133:[function(require,module,exports){
+},{"./EventPluginUtils":130,"./ExecutionEnvironment":132,"./Object.assign":138,"./ReactChildren":144,"./ReactClass":145,"./ReactComponent":146,"./ReactContext":150,"./ReactCurrentOwner":151,"./ReactDOM":152,"./ReactDOMTextComponent":163,"./ReactDefaultInjection":166,"./ReactElement":169,"./ReactElementValidator":170,"./ReactInstanceHandles":178,"./ReactMount":182,"./ReactPerf":187,"./ReactPropTypes":190,"./ReactReconciler":193,"./ReactServerRendering":196,"./findDOMNode":229,"./onlyChild":256,"_process":93,"buffer":89}],141:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -41101,7 +43794,7 @@ var ReactBrowserComponentMixin = {
 module.exports = ReactBrowserComponentMixin;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactBrowserComponentMixin.js","/node_modules/react/lib")
-},{"./findDOMNode":221,"_process":88,"buffer":84}],134:[function(require,module,exports){
+},{"./findDOMNode":229,"_process":93,"buffer":89}],142:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -41456,7 +44149,7 @@ var ReactBrowserEventEmitter = assign({}, ReactEventEmitterMixin, {
 module.exports = ReactBrowserEventEmitter;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactBrowserEventEmitter.js","/node_modules/react/lib")
-},{"./EventConstants":118,"./EventPluginHub":120,"./EventPluginRegistry":121,"./Object.assign":130,"./ReactEventEmitterMixin":165,"./ViewportMetrics":208,"./isEventSupported":240,"_process":88,"buffer":84}],135:[function(require,module,exports){
+},{"./EventConstants":126,"./EventPluginHub":128,"./EventPluginRegistry":129,"./Object.assign":138,"./ReactEventEmitterMixin":173,"./ViewportMetrics":216,"./isEventSupported":248,"_process":93,"buffer":89}],143:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -41585,7 +44278,7 @@ var ReactChildReconciler = {
 module.exports = ReactChildReconciler;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactChildReconciler.js","/node_modules/react/lib")
-},{"./ReactReconciler":185,"./flattenChildren":222,"./instantiateReactComponent":238,"./shouldUpdateReactComponent":255,"_process":88,"buffer":84}],136:[function(require,module,exports){
+},{"./ReactReconciler":193,"./flattenChildren":230,"./instantiateReactComponent":246,"./shouldUpdateReactComponent":263,"_process":93,"buffer":89}],144:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -41738,7 +44431,7 @@ var ReactChildren = {
 module.exports = ReactChildren;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactChildren.js","/node_modules/react/lib")
-},{"./PooledClass":131,"./ReactFragment":167,"./traverseAllChildren":257,"./warning":258,"_process":88,"buffer":84}],137:[function(require,module,exports){
+},{"./PooledClass":139,"./ReactFragment":175,"./traverseAllChildren":265,"./warning":266,"_process":93,"buffer":89}],145:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -42684,7 +45377,7 @@ var ReactClass = {
 module.exports = ReactClass;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactClass.js","/node_modules/react/lib")
-},{"./Object.assign":130,"./ReactComponent":138,"./ReactCurrentOwner":143,"./ReactElement":161,"./ReactErrorUtils":164,"./ReactInstanceMap":171,"./ReactLifeCycle":172,"./ReactPropTypeLocationNames":180,"./ReactPropTypeLocations":181,"./ReactUpdateQueue":190,"./invariant":239,"./keyMirror":244,"./keyOf":245,"./warning":258,"_process":88,"buffer":84}],138:[function(require,module,exports){
+},{"./Object.assign":138,"./ReactComponent":146,"./ReactCurrentOwner":151,"./ReactElement":169,"./ReactErrorUtils":172,"./ReactInstanceMap":179,"./ReactLifeCycle":180,"./ReactPropTypeLocationNames":188,"./ReactPropTypeLocations":189,"./ReactUpdateQueue":198,"./invariant":247,"./keyMirror":252,"./keyOf":253,"./warning":266,"_process":93,"buffer":89}],146:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -42838,7 +45531,7 @@ if ("production" !== process.env.NODE_ENV) {
 module.exports = ReactComponent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactComponent.js","/node_modules/react/lib")
-},{"./ReactUpdateQueue":190,"./invariant":239,"./warning":258,"_process":88,"buffer":84}],139:[function(require,module,exports){
+},{"./ReactUpdateQueue":198,"./invariant":247,"./warning":266,"_process":93,"buffer":89}],147:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -42887,7 +45580,7 @@ var ReactComponentBrowserEnvironment = {
 module.exports = ReactComponentBrowserEnvironment;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactComponentBrowserEnvironment.js","/node_modules/react/lib")
-},{"./ReactDOMIDOperations":148,"./ReactMount":174,"_process":88,"buffer":84}],140:[function(require,module,exports){
+},{"./ReactDOMIDOperations":156,"./ReactMount":182,"_process":93,"buffer":89}],148:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -42948,7 +45641,7 @@ var ReactComponentEnvironment = {
 module.exports = ReactComponentEnvironment;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactComponentEnvironment.js","/node_modules/react/lib")
-},{"./invariant":239,"_process":88,"buffer":84}],141:[function(require,module,exports){
+},{"./invariant":247,"_process":93,"buffer":89}],149:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -43861,7 +46554,7 @@ var ReactCompositeComponent = {
 module.exports = ReactCompositeComponent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactCompositeComponent.js","/node_modules/react/lib")
-},{"./Object.assign":130,"./ReactComponentEnvironment":140,"./ReactContext":142,"./ReactCurrentOwner":143,"./ReactElement":161,"./ReactElementValidator":162,"./ReactInstanceMap":171,"./ReactLifeCycle":172,"./ReactNativeComponent":177,"./ReactPerf":179,"./ReactPropTypeLocationNames":180,"./ReactPropTypeLocations":181,"./ReactReconciler":185,"./ReactUpdates":191,"./emptyObject":219,"./invariant":239,"./shouldUpdateReactComponent":255,"./warning":258,"_process":88,"buffer":84}],142:[function(require,module,exports){
+},{"./Object.assign":138,"./ReactComponentEnvironment":148,"./ReactContext":150,"./ReactCurrentOwner":151,"./ReactElement":169,"./ReactElementValidator":170,"./ReactInstanceMap":179,"./ReactLifeCycle":180,"./ReactNativeComponent":185,"./ReactPerf":187,"./ReactPropTypeLocationNames":188,"./ReactPropTypeLocations":189,"./ReactReconciler":193,"./ReactUpdates":199,"./emptyObject":227,"./invariant":247,"./shouldUpdateReactComponent":263,"./warning":266,"_process":93,"buffer":89}],150:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -43939,7 +46632,7 @@ var ReactContext = {
 module.exports = ReactContext;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactContext.js","/node_modules/react/lib")
-},{"./Object.assign":130,"./emptyObject":219,"./warning":258,"_process":88,"buffer":84}],143:[function(require,module,exports){
+},{"./Object.assign":138,"./emptyObject":227,"./warning":266,"_process":93,"buffer":89}],151:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -43975,7 +46668,7 @@ var ReactCurrentOwner = {
 module.exports = ReactCurrentOwner;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactCurrentOwner.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],144:[function(require,module,exports){
+},{"_process":93,"buffer":89}],152:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -44154,7 +46847,7 @@ var ReactDOM = mapObject({
 module.exports = ReactDOM;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactDOM.js","/node_modules/react/lib")
-},{"./ReactElement":161,"./ReactElementValidator":162,"./mapObject":246,"_process":88,"buffer":84}],145:[function(require,module,exports){
+},{"./ReactElement":169,"./ReactElementValidator":170,"./mapObject":254,"_process":93,"buffer":89}],153:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -44220,7 +46913,7 @@ var ReactDOMButton = ReactClass.createClass({
 module.exports = ReactDOMButton;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactDOMButton.js","/node_modules/react/lib")
-},{"./AutoFocusMixin":105,"./ReactBrowserComponentMixin":133,"./ReactClass":137,"./ReactElement":161,"./keyMirror":244,"_process":88,"buffer":84}],146:[function(require,module,exports){
+},{"./AutoFocusMixin":113,"./ReactBrowserComponentMixin":141,"./ReactClass":145,"./ReactElement":169,"./keyMirror":252,"_process":93,"buffer":89}],154:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -44730,7 +47423,7 @@ ReactDOMComponent.injection = {
 module.exports = ReactDOMComponent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactDOMComponent.js","/node_modules/react/lib")
-},{"./CSSPropertyOperations":108,"./DOMProperty":113,"./DOMPropertyOperations":114,"./Object.assign":130,"./ReactBrowserEventEmitter":134,"./ReactComponentBrowserEnvironment":139,"./ReactMount":174,"./ReactMultiChild":175,"./ReactPerf":179,"./escapeTextContentForBrowser":220,"./invariant":239,"./isEventSupported":240,"./keyOf":245,"./warning":258,"_process":88,"buffer":84}],147:[function(require,module,exports){
+},{"./CSSPropertyOperations":116,"./DOMProperty":121,"./DOMPropertyOperations":122,"./Object.assign":138,"./ReactBrowserEventEmitter":142,"./ReactComponentBrowserEnvironment":147,"./ReactMount":182,"./ReactMultiChild":183,"./ReactPerf":187,"./escapeTextContentForBrowser":228,"./invariant":247,"./isEventSupported":248,"./keyOf":253,"./warning":266,"_process":93,"buffer":89}],155:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -44781,7 +47474,7 @@ var ReactDOMForm = ReactClass.createClass({
 module.exports = ReactDOMForm;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactDOMForm.js","/node_modules/react/lib")
-},{"./EventConstants":118,"./LocalEventTrapMixin":128,"./ReactBrowserComponentMixin":133,"./ReactClass":137,"./ReactElement":161,"_process":88,"buffer":84}],148:[function(require,module,exports){
+},{"./EventConstants":126,"./LocalEventTrapMixin":136,"./ReactBrowserComponentMixin":141,"./ReactClass":145,"./ReactElement":169,"_process":93,"buffer":89}],156:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -44949,7 +47642,7 @@ ReactPerf.measureMethods(ReactDOMIDOperations, 'ReactDOMIDOperations', {
 module.exports = ReactDOMIDOperations;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactDOMIDOperations.js","/node_modules/react/lib")
-},{"./CSSPropertyOperations":108,"./DOMChildrenOperations":112,"./DOMPropertyOperations":114,"./ReactMount":174,"./ReactPerf":179,"./invariant":239,"./setInnerHTML":252,"_process":88,"buffer":84}],149:[function(require,module,exports){
+},{"./CSSPropertyOperations":116,"./DOMChildrenOperations":120,"./DOMPropertyOperations":122,"./ReactMount":182,"./ReactPerf":187,"./invariant":247,"./setInnerHTML":260,"_process":93,"buffer":89}],157:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -44996,7 +47689,7 @@ var ReactDOMIframe = ReactClass.createClass({
 module.exports = ReactDOMIframe;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactDOMIframe.js","/node_modules/react/lib")
-},{"./EventConstants":118,"./LocalEventTrapMixin":128,"./ReactBrowserComponentMixin":133,"./ReactClass":137,"./ReactElement":161,"_process":88,"buffer":84}],150:[function(require,module,exports){
+},{"./EventConstants":126,"./LocalEventTrapMixin":136,"./ReactBrowserComponentMixin":141,"./ReactClass":145,"./ReactElement":169,"_process":93,"buffer":89}],158:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -45044,7 +47737,7 @@ var ReactDOMImg = ReactClass.createClass({
 module.exports = ReactDOMImg;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactDOMImg.js","/node_modules/react/lib")
-},{"./EventConstants":118,"./LocalEventTrapMixin":128,"./ReactBrowserComponentMixin":133,"./ReactClass":137,"./ReactElement":161,"_process":88,"buffer":84}],151:[function(require,module,exports){
+},{"./EventConstants":126,"./LocalEventTrapMixin":136,"./ReactBrowserComponentMixin":141,"./ReactClass":145,"./ReactElement":169,"_process":93,"buffer":89}],159:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -45221,7 +47914,7 @@ var ReactDOMInput = ReactClass.createClass({
 module.exports = ReactDOMInput;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactDOMInput.js","/node_modules/react/lib")
-},{"./AutoFocusMixin":105,"./DOMPropertyOperations":114,"./LinkedValueUtils":127,"./Object.assign":130,"./ReactBrowserComponentMixin":133,"./ReactClass":137,"./ReactElement":161,"./ReactMount":174,"./ReactUpdates":191,"./invariant":239,"_process":88,"buffer":84}],152:[function(require,module,exports){
+},{"./AutoFocusMixin":113,"./DOMPropertyOperations":122,"./LinkedValueUtils":135,"./Object.assign":138,"./ReactBrowserComponentMixin":141,"./ReactClass":145,"./ReactElement":169,"./ReactMount":182,"./ReactUpdates":199,"./invariant":247,"_process":93,"buffer":89}],160:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -45273,7 +47966,7 @@ var ReactDOMOption = ReactClass.createClass({
 module.exports = ReactDOMOption;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactDOMOption.js","/node_modules/react/lib")
-},{"./ReactBrowserComponentMixin":133,"./ReactClass":137,"./ReactElement":161,"./warning":258,"_process":88,"buffer":84}],153:[function(require,module,exports){
+},{"./ReactBrowserComponentMixin":141,"./ReactClass":145,"./ReactElement":169,"./warning":266,"_process":93,"buffer":89}],161:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -45453,7 +48146,7 @@ var ReactDOMSelect = ReactClass.createClass({
 module.exports = ReactDOMSelect;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactDOMSelect.js","/node_modules/react/lib")
-},{"./AutoFocusMixin":105,"./LinkedValueUtils":127,"./Object.assign":130,"./ReactBrowserComponentMixin":133,"./ReactClass":137,"./ReactElement":161,"./ReactUpdates":191,"_process":88,"buffer":84}],154:[function(require,module,exports){
+},{"./AutoFocusMixin":113,"./LinkedValueUtils":135,"./Object.assign":138,"./ReactBrowserComponentMixin":141,"./ReactClass":145,"./ReactElement":169,"./ReactUpdates":199,"_process":93,"buffer":89}],162:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -45668,7 +48361,7 @@ var ReactDOMSelection = {
 module.exports = ReactDOMSelection;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactDOMSelection.js","/node_modules/react/lib")
-},{"./ExecutionEnvironment":124,"./getNodeForCharacterOffset":232,"./getTextContentAccessor":234,"_process":88,"buffer":84}],155:[function(require,module,exports){
+},{"./ExecutionEnvironment":132,"./getNodeForCharacterOffset":240,"./getTextContentAccessor":242,"_process":93,"buffer":89}],163:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -45787,7 +48480,7 @@ assign(ReactDOMTextComponent.prototype, {
 module.exports = ReactDOMTextComponent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactDOMTextComponent.js","/node_modules/react/lib")
-},{"./DOMPropertyOperations":114,"./Object.assign":130,"./ReactComponentBrowserEnvironment":139,"./ReactDOMComponent":146,"./escapeTextContentForBrowser":220,"_process":88,"buffer":84}],156:[function(require,module,exports){
+},{"./DOMPropertyOperations":122,"./Object.assign":138,"./ReactComponentBrowserEnvironment":147,"./ReactDOMComponent":154,"./escapeTextContentForBrowser":228,"_process":93,"buffer":89}],164:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -45927,7 +48620,7 @@ var ReactDOMTextarea = ReactClass.createClass({
 module.exports = ReactDOMTextarea;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactDOMTextarea.js","/node_modules/react/lib")
-},{"./AutoFocusMixin":105,"./DOMPropertyOperations":114,"./LinkedValueUtils":127,"./Object.assign":130,"./ReactBrowserComponentMixin":133,"./ReactClass":137,"./ReactElement":161,"./ReactUpdates":191,"./invariant":239,"./warning":258,"_process":88,"buffer":84}],157:[function(require,module,exports){
+},{"./AutoFocusMixin":113,"./DOMPropertyOperations":122,"./LinkedValueUtils":135,"./Object.assign":138,"./ReactBrowserComponentMixin":141,"./ReactClass":145,"./ReactElement":169,"./ReactUpdates":199,"./invariant":247,"./warning":266,"_process":93,"buffer":89}],165:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -46002,7 +48695,7 @@ var ReactDefaultBatchingStrategy = {
 module.exports = ReactDefaultBatchingStrategy;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactDefaultBatchingStrategy.js","/node_modules/react/lib")
-},{"./Object.assign":130,"./ReactUpdates":191,"./Transaction":207,"./emptyFunction":218,"_process":88,"buffer":84}],158:[function(require,module,exports){
+},{"./Object.assign":138,"./ReactUpdates":199,"./Transaction":215,"./emptyFunction":226,"_process":93,"buffer":89}],166:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -46161,7 +48854,7 @@ module.exports = {
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactDefaultInjection.js","/node_modules/react/lib")
-},{"./BeforeInputEventPlugin":106,"./ChangeEventPlugin":110,"./ClientReactRootIndex":111,"./DefaultEventPluginOrder":116,"./EnterLeaveEventPlugin":117,"./ExecutionEnvironment":124,"./HTMLDOMPropertyConfig":126,"./MobileSafariClickEventPlugin":129,"./ReactBrowserComponentMixin":133,"./ReactClass":137,"./ReactComponentBrowserEnvironment":139,"./ReactDOMButton":145,"./ReactDOMComponent":146,"./ReactDOMForm":147,"./ReactDOMIDOperations":148,"./ReactDOMIframe":149,"./ReactDOMImg":150,"./ReactDOMInput":151,"./ReactDOMOption":152,"./ReactDOMSelect":153,"./ReactDOMTextComponent":155,"./ReactDOMTextarea":156,"./ReactDefaultBatchingStrategy":157,"./ReactDefaultPerf":159,"./ReactElement":161,"./ReactEventListener":166,"./ReactInjection":168,"./ReactInstanceHandles":170,"./ReactMount":174,"./ReactReconcileTransaction":184,"./SVGDOMPropertyConfig":192,"./SelectEventPlugin":193,"./ServerReactRootIndex":194,"./SimpleEventPlugin":195,"./createFullPageComponent":215,"_process":88,"buffer":84}],159:[function(require,module,exports){
+},{"./BeforeInputEventPlugin":114,"./ChangeEventPlugin":118,"./ClientReactRootIndex":119,"./DefaultEventPluginOrder":124,"./EnterLeaveEventPlugin":125,"./ExecutionEnvironment":132,"./HTMLDOMPropertyConfig":134,"./MobileSafariClickEventPlugin":137,"./ReactBrowserComponentMixin":141,"./ReactClass":145,"./ReactComponentBrowserEnvironment":147,"./ReactDOMButton":153,"./ReactDOMComponent":154,"./ReactDOMForm":155,"./ReactDOMIDOperations":156,"./ReactDOMIframe":157,"./ReactDOMImg":158,"./ReactDOMInput":159,"./ReactDOMOption":160,"./ReactDOMSelect":161,"./ReactDOMTextComponent":163,"./ReactDOMTextarea":164,"./ReactDefaultBatchingStrategy":165,"./ReactDefaultPerf":167,"./ReactElement":169,"./ReactEventListener":174,"./ReactInjection":176,"./ReactInstanceHandles":178,"./ReactMount":182,"./ReactReconcileTransaction":192,"./SVGDOMPropertyConfig":200,"./SelectEventPlugin":201,"./ServerReactRootIndex":202,"./SimpleEventPlugin":203,"./createFullPageComponent":223,"_process":93,"buffer":89}],167:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -46429,7 +49122,7 @@ var ReactDefaultPerf = {
 module.exports = ReactDefaultPerf;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactDefaultPerf.js","/node_modules/react/lib")
-},{"./DOMProperty":113,"./ReactDefaultPerfAnalysis":160,"./ReactMount":174,"./ReactPerf":179,"./performanceNow":250,"_process":88,"buffer":84}],160:[function(require,module,exports){
+},{"./DOMProperty":121,"./ReactDefaultPerfAnalysis":168,"./ReactMount":182,"./ReactPerf":187,"./performanceNow":258,"_process":93,"buffer":89}],168:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -46637,7 +49330,7 @@ var ReactDefaultPerfAnalysis = {
 module.exports = ReactDefaultPerfAnalysis;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactDefaultPerfAnalysis.js","/node_modules/react/lib")
-},{"./Object.assign":130,"_process":88,"buffer":84}],161:[function(require,module,exports){
+},{"./Object.assign":138,"_process":93,"buffer":89}],169:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -46945,7 +49638,7 @@ ReactElement.isValidElement = function(object) {
 module.exports = ReactElement;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactElement.js","/node_modules/react/lib")
-},{"./Object.assign":130,"./ReactContext":142,"./ReactCurrentOwner":143,"./warning":258,"_process":88,"buffer":84}],162:[function(require,module,exports){
+},{"./Object.assign":138,"./ReactContext":150,"./ReactCurrentOwner":151,"./warning":266,"_process":93,"buffer":89}],170:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -47410,7 +50103,7 @@ var ReactElementValidator = {
 module.exports = ReactElementValidator;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactElementValidator.js","/node_modules/react/lib")
-},{"./ReactCurrentOwner":143,"./ReactElement":161,"./ReactFragment":167,"./ReactNativeComponent":177,"./ReactPropTypeLocationNames":180,"./ReactPropTypeLocations":181,"./getIteratorFn":230,"./invariant":239,"./warning":258,"_process":88,"buffer":84}],163:[function(require,module,exports){
+},{"./ReactCurrentOwner":151,"./ReactElement":169,"./ReactFragment":175,"./ReactNativeComponent":185,"./ReactPropTypeLocationNames":188,"./ReactPropTypeLocations":189,"./getIteratorFn":238,"./invariant":247,"./warning":266,"_process":93,"buffer":89}],171:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -47505,7 +50198,7 @@ var ReactEmptyComponent = {
 module.exports = ReactEmptyComponent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactEmptyComponent.js","/node_modules/react/lib")
-},{"./ReactElement":161,"./ReactInstanceMap":171,"./invariant":239,"_process":88,"buffer":84}],164:[function(require,module,exports){
+},{"./ReactElement":169,"./ReactInstanceMap":179,"./invariant":247,"_process":93,"buffer":89}],172:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -47539,7 +50232,7 @@ var ReactErrorUtils = {
 module.exports = ReactErrorUtils;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactErrorUtils.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],165:[function(require,module,exports){
+},{"_process":93,"buffer":89}],173:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -47591,7 +50284,7 @@ var ReactEventEmitterMixin = {
 module.exports = ReactEventEmitterMixin;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactEventEmitterMixin.js","/node_modules/react/lib")
-},{"./EventPluginHub":120,"_process":88,"buffer":84}],166:[function(require,module,exports){
+},{"./EventPluginHub":128,"_process":93,"buffer":89}],174:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -47776,7 +50469,7 @@ var ReactEventListener = {
 module.exports = ReactEventListener;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactEventListener.js","/node_modules/react/lib")
-},{"./EventListener":119,"./ExecutionEnvironment":124,"./Object.assign":130,"./PooledClass":131,"./ReactInstanceHandles":170,"./ReactMount":174,"./ReactUpdates":191,"./getEventTarget":229,"./getUnboundedScrollPosition":235,"_process":88,"buffer":84}],167:[function(require,module,exports){
+},{"./EventListener":127,"./ExecutionEnvironment":132,"./Object.assign":138,"./PooledClass":139,"./ReactInstanceHandles":178,"./ReactMount":182,"./ReactUpdates":199,"./getEventTarget":237,"./getUnboundedScrollPosition":243,"_process":93,"buffer":89}],175:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2015, Facebook, Inc.
@@ -47961,7 +50654,7 @@ var ReactFragment = {
 module.exports = ReactFragment;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactFragment.js","/node_modules/react/lib")
-},{"./ReactElement":161,"./warning":258,"_process":88,"buffer":84}],168:[function(require,module,exports){
+},{"./ReactElement":169,"./warning":266,"_process":93,"buffer":89}],176:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -48005,7 +50698,7 @@ var ReactInjection = {
 module.exports = ReactInjection;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactInjection.js","/node_modules/react/lib")
-},{"./DOMProperty":113,"./EventPluginHub":120,"./ReactBrowserEventEmitter":134,"./ReactClass":137,"./ReactComponentEnvironment":140,"./ReactDOMComponent":146,"./ReactEmptyComponent":163,"./ReactNativeComponent":177,"./ReactPerf":179,"./ReactRootIndex":187,"./ReactUpdates":191,"_process":88,"buffer":84}],169:[function(require,module,exports){
+},{"./DOMProperty":121,"./EventPluginHub":128,"./ReactBrowserEventEmitter":142,"./ReactClass":145,"./ReactComponentEnvironment":148,"./ReactDOMComponent":154,"./ReactEmptyComponent":171,"./ReactNativeComponent":185,"./ReactPerf":187,"./ReactRootIndex":195,"./ReactUpdates":199,"_process":93,"buffer":89}],177:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -48142,7 +50835,7 @@ var ReactInputSelection = {
 module.exports = ReactInputSelection;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactInputSelection.js","/node_modules/react/lib")
-},{"./ReactDOMSelection":154,"./containsNode":213,"./focusNode":223,"./getActiveElement":225,"_process":88,"buffer":84}],170:[function(require,module,exports){
+},{"./ReactDOMSelection":162,"./containsNode":221,"./focusNode":231,"./getActiveElement":233,"_process":93,"buffer":89}],178:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -48478,7 +51171,7 @@ var ReactInstanceHandles = {
 module.exports = ReactInstanceHandles;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactInstanceHandles.js","/node_modules/react/lib")
-},{"./ReactRootIndex":187,"./invariant":239,"_process":88,"buffer":84}],171:[function(require,module,exports){
+},{"./ReactRootIndex":195,"./invariant":247,"_process":93,"buffer":89}],179:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -48529,7 +51222,7 @@ var ReactInstanceMap = {
 module.exports = ReactInstanceMap;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactInstanceMap.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],172:[function(require,module,exports){
+},{"_process":93,"buffer":89}],180:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2015, Facebook, Inc.
@@ -48568,7 +51261,7 @@ var ReactLifeCycle = {
 module.exports = ReactLifeCycle;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactLifeCycle.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],173:[function(require,module,exports){
+},{"_process":93,"buffer":89}],181:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -48618,7 +51311,7 @@ var ReactMarkupChecksum = {
 module.exports = ReactMarkupChecksum;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactMarkupChecksum.js","/node_modules/react/lib")
-},{"./adler32":210,"_process":88,"buffer":84}],174:[function(require,module,exports){
+},{"./adler32":218,"_process":93,"buffer":89}],182:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -49509,7 +52202,7 @@ ReactPerf.measureMethods(ReactMount, 'ReactMount', {
 module.exports = ReactMount;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactMount.js","/node_modules/react/lib")
-},{"./DOMProperty":113,"./ReactBrowserEventEmitter":134,"./ReactCurrentOwner":143,"./ReactElement":161,"./ReactElementValidator":162,"./ReactEmptyComponent":163,"./ReactInstanceHandles":170,"./ReactInstanceMap":171,"./ReactMarkupChecksum":173,"./ReactPerf":179,"./ReactReconciler":185,"./ReactUpdateQueue":190,"./ReactUpdates":191,"./containsNode":213,"./emptyObject":219,"./getReactRootElementInContainer":233,"./instantiateReactComponent":238,"./invariant":239,"./setInnerHTML":252,"./shouldUpdateReactComponent":255,"./warning":258,"_process":88,"buffer":84}],175:[function(require,module,exports){
+},{"./DOMProperty":121,"./ReactBrowserEventEmitter":142,"./ReactCurrentOwner":151,"./ReactElement":169,"./ReactElementValidator":170,"./ReactEmptyComponent":171,"./ReactInstanceHandles":178,"./ReactInstanceMap":179,"./ReactMarkupChecksum":181,"./ReactPerf":187,"./ReactReconciler":193,"./ReactUpdateQueue":198,"./ReactUpdates":199,"./containsNode":221,"./emptyObject":227,"./getReactRootElementInContainer":241,"./instantiateReactComponent":246,"./invariant":247,"./setInnerHTML":260,"./shouldUpdateReactComponent":263,"./warning":266,"_process":93,"buffer":89}],183:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -49941,7 +52634,7 @@ var ReactMultiChild = {
 module.exports = ReactMultiChild;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactMultiChild.js","/node_modules/react/lib")
-},{"./ReactChildReconciler":135,"./ReactComponentEnvironment":140,"./ReactMultiChildUpdateTypes":176,"./ReactReconciler":185,"_process":88,"buffer":84}],176:[function(require,module,exports){
+},{"./ReactChildReconciler":143,"./ReactComponentEnvironment":148,"./ReactMultiChildUpdateTypes":184,"./ReactReconciler":193,"_process":93,"buffer":89}],184:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -49976,7 +52669,7 @@ var ReactMultiChildUpdateTypes = keyMirror({
 module.exports = ReactMultiChildUpdateTypes;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactMultiChildUpdateTypes.js","/node_modules/react/lib")
-},{"./keyMirror":244,"_process":88,"buffer":84}],177:[function(require,module,exports){
+},{"./keyMirror":252,"_process":93,"buffer":89}],185:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -50083,7 +52776,7 @@ var ReactNativeComponent = {
 module.exports = ReactNativeComponent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactNativeComponent.js","/node_modules/react/lib")
-},{"./Object.assign":130,"./invariant":239,"_process":88,"buffer":84}],178:[function(require,module,exports){
+},{"./Object.assign":138,"./invariant":247,"_process":93,"buffer":89}],186:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -50195,7 +52888,7 @@ var ReactOwner = {
 module.exports = ReactOwner;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactOwner.js","/node_modules/react/lib")
-},{"./invariant":239,"_process":88,"buffer":84}],179:[function(require,module,exports){
+},{"./invariant":247,"_process":93,"buffer":89}],187:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -50299,7 +52992,7 @@ function _noMeasure(objName, fnName, func) {
 module.exports = ReactPerf;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactPerf.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],180:[function(require,module,exports){
+},{"_process":93,"buffer":89}],188:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -50327,7 +53020,7 @@ if ("production" !== process.env.NODE_ENV) {
 module.exports = ReactPropTypeLocationNames;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactPropTypeLocationNames.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],181:[function(require,module,exports){
+},{"_process":93,"buffer":89}],189:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -50353,7 +53046,7 @@ var ReactPropTypeLocations = keyMirror({
 module.exports = ReactPropTypeLocations;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactPropTypeLocations.js","/node_modules/react/lib")
-},{"./keyMirror":244,"_process":88,"buffer":84}],182:[function(require,module,exports){
+},{"./keyMirror":252,"_process":93,"buffer":89}],190:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -50704,7 +53397,7 @@ function getPreciseType(propValue) {
 module.exports = ReactPropTypes;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactPropTypes.js","/node_modules/react/lib")
-},{"./ReactElement":161,"./ReactFragment":167,"./ReactPropTypeLocationNames":180,"./emptyFunction":218,"_process":88,"buffer":84}],183:[function(require,module,exports){
+},{"./ReactElement":169,"./ReactFragment":175,"./ReactPropTypeLocationNames":188,"./emptyFunction":226,"_process":93,"buffer":89}],191:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -50762,7 +53455,7 @@ PooledClass.addPoolingTo(ReactPutListenerQueue);
 module.exports = ReactPutListenerQueue;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactPutListenerQueue.js","/node_modules/react/lib")
-},{"./Object.assign":130,"./PooledClass":131,"./ReactBrowserEventEmitter":134,"_process":88,"buffer":84}],184:[function(require,module,exports){
+},{"./Object.assign":138,"./PooledClass":139,"./ReactBrowserEventEmitter":142,"_process":93,"buffer":89}],192:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -50940,7 +53633,7 @@ PooledClass.addPoolingTo(ReactReconcileTransaction);
 module.exports = ReactReconcileTransaction;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactReconcileTransaction.js","/node_modules/react/lib")
-},{"./CallbackQueue":109,"./Object.assign":130,"./PooledClass":131,"./ReactBrowserEventEmitter":134,"./ReactInputSelection":169,"./ReactPutListenerQueue":183,"./Transaction":207,"_process":88,"buffer":84}],185:[function(require,module,exports){
+},{"./CallbackQueue":117,"./Object.assign":138,"./PooledClass":139,"./ReactBrowserEventEmitter":142,"./ReactInputSelection":177,"./ReactPutListenerQueue":191,"./Transaction":215,"_process":93,"buffer":89}],193:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -51064,7 +53757,7 @@ var ReactReconciler = {
 module.exports = ReactReconciler;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactReconciler.js","/node_modules/react/lib")
-},{"./ReactElementValidator":162,"./ReactRef":186,"_process":88,"buffer":84}],186:[function(require,module,exports){
+},{"./ReactElementValidator":170,"./ReactRef":194,"_process":93,"buffer":89}],194:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -51137,7 +53830,7 @@ ReactRef.detachRefs = function(instance, element) {
 module.exports = ReactRef;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactRef.js","/node_modules/react/lib")
-},{"./ReactOwner":178,"_process":88,"buffer":84}],187:[function(require,module,exports){
+},{"./ReactOwner":186,"_process":93,"buffer":89}],195:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -51170,7 +53863,7 @@ var ReactRootIndex = {
 module.exports = ReactRootIndex;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactRootIndex.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],188:[function(require,module,exports){
+},{"_process":93,"buffer":89}],196:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -51252,7 +53945,7 @@ module.exports = {
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactServerRendering.js","/node_modules/react/lib")
-},{"./ReactElement":161,"./ReactInstanceHandles":170,"./ReactMarkupChecksum":173,"./ReactServerRenderingTransaction":189,"./emptyObject":219,"./instantiateReactComponent":238,"./invariant":239,"_process":88,"buffer":84}],189:[function(require,module,exports){
+},{"./ReactElement":169,"./ReactInstanceHandles":178,"./ReactMarkupChecksum":181,"./ReactServerRenderingTransaction":197,"./emptyObject":227,"./instantiateReactComponent":246,"./invariant":247,"_process":93,"buffer":89}],197:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -51367,7 +54060,7 @@ PooledClass.addPoolingTo(ReactServerRenderingTransaction);
 module.exports = ReactServerRenderingTransaction;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactServerRenderingTransaction.js","/node_modules/react/lib")
-},{"./CallbackQueue":109,"./Object.assign":130,"./PooledClass":131,"./ReactPutListenerQueue":183,"./Transaction":207,"./emptyFunction":218,"_process":88,"buffer":84}],190:[function(require,module,exports){
+},{"./CallbackQueue":117,"./Object.assign":138,"./PooledClass":139,"./ReactPutListenerQueue":191,"./Transaction":215,"./emptyFunction":226,"_process":93,"buffer":89}],198:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2015, Facebook, Inc.
@@ -51666,7 +54359,7 @@ var ReactUpdateQueue = {
 module.exports = ReactUpdateQueue;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactUpdateQueue.js","/node_modules/react/lib")
-},{"./Object.assign":130,"./ReactCurrentOwner":143,"./ReactElement":161,"./ReactInstanceMap":171,"./ReactLifeCycle":172,"./ReactUpdates":191,"./invariant":239,"./warning":258,"_process":88,"buffer":84}],191:[function(require,module,exports){
+},{"./Object.assign":138,"./ReactCurrentOwner":151,"./ReactElement":169,"./ReactInstanceMap":179,"./ReactLifeCycle":180,"./ReactUpdates":199,"./invariant":247,"./warning":266,"_process":93,"buffer":89}],199:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -51948,7 +54641,7 @@ var ReactUpdates = {
 module.exports = ReactUpdates;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactUpdates.js","/node_modules/react/lib")
-},{"./CallbackQueue":109,"./Object.assign":130,"./PooledClass":131,"./ReactCurrentOwner":143,"./ReactPerf":179,"./ReactReconciler":185,"./Transaction":207,"./invariant":239,"./warning":258,"_process":88,"buffer":84}],192:[function(require,module,exports){
+},{"./CallbackQueue":117,"./Object.assign":138,"./PooledClass":139,"./ReactCurrentOwner":151,"./ReactPerf":187,"./ReactReconciler":193,"./Transaction":215,"./invariant":247,"./warning":266,"_process":93,"buffer":89}],200:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -52044,7 +54737,7 @@ var SVGDOMPropertyConfig = {
 module.exports = SVGDOMPropertyConfig;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/SVGDOMPropertyConfig.js","/node_modules/react/lib")
-},{"./DOMProperty":113,"_process":88,"buffer":84}],193:[function(require,module,exports){
+},{"./DOMProperty":121,"_process":93,"buffer":89}],201:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -52241,7 +54934,7 @@ var SelectEventPlugin = {
 module.exports = SelectEventPlugin;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/SelectEventPlugin.js","/node_modules/react/lib")
-},{"./EventConstants":118,"./EventPropagators":123,"./ReactInputSelection":169,"./SyntheticEvent":199,"./getActiveElement":225,"./isTextInputElement":242,"./keyOf":245,"./shallowEqual":254,"_process":88,"buffer":84}],194:[function(require,module,exports){
+},{"./EventConstants":126,"./EventPropagators":131,"./ReactInputSelection":177,"./SyntheticEvent":207,"./getActiveElement":233,"./isTextInputElement":250,"./keyOf":253,"./shallowEqual":262,"_process":93,"buffer":89}],202:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -52274,7 +54967,7 @@ var ServerReactRootIndex = {
 module.exports = ServerReactRootIndex;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ServerReactRootIndex.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],195:[function(require,module,exports){
+},{"_process":93,"buffer":89}],203:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -52702,7 +55395,7 @@ var SimpleEventPlugin = {
 module.exports = SimpleEventPlugin;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/SimpleEventPlugin.js","/node_modules/react/lib")
-},{"./EventConstants":118,"./EventPluginUtils":122,"./EventPropagators":123,"./SyntheticClipboardEvent":196,"./SyntheticDragEvent":198,"./SyntheticEvent":199,"./SyntheticFocusEvent":200,"./SyntheticKeyboardEvent":202,"./SyntheticMouseEvent":203,"./SyntheticTouchEvent":204,"./SyntheticUIEvent":205,"./SyntheticWheelEvent":206,"./getEventCharCode":226,"./invariant":239,"./keyOf":245,"./warning":258,"_process":88,"buffer":84}],196:[function(require,module,exports){
+},{"./EventConstants":126,"./EventPluginUtils":130,"./EventPropagators":131,"./SyntheticClipboardEvent":204,"./SyntheticDragEvent":206,"./SyntheticEvent":207,"./SyntheticFocusEvent":208,"./SyntheticKeyboardEvent":210,"./SyntheticMouseEvent":211,"./SyntheticTouchEvent":212,"./SyntheticUIEvent":213,"./SyntheticWheelEvent":214,"./getEventCharCode":234,"./invariant":247,"./keyOf":253,"./warning":266,"_process":93,"buffer":89}],204:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -52749,7 +55442,7 @@ SyntheticEvent.augmentClass(SyntheticClipboardEvent, ClipboardEventInterface);
 module.exports = SyntheticClipboardEvent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/SyntheticClipboardEvent.js","/node_modules/react/lib")
-},{"./SyntheticEvent":199,"_process":88,"buffer":84}],197:[function(require,module,exports){
+},{"./SyntheticEvent":207,"_process":93,"buffer":89}],205:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -52796,7 +55489,7 @@ SyntheticEvent.augmentClass(
 module.exports = SyntheticCompositionEvent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/SyntheticCompositionEvent.js","/node_modules/react/lib")
-},{"./SyntheticEvent":199,"_process":88,"buffer":84}],198:[function(require,module,exports){
+},{"./SyntheticEvent":207,"_process":93,"buffer":89}],206:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -52837,7 +55530,7 @@ SyntheticMouseEvent.augmentClass(SyntheticDragEvent, DragEventInterface);
 module.exports = SyntheticDragEvent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/SyntheticDragEvent.js","/node_modules/react/lib")
-},{"./SyntheticMouseEvent":203,"_process":88,"buffer":84}],199:[function(require,module,exports){
+},{"./SyntheticMouseEvent":211,"_process":93,"buffer":89}],207:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -53005,7 +55698,7 @@ PooledClass.addPoolingTo(SyntheticEvent, PooledClass.threeArgumentPooler);
 module.exports = SyntheticEvent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/SyntheticEvent.js","/node_modules/react/lib")
-},{"./Object.assign":130,"./PooledClass":131,"./emptyFunction":218,"./getEventTarget":229,"_process":88,"buffer":84}],200:[function(require,module,exports){
+},{"./Object.assign":138,"./PooledClass":139,"./emptyFunction":226,"./getEventTarget":237,"_process":93,"buffer":89}],208:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -53046,7 +55739,7 @@ SyntheticUIEvent.augmentClass(SyntheticFocusEvent, FocusEventInterface);
 module.exports = SyntheticFocusEvent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/SyntheticFocusEvent.js","/node_modules/react/lib")
-},{"./SyntheticUIEvent":205,"_process":88,"buffer":84}],201:[function(require,module,exports){
+},{"./SyntheticUIEvent":213,"_process":93,"buffer":89}],209:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -53094,7 +55787,7 @@ SyntheticEvent.augmentClass(
 module.exports = SyntheticInputEvent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/SyntheticInputEvent.js","/node_modules/react/lib")
-},{"./SyntheticEvent":199,"_process":88,"buffer":84}],202:[function(require,module,exports){
+},{"./SyntheticEvent":207,"_process":93,"buffer":89}],210:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -53183,7 +55876,7 @@ SyntheticUIEvent.augmentClass(SyntheticKeyboardEvent, KeyboardEventInterface);
 module.exports = SyntheticKeyboardEvent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/SyntheticKeyboardEvent.js","/node_modules/react/lib")
-},{"./SyntheticUIEvent":205,"./getEventCharCode":226,"./getEventKey":227,"./getEventModifierState":228,"_process":88,"buffer":84}],203:[function(require,module,exports){
+},{"./SyntheticUIEvent":213,"./getEventCharCode":234,"./getEventKey":235,"./getEventModifierState":236,"_process":93,"buffer":89}],211:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -53266,7 +55959,7 @@ SyntheticUIEvent.augmentClass(SyntheticMouseEvent, MouseEventInterface);
 module.exports = SyntheticMouseEvent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/SyntheticMouseEvent.js","/node_modules/react/lib")
-},{"./SyntheticUIEvent":205,"./ViewportMetrics":208,"./getEventModifierState":228,"_process":88,"buffer":84}],204:[function(require,module,exports){
+},{"./SyntheticUIEvent":213,"./ViewportMetrics":216,"./getEventModifierState":236,"_process":93,"buffer":89}],212:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -53316,7 +56009,7 @@ SyntheticUIEvent.augmentClass(SyntheticTouchEvent, TouchEventInterface);
 module.exports = SyntheticTouchEvent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/SyntheticTouchEvent.js","/node_modules/react/lib")
-},{"./SyntheticUIEvent":205,"./getEventModifierState":228,"_process":88,"buffer":84}],205:[function(require,module,exports){
+},{"./SyntheticUIEvent":213,"./getEventModifierState":236,"_process":93,"buffer":89}],213:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -53380,7 +56073,7 @@ SyntheticEvent.augmentClass(SyntheticUIEvent, UIEventInterface);
 module.exports = SyntheticUIEvent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/SyntheticUIEvent.js","/node_modules/react/lib")
-},{"./SyntheticEvent":199,"./getEventTarget":229,"_process":88,"buffer":84}],206:[function(require,module,exports){
+},{"./SyntheticEvent":207,"./getEventTarget":237,"_process":93,"buffer":89}],214:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -53443,7 +56136,7 @@ SyntheticMouseEvent.augmentClass(SyntheticWheelEvent, WheelEventInterface);
 module.exports = SyntheticWheelEvent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/SyntheticWheelEvent.js","/node_modules/react/lib")
-},{"./SyntheticMouseEvent":203,"_process":88,"buffer":84}],207:[function(require,module,exports){
+},{"./SyntheticMouseEvent":211,"_process":93,"buffer":89}],215:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -53684,7 +56377,7 @@ var Transaction = {
 module.exports = Transaction;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/Transaction.js","/node_modules/react/lib")
-},{"./invariant":239,"_process":88,"buffer":84}],208:[function(require,module,exports){
+},{"./invariant":247,"_process":93,"buffer":89}],216:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -53715,7 +56408,7 @@ var ViewportMetrics = {
 module.exports = ViewportMetrics;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ViewportMetrics.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],209:[function(require,module,exports){
+},{"_process":93,"buffer":89}],217:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -53781,7 +56474,7 @@ function accumulateInto(current, next) {
 module.exports = accumulateInto;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/accumulateInto.js","/node_modules/react/lib")
-},{"./invariant":239,"_process":88,"buffer":84}],210:[function(require,module,exports){
+},{"./invariant":247,"_process":93,"buffer":89}],218:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -53817,7 +56510,7 @@ function adler32(data) {
 module.exports = adler32;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/adler32.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],211:[function(require,module,exports){
+},{"_process":93,"buffer":89}],219:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -53851,7 +56544,7 @@ function camelize(string) {
 module.exports = camelize;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/camelize.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],212:[function(require,module,exports){
+},{"_process":93,"buffer":89}],220:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -53895,7 +56588,7 @@ function camelizeStyleName(string) {
 module.exports = camelizeStyleName;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/camelizeStyleName.js","/node_modules/react/lib")
-},{"./camelize":211,"_process":88,"buffer":84}],213:[function(require,module,exports){
+},{"./camelize":219,"_process":93,"buffer":89}],221:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -53941,7 +56634,7 @@ function containsNode(outerNode, innerNode) {
 module.exports = containsNode;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/containsNode.js","/node_modules/react/lib")
-},{"./isTextNode":243,"_process":88,"buffer":84}],214:[function(require,module,exports){
+},{"./isTextNode":251,"_process":93,"buffer":89}],222:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -54029,7 +56722,7 @@ function createArrayFromMixed(obj) {
 module.exports = createArrayFromMixed;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/createArrayFromMixed.js","/node_modules/react/lib")
-},{"./toArray":256,"_process":88,"buffer":84}],215:[function(require,module,exports){
+},{"./toArray":264,"_process":93,"buffer":89}],223:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -54091,7 +56784,7 @@ function createFullPageComponent(tag) {
 module.exports = createFullPageComponent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/createFullPageComponent.js","/node_modules/react/lib")
-},{"./ReactClass":137,"./ReactElement":161,"./invariant":239,"_process":88,"buffer":84}],216:[function(require,module,exports){
+},{"./ReactClass":145,"./ReactElement":169,"./invariant":247,"_process":93,"buffer":89}],224:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -54181,7 +56874,7 @@ function createNodesFromMarkup(markup, handleScript) {
 module.exports = createNodesFromMarkup;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/createNodesFromMarkup.js","/node_modules/react/lib")
-},{"./ExecutionEnvironment":124,"./createArrayFromMixed":214,"./getMarkupWrap":231,"./invariant":239,"_process":88,"buffer":84}],217:[function(require,module,exports){
+},{"./ExecutionEnvironment":132,"./createArrayFromMixed":222,"./getMarkupWrap":239,"./invariant":247,"_process":93,"buffer":89}],225:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -54241,7 +56934,7 @@ function dangerousStyleValue(name, value) {
 module.exports = dangerousStyleValue;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/dangerousStyleValue.js","/node_modules/react/lib")
-},{"./CSSProperty":107,"_process":88,"buffer":84}],218:[function(require,module,exports){
+},{"./CSSProperty":115,"_process":93,"buffer":89}],226:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -54277,7 +56970,7 @@ emptyFunction.thatReturnsArgument = function(arg) { return arg; };
 module.exports = emptyFunction;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/emptyFunction.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],219:[function(require,module,exports){
+},{"_process":93,"buffer":89}],227:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -54301,7 +56994,7 @@ if ("production" !== process.env.NODE_ENV) {
 module.exports = emptyObject;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/emptyObject.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],220:[function(require,module,exports){
+},{"_process":93,"buffer":89}],228:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -54343,7 +57036,7 @@ function escapeTextContentForBrowser(text) {
 module.exports = escapeTextContentForBrowser;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/escapeTextContentForBrowser.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],221:[function(require,module,exports){
+},{"_process":93,"buffer":89}],229:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -54416,7 +57109,7 @@ function findDOMNode(componentOrElement) {
 module.exports = findDOMNode;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/findDOMNode.js","/node_modules/react/lib")
-},{"./ReactCurrentOwner":143,"./ReactInstanceMap":171,"./ReactMount":174,"./invariant":239,"./isNode":241,"./warning":258,"_process":88,"buffer":84}],222:[function(require,module,exports){
+},{"./ReactCurrentOwner":151,"./ReactInstanceMap":179,"./ReactMount":182,"./invariant":247,"./isNode":249,"./warning":266,"_process":93,"buffer":89}],230:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -54474,7 +57167,7 @@ function flattenChildren(children) {
 module.exports = flattenChildren;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/flattenChildren.js","/node_modules/react/lib")
-},{"./traverseAllChildren":257,"./warning":258,"_process":88,"buffer":84}],223:[function(require,module,exports){
+},{"./traverseAllChildren":265,"./warning":266,"_process":93,"buffer":89}],231:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -54505,7 +57198,7 @@ function focusNode(node) {
 module.exports = focusNode;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/focusNode.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],224:[function(require,module,exports){
+},{"_process":93,"buffer":89}],232:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -54538,7 +57231,7 @@ var forEachAccumulated = function(arr, cb, scope) {
 module.exports = forEachAccumulated;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/forEachAccumulated.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],225:[function(require,module,exports){
+},{"_process":93,"buffer":89}],233:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -54569,7 +57262,7 @@ function getActiveElement() /*?DOMElement*/ {
 module.exports = getActiveElement;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/getActiveElement.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],226:[function(require,module,exports){
+},{"_process":93,"buffer":89}],234:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -54623,7 +57316,7 @@ function getEventCharCode(nativeEvent) {
 module.exports = getEventCharCode;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/getEventCharCode.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],227:[function(require,module,exports){
+},{"_process":93,"buffer":89}],235:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -54730,7 +57423,7 @@ function getEventKey(nativeEvent) {
 module.exports = getEventKey;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/getEventKey.js","/node_modules/react/lib")
-},{"./getEventCharCode":226,"_process":88,"buffer":84}],228:[function(require,module,exports){
+},{"./getEventCharCode":234,"_process":93,"buffer":89}],236:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -54779,7 +57472,7 @@ function getEventModifierState(nativeEvent) {
 module.exports = getEventModifierState;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/getEventModifierState.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],229:[function(require,module,exports){
+},{"_process":93,"buffer":89}],237:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -54812,7 +57505,7 @@ function getEventTarget(nativeEvent) {
 module.exports = getEventTarget;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/getEventTarget.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],230:[function(require,module,exports){
+},{"_process":93,"buffer":89}],238:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -54858,7 +57551,7 @@ function getIteratorFn(maybeIterable) {
 module.exports = getIteratorFn;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/getIteratorFn.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],231:[function(require,module,exports){
+},{"_process":93,"buffer":89}],239:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -54977,7 +57670,7 @@ function getMarkupWrap(nodeName) {
 module.exports = getMarkupWrap;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/getMarkupWrap.js","/node_modules/react/lib")
-},{"./ExecutionEnvironment":124,"./invariant":239,"_process":88,"buffer":84}],232:[function(require,module,exports){
+},{"./ExecutionEnvironment":132,"./invariant":247,"_process":93,"buffer":89}],240:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55054,7 +57747,7 @@ function getNodeForCharacterOffset(root, offset) {
 module.exports = getNodeForCharacterOffset;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/getNodeForCharacterOffset.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],233:[function(require,module,exports){
+},{"_process":93,"buffer":89}],241:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55091,7 +57784,7 @@ function getReactRootElementInContainer(container) {
 module.exports = getReactRootElementInContainer;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/getReactRootElementInContainer.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],234:[function(require,module,exports){
+},{"_process":93,"buffer":89}],242:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55130,7 +57823,7 @@ function getTextContentAccessor() {
 module.exports = getTextContentAccessor;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/getTextContentAccessor.js","/node_modules/react/lib")
-},{"./ExecutionEnvironment":124,"_process":88,"buffer":84}],235:[function(require,module,exports){
+},{"./ExecutionEnvironment":132,"_process":93,"buffer":89}],243:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55172,7 +57865,7 @@ function getUnboundedScrollPosition(scrollable) {
 module.exports = getUnboundedScrollPosition;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/getUnboundedScrollPosition.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],236:[function(require,module,exports){
+},{"_process":93,"buffer":89}],244:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55207,7 +57900,7 @@ function hyphenate(string) {
 module.exports = hyphenate;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/hyphenate.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],237:[function(require,module,exports){
+},{"_process":93,"buffer":89}],245:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55250,7 +57943,7 @@ function hyphenateStyleName(string) {
 module.exports = hyphenateStyleName;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/hyphenateStyleName.js","/node_modules/react/lib")
-},{"./hyphenate":236,"_process":88,"buffer":84}],238:[function(require,module,exports){
+},{"./hyphenate":244,"_process":93,"buffer":89}],246:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55388,7 +58081,7 @@ function instantiateReactComponent(node, parentCompositeType) {
 module.exports = instantiateReactComponent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/instantiateReactComponent.js","/node_modules/react/lib")
-},{"./Object.assign":130,"./ReactCompositeComponent":141,"./ReactEmptyComponent":163,"./ReactNativeComponent":177,"./invariant":239,"./warning":258,"_process":88,"buffer":84}],239:[function(require,module,exports){
+},{"./Object.assign":138,"./ReactCompositeComponent":149,"./ReactEmptyComponent":171,"./ReactNativeComponent":185,"./invariant":247,"./warning":266,"_process":93,"buffer":89}],247:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55445,7 +58138,7 @@ var invariant = function(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/invariant.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],240:[function(require,module,exports){
+},{"_process":93,"buffer":89}],248:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55512,7 +58205,7 @@ function isEventSupported(eventNameSuffix, capture) {
 module.exports = isEventSupported;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/isEventSupported.js","/node_modules/react/lib")
-},{"./ExecutionEnvironment":124,"_process":88,"buffer":84}],241:[function(require,module,exports){
+},{"./ExecutionEnvironment":132,"_process":93,"buffer":89}],249:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55541,7 +58234,7 @@ function isNode(object) {
 module.exports = isNode;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/isNode.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],242:[function(require,module,exports){
+},{"_process":93,"buffer":89}],250:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55586,7 +58279,7 @@ function isTextInputElement(elem) {
 module.exports = isTextInputElement;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/isTextInputElement.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],243:[function(require,module,exports){
+},{"_process":93,"buffer":89}],251:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55613,7 +58306,7 @@ function isTextNode(object) {
 module.exports = isTextNode;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/isTextNode.js","/node_modules/react/lib")
-},{"./isNode":241,"_process":88,"buffer":84}],244:[function(require,module,exports){
+},{"./isNode":249,"_process":93,"buffer":89}],252:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55668,7 +58361,7 @@ var keyMirror = function(obj) {
 module.exports = keyMirror;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/keyMirror.js","/node_modules/react/lib")
-},{"./invariant":239,"_process":88,"buffer":84}],245:[function(require,module,exports){
+},{"./invariant":247,"_process":93,"buffer":89}],253:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55706,7 +58399,7 @@ var keyOf = function(oneKeyObj) {
 module.exports = keyOf;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/keyOf.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],246:[function(require,module,exports){
+},{"_process":93,"buffer":89}],254:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55761,7 +58454,7 @@ function mapObject(object, callback, context) {
 module.exports = mapObject;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/mapObject.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],247:[function(require,module,exports){
+},{"_process":93,"buffer":89}],255:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55796,7 +58489,7 @@ function memoizeStringOnly(callback) {
 module.exports = memoizeStringOnly;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/memoizeStringOnly.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],248:[function(require,module,exports){
+},{"_process":93,"buffer":89}],256:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55836,7 +58529,7 @@ function onlyChild(children) {
 module.exports = onlyChild;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/onlyChild.js","/node_modules/react/lib")
-},{"./ReactElement":161,"./invariant":239,"_process":88,"buffer":84}],249:[function(require,module,exports){
+},{"./ReactElement":169,"./invariant":247,"_process":93,"buffer":89}],257:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55866,7 +58559,7 @@ if (ExecutionEnvironment.canUseDOM) {
 module.exports = performance || {};
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/performance.js","/node_modules/react/lib")
-},{"./ExecutionEnvironment":124,"_process":88,"buffer":84}],250:[function(require,module,exports){
+},{"./ExecutionEnvironment":132,"_process":93,"buffer":89}],258:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55896,7 +58589,7 @@ var performanceNow = performance.now.bind(performance);
 module.exports = performanceNow;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/performanceNow.js","/node_modules/react/lib")
-},{"./performance":249,"_process":88,"buffer":84}],251:[function(require,module,exports){
+},{"./performance":257,"_process":93,"buffer":89}],259:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -55926,7 +58619,7 @@ function quoteAttributeValueForBrowser(value) {
 module.exports = quoteAttributeValueForBrowser;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/quoteAttributeValueForBrowser.js","/node_modules/react/lib")
-},{"./escapeTextContentForBrowser":220,"_process":88,"buffer":84}],252:[function(require,module,exports){
+},{"./escapeTextContentForBrowser":228,"_process":93,"buffer":89}],260:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -56017,7 +58710,7 @@ if (ExecutionEnvironment.canUseDOM) {
 module.exports = setInnerHTML;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/setInnerHTML.js","/node_modules/react/lib")
-},{"./ExecutionEnvironment":124,"_process":88,"buffer":84}],253:[function(require,module,exports){
+},{"./ExecutionEnvironment":132,"_process":93,"buffer":89}],261:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -56061,7 +58754,7 @@ if (ExecutionEnvironment.canUseDOM) {
 module.exports = setTextContent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/setTextContent.js","/node_modules/react/lib")
-},{"./ExecutionEnvironment":124,"./escapeTextContentForBrowser":220,"./setInnerHTML":252,"_process":88,"buffer":84}],254:[function(require,module,exports){
+},{"./ExecutionEnvironment":132,"./escapeTextContentForBrowser":228,"./setInnerHTML":260,"_process":93,"buffer":89}],262:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -56107,7 +58800,7 @@ function shallowEqual(objA, objB) {
 module.exports = shallowEqual;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/shallowEqual.js","/node_modules/react/lib")
-},{"_process":88,"buffer":84}],255:[function(require,module,exports){
+},{"_process":93,"buffer":89}],263:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -56211,7 +58904,7 @@ function shouldUpdateReactComponent(prevElement, nextElement) {
 module.exports = shouldUpdateReactComponent;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/shouldUpdateReactComponent.js","/node_modules/react/lib")
-},{"./warning":258,"_process":88,"buffer":84}],256:[function(require,module,exports){
+},{"./warning":266,"_process":93,"buffer":89}],264:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -56283,7 +58976,7 @@ function toArray(obj) {
 module.exports = toArray;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/toArray.js","/node_modules/react/lib")
-},{"./invariant":239,"_process":88,"buffer":84}],257:[function(require,module,exports){
+},{"./invariant":247,"_process":93,"buffer":89}],265:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -56536,7 +59229,7 @@ function traverseAllChildren(children, callback, traverseContext) {
 module.exports = traverseAllChildren;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/traverseAllChildren.js","/node_modules/react/lib")
-},{"./ReactElement":161,"./ReactFragment":167,"./ReactInstanceHandles":170,"./getIteratorFn":230,"./invariant":239,"./warning":258,"_process":88,"buffer":84}],258:[function(require,module,exports){
+},{"./ReactElement":169,"./ReactFragment":175,"./ReactInstanceHandles":178,"./getIteratorFn":238,"./invariant":247,"./warning":266,"_process":93,"buffer":89}],266:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -56599,12 +59292,12 @@ if ("production" !== process.env.NODE_ENV) {
 module.exports = warning;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/warning.js","/node_modules/react/lib")
-},{"./emptyFunction":218,"_process":88,"buffer":84}],259:[function(require,module,exports){
+},{"./emptyFunction":226,"_process":93,"buffer":89}],267:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 module.exports = require('./lib/React');
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/react.js","/node_modules/react")
-},{"./lib/React":132,"_process":88,"buffer":84}],260:[function(require,module,exports){
+},{"./lib/React":140,"_process":93,"buffer":89}],268:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var $ = require('jquery');
@@ -56634,7 +59327,4398 @@ module.exports = function scrollTrigger(waitParam, toleranceParam, cb) {
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/scroll-trigger/index.js","/node_modules/scroll-trigger")
-},{"_process":88,"buffer":84,"jquery":100,"underscore":261}],261:[function(require,module,exports){
+},{"_process":93,"buffer":89,"jquery":105,"underscore":271}],269:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+/*!
+ * # Semantic UI 2.0.5 - Dropdown
+ * http://github.com/semantic-org/semantic-ui/
+ *
+ *
+ * Copyright 2015 Contributors
+ * Released under the MIT license
+ * http://opensource.org/licenses/MIT
+ *
+ */
+
+;(function ( $, window, document, undefined ) {
+
+"use strict";
+
+$.fn.dropdown = function(parameters) {
+  var
+    $allModules    = $(this),
+    $document      = $(document),
+
+    moduleSelector = $allModules.selector || '',
+
+    hasTouch       = ('ontouchstart' in document.documentElement),
+    time           = new Date().getTime(),
+    performance    = [],
+
+    query          = arguments[0],
+    methodInvoked  = (typeof query == 'string'),
+    queryArguments = [].slice.call(arguments, 1),
+    returnedValue
+  ;
+
+  $allModules
+    .each(function(elementIndex) {
+      var
+        settings          = ( $.isPlainObject(parameters) )
+          ? $.extend(true, {}, $.fn.dropdown.settings, parameters)
+          : $.extend({}, $.fn.dropdown.settings),
+
+        className       = settings.className,
+        message         = settings.message,
+        metadata        = settings.metadata,
+        namespace       = settings.namespace,
+        regExp          = settings.regExp,
+        selector        = settings.selector,
+        error           = settings.error,
+        templates       = settings.templates,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = 'module-' + namespace,
+
+        $module         = $(this),
+        $context        = $(settings.context),
+        $text           = $module.find(selector.text),
+        $search         = $module.find(selector.search),
+        $input          = $module.find(selector.input),
+        $icon           = $module.find(selector.icon),
+
+        $combo = ($module.prev().find(selector.text).length > 0)
+          ? $module.prev().find(selector.text)
+          : $module.prev(),
+
+        $menu           = $module.children(selector.menu),
+        $item           = $menu.find(selector.item),
+
+        activated       = false,
+        itemActivated   = false,
+        element         = this,
+        instance        = $module.data(moduleNamespace),
+
+        initialLoad,
+        pageLostFocus,
+        elementNamespace,
+        id,
+        selectObserver,
+        menuObserver,
+        module
+      ;
+
+      module = {
+
+        initialize: function() {
+          module.debug('Initializing dropdown', settings);
+
+          if( module.is.alreadySetup() ) {
+            module.setup.reference();
+          }
+          else {
+            module.setup.layout();
+            module.refreshData();
+
+            module.save.defaults();
+            module.restore.selected();
+
+            module.create.id();
+            if(hasTouch) {
+              module.bind.touchEvents();
+            }
+            module.bind.mouseEvents();
+            module.bind.keyboardEvents();
+
+            module.observeChanges();
+            module.instantiate();
+          }
+
+        },
+
+        instantiate: function() {
+          module.verbose('Storing instance of dropdown', module);
+          instance = module;
+          $module
+            .data(moduleNamespace, module)
+          ;
+        },
+
+        destroy: function() {
+          module.verbose('Destroying previous dropdown', $module);
+          module.remove.tabbable();
+          $module
+            .off(eventNamespace)
+            .removeData(moduleNamespace)
+          ;
+          $menu
+            .off(eventNamespace)
+          ;
+          $document
+            .off(elementNamespace)
+          ;
+          if(selectObserver) {
+            selectObserver.disconnect();
+          }
+          if(menuObserver) {
+            menuObserver.disconnect();
+          }
+        },
+
+        observeChanges: function() {
+          if('MutationObserver' in window) {
+            selectObserver = new MutationObserver(function(mutations) {
+              module.debug('<select> modified, recreating menu');
+              module.setup.select();
+            });
+            menuObserver = new MutationObserver(function(mutations) {
+              module.debug('Menu modified, updating selector cache');
+              module.refresh();
+            });
+            if(module.has.input()) {
+              selectObserver.observe($input[0], {
+                childList : true,
+                subtree   : true
+              });
+            }
+            if(module.has.menu()) {
+              menuObserver.observe($menu[0], {
+                childList : true,
+                subtree   : true
+              });
+            }
+            module.debug('Setting up mutation observer', selectObserver, menuObserver);
+          }
+        },
+
+        create: {
+          id: function() {
+            id = (Math.random().toString(16) + '000000000').substr(2, 8);
+            elementNamespace = '.' + id;
+            module.verbose('Creating unique id for element', id);
+          },
+          userChoice: function(values) {
+            var
+              $userChoices,
+              $userChoice,
+              isUserValue,
+              html
+            ;
+            values = values || module.get.userValues();
+            if(!values) {
+              return false;
+            }
+            values = $.isArray(values)
+              ? values
+              : [values]
+            ;
+            $.each(values, function(index, value) {
+              if(module.get.item(value) === false) {
+                html         = settings.templates.addition(value);
+                $userChoice  = $('<div />')
+                  .html(html)
+                  .data(metadata.value, value)
+                  .addClass(className.addition)
+                  .addClass(className.item)
+                ;
+                $userChoices = ($userChoices === undefined)
+                  ? $userChoice
+                  : $userChoices.add($userChoice)
+                ;
+                module.verbose('Creating user choices for value', value, $userChoice);
+              }
+            });
+            return $userChoices;
+          },
+          userLabels: function(value) {
+            var
+              userValues = module.get.userValues()
+            ;
+            if(userValues) {
+              module.debug('Adding user labels', userValues);
+              $.each(userValues, function(index, value) {
+                module.verbose('Adding custom user value');
+                module.add.label(value, value);
+              });
+            }
+          },
+        },
+
+        search: function(query) {
+          query = (query !== undefined)
+            ? query
+            : module.get.query()
+          ;
+          module.verbose('Searching for query', query);
+          module.filter(query);
+        },
+
+        select: {
+          firstUnfiltered: function() {
+            module.verbose('Selecting first non-filtered element');
+            module.remove.selectedItem();
+            $item
+              .not(selector.unselectable)
+                .eq(0)
+                .addClass(className.selected)
+            ;
+          },
+          nextAvailable: function($selected) {
+            $selected = $selected.eq(0);
+            var
+              $nextAvailable = $selected.nextAll(selector.item).not(selector.unselectable).eq(0),
+              $prevAvailable = $selected.prevAll(selector.item).not(selector.unselectable).eq(0),
+              hasNext        = ($nextAvailable.length > 0)
+            ;
+            if(hasNext) {
+              module.verbose('Moving selection to', $nextAvailable);
+              $nextAvailable.addClass(className.selected);
+            }
+            else {
+              module.verbose('Moving selection to', $prevAvailable);
+              $prevAvailable.addClass(className.selected);
+            }
+          }
+        },
+
+        setup: {
+          api: function() {
+            var
+              apiSettings = {
+                debug : settings.debug,
+                on    : false
+              }
+            ;
+            module.verbose('First request, initializing API');
+            $module
+              .api(apiSettings)
+            ;
+          },
+          layout: function() {
+            if( $module.is('select') ) {
+              module.setup.select();
+              module.setup.returnedObject();
+            }
+            if( module.is.search() && !module.has.search() ) {
+              module.verbose('Adding search input');
+              $search = $('<input />')
+                .addClass(className.search)
+                .insertBefore($text)
+              ;
+            }
+            if(settings.allowTab) {
+              module.set.tabbable();
+            }
+            if($menu.length === 0) {
+              $menu = $('<div />')
+                .addClass(className.menu)
+                .appendTo($module)
+              ;
+            }
+          },
+          select: function() {
+            var
+              selectValues  = module.get.selectValues()
+            ;
+            module.debug('Dropdown initialized on a select', selectValues);
+            if( $module.is('select') ) {
+              $input = $module;
+            }
+            // see if select is placed correctly already
+            if($input.parent(selector.dropdown).length > 0) {
+              module.debug('UI dropdown already exists. Creating dropdown menu only');
+              $module = $input.closest(selector.dropdown);
+              $menu   = $module.children(selector.menu);
+              module.setup.menu(selectValues);
+            }
+            else {
+              module.debug('Creating entire dropdown from select');
+              $module = $('<div />')
+                .attr('class', $input.attr('class') )
+                .addClass(className.selection)
+                .addClass(className.dropdown)
+                .html( templates.dropdown(selectValues) )
+                .insertBefore($input)
+              ;
+              if($input.hasClass(className.multiple) && $input.prop('multiple') === false) {
+                module.error(error.missingMultiple);
+                $input.prop('multiple', true);
+              }
+              if($input.is('[multiple]')) {
+                module.set.multiple();
+              }
+              $input
+                .removeAttr('class')
+                .detach()
+                .prependTo($module)
+              ;
+            }
+            module.refresh();
+          },
+          menu: function(values) {
+            $menu.html( templates.menu( values ));
+            $item = $menu.find(selector.item);
+          },
+          reference: function() {
+            module.debug('Dropdown behavior was called on select, replacing with closest dropdown');
+            // replace module reference
+            $module = $module.parent(selector.dropdown);
+            module.refresh();
+            module.setup.returnedObject();
+            // invoke method in context of current instance
+            if(methodInvoked) {
+              instance = module;
+              module.invoke(query);
+            }
+          },
+          returnedObject: function() {
+            var
+              $firstModules = $allModules.slice(0, elementIndex),
+              $lastModules = $allModules.slice(elementIndex + 1)
+            ;
+            // adjust all modules to use correct reference
+            $allModules = $firstModules.add($module).add($lastModules);
+          }
+        },
+
+        refresh: function() {
+          module.refreshSelectors();
+          module.refreshData();
+        },
+
+        refreshSelectors: function() {
+          module.verbose('Refreshing selector cache');
+          $text   = $module.find(selector.text);
+          $search = $module.find(selector.search);
+          $input  = $module.find(selector.input);
+          $icon   = $module.find(selector.icon);
+          $combo  = ($module.prev().find(selector.text).length > 0)
+            ? $module.prev().find(selector.text)
+            : $module.prev()
+          ;
+          $menu    = $module.children(selector.menu);
+          $item    = $menu.find(selector.item);
+        },
+
+        refreshData: function() {
+          module.verbose('Refreshing cached metadata');
+          $item
+            .removeData(metadata.text)
+            .removeData(metadata.value)
+          ;
+          $module
+            .removeData(metadata.defaultText)
+            .removeData(metadata.defaultValue)
+            .removeData(metadata.placeholderText)
+          ;
+        },
+
+
+        toggle: function() {
+          module.verbose('Toggling menu visibility');
+          if( !module.is.active() ) {
+            module.show();
+          }
+          else {
+            module.hide();
+          }
+        },
+
+        show: function(callback) {
+          callback = $.isFunction(callback)
+            ? callback
+            : function(){}
+          ;
+          if( module.can.show() && !module.is.active() ) {
+            module.debug('Showing dropdown');
+            if(module.is.multiple()) {
+              if(!module.has.search() && module.is.allFiltered()) {
+                return true;
+              }
+            }
+            module.animate.show(function() {
+              if( module.can.click() ) {
+                module.bind.intent();
+              }
+              module.set.visible();
+              callback.call(element);
+            });
+            settings.onShow.call(element);
+          }
+        },
+
+        hide: function(callback) {
+          callback = $.isFunction(callback)
+            ? callback
+            : function(){}
+          ;
+          if( module.is.active() ) {
+            module.debug('Hiding dropdown');
+            module.animate.hide(function() {
+              module.remove.visible();
+              callback.call(element);
+            });
+            settings.onHide.call(element);
+          }
+        },
+
+        hideOthers: function() {
+          module.verbose('Finding other dropdowns to hide');
+          $allModules
+            .not($module)
+              .has(selector.menu + '.' + className.visible)
+                .dropdown('hide')
+          ;
+        },
+
+        hideMenu: function() {
+          module.verbose('Hiding menu  instantaneously');
+          module.remove.active();
+          module.remove.visible();
+          $menu.transition('hide');
+        },
+
+        hideSubMenus: function() {
+          var
+            $subMenus = $menu.children(selector.item).find(selector.menu)
+          ;
+          module.verbose('Hiding sub menus', $subMenus);
+          $subMenus.transition('hide');
+        },
+
+        bind: {
+          keyboardEvents: function() {
+            module.debug('Binding keyboard events');
+            $module
+              .on('keydown' + eventNamespace, module.event.keydown)
+            ;
+            if( module.has.search() ) {
+              $module
+                .on(module.get.inputEvent() + eventNamespace, selector.search, module.event.input)
+              ;
+            }
+            if( module.is.multiple() ) {
+              $document
+                .on('keydown' + elementNamespace, module.event.document.keydown)
+              ;
+            }
+          },
+          touchEvents: function() {
+            module.debug('Touch device detected binding additional touch events');
+            if( module.is.searchSelection() ) {
+              // do nothing special yet
+            }
+            else if( module.is.single() ) {
+              $module
+                .on('touchstart' + eventNamespace, module.event.test.toggle)
+              ;
+            }
+            $menu
+              .on('touchstart' + eventNamespace, selector.item, module.event.item.mouseenter)
+            ;
+          },
+          mouseEvents: function() {
+            module.debug('Mouse detected binding mouse events');
+            if(module.is.multiple()) {
+              $module
+                .on('click'   + eventNamespace, selector.label, module.event.label.click)
+                .on('click'   + eventNamespace, selector.remove, module.event.remove.click)
+              ;
+            }
+            if( module.is.searchSelection() ) {
+              $module
+                .on('mousedown' + eventNamespace, selector.menu,   module.event.menu.mousedown)
+                .on('mouseup'   + eventNamespace, selector.menu,   module.event.menu.mouseup)
+                .on('click'     + eventNamespace, selector.icon,   module.event.icon.click)
+                .on('click'     + eventNamespace, selector.search, module.show)
+                .on('focus'     + eventNamespace, selector.search, module.event.search.focus)
+                .on('blur'      + eventNamespace, selector.search, module.event.search.blur)
+                .on('click'     + eventNamespace, selector.text,   module.event.text.focus)
+              ;
+              if(module.is.multiple()) {
+                $module
+                  .on('click' + eventNamespace, module.event.click)
+                ;
+              }
+            }
+            else {
+              if(settings.on == 'click') {
+                $module
+                  .on('click' + eventNamespace, selector.icon, module.event.icon.click)
+                  .on('click' + eventNamespace, module.event.test.toggle)
+                ;
+              }
+              else if(settings.on == 'hover') {
+                $module
+                  .on('mouseenter' + eventNamespace, module.delay.show)
+                  .on('mouseleave' + eventNamespace, module.delay.hide)
+                ;
+              }
+              else {
+                $module
+                  .on(settings.on + eventNamespace, module.toggle)
+                ;
+              }
+              $module
+                .on('mousedown' + eventNamespace, module.event.mousedown)
+                .on('mouseup'   + eventNamespace, module.event.mouseup)
+                .on('focus'     + eventNamespace, module.event.focus)
+                .on('blur'      + eventNamespace, module.event.blur)
+              ;
+            }
+            $menu
+              .on('mouseenter' + eventNamespace, selector.item, module.event.item.mouseenter)
+              .on('mouseleave' + eventNamespace, selector.item, module.event.item.mouseleave)
+              .on('click'      + eventNamespace, selector.item, module.event.item.click)
+            ;
+          },
+          intent: function() {
+            module.verbose('Binding hide intent event to document');
+            if(hasTouch) {
+              $document
+                .on('touchstart' + elementNamespace, module.event.test.touch)
+                .on('touchmove'  + elementNamespace, module.event.test.touch)
+              ;
+            }
+            $document
+              .on('click' + elementNamespace, module.event.test.hide)
+            ;
+          }
+        },
+
+        unbind: {
+          intent: function() {
+            module.verbose('Removing hide intent event from document');
+            if(hasTouch) {
+              $document
+                .off('touchstart' + elementNamespace)
+                .off('touchmove' + elementNamespace)
+              ;
+            }
+            $document
+              .off('click' + elementNamespace)
+            ;
+          }
+        },
+
+        filter: function(query) {
+          var
+            searchTerm = (query !== undefined)
+              ? query
+              : module.get.query(),
+            afterFiltered = function() {
+              if(module.is.multiple()) {
+                module.filterActive();
+              }
+              module.select.firstUnfiltered();
+              if( module.has.allResultsFiltered() ) {
+                if( settings.onNoResults.call(element, searchTerm) ) {
+                  if(!settings.allowAdditions) {
+                    module.verbose('All items filtered, showing message', searchTerm);
+                    module.add.message(message.noResults);
+                  }
+                }
+                else {
+                  module.verbose('All items filtered, hiding dropdown', searchTerm);
+                  module.hideMenu();
+                }
+              }
+              else {
+                module.remove.message();
+              }
+              if(settings.allowAdditions) {
+                module.add.userSuggestion(query);
+              }
+              if(module.is.searchSelection() && module.can.show() && module.is.focusedOnSearch() ) {
+                module.show();
+              }
+            }
+          ;
+          if(module.has.maxSelections()) {
+            return;
+          }
+          if(settings.apiSettings) {
+            if( module.can.useAPI() ) {
+              module.queryRemote(searchTerm, function() {
+                afterFiltered();
+              });
+            }
+            else {
+              module.error(error.noAPI);
+            }
+          }
+          else {
+            module.filterItems(searchTerm);
+            afterFiltered();
+          }
+        },
+
+        queryRemote: function(query, callback) {
+          var
+            apiSettings = {
+              errorDuration        : false,
+              throttle             : settings.throttle,
+              cache                : 'local',
+              urlData              : {
+                query: query
+              },
+              onError: function() {
+                module.add.message(message.serverError);
+                callback();
+              },
+              onFailure: function() {
+                module.add.message(message.serverError);
+                callback();
+              },
+              onSuccess : function(response) {
+                module.remove.message();
+                module.setup.menu({
+                  values: response.results
+                });
+                callback();
+              }
+            }
+          ;
+          if( !$module.api('get request') ) {
+            module.setup.api();
+          }
+          apiSettings = $.extend(true, {}, apiSettings, settings.apiSettings);
+          $module
+            .api('setting', apiSettings)
+            .api('query')
+          ;
+        },
+
+        filterItems: function(query) {
+          var
+            searchTerm = (query !== undefined)
+              ? query
+              : module.get.query(),
+            $results         = $(),
+            escapedTerm      = module.escape.regExp(searchTerm),
+            beginsWithRegExp = new RegExp('^' + escapedTerm, 'igm')
+          ;
+          // avoid loop if we're matching nothing
+          if(searchTerm === '') {
+            $results = $item;
+          }
+          else {
+            module.verbose('Searching for matching values', searchTerm);
+            $item
+              .each(function(){
+                var
+                  $choice = $(this),
+                  text,
+                  value
+                ;
+                if(settings.match == 'both' || settings.match == 'text') {
+                  text = String(module.get.choiceText($choice, false));
+                  if(text.search(beginsWithRegExp) !== -1) {
+                    $results = $results.add($choice);
+                    return true;
+                  }
+                  else if(settings.fullTextSearch && module.fuzzySearch(searchTerm, text)) {
+                    $results = $results.add($choice);
+                    return true;
+                  }
+                }
+                if(settings.match == 'both' || settings.match == 'value') {
+                  value = String(module.get.choiceValue($choice, text));
+
+                  if(value.search(beginsWithRegExp) !== -1) {
+                    $results = $results.add($choice);
+                    return true;
+                  }
+                  else if(settings.fullTextSearch && module.fuzzySearch(searchTerm, value)) {
+                    $results = $results.add($choice);
+                    return true;
+                  }
+                }
+              })
+            ;
+          }
+
+          module.debug('Showing only matched items', searchTerm);
+          module.remove.filteredItem();
+          $item
+            .not($results)
+            .addClass(className.filtered)
+          ;
+        },
+
+        fuzzySearch: function(query, term) {
+          var
+            termLength  = term.length,
+            queryLength = query.length
+          ;
+          query = query.toLowerCase();
+          term  = term.toLowerCase();
+          if(queryLength > termLength) {
+            return false;
+          }
+          if(queryLength === termLength) {
+            return (query === term);
+          }
+          search: for (var characterIndex = 0, nextCharacterIndex = 0; characterIndex < queryLength; characterIndex++) {
+            var
+              queryCharacter = query.charCodeAt(characterIndex)
+            ;
+            while(nextCharacterIndex < termLength) {
+              if(term.charCodeAt(nextCharacterIndex++) === queryCharacter) {
+                continue search;
+              }
+            }
+            return false;
+          }
+          return true;
+        },
+
+        filterActive: function() {
+          if(settings.useLabels) {
+            $item.filter('.' + className.active)
+              .addClass(className.filtered)
+            ;
+          }
+        },
+
+        focusSearch: function() {
+          if( module.is.search() && !module.is.focusedOnSearch() ) {
+            $search[0].focus();
+          }
+        },
+
+        forceSelection: function() {
+          var
+            $currentlySelected = $item.not(className.filtered).filter('.' + className.selected).eq(0),
+            $activeItem        = $item.not(className.filtered).filter('.' + className.active).eq(0),
+            $selectedItem      = ($currentlySelected.length > 0)
+              ? $currentlySelected
+              : $activeItem,
+            hasSelected = ($selectedItem.size() > 0)
+          ;
+          if(hasSelected) {
+            module.debug('Forcing partial selection to selected item', $selectedItem);
+            module.event.item.click.call($selectedItem);
+          }
+          else {
+            module.hide();
+          }
+        },
+
+        event: {
+          focus: function() {
+            if(settings.showOnFocus && !activated && module.is.hidden() && !pageLostFocus) {
+              module.show();
+            }
+          },
+          click: function(event) {
+            var
+              $target = $(event.target)
+            ;
+            // focus search
+            if($target.is($module) && !module.is.focusedOnSearch()) {
+              module.focusSearch();
+            }
+          },
+          blur: function(event) {
+            pageLostFocus = (document.activeElement === this);
+            if(!activated && !pageLostFocus) {
+              module.remove.activeLabel();
+              module.hide();
+            }
+          },
+          // prevents focus callback from occuring on mousedown
+          mousedown: function() {
+            activated = true;
+          },
+          mouseup: function() {
+            activated = false;
+          },
+          search: {
+            focus: function() {
+              activated = true;
+              if(module.is.multiple()) {
+                module.remove.activeLabel();
+              }
+              if(settings.showOnFocus) {
+                module.show();
+              }
+            },
+            blur: function(event) {
+              pageLostFocus = (document.activeElement === this);
+              if(!itemActivated && !pageLostFocus) {
+                if(module.is.multiple()) {
+                  module.remove.activeLabel();
+                  module.hide();
+                }
+                else if(settings.forceSelection) {
+                  module.forceSelection();
+                }
+                else {
+                  module.hide();
+                }
+              }
+            }
+          },
+          icon: {
+            click: function(event) {
+              module.toggle();
+              event.stopPropagation();
+            }
+          },
+          text: {
+            focus: function(event) {
+              activated = true;
+              module.focusSearch();
+            }
+          },
+          input: function(event) {
+            if(module.is.multiple() || module.is.searchSelection()) {
+              module.set.filtered();
+            }
+            clearTimeout(module.timer);
+            module.timer = setTimeout(module.search, settings.delay.search);
+          },
+          label: {
+            click: function(event) {
+              var
+                $label        = $(this),
+                $labels       = $module.find(selector.label),
+                $activeLabels = $labels.filter('.' + className.active),
+                $nextActive   = $label.nextAll('.' + className.active),
+                $prevActive   = $label.prevAll('.' + className.active),
+                $range = ($nextActive.length > 0)
+                  ? $label.nextUntil($nextActive).add($activeLabels).add($label)
+                  : $label.prevUntil($prevActive).add($activeLabels).add($label)
+              ;
+              if(event.shiftKey) {
+                $activeLabels.removeClass(className.active);
+                $range.addClass(className.active);
+              }
+              else if(event.ctrlKey) {
+                $label.toggleClass(className.active);
+              }
+              else {
+                $activeLabels.removeClass(className.active);
+                $label.addClass(className.active);
+              }
+              settings.onLabelSelect.apply(this, $labels.filter('.' + className.active));
+            }
+          },
+          remove: {
+            click: function() {
+              var
+                $label = $(this).parent()
+              ;
+              if( $label.hasClass(className.active) ) {
+                // remove all selected labels
+                module.remove.activeLabels();
+              }
+              else {
+                // remove this label only
+                module.remove.activeLabels( $label );
+              }
+            }
+          },
+          test: {
+            toggle: function(event) {
+              var
+                toggleBehavior = (module.is.multiple())
+                  ? module.show
+                  : module.toggle
+                ;
+              if( module.determine.eventOnElement(event, toggleBehavior) ) {
+                event.preventDefault();
+              }
+            },
+            touch: function(event) {
+              module.determine.eventOnElement(event, function() {
+                if(event.type == 'touchstart') {
+                  module.timer = setTimeout(module.hide, settings.delay.touch);
+                }
+                else if(event.type == 'touchmove') {
+                  clearTimeout(module.timer);
+                }
+              });
+              event.stopPropagation();
+            },
+            hide: function(event) {
+              module.determine.eventInModule(event, module.hide);
+            }
+          },
+          menu: {
+            mousedown: function() {
+              itemActivated = true;
+            },
+            mouseup: function() {
+              itemActivated = false;
+            }
+          },
+          item: {
+            mouseenter: function(event) {
+              var
+                $subMenu    = $(this).children(selector.menu),
+                $otherMenus = $(this).siblings(selector.item).children(selector.menu)
+              ;
+              if( $subMenu.length > 0 ) {
+                clearTimeout(module.itemTimer);
+                module.itemTimer = setTimeout(function() {
+                  module.verbose('Showing sub-menu', $subMenu);
+                  $.each($otherMenus, function() {
+                    module.animate.hide(false, $(this));
+                  });
+                  module.animate.show(false,  $subMenu);
+                }, settings.delay.show);
+                event.preventDefault();
+              }
+            },
+            mouseleave: function(event) {
+              var
+                $subMenu = $(this).children(selector.menu)
+              ;
+              if($subMenu.length > 0) {
+                clearTimeout(module.itemTimer);
+                module.itemTimer = setTimeout(function() {
+                  module.verbose('Hiding sub-menu', $subMenu);
+                  module.animate.hide(false,  $subMenu);
+                }, settings.delay.hide);
+              }
+            },
+            click: function (event) {
+              var
+                $choice  = $(this),
+                $target  = (event)
+                  ? $(event.target)
+                  : $(''),
+                $subMenu = $choice.find(selector.menu),
+                text     = module.get.choiceText($choice),
+                value    = module.get.choiceValue($choice, text),
+                hasSubMenu     = ($subMenu.length > 0),
+                isBubbledEvent = ($subMenu.find($target).length > 0)
+              ;
+              if(!isBubbledEvent && (!hasSubMenu || settings.allowCategorySelection)) {
+                if(!settings.useLabels) {
+                  module.remove.filteredItem();
+                  module.remove.searchTerm();
+                  module.set.scrollPosition($choice);
+                }
+                module.determine.selectAction.call(this, text, value);
+              }
+            }
+          },
+
+          document: {
+            // label selection should occur even when element has no focus
+            keydown: function(event) {
+              var
+                pressedKey    = event.which,
+                keys          = module.get.shortcutKeys(),
+                isShortcutKey = module.is.inObject(pressedKey, keys)
+              ;
+              if(isShortcutKey) {
+                var
+                  $label            = $module.find(selector.label),
+                  $activeLabel      = $label.filter('.' + className.active),
+                  activeValue       = $activeLabel.data('value'),
+                  labelIndex        = $label.index($activeLabel),
+                  labelCount        = $label.length,
+                  hasActiveLabel    = ($activeLabel.length > 0),
+                  hasMultipleActive = ($activeLabel.length > 1),
+                  isFirstLabel      = (labelIndex === 0),
+                  isLastLabel       = (labelIndex + 1 == labelCount),
+                  isSearch          = module.is.searchSelection(),
+                  isFocusedOnSearch = module.is.focusedOnSearch(),
+                  isFocused         = module.is.focused(),
+                  caretAtStart      = (isFocusedOnSearch && module.get.caretPosition() === 0),
+                  $nextLabel
+                ;
+                if(isSearch && !hasActiveLabel && !isFocusedOnSearch) {
+                  return;
+                }
+
+                if(pressedKey == keys.leftArrow) {
+                  // activate previous label
+                  if((isFocused || caretAtStart) && !hasActiveLabel) {
+                    module.verbose('Selecting previous label');
+                    $label.last().addClass(className.active);
+                  }
+                  else if(hasActiveLabel) {
+                    if(!event.shiftKey) {
+                      module.verbose('Selecting previous label');
+                      $label.removeClass(className.active);
+                    }
+                    else {
+                      module.verbose('Adding previous label to selection');
+                    }
+                    if(isFirstLabel && !hasMultipleActive) {
+                      $activeLabel.addClass(className.active);
+                    }
+                    else {
+                      $activeLabel.prev(selector.siblingLabel)
+                        .addClass(className.active)
+                        .end()
+                      ;
+                    }
+                    event.preventDefault();
+                  }
+                }
+                else if(pressedKey == keys.rightArrow) {
+                  // activate first label
+                  if(isFocused && !hasActiveLabel) {
+                    $label.first().addClass(className.active);
+                  }
+                  // activate next label
+                  if(hasActiveLabel) {
+                    if(!event.shiftKey) {
+                      module.verbose('Selecting next label');
+                      $label.removeClass(className.active);
+                    }
+                    else {
+                      module.verbose('Adding next label to selection');
+                    }
+                    if(isLastLabel) {
+                      if(isSearch) {
+                        if(!isFocusedOnSearch) {
+                          module.focusSearch();
+                        }
+                        else {
+                          $label.removeClass(className.active);
+                        }
+                      }
+                      else if(hasMultipleActive) {
+                        $activeLabel.next(selector.siblingLabel).addClass(className.active);
+                      }
+                      else {
+                        $activeLabel.addClass(className.active);
+                      }
+                    }
+                    else {
+                      $activeLabel.next(selector.siblingLabel).addClass(className.active);
+                    }
+                    event.preventDefault();
+                  }
+                }
+                else if(pressedKey == keys.deleteKey || pressedKey == keys.backspace) {
+                  if(hasActiveLabel) {
+                    module.verbose('Removing active labels');
+                    if(isLastLabel) {
+                      if(isSearch && !isFocusedOnSearch) {
+                        module.focusSearch();
+                      }
+                    }
+                    $activeLabel.last().next(selector.siblingLabel).addClass(className.active);
+                    module.remove.activeLabels($activeLabel);
+                    event.preventDefault();
+                  }
+                  else if(caretAtStart && !hasActiveLabel && pressedKey == keys.backspace) {
+                    module.verbose('Removing last label on input backspace');
+                    $activeLabel = $label.last().addClass(className.active);
+                    module.remove.activeLabels($activeLabel);
+                  }
+                }
+                else {
+                  $activeLabel.removeClass(className.active);
+                }
+              }
+            }
+          },
+
+          keydown: function(event) {
+            var
+              pressedKey    = event.which,
+              keys          = module.get.shortcutKeys(),
+              isShortcutKey = module.is.inObject(pressedKey, keys)
+            ;
+            if(isShortcutKey) {
+              var
+                $currentlySelected = $item.not(selector.unselectable).filter('.' + className.selected).eq(0),
+                $activeItem        = $menu.children('.' + className.active).eq(0),
+                $selectedItem      = ($currentlySelected.length > 0)
+                  ? $currentlySelected
+                  : $activeItem,
+                $visibleItems = ($selectedItem.length > 0)
+                  ? $selectedItem.siblings(':not(.' + className.filtered +')').andSelf()
+                  : $menu.children(':not(.' + className.filtered +')'),
+                $subMenu             = $selectedItem.children(selector.menu),
+                $parentMenu          = $selectedItem.closest(selector.menu),
+                inVisibleMenu        = ($parentMenu.hasClass(className.visible) || $parentMenu.hasClass(className.animating) || $parentMenu.parent(selector.menu).length > 0),
+                hasSubMenu           = ($subMenu.length> 0),
+                hasSelectedItem      = ($selectedItem.length > 0),
+                selectedIsSelectable = ($selectedItem.not(selector.unselectable).length > 0),
+                $nextItem,
+                isSubMenuItem,
+                newIndex
+              ;
+
+              // visible menu keyboard shortcuts
+              if( module.is.visible() ) {
+
+                // enter (select or open sub-menu)
+                if(pressedKey == keys.enter || pressedKey == keys.delimiter) {
+                  if(pressedKey == keys.enter && hasSelectedItem && hasSubMenu && !settings.allowCategorySelection) {
+                    module.verbose('Pressed enter on unselectable category, opening sub menu');
+                    pressedKey = keys.rightArrow;
+                  }
+                  else if(selectedIsSelectable) {
+                    module.verbose('Selecting item from keyboard shortcut', $selectedItem);
+                    module.event.item.click.call($selectedItem, event);
+                    if(module.is.searchSelection()) {
+                      module.remove.searchTerm();
+                    }
+                  }
+                  event.preventDefault();
+                }
+
+                // left arrow (hide sub-menu)
+                if(pressedKey == keys.leftArrow) {
+
+                  isSubMenuItem = ($parentMenu[0] !== $menu[0]);
+
+                  if(isSubMenuItem) {
+                    module.verbose('Left key pressed, closing sub-menu');
+                    module.animate.hide(false,  $parentMenu);
+                    $selectedItem
+                      .removeClass(className.selected)
+                    ;
+                    $parentMenu
+                      .closest(selector.item)
+                        .addClass(className.selected)
+                    ;
+                    event.preventDefault();
+                  }
+                }
+
+                // right arrow (show sub-menu)
+                if(pressedKey == keys.rightArrow) {
+                  if(hasSubMenu) {
+                    module.verbose('Right key pressed, opening sub-menu');
+                    module.animate.show(false,  $subMenu);
+                    $selectedItem
+                      .removeClass(className.selected)
+                    ;
+                    $subMenu
+                      .find(selector.item).eq(0)
+                        .addClass(className.selected)
+                    ;
+                    event.preventDefault();
+                  }
+                }
+
+                // up arrow (traverse menu up)
+                if(pressedKey == keys.upArrow) {
+                  $nextItem = (hasSelectedItem && inVisibleMenu)
+                    ? $selectedItem.prevAll(selector.item + ':not(' + selector.unselectable + ')').eq(0)
+                    : $item.eq(0)
+                  ;
+                  if($visibleItems.index( $nextItem ) < 0) {
+                    module.verbose('Up key pressed but reached top of current menu');
+                    event.preventDefault();
+                    return;
+                  }
+                  else {
+                    module.verbose('Up key pressed, changing active item');
+                    $selectedItem
+                      .removeClass(className.selected)
+                    ;
+                    $nextItem
+                      .addClass(className.selected)
+                    ;
+                    module.set.scrollPosition($nextItem);
+                  }
+                  event.preventDefault();
+                }
+
+                // down arrow (traverse menu down)
+                if(pressedKey == keys.downArrow) {
+                  $nextItem = (hasSelectedItem && inVisibleMenu)
+                    ? $nextItem = $selectedItem.nextAll(selector.item + ':not(' + selector.unselectable + ')').eq(0)
+                    : $item.eq(0)
+                  ;
+                  if($nextItem.length === 0) {
+                    module.verbose('Down key pressed but reached bottom of current menu');
+                    event.preventDefault();
+                    return;
+                  }
+                  else {
+                    module.verbose('Down key pressed, changing active item');
+                    $item
+                      .removeClass(className.selected)
+                    ;
+                    $nextItem
+                      .addClass(className.selected)
+                    ;
+                    module.set.scrollPosition($nextItem);
+                  }
+                  event.preventDefault();
+                }
+
+                // page down (show next page)
+                if(pressedKey == keys.pageUp) {
+                  module.scrollPage('up');
+                  event.preventDefault();
+                }
+                if(pressedKey == keys.pageDown) {
+                  module.scrollPage('down');
+                  event.preventDefault();
+                }
+
+                // escape (close menu)
+                if(pressedKey == keys.escape) {
+                  module.verbose('Escape key pressed, closing dropdown');
+                  module.hide();
+                }
+
+              }
+              else {
+                // delimiter key
+                if(pressedKey == keys.delimiter) {
+                  event.preventDefault();
+                }
+                // down arrow (open menu)
+                if(pressedKey == keys.downArrow) {
+                  module.verbose('Down key pressed, showing dropdown');
+                  module.show();
+                  event.preventDefault();
+                }
+              }
+            }
+            else {
+              if( module.is.selection() && !module.is.search() ) {
+                module.set.selectedLetter( String.fromCharCode(pressedKey) );
+              }
+            }
+          }
+        },
+
+        determine: {
+          selectAction: function(text, value) {
+            module.verbose('Determining action', settings.action);
+            if( $.isFunction( module.action[settings.action] ) ) {
+              module.verbose('Triggering preset action', settings.action, text, value);
+              module.action[ settings.action ].call(this, text, value);
+            }
+            else if( $.isFunction(settings.action) ) {
+              module.verbose('Triggering user action', settings.action, text, value);
+              settings.action.call(this, text, value);
+            }
+            else {
+              module.error(error.action, settings.action);
+            }
+          },
+          eventInModule: function(event, callback) {
+            var
+              $target    = $(event.target),
+              inDocument = ($target.closest(document.documentElement).length > 0),
+              inModule   = ($target.closest($module).length > 0)
+            ;
+            callback = $.isFunction(callback)
+              ? callback
+              : function(){}
+            ;
+            if(inDocument && !inModule) {
+              module.verbose('Triggering event', callback);
+              callback();
+              return true;
+            }
+            else {
+              module.verbose('Event occurred in dropdown, canceling callback');
+              return false;
+            }
+          },
+          eventOnElement: function(event, callback) {
+            var
+              $target    = $(event.target),
+              notOnLabel = ($target.closest(selector.siblingLabel).length === 0),
+              notInMenu  = ($target.closest($menu).length === 0)
+            ;
+            callback = $.isFunction(callback)
+              ? callback
+              : function(){}
+            ;
+            if(notOnLabel && notInMenu) {
+              module.verbose('Triggering event', callback);
+              callback();
+              return true;
+            }
+            else {
+              module.verbose('Event occurred in dropdown menu, canceling callback');
+              return false;
+            }
+          }
+        },
+
+        action: {
+
+          nothing: function() {},
+
+          activate: function(text, value) {
+            value = (value !== undefined)
+              ? value
+              : text
+            ;
+            module.set.selected(value, $(this));
+            if(module.is.multiple() && !module.is.allFiltered()) {
+              return;
+            }
+            else {
+              module.hideAndClear();
+            }
+          },
+
+          select: function(text, value) {
+            // mimics action.activate but does not select text
+            module.action.activate.call(this);
+          },
+
+          combo: function(text, value) {
+            value = (value !== undefined)
+              ? value
+              : text
+            ;
+            module.set.selected(value, $(this));
+            module.hideAndClear();
+          },
+
+          hide: function() {
+            module.hideAndClear();
+          }
+
+        },
+
+        get: {
+          id: function() {
+            return id;
+          },
+          text: function() {
+            return $text.text();
+          },
+          query: function() {
+            return $.trim($search.val());
+          },
+          searchWidth: function(characterCount) {
+            return (characterCount * settings.glyphWidth) + 'em';
+          },
+          selectionCount: function() {
+            var
+              values = module.get.values()
+            ;
+            return ( module.is.multiple() )
+              ? $.isArray(values)
+                ? values.length
+                : 0
+              : (module.get.value() !== '')
+                ? 1
+                : 0
+            ;
+          },
+          transition: function($subMenu) {
+            return (settings.transition == 'auto')
+              ? module.is.upward($subMenu)
+                ? 'slide up'
+                : 'slide down'
+              : settings.transition
+            ;
+          },
+          userValues: function() {
+            var
+              values = module.get.values()
+            ;
+            if(!values) {
+              return false;
+            }
+            values = $.isArray(values)
+              ? values
+              : [values]
+            ;
+            return $.grep(values, function(value) {
+              return (module.get.item(value) === false);
+            });
+          },
+          uniqueArray: function(array) {
+            return $.grep(array, function (value, index) {
+                return $.inArray(value, array) === index;
+            });
+          },
+          caretPosition: function() {
+            var
+              input = $search.get(0),
+              range,
+              rangeLength
+            ;
+            if('selectionStart' in input) {
+              return input.selectionStart;
+            }
+            else if (document.selection) {
+              input.focus();
+              range       = document.selection.createRange();
+              rangeLength = range.text.length;
+              range.moveStart('character', -input.value.length);
+              return range.text.length - rangeLength;
+            }
+          },
+          shortcutKeys: function() {
+            return {
+              backspace  : 8,
+              delimiter  : 188, // comma
+              deleteKey  : 46,
+              enter      : 13,
+              escape     : 27,
+              pageUp     : 33,
+              pageDown   : 34,
+              leftArrow  : 37,
+              upArrow    : 38,
+              rightArrow : 39,
+              downArrow  : 40
+            };
+          },
+          value: function() {
+            return ($input.length > 0)
+              ? $input.val()
+              : $module.data(metadata.value)
+            ;
+          },
+          values: function() {
+            var
+              value = module.get.value()
+            ;
+            if(value === '') {
+              return '';
+            }
+            return ( !module.has.selectInput() && module.is.multiple() )
+              ? (typeof value == 'string') // delimited string
+                ? value.split(settings.delimiter)
+                : ''
+              : value
+            ;
+          },
+          remoteValues: function() {
+            var
+              values = module.get.values(),
+              remoteValues = false
+            ;
+            if(values) {
+              if(typeof values == 'string') {
+                values = [values];
+              }
+              remoteValues = {};
+              $.each(values, function(index, value) {
+                var
+                  name = module.read.remoteData(value)
+                ;
+                module.verbose('Restoring value from session data', name, value);
+                remoteValues[value] = (name)
+                  ? name
+                  : value
+                ;
+              });
+            }
+            return remoteValues;
+          },
+          choiceText: function($choice, preserveHTML) {
+            preserveHTML = (preserveHTML !== undefined)
+              ? preserveHTML
+              : settings.preserveHTML
+            ;
+            if($choice) {
+              if($choice.find(selector.menu).length > 0) {
+                module.verbose('Retreiving text of element with sub-menu');
+                $choice = $choice.clone();
+                $choice.find(selector.menu).remove();
+                $choice.find(selector.menuIcon).remove();
+              }
+              return ($choice.data(metadata.text) !== undefined)
+                ? $choice.data(metadata.text)
+                : (preserveHTML)
+                  ? $choice.html().trim()
+                  : $choice.text().trim()
+              ;
+            }
+          },
+          choiceValue: function($choice, choiceText) {
+            choiceText = choiceText || module.get.choiceText($choice);
+            if(!$choice) {
+              return false;
+            }
+            return ($choice.data(metadata.value) !== undefined)
+              ? $choice.data(metadata.value)
+              : (typeof choiceText === 'string')
+                ? choiceText.toLowerCase().trim()
+                : choiceText
+            ;
+          },
+          inputEvent: function() {
+            var
+              input = $search[0]
+            ;
+            if(input) {
+              return (input.oninput !== undefined)
+                ? 'input'
+                : (input.onpropertychange !== undefined)
+                  ? 'propertychange'
+                  : 'keyup'
+              ;
+            }
+            return false;
+          },
+          selectValues: function() {
+            var
+              select = {}
+            ;
+            select.values = [];
+            $module
+              .find('option')
+                .each(function() {
+                  var
+                    $option  = $(this),
+                    name     = $option.html(),
+                    disabled = $option.attr('disabled'),
+                    value    = ( $option.attr('value') !== undefined )
+                      ? $option.attr('value')
+                      : name
+                  ;
+                  if(settings.placeholder === 'auto' && value === '') {
+                    select.placeholder = name;
+                  }
+                  else {
+                    select.values.push({
+                      name     : name,
+                      value    : value,
+                      disabled : disabled
+                    });
+                  }
+                })
+            ;
+            if(settings.placeholder && settings.placeholder !== 'auto') {
+              module.debug('Setting placeholder value to', settings.placeholder);
+              select.placeholder = settings.placeholder;
+            }
+            if(settings.sortSelect) {
+              select.values.sort(function(a, b) {
+                return (a.name > b.name)
+                  ? 1
+                  : -1
+                ;
+              });
+              module.debug('Retrieved and sorted values from select', select);
+            }
+            else {
+              module.debug('Retreived values from select', select);
+            }
+            return select;
+          },
+          activeItem: function() {
+            return $item.filter('.'  + className.active);
+          },
+          selectedItem: function() {
+            var
+              $selectedItem = $item.not(selector.unselectable).filter('.'  + className.selected)
+            ;
+            return ($selectedItem.length > 0)
+              ? $selectedItem
+              : $item.eq(0)
+            ;
+          },
+          itemWithAdditions: function(value) {
+            var
+              $items       = module.get.item(value),
+              $userItems   = module.create.userChoice(value),
+              hasUserItems = ($userItems && $userItems.length > 0)
+            ;
+            if(hasUserItems) {
+              $items = ($items.length > 0)
+                ? $items.add($userItems)
+                : $userItems
+              ;
+            }
+            return $items;
+          },
+          item: function(value, strict) {
+            var
+              $selectedItem = false,
+              shouldSearch,
+              isMultiple
+            ;
+            value = (value !== undefined)
+              ? value
+              : ( module.get.values() !== undefined)
+                ? module.get.values()
+                : module.get.text()
+            ;
+            shouldSearch = (isMultiple)
+              ? (value.length > 0)
+              : (value !== undefined && value !== '' && value !== null)
+            ;
+            isMultiple = (module.is.multiple() && $.isArray(value));
+            strict     = (value === '' || value === 0)
+              ? true
+              : strict || false
+            ;
+            if(shouldSearch) {
+              $item
+                .each(function() {
+                  var
+                    $choice       = $(this),
+                    optionText    = module.get.choiceText($choice),
+                    optionValue   = module.get.choiceValue($choice, optionText)
+                  ;
+                  // safe early exit
+                  if(optionValue === null || optionValue === undefined) {
+                    return;
+                  }
+                  if(isMultiple) {
+                    if($.inArray(optionValue.toString(), value) !== -1 || $.inArray(optionText, value) !== -1) {
+                      $selectedItem = ($selectedItem)
+                        ? $selectedItem.add($choice)
+                        : $choice
+                      ;
+                    }
+                  }
+                  else if(strict) {
+                    module.verbose('Ambiguous dropdown value using strict type check', $choice, value);
+                    if( optionValue === value || optionText === value) {
+                      $selectedItem = $choice;
+                      return true;
+                    }
+                  }
+                  else {
+                    if( optionValue.toString() == value.toString() || optionText == value) {
+                      module.verbose('Found select item by value', optionValue, value);
+                      $selectedItem = $choice;
+                      return true;
+                    }
+                  }
+                })
+              ;
+            }
+            return $selectedItem;
+          }
+        },
+
+        check: {
+          maxSelections: function(selectionCount) {
+            if(settings.maxSelections) {
+              selectionCount = (selectionCount !== undefined)
+                ? selectionCount
+                : module.get.selectionCount()
+              ;
+              if(selectionCount >= settings.maxSelections) {
+                module.debug('Maximum selection count reached');
+                $item.addClass(className.filtered);
+                module.add.message(message.maxSelections);
+                return true;
+              }
+              else {
+                module.verbose('No longer at maximum selection count');
+                module.remove.message();
+                module.remove.filteredItem();
+                if(module.is.searchSelection()) {
+                  module.filterItems();
+                }
+                return false;
+              }
+            }
+            return true;
+          }
+        },
+
+        restore: {
+          defaults: function() {
+            module.clear();
+            module.restore.defaultText();
+            module.restore.defaultValue();
+          },
+          defaultText: function() {
+            var
+              defaultText = $module.data(metadata.defaultText)
+            ;
+            module.debug('Restoring default text', defaultText);
+            module.set.text(defaultText);
+            $text.addClass(className.placeholder);
+          },
+          defaultValue: function() {
+            var
+              defaultValue = $module.data(metadata.defaultValue)
+            ;
+            if(defaultValue !== undefined) {
+              module.debug('Restoring default value', defaultValue);
+              if(defaultValue !== '') {
+                module.set.value(defaultValue);
+                module.set.selected();
+              }
+              else {
+                module.remove.activeItem();
+                module.remove.selectedItem();
+              }
+            }
+          },
+          labels: function() {
+            if(settings.allowAdditions) {
+              if(!settings.useLabels) {
+                module.error(error.labels);
+                settings.useLabels = true;
+              }
+              module.debug('Restoring selected values');
+              module.create.userLabels();
+            }
+            module.check.maxSelections();
+          },
+          selected: function() {
+            module.restore.values();
+            if(module.is.multiple()) {
+              module.debug('Restoring previously selected values and labels');
+              module.restore.labels();
+            }
+            else {
+              module.debug('Restoring previously selected values');
+            }
+          },
+          values: function() {
+            // prevents callbacks from occuring on initial load
+            module.set.initialLoad();
+            if(settings.apiSettings) {
+              if(settings.saveRemoteData) {
+                module.restore.remoteValues();
+              }
+              else {
+                module.clearValue();
+              }
+            }
+            else {
+              module.set.selected();
+            }
+            module.remove.initialLoad();
+          },
+          remoteValues: function() {
+            var
+              values = module.get.remoteValues()
+            ;
+            module.debug('Recreating selected from session data', values);
+            if(values) {
+              if( module.is.single() ) {
+                $.each(values, function(value, name) {
+                  module.set.text(name);
+                });
+              }
+              else {
+                $.each(values, function(value, name) {
+                  module.add.label(value, name);
+                });
+              }
+            }
+          }
+        },
+
+        read: {
+          remoteData: function(value) {
+            var
+              name
+            ;
+            if(window.Storage === undefined) {
+              module.error(error.noStorage);
+              return;
+            }
+            name = sessionStorage.getItem(value);
+            return (name !== undefined)
+              ? name
+              : false
+            ;
+          }
+        },
+
+        save: {
+          defaults: function() {
+            module.save.defaultText();
+            module.save.placeholderText();
+            module.save.defaultValue();
+          },
+          defaultValue: function() {
+            var
+              value = module.get.value()
+            ;
+            module.verbose('Saving default value as', value);
+            $module.data(metadata.defaultValue, value);
+          },
+          defaultText: function() {
+            var
+              text = module.get.text()
+            ;
+            module.verbose('Saving default text as', text);
+            $module.data(metadata.defaultText, text);
+          },
+          placeholderText: function() {
+            var
+              text
+            ;
+            if($text.hasClass(className.placeholder)) {
+              text = module.get.text();
+              module.verbose('Saving placeholder text as', text);
+              $module.data(metadata.placeholderText, text);
+            }
+          },
+          remoteData: function(name, value) {
+            if(window.Storage === undefined) {
+              module.error(error.noStorage);
+              return;
+            }
+            module.verbose('Saving remote data to session storage', value, name);
+            sessionStorage.setItem(value, name);
+          }
+        },
+
+        clear: function() {
+          if(module.is.multiple()) {
+            module.remove.labels();
+          }
+          else {
+            module.remove.activeItem();
+            module.remove.selectedItem();
+          }
+          module.set.placeholderText();
+          module.clearValue();
+        },
+
+        clearValue: function() {
+          module.set.value('');
+        },
+
+        scrollPage: function(direction, $selectedItem) {
+          var
+            $selectedItem = $selectedItem || module.get.selectedItem(),
+            $menu         = $selectedItem.closest(selector.menu),
+            menuHeight    = $menu.outerHeight(),
+            currentScroll = $menu.scrollTop(),
+            itemHeight    = $item.eq(0).outerHeight(),
+            itemsPerPage  = Math.floor(menuHeight / itemHeight),
+            maxScroll     = $menu.prop('scrollHeight'),
+            newScroll     = (direction == 'up')
+              ? currentScroll - (itemHeight * itemsPerPage)
+              : currentScroll + (itemHeight * itemsPerPage),
+            $selectableItem = $item.not(selector.unselectable),
+            isWithinRange,
+            $nextSelectedItem,
+            elementIndex
+          ;
+          elementIndex      = (direction == 'up')
+            ? $selectableItem.index($selectedItem) - itemsPerPage
+            : $selectableItem.index($selectedItem) + itemsPerPage
+          ;
+          isWithinRange = (direction == 'up')
+            ? (elementIndex >= 0)
+            : (elementIndex < $selectableItem.length)
+          ;
+          $nextSelectedItem = (isWithinRange)
+            ? $selectableItem.eq(elementIndex)
+            : (direction == 'up')
+              ? $selectableItem.first()
+              : $selectableItem.last()
+          ;
+          if($nextSelectedItem.length > 0) {
+            module.debug('Scrolling page', direction, $nextSelectedItem);
+            $selectedItem
+              .removeClass(className.selected)
+            ;
+            $nextSelectedItem
+              .addClass(className.selected)
+            ;
+            $menu
+              .scrollTop(newScroll)
+            ;
+          }
+        },
+
+        set: {
+          filtered: function() {
+            var
+              isMultiple       = module.is.multiple(),
+              isSearch         = module.is.searchSelection(),
+              isSearchMultiple = (isMultiple && isSearch),
+              searchValue      = (isSearch)
+                ? module.get.query()
+                : '',
+              hasSearchValue   = (typeof searchValue === 'string' && searchValue.length > 0),
+              searchWidth      = module.get.searchWidth(searchValue.length),
+              valueIsSet       = searchValue !== ''
+            ;
+            if(isMultiple && hasSearchValue) {
+              module.verbose('Adjusting input width', searchWidth, settings.glyphWidth);
+              $search.css('width', searchWidth);
+            }
+            if(hasSearchValue || (isSearchMultiple && valueIsSet)) {
+              module.verbose('Hiding placeholder text');
+              $text.addClass(className.filtered);
+            }
+            else if(!isMultiple || (isSearchMultiple && !valueIsSet)) {
+              module.verbose('Showing placeholder text');
+              $text.removeClass(className.filtered);
+            }
+          },
+          loading: function() {
+            $module.addClass(className.loading);
+          },
+          placeholderText: function(text) {
+            text = text || $module.data(metadata.placeholderText);
+            if(text) {
+              module.debug('Restoring placeholder text');
+              module.set.text(text);
+              $text.addClass(className.placeholder);
+            }
+          },
+          tabbable: function() {
+            if( module.has.search() ) {
+              module.debug('Added tabindex to searchable dropdown');
+              $search
+                .val('')
+                .attr('tabindex', 0)
+              ;
+              $menu
+                .attr('tabindex', -1)
+              ;
+            }
+            else {
+              module.debug('Added tabindex to dropdown');
+              if(!$module.attr('tabindex') ) {
+                $module
+                  .attr('tabindex', 0)
+                ;
+                $menu
+                  .attr('tabindex', -1)
+                ;
+              }
+            }
+          },
+          initialLoad: function() {
+            module.verbose('Setting initial load');
+            initialLoad = true;
+          },
+          scrollPosition: function($item, forceScroll) {
+            var
+              edgeTolerance = 5,
+              $menu,
+              hasActive,
+              offset,
+              itemHeight,
+              itemOffset,
+              menuOffset,
+              menuScroll,
+              menuHeight,
+              abovePage,
+              belowPage
+            ;
+
+            $item       = $item || module.get.selectedItem();
+            $menu       = $item.closest(selector.menu);
+            hasActive   = ($item && $item.length > 0);
+            forceScroll = (forceScroll !== undefined)
+              ? forceScroll
+              : false
+            ;
+            if($item && $menu.length > 0 && hasActive) {
+              itemOffset = $item.position().top;
+
+              $menu.addClass(className.loading);
+              menuScroll = $menu.scrollTop();
+              menuOffset = $menu.offset().top;
+              itemOffset = $item.offset().top;
+              offset     = menuScroll - menuOffset + itemOffset;
+              if(!forceScroll) {
+                menuHeight = $menu.height();
+                belowPage  = menuScroll + menuHeight < (offset + edgeTolerance);
+                abovePage  = ((offset - edgeTolerance) < menuScroll);
+              }
+              module.debug('Scrolling to active item', offset);
+              if(forceScroll || abovePage || belowPage) {
+                $menu.scrollTop(offset);
+              }
+              $menu.removeClass(className.loading);
+            }
+          },
+          text: function(text) {
+            if(settings.action !== 'select') {
+              if(settings.action == 'combo') {
+                module.debug('Changing combo button text', text, $combo);
+                if(settings.preserveHTML) {
+                  $combo.html(text);
+                }
+                else {
+                  $combo.text(text);
+                }
+              }
+              else {
+                module.debug('Changing text', text, $text);
+                $text
+                  .removeClass(className.filtered)
+                  .removeClass(className.placeholder)
+                ;
+                if(settings.preserveHTML) {
+                  $text.html(text);
+                }
+                else {
+                  $text.text(text);
+                }
+              }
+            }
+          },
+          selectedLetter: function(letter) {
+            var
+              $selectedItem         = $item.filter('.' + className.selected),
+              alreadySelectedLetter = $selectedItem.length > 0 && module.has.firstLetter($selectedItem, letter),
+              $nextValue            = false,
+              $nextItem
+            ;
+            // check next of same letter
+            if(alreadySelectedLetter) {
+              $nextItem = $selectedItem.nextAll($item).eq(0);
+              if( module.has.firstLetter($nextItem, letter) ) {
+                $nextValue  = $nextItem;
+              }
+            }
+            // check all values
+            if(!$nextValue) {
+              $item
+                .each(function(){
+                  if(module.has.firstLetter($(this), letter)) {
+                    $nextValue = $(this);
+                    return false;
+                  }
+                })
+              ;
+            }
+            // set next value
+            if($nextValue) {
+              module.verbose('Scrolling to next value with letter', letter);
+              module.set.scrollPosition($nextValue);
+              $selectedItem.removeClass(className.selected);
+              $nextValue.addClass(className.selected);
+            }
+          },
+          direction: function($menu) {
+            if(settings.direction == 'auto') {
+              if(module.is.onScreen($menu)) {
+                module.remove.upward($menu);
+              }
+              else {
+                module.set.upward($menu);
+              }
+            }
+            else if(settings.direction == 'upward') {
+              module.set.upward($menu);
+            }
+          },
+          upward: function($menu) {
+            var $element = $menu || $module;
+            $element.addClass(className.upward);
+          },
+          value: function(value, text, $selected) {
+            var
+              hasInput     = ($input.length > 0),
+              isAddition   = !module.has.value(value),
+              currentValue = module.get.values(),
+              stringValue  = (typeof value == 'number')
+                ? value.toString()
+                : value,
+              newValue
+            ;
+            if(hasInput) {
+              if(stringValue == currentValue) {
+                module.verbose('Skipping value update already same value', value, currentValue);
+                if(!module.is.initialLoad()) {
+                  return;
+                }
+              }
+
+              if( module.is.single() && module.has.selectInput() && module.can.extendSelect() ) {
+                module.debug('Adding user option', value);
+                module.add.optionValue(value);
+              }
+
+              module.debug('Updating input value', value, currentValue);
+              $input
+                .val(value)
+                .trigger('change')
+              ;
+            }
+            else {
+              module.verbose('Storing value in metadata', value, $input);
+              if(value !== currentValue) {
+                $module.data(metadata.value, value);
+              }
+            }
+            if(settings.fireOnInit === false && module.is.initialLoad()) {
+              module.verbose('No callback on initial load', settings.onChange);
+            }
+            else {
+              settings.onChange.call(element, value, text, $selected);
+            }
+          },
+          active: function() {
+            $module
+              .addClass(className.active)
+            ;
+          },
+          multiple: function() {
+            $module.addClass(className.multiple);
+          },
+          visible: function() {
+            $module.addClass(className.visible);
+          },
+          selected: function(value, $selectedItem) {
+            var
+              isMultiple = module.is.multiple(),
+              $userSelectedItem
+            ;
+            $selectedItem = (settings.allowAdditions)
+              ? $selectedItem || module.get.itemWithAdditions(value)
+              : $selectedItem || module.get.item(value)
+            ;
+            if(!$selectedItem) {
+              return;
+            }
+            module.debug('Setting selected menu item to', $selectedItem);
+            if(module.is.single()) {
+              module.remove.activeItem();
+              module.remove.selectedItem();
+            }
+            else if(settings.useLabels) {
+              module.remove.selectedItem();
+            }
+            // select each item
+            $selectedItem
+              .each(function() {
+                var
+                  $selected      = $(this),
+                  selectedText   = module.get.choiceText($selected),
+                  selectedValue  = module.get.choiceValue($selected, selectedText),
+
+                  isFiltered     = $selected.hasClass(className.filtered),
+                  isActive       = $selected.hasClass(className.active),
+                  isUserValue    = $selected.hasClass(className.addition),
+                  shouldAnimate  = (isMultiple && $selectedItem.length == 1)
+                ;
+                if(isMultiple) {
+                  if(!isActive || isUserValue) {
+                    if(settings.apiSettings && settings.saveRemoteData) {
+                      module.save.remoteData(selectedText, selectedValue);
+                    }
+                    if(settings.useLabels) {
+                      module.add.value(selectedValue, selectedText, $selected);
+                      module.add.label(selectedValue, selectedText, shouldAnimate);
+                      $selected.addClass(className.active);
+                      module.filterActive();
+                      module.select.nextAvailable($selectedItem);
+                    }
+                    else {
+                      module.set.text(module.add.variables(message.count));
+                      module.add.value(selectedValue, selectedText, $selected);
+                      $selected.addClass(className.active);
+                    }
+                  }
+                  else if(!isFiltered) {
+                    module.debug('Selected active value, removing label');
+                    module.remove.selected(selectedValue);
+                  }
+                }
+                else {
+                  if(settings.apiSettings && settings.saveRemoteData) {
+                    module.save.remoteData(selectedText, selectedValue);
+                  }
+                  module.set.text(selectedText);
+                  module.set.value(selectedValue, selectedText, $selected);
+                  $selected
+                    .addClass(className.active)
+                    .addClass(className.selected)
+                  ;
+                }
+              })
+            ;
+          }
+        },
+
+        add: {
+          label: function(value, text, shouldAnimate) {
+            var
+              $next  = module.is.searchSelection()
+                ? $search
+                : $text,
+              $label
+            ;
+            $label =  $('<a />')
+              .addClass(className.label)
+              .attr('data-value', value)
+              .html(templates.label(value, text))
+            ;
+            $label = settings.onLabelCreate.call($label, value, text);
+
+            if(module.has.label(value)) {
+              module.debug('Label already exists, skipping', value);
+              return;
+            }
+            if(settings.label.variation) {
+              $label.addClass(settings.label.variation);
+            }
+            if(shouldAnimate === true) {
+              module.debug('Animating in label', $label);
+              $label
+                .addClass(className.hidden)
+                .insertBefore($next)
+                .transition(settings.label.transition, settings.label.duration)
+              ;
+            }
+            else {
+              module.debug('Adding selection label', $label);
+              $label
+                .insertBefore($next)
+              ;
+            }
+          },
+          message: function(message) {
+            var
+              $message = $menu.children(selector.message),
+              html     = settings.templates.message(module.add.variables(message))
+            ;
+            if($message.length > 0) {
+              $message
+                .html(html)
+              ;
+            }
+            else {
+              $message = $('<div/>')
+                .html(html)
+                .addClass(className.message)
+                .appendTo($menu)
+              ;
+            }
+          },
+          optionValue: function(value) {
+            var
+              $option   = $input.find('option[value="' + value + '"]'),
+              hasOption = ($option.length > 0)
+            ;
+            if(hasOption) {
+              return;
+            }
+            // temporarily disconnect observer
+            if(selectObserver) {
+              selectObserver.disconnect();
+              module.verbose('Temporarily disconnecting mutation observer', value);
+            }
+            if( module.is.single() ) {
+              module.verbose('Removing previous user addition');
+              $input.find('option.' + className.addition).remove();
+            }
+            $('<option/>')
+              .prop('value', value)
+              .addClass(className.addition)
+              .html(value)
+              .appendTo($input)
+            ;
+            module.verbose('Adding user addition as an <option>', value);
+            if(selectObserver) {
+              selectObserver.observe($input[0], {
+                childList : true,
+                subtree   : true
+              });
+            }
+          },
+          userSuggestion: function(value) {
+            var
+              $addition         = $menu.children(selector.addition),
+              alreadyHasValue   = module.get.item(value),
+              hasUserSuggestion = $addition.length > 0,
+              html
+            ;
+            if(module.has.maxSelections()) {
+              return;
+            }
+            if(value === '' || alreadyHasValue) {
+              $addition.remove();
+              return;
+            }
+            $item
+              .removeClass(className.selected)
+            ;
+            if(hasUserSuggestion) {
+              html = settings.templates.addition(value);
+              $addition
+                .html(html)
+                .data(metadata.value, value)
+                .removeClass(className.filtered)
+                .addClass(className.selected)
+              ;
+              module.verbose('Replacing user suggestion with new value', $addition);
+            }
+            else {
+              $addition = module.create.userChoice(value);
+              $addition
+                .prependTo($menu)
+                .addClass(className.selected)
+              ;
+              module.verbose('Adding item choice to menu corresponding with user choice addition', $addition);
+            }
+          },
+          variables: function(message) {
+            var
+              hasCount    = (message.search('{count}') !== -1),
+              hasMaxCount = (message.search('{maxCount}') !== -1),
+              hasTerm     = (message.search('{term}') !== -1),
+              values,
+              count,
+              query
+            ;
+            module.verbose('Adding templated variables to message', message);
+            if(hasCount) {
+              count  = module.get.selectionCount();
+              message = message.replace('{count}', count);
+            }
+            if(hasMaxCount) {
+              count  = module.get.selectionCount();
+              message = message.replace('{maxCount}', settings.maxSelections);
+            }
+            if(hasTerm) {
+              query   = module.get.query();
+              message = message.replace('{term}', query);
+            }
+            return message;
+          },
+          value: function(addedValue, addedText, $selectedItem) {
+            var
+              currentValue = module.get.values(),
+              newValue
+            ;
+            if(addedValue === '') {
+              module.debug('Cannot select blank values from multiselect');
+              return;
+            }
+            // extend current array
+            if($.isArray(currentValue)) {
+              newValue = currentValue.concat([addedValue]);
+              newValue = module.get.uniqueArray(newValue);
+            }
+            else {
+              newValue = [addedValue];
+            }
+            // add values
+            if( module.has.selectInput() ) {
+              if(module.can.extendSelect()) {
+                module.debug('Adding value to select', addedValue, newValue, $input);
+                module.add.optionValue(addedValue);
+              }
+            }
+            else {
+              newValue = newValue.join(settings.delimiter);
+              module.debug('Setting hidden input to delimited value', newValue, $input);
+            }
+
+            if(settings.fireOnInit === false && module.is.initialLoad()) {
+              module.verbose('No callback on initial load', settings.onAdd);
+            }
+            else {
+              settings.onAdd.call(element, addedValue, addedText, $selectedItem);
+            }
+            module.set.value(newValue, addedValue, addedText, $selectedItem);
+            module.check.maxSelections();
+          }
+        },
+
+        remove: {
+          active: function() {
+            $module.removeClass(className.active);
+          },
+          activeLabel: function() {
+            $module.find(selector.label).removeClass(className.active);
+          },
+          loading: function() {
+            $module.removeClass(className.loading);
+          },
+          initialLoad: function() {
+            initialLoad = false;
+          },
+          upward: function($menu) {
+            var $element = $menu || $module;
+            $element.removeClass(className.upward);
+          },
+          visible: function() {
+            $module.removeClass(className.visible);
+          },
+          activeItem: function() {
+            $item.removeClass(className.active);
+          },
+          filteredItem: function() {
+            if( module.has.maxSelections() ) {
+              return;
+            }
+            if(settings.useLabels) {
+              $item.not('.' + className.active).removeClass(className.filtered);
+            }
+            else {
+              $item.removeClass(className.filtered);
+            }
+          },
+          optionValue: function(value) {
+            var
+              $option   = $input.find('option[value="' + value + '"]'),
+              hasOption = ($option.length > 0)
+            ;
+            if(!hasOption || !$option.hasClass(className.addition)) {
+              return;
+            }
+            // temporarily disconnect observer
+            if(selectObserver) {
+              selectObserver.disconnect();
+              module.verbose('Temporarily disconnecting mutation observer', value);
+            }
+            $option.remove();
+            module.verbose('Removing user addition as an <option>', value);
+            if(selectObserver) {
+              selectObserver.observe($input[0], {
+                childList : true,
+                subtree   : true
+              });
+            }
+          },
+          message: function() {
+            $menu.children(selector.message).remove();
+          },
+          searchTerm: function() {
+            module.verbose('Cleared search term');
+            $search.val('');
+            module.set.filtered();
+          },
+          selected: function(value, $selectedItem) {
+            $selectedItem = (settings.allowAdditions)
+              ? $selectedItem || module.get.itemWithAdditions(value)
+              : $selectedItem || module.get.item(value)
+            ;
+
+            if(!$selectedItem) {
+              return false;
+            }
+
+            $selectedItem
+              .each(function() {
+                var
+                  $selected     = $(this),
+                  selectedText  = module.get.choiceText($selected),
+                  selectedValue = module.get.choiceValue($selected, selectedText)
+                ;
+                if(module.is.multiple()) {
+                  if(settings.useLabels) {
+                    module.remove.value(selectedValue, selectedText, $selected);
+                    module.remove.label(selectedValue);
+                  }
+                  else {
+                    module.remove.value(selectedValue, selectedText, $selected);
+                    module.set.text(module.add.variables(message.count));
+                  }
+                }
+                else {
+                  module.remove.value(selectedValue, selectedText, $selected);
+                }
+                $selected
+                  .removeClass(className.filtered)
+                  .removeClass(className.active)
+                ;
+                if(settings.useLabels) {
+                  $selected.removeClass(className.selected);
+                }
+              })
+            ;
+          },
+          selectedItem: function() {
+            $item.removeClass(className.selected);
+          },
+          value: function(removedValue, removedText, $removedItem) {
+            var
+              values = module.get.values(),
+              newValue
+            ;
+            if( module.has.selectInput() ) {
+              module.verbose('Input is <select> removing selected option', removedValue);
+              newValue = module.remove.arrayValue(removedValue, values);
+              module.remove.optionValue(removedValue);
+            }
+            else {
+              module.verbose('Removing from delimited values', removedValue);
+              newValue = module.remove.arrayValue(removedValue, values);
+              newValue = newValue.join(settings.delimiter);
+            }
+            if(settings.fireOnInit === false && module.is.initialLoad()) {
+              module.verbose('No callback on initial load', settings.onRemove);
+            }
+            else {
+              settings.onRemove.call(element, removedValue, removedText, $removedItem);
+            }
+            module.set.value(newValue, removedText, $removedItem);
+            module.check.maxSelections();
+          },
+          arrayValue: function(removedValue, values) {
+            if( !$.isArray(values) ) {
+              values = [values];
+            }
+            values = $.grep(values, function(value){
+              return (removedValue != value);
+            });
+            module.verbose('Removed value from delimited string', removedValue, values);
+            return values;
+          },
+          label: function(value) {
+            var
+              $labels       = $module.find(selector.label),
+              $removedLabel = $labels.filter('[data-value="' + value +'"]'),
+              labelCount    = $labels.length,
+              isLastLabel   = ($labels.index($removedLabel) + 1 == labelCount),
+              shouldAnimate = ( (!module.is.searchSelection() || !module.is.focusedOnSearch()) && isLastLabel)
+            ;
+            if(shouldAnimate) {
+              module.verbose('Animating and removing label', $removedLabel);
+              $removedLabel
+                .transition(settings.label.transition, settings.label.duration, function() {
+                  $removedLabel.remove();
+                })
+              ;
+            }
+            else {
+              module.verbose('Removing label', $removedLabel);
+              $removedLabel.remove();
+            }
+          },
+          activeLabels: function($activeLabels) {
+            $activeLabels = $activeLabels || $module.find(selector.label).filter('.' + className.active);
+            module.verbose('Removing active label selections', $activeLabels);
+            module.remove.labels($activeLabels);
+          },
+          labels: function($labels) {
+            $labels = $labels || $module.find(selector.label);
+            module.verbose('Removing labels', $labels);
+            $labels
+              .each(function(){
+                var
+                  value       = $(this).data('value'),
+                  isUserValue = module.is.userValue(value)
+                ;
+                if(isUserValue) {
+                  module.remove.value(value);
+                  module.remove.label(value);
+                }
+                else {
+                  // selected will also remove label
+                  module.remove.selected(value);
+                }
+              })
+            ;
+          },
+          tabbable: function() {
+            if( module.has.search() ) {
+              module.debug('Searchable dropdown initialized');
+              $search
+                .attr('tabindex', '-1')
+              ;
+              $menu
+                .attr('tabindex', '-1')
+              ;
+            }
+            else {
+              module.debug('Simple selection dropdown initialized');
+              $module
+                .attr('tabindex', '-1')
+              ;
+              $menu
+                .attr('tabindex', '-1')
+              ;
+            }
+          }
+        },
+
+        has: {
+          search: function() {
+            return ($search.length > 0);
+          },
+          selectInput: function() {
+            return ( $input.is('select') );
+          },
+          firstLetter: function($item, letter) {
+            var
+              text,
+              firstLetter
+            ;
+            if(!$item || $item.length === 0 || typeof letter !== 'string') {
+              return false;
+            }
+            text        = module.get.choiceText($item, false);
+            letter      = letter.toLowerCase();
+            firstLetter = String(text).charAt(0).toLowerCase();
+            return (letter == firstLetter);
+          },
+          input: function() {
+            return ($input.length > 0);
+          },
+          items: function() {
+            return ($item.length > 0);
+          },
+          menu: function() {
+            return ($menu.length > 0);
+          },
+          message: function() {
+            return ($menu.children(selector.message).length !== 0);
+          },
+          label: function(value) {
+            var
+              $labels = $module.find(selector.label)
+            ;
+            return ($labels.filter('[data-value="' + value +'"]').length > 0);
+          },
+          maxSelections: function() {
+            return (settings.maxSelections && module.get.selectionCount() >= settings.maxSelections);
+          },
+          allResultsFiltered: function() {
+            return ($item.filter(selector.unselectable).length === $item.length);
+          },
+          value: function(value) {
+            var
+              values   = module.get.values(),
+              hasValue = $.isArray(values)
+               ? values && ($.inArray(value, values) !== -1)
+               : (values == value)
+            ;
+            return (hasValue)
+              ? true
+              : false
+            ;
+          }
+        },
+
+        is: {
+          active: function() {
+            return $module.hasClass(className.active);
+          },
+          alreadySetup: function() {
+            return ($module.is('select') && $module.parent(selector.dropdown).length > 0  && $module.prev().length === 0);
+          },
+          animating: function($subMenu) {
+            return ($subMenu)
+              ? $subMenu.transition && $subMenu.transition('is animating')
+              : $menu.transition    && $menu.transition('is animating')
+            ;
+          },
+          disabled: function() {
+            $module.hasClass(className.disabled);
+          },
+          focused: function() {
+            return (document.activeElement === $module[0]);
+          },
+          focusedOnSearch: function() {
+            return (document.activeElement === $search[0]);
+          },
+          allFiltered: function() {
+            return( (module.is.multiple() || module.has.search()) && !module.has.message() && module.has.allResultsFiltered() );
+          },
+          hidden: function($subMenu) {
+            return !module.is.visible($subMenu);
+          },
+          initialLoad: function() {
+            return initialLoad;
+          },
+          onScreen: function($subMenu) {
+            var
+              $currentMenu   = $subMenu || $menu,
+              canOpenDownward = true,
+              onScreen = {},
+              calculations
+            ;
+            $currentMenu.addClass(className.loading);
+            calculations = {
+              context: {
+                scrollTop : $context.scrollTop(),
+                height    : $context.outerHeight()
+              },
+              menu : {
+                offset: $currentMenu.offset(),
+                height: $currentMenu.outerHeight()
+              }
+            };
+            onScreen = {
+              above : (calculations.context.scrollTop) <= calculations.menu.offset.top - calculations.menu.height,
+              below : (calculations.context.scrollTop + calculations.context.height) >= calculations.menu.offset.top + calculations.menu.height
+            };
+            if(onScreen.below) {
+              module.verbose('Dropdown can fit in context downward', onScreen);
+              canOpenDownward = true;
+            }
+            else if(!onScreen.below && !onScreen.above) {
+              module.verbose('Dropdown cannot fit in either direction, favoring downward', onScreen);
+              canOpenDownward = true;
+            }
+            else {
+              module.verbose('Dropdown cannot fit below, opening upward', onScreen);
+              canOpenDownward = false;
+            }
+            $currentMenu.removeClass(className.loading);
+            return canOpenDownward;
+          },
+          inObject: function(needle, object) {
+            var
+              found = false
+            ;
+            $.each(object, function(index, property) {
+              if(property == needle) {
+                found = true;
+                return true;
+              }
+            });
+            return found;
+          },
+          multiple: function() {
+            return $module.hasClass(className.multiple);
+          },
+          single: function() {
+            return !module.is.multiple();
+          },
+          selectMutation: function(mutations) {
+            var
+              selectChanged = false
+            ;
+            $.each(mutations, function(index, mutation) {
+              if(mutation.target && $(mutation.target).is('select')) {
+                selectChanged = true;
+                return true;
+              }
+            });
+            return selectChanged;
+          },
+          search: function() {
+            return $module.hasClass(className.search);
+          },
+          searchSelection: function() {
+            return ( module.has.search() && $search.parent(selector.dropdown).length === 1 );
+          },
+          selection: function() {
+            return $module.hasClass(className.selection);
+          },
+          userValue: function(value) {
+            return ($.inArray(value, module.get.userValues()) !== -1);
+          },
+          upward: function($menu) {
+            var $element = $menu || $module;
+            return $element.hasClass(className.upward);
+          },
+          visible: function($subMenu) {
+            return ($subMenu)
+              ? $subMenu.hasClass(className.visible)
+              : $menu.hasClass(className.visible)
+            ;
+          }
+        },
+
+        can: {
+          click: function() {
+            return (hasTouch || settings.on == 'click');
+          },
+          extendSelect: function() {
+            return settings.allowAdditions || settings.apiSettings;
+          },
+          show: function() {
+            return !module.is.disabled() && (module.has.items() || module.has.message());
+          },
+          useAPI: function() {
+            return $.fn.api !== undefined;
+          }
+        },
+
+        animate: {
+          show: function(callback, $subMenu) {
+            var
+              $currentMenu = $subMenu || $menu,
+              start = ($subMenu)
+                ? function() {}
+                : function() {
+                  module.hideSubMenus();
+                  module.hideOthers();
+                  module.set.active();
+                },
+              transition
+            ;
+            callback = $.isFunction(callback)
+              ? callback
+              : function(){}
+            ;
+            module.verbose('Doing menu show animation', $currentMenu);
+            module.set.direction($subMenu);
+            transition = module.get.transition($subMenu);
+            if( module.is.selection() ) {
+              module.set.scrollPosition(module.get.selectedItem(), true);
+            }
+            if( module.is.hidden($currentMenu) || module.is.animating($currentMenu) ) {
+              if(transition == 'none') {
+                start();
+                $currentMenu.transition('show');
+                callback.call(element);
+              }
+              else if($.fn.transition !== undefined && $module.transition('is supported')) {
+                $currentMenu
+                  .transition({
+                    animation  : transition + ' in',
+                    debug      : settings.debug,
+                    verbose    : settings.verbose,
+                    duration   : settings.duration,
+                    queue      : true,
+                    onStart    : start,
+                    onComplete : function() {
+                      callback.call(element);
+                    }
+                  })
+                ;
+              }
+              else {
+                module.error(error.noTransition, transition);
+              }
+            }
+          },
+          hide: function(callback, $subMenu) {
+            var
+              $currentMenu = $subMenu || $menu,
+              duration = ($subMenu)
+                ? (settings.duration * 0.9)
+                : settings.duration,
+              start = ($subMenu)
+                ? function() {}
+                : function() {
+                  if( module.can.click() ) {
+                    module.unbind.intent();
+                  }
+                  module.remove.active();
+                },
+              transition = module.get.transition($subMenu)
+            ;
+            callback = $.isFunction(callback)
+              ? callback
+              : function(){}
+            ;
+            if( module.is.visible($currentMenu) || module.is.animating($currentMenu) ) {
+              module.verbose('Doing menu hide animation', $currentMenu);
+
+              if(transition == 'none') {
+                start();
+                $currentMenu.transition('hide');
+                callback.call(element);
+              }
+              else if($.fn.transition !== undefined && $module.transition('is supported')) {
+                $currentMenu
+                  .transition({
+                    animation  : transition + ' out',
+                    duration   : settings.duration,
+                    debug      : settings.debug,
+                    verbose    : settings.verbose,
+                    queue      : true,
+                    onStart    : start,
+                    onComplete : function() {
+                      if(settings.direction == 'auto') {
+                        module.remove.upward($subMenu);
+                      }
+                      callback.call(element);
+                    }
+                  })
+                ;
+              }
+              else {
+                module.error(error.transition);
+              }
+            }
+          }
+        },
+
+        hideAndClear: function() {
+          module.remove.searchTerm();
+          if( module.has.maxSelections() ) {
+            return;
+          }
+          if(module.has.search()) {
+            module.hide(function() {
+              module.remove.filteredItem();
+            });
+          }
+          else {
+            module.hide();
+          }
+        },
+
+        delay: {
+          show: function() {
+            module.verbose('Delaying show event to ensure user intent');
+            clearTimeout(module.timer);
+            module.timer = setTimeout(module.show, settings.delay.show);
+          },
+          hide: function() {
+            module.verbose('Delaying hide event to ensure user intent');
+            clearTimeout(module.timer);
+            module.timer = setTimeout(module.hide, settings.delay.hide);
+          }
+        },
+
+        escape: {
+          regExp: function(text) {
+            text =  String(text);
+            return text.replace(regExp.escape, '\\$&');
+          }
+        },
+
+        setting: function(name, value) {
+          module.debug('Changing setting', name, value);
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+          }
+          else {
+            return settings[name];
+          }
+        },
+        internal: function(name, value) {
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+          }
+          else {
+            return module[name];
+          }
+        },
+        debug: function() {
+          if(settings.debug) {
+            if(settings.performance) {
+              module.performance.log(arguments);
+            }
+            else {
+              module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+              module.debug.apply(console, arguments);
+            }
+          }
+        },
+        verbose: function() {
+          if(settings.verbose && settings.debug) {
+            if(settings.performance) {
+              module.performance.log(arguments);
+            }
+            else {
+              module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+              module.verbose.apply(console, arguments);
+            }
+          }
+        },
+        error: function() {
+          module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+          module.error.apply(console, arguments);
+        },
+        performance: {
+          log: function(message) {
+            var
+              currentTime,
+              executionTime,
+              previousTime
+            ;
+            if(settings.performance) {
+              currentTime   = new Date().getTime();
+              previousTime  = time || currentTime;
+              executionTime = currentTime - previousTime;
+              time          = currentTime;
+              performance.push({
+                'Name'           : message[0],
+                'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
+                'Execution Time' : executionTime
+              });
+            }
+            clearTimeout(module.performance.timer);
+            module.performance.timer = setTimeout(module.performance.display, 500);
+          },
+          display: function() {
+            var
+              title = settings.name + ':',
+              totalTime = 0
+            ;
+            time = false;
+            clearTimeout(module.performance.timer);
+            $.each(performance, function(index, data) {
+              totalTime += data['Execution Time'];
+            });
+            title += ' ' + totalTime + 'ms';
+            if(moduleSelector) {
+              title += ' \'' + moduleSelector + '\'';
+            }
+            if( (console.group !== undefined || console.table !== undefined) && performance.length > 0) {
+              console.groupCollapsed(title);
+              if(console.table) {
+                console.table(performance);
+              }
+              else {
+                $.each(performance, function(index, data) {
+                  console.log(data['Name'] + ': ' + data['Execution Time']+'ms');
+                });
+              }
+              console.groupEnd();
+            }
+            performance = [];
+          }
+        },
+        invoke: function(query, passedArguments, context) {
+          var
+            object = instance,
+            maxDepth,
+            found,
+            response
+          ;
+          passedArguments = passedArguments || queryArguments;
+          context         = element         || context;
+          if(typeof query == 'string' && object !== undefined) {
+            query    = query.split(/[\. ]/);
+            maxDepth = query.length - 1;
+            $.each(query, function(depth, value) {
+              var camelCaseValue = (depth != maxDepth)
+                ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
+                : query
+              ;
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+                module.error(error.method, query);
+                return false;
+              }
+            });
+          }
+          if ( $.isFunction( found ) ) {
+            response = found.apply(context, passedArguments);
+          }
+          else if(found !== undefined) {
+            response = found;
+          }
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+          }
+          return found;
+        }
+      };
+
+      if(methodInvoked) {
+        if(instance === undefined) {
+          module.initialize();
+        }
+        module.invoke(query);
+      }
+      else {
+        if(instance !== undefined) {
+          instance.invoke('destroy');
+        }
+        module.initialize();
+      }
+    })
+  ;
+  return (returnedValue !== undefined)
+    ? returnedValue
+    : $allModules
+  ;
+};
+
+$.fn.dropdown.settings = {
+
+  debug                  : false,
+  verbose                : false,
+  performance            : true,
+
+  on                     : 'click',    // what event should show menu action on item selection
+  action                 : 'activate', // action on item selection (nothing, activate, select, combo, hide, function(){})
+
+
+  apiSettings            : false,
+  saveRemoteData         : true,      // Whether remote name/value pairs should be stored in sessionStorage to allow remote data to be restored on page refresh
+  throttle               : 200,       // How long to wait after last user input to search remotely
+
+  context                : window,      // Context to use when determining if on screen
+  direction              : 'auto',     // Whether dropdown should always open in one direction
+  keepOnScreen           : true,       // Whether dropdown should check whether it is on screen before showing
+
+  match                  : 'both',     // what to match against with search selection (both, text, or label)
+  fullTextSearch         : false,      // search anywhere in value
+
+  placeholder            : 'auto',     // whether to convert blank <select> values to placeholder text
+  preserveHTML           : true,       // preserve html when selecting value
+  sortSelect             : false,      // sort selection on init
+
+  forceSelection         : true,       // force a choice on blur with search selection
+  allowAdditions         : false,      // whether multiple select should allow user added values
+
+  maxSelections          : false,      // When set to a number limits the number of selections to this count
+  useLabels              : true,       // whether multiple select should filter currently active selections from choices
+  delimiter              : ',',        // when multiselect uses normal <input> the values will be delmited with this character
+
+  showOnFocus            : true,       // show menu on focus
+  allowTab               : true,       // add tabindex to element
+  allowCategorySelection : false,      // allow elements with sub-menus to be selected
+
+  fireOnInit             : false,      // Whether callbacks should fire when initializing dropdown values
+
+  transition             : 'auto',     // auto transition will slide down or up based on direction
+  duration               : 200,        // duration of transition
+
+  glyphWidth             : 1.0714,     // widest glyph width in em (W is 1.0714 em) used to calculate multiselect input width
+
+  // label settings on multi-select
+  label: {
+    transition : 'scale',
+    duration   : 200,
+    variation  : false
+  },
+
+  // delay before event
+  delay : {
+    hide   : 300,
+    show   : 200,
+    search : 20,
+    touch  : 50
+  },
+
+  /* Callbacks */
+  onChange      : function(value, text, $selected){},
+  onAdd         : function(value, text, $selected){},
+  onRemove      : function(value, text, $selected){},
+
+  onLabelSelect : function($selectedLabels){},
+  onLabelCreate : function(value, text) { return $(this); },
+  onNoResults   : function(searchTerm) { return true; },
+  onShow        : function(){},
+  onHide        : function(){},
+
+  /* Component */
+  name           : 'Dropdown',
+  namespace      : 'dropdown',
+
+  message: {
+    addResult     : 'Add <b>{term}</b>',
+    count         : '{count} selected',
+    maxSelections : 'Max {maxCount} selections',
+    noResults     : 'No results found.',
+    serverError   : 'There was an error contacting the server'
+  },
+
+  error : {
+    action          : 'You called a dropdown action that was not defined',
+    alreadySetup    : 'Once a select has been initialized behaviors must be called on the created ui dropdown',
+    labels          : 'Allowing user additions currently requires the use of labels.',
+    missingMultiple : '<select> requires multiple property to be set to correctly preserve multiple values',
+    method          : 'The method you called is not defined.',
+    noAPI           : 'The API module is required to load resources remotely',
+    noStorage       : 'Saving remote data requires session storage',
+    noTransition    : 'This module requires ui transitions <https://github.com/Semantic-Org/UI-Transition>'
+  },
+
+  regExp : {
+    escape   : /[-[\]{}()*+?.,\\^$|#\s]/g,
+  },
+
+  metadata : {
+    defaultText     : 'defaultText',
+    defaultValue    : 'defaultValue',
+    placeholderText : 'placeholder',
+    text            : 'text',
+    value           : 'value'
+  },
+
+  selector : {
+    addition     : '.addition',
+    dropdown     : '.ui.dropdown',
+    icon         : '> .dropdown.icon',
+    input        : '> input[type="hidden"], > select',
+    item         : '.item',
+    label        : '> .label',
+    remove       : '> .label > .delete.icon',
+    siblingLabel : '.label',
+    menu         : '.menu',
+    message      : '.message',
+    menuIcon     : '.dropdown.icon',
+    search       : 'input.search, .menu > .search > input',
+    text         : '> .text:not(.icon)',
+    unselectable : '.disabled, .filtered'
+  },
+
+  className : {
+    active      : 'active',
+    addition    : 'addition',
+    animating   : 'animating',
+    disabled    : 'disabled',
+    dropdown    : 'ui dropdown',
+    filtered    : 'filtered',
+    hidden      : 'hidden transition',
+    item        : 'item',
+    label       : 'ui label',
+    loading     : 'loading',
+    menu        : 'menu',
+    message     : 'message',
+    multiple    : 'multiple',
+    placeholder : 'default',
+    search      : 'search',
+    selected    : 'selected',
+    selection   : 'selection',
+    upward      : 'upward',
+    visible     : 'visible'
+  }
+
+};
+
+/* Templates */
+$.fn.dropdown.settings.templates = {
+
+  // generates dropdown from select values
+  dropdown: function(select) {
+    var
+      placeholder = select.placeholder || false,
+      values      = select.values || {},
+      html        = ''
+    ;
+    html +=  '<i class="dropdown icon"></i>';
+    if(select.placeholder) {
+      html += '<div class="default text">' + placeholder + '</div>';
+    }
+    else {
+      html += '<div class="text"></div>';
+    }
+    html += '<div class="menu">';
+    $.each(select.values, function(index, option) {
+      html += (option.disabled)
+        ? '<div class="disabled item" data-value="' + option.value + '">' + option.name + '</div>'
+        : '<div class="item" data-value="' + option.value + '">' + option.name + '</div>'
+      ;
+    });
+    html += '</div>';
+    return html;
+  },
+
+  // generates just menu from select
+  menu: function(response) {
+    var
+      values = response.values || {},
+      html   = ''
+    ;
+    $.each(response.values, function(index, option) {
+      html += '<div class="item" data-value="' + option.value + '">' + option.name + '</div>';
+    });
+    return html;
+  },
+
+  // generates label for multiselect
+  label: function(value, text) {
+    return text + '<i class="delete icon"></i>';
+  },
+
+
+  // generates messages like "No results"
+  message: function(message) {
+    return message;
+  },
+
+  // generates user addition to selection menu
+  addition: function(choice) {
+    return choice;
+  }
+
+};
+
+})( jQuery, window , document );
+
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/semantic-ui-dropdown/dropdown.js","/node_modules/semantic-ui-dropdown")
+},{"_process":93,"buffer":89}],270:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+/*!
+ * # Semantic UI 2.0.5 - Transition
+ * http://github.com/semantic-org/semantic-ui/
+ *
+ *
+ * Copyright 2015 Contributors
+ * Released under the MIT license
+ * http://opensource.org/licenses/MIT
+ *
+ */
+
+;(function ( $, window, document, undefined ) {
+
+"use strict";
+
+$.fn.transition = function() {
+  var
+    $allModules     = $(this),
+    moduleSelector  = $allModules.selector || '',
+
+    time            = new Date().getTime(),
+    performance     = [],
+
+    moduleArguments = arguments,
+    query           = moduleArguments[0],
+    queryArguments  = [].slice.call(arguments, 1),
+    methodInvoked   = (typeof query === 'string'),
+
+    requestAnimationFrame = window.requestAnimationFrame
+      || window.mozRequestAnimationFrame
+      || window.webkitRequestAnimationFrame
+      || window.msRequestAnimationFrame
+      || function(callback) { setTimeout(callback, 0); },
+
+    returnedValue
+  ;
+  $allModules
+    .each(function(index) {
+      var
+        $module  = $(this),
+        element  = this,
+
+        // set at run time
+        settings,
+        instance,
+
+        error,
+        className,
+        metadata,
+        animationEnd,
+        animationName,
+
+        namespace,
+        moduleNamespace,
+        eventNamespace,
+        module
+      ;
+
+      module = {
+
+        initialize: function() {
+
+          // get full settings
+          settings        = module.get.settings.apply(element, moduleArguments);
+
+          // shorthand
+          className       = settings.className;
+          error           = settings.error;
+          metadata        = settings.metadata;
+
+          // define namespace
+          eventNamespace  = '.' + settings.namespace;
+          moduleNamespace = 'module-' + settings.namespace;
+          instance        = $module.data(moduleNamespace) || module;
+
+          // get vendor specific events
+          animationEnd    = module.get.animationEndEvent();
+
+          if(methodInvoked) {
+            methodInvoked = module.invoke(query);
+          }
+
+          // method not invoked, lets run an animation
+          if(methodInvoked === false) {
+            module.verbose('Converted arguments into settings object', settings);
+            if(settings.interval) {
+              module.delay(settings.animate);
+            }
+            else  {
+              module.animate();
+            }
+            module.instantiate();
+          }
+        },
+
+        instantiate: function() {
+          module.verbose('Storing instance of module', module);
+          instance = module;
+          $module
+            .data(moduleNamespace, instance)
+          ;
+        },
+
+        destroy: function() {
+          module.verbose('Destroying previous module for', element);
+          $module
+            .removeData(moduleNamespace)
+          ;
+        },
+
+        refresh: function() {
+          module.verbose('Refreshing display type on next animation');
+          delete module.displayType;
+        },
+
+        forceRepaint: function() {
+          module.verbose('Forcing element repaint');
+          var
+            $parentElement = $module.parent(),
+            $nextElement = $module.next()
+          ;
+          if($nextElement.length === 0) {
+            $module.detach().appendTo($parentElement);
+          }
+          else {
+            $module.detach().insertBefore($nextElement);
+          }
+        },
+
+        repaint: function() {
+          module.verbose('Repainting element');
+          var
+            fakeAssignment = element.offsetWidth
+          ;
+        },
+
+        delay: function(interval) {
+          var
+            direction = module.get.animationDirection(),
+            shouldReverse,
+            delay
+          ;
+          if(!direction) {
+            direction = module.can.transition()
+              ? module.get.direction()
+              : 'static'
+            ;
+          }
+          interval = (interval !== undefined)
+            ? interval
+            : settings.interval
+          ;
+          shouldReverse = (settings.reverse == 'auto' && direction == className.outward);
+          delay = (shouldReverse || settings.reverse == true)
+            ? ($allModules.length - index) * settings.interval
+            : index * settings.interval
+          ;
+          module.debug('Delaying animation by', delay);
+          setTimeout(module.animate, delay);
+        },
+
+        animate: function(overrideSettings) {
+          settings = overrideSettings || settings;
+          if(!module.is.supported()) {
+            module.error(error.support);
+            return false;
+          }
+          module.debug('Preparing animation', settings.animation);
+          if(module.is.animating()) {
+            if(settings.queue) {
+              if(!settings.allowRepeats && module.has.direction() && module.is.occurring() && module.queuing !== true) {
+                module.debug('Animation is currently occurring, preventing queueing same animation', settings.animation);
+              }
+              else {
+                module.queue(settings.animation);
+              }
+              return false;
+            }
+            else if(!settings.allowRepeats && module.is.occurring()) {
+              module.debug('Animation is already occurring, will not execute repeated animation', settings.animation);
+              return false;
+            }
+            else {
+              module.debug('New animation started, completing previous early', settings.animation);
+              instance.complete();
+            }
+          }
+          if( module.can.animate() ) {
+            module.set.animating(settings.animation);
+          }
+          else {
+            module.error(error.noAnimation, settings.animation, element);
+          }
+        },
+
+        reset: function() {
+          module.debug('Resetting animation to beginning conditions');
+          module.remove.animationCallbacks();
+          module.restore.conditions();
+          module.remove.animating();
+        },
+
+        queue: function(animation) {
+          module.debug('Queueing animation of', animation);
+          module.queuing = true;
+          $module
+            .one(animationEnd + '.queue' + eventNamespace, function() {
+              module.queuing = false;
+              module.repaint();
+              module.animate.apply(this, settings);
+            })
+          ;
+        },
+
+        complete: function (event) {
+          module.debug('Animation complete', settings.animation);
+          module.remove.completeCallback();
+          module.remove.failSafe();
+          if(!module.is.looping()) {
+            if( module.is.outward() ) {
+              module.verbose('Animation is outward, hiding element');
+              module.restore.conditions();
+              module.hide();
+            }
+            else if( module.is.inward() ) {
+              module.verbose('Animation is outward, showing element');
+              module.restore.conditions();
+              module.show();
+            }
+            else {
+              module.restore.conditions();
+            }
+          }
+        },
+
+        force: {
+          visible: function() {
+            var
+              style          = $module.attr('style'),
+              userStyle      = module.get.userStyle(),
+              displayType    = module.get.displayType(),
+              overrideStyle  = userStyle + 'display: ' + displayType + ' !important;',
+              currentDisplay = $module.css('display'),
+              emptyStyle     = (style === undefined || style === '')
+            ;
+            if(currentDisplay !== displayType) {
+              module.verbose('Overriding default display to show element', displayType);
+              $module
+                .attr('style', overrideStyle)
+              ;
+            }
+            else if(emptyStyle) {
+              $module.removeAttr('style');
+            }
+          },
+          hidden: function() {
+            var
+              style          = $module.attr('style'),
+              currentDisplay = $module.css('display'),
+              emptyStyle     = (style === undefined || style === '')
+            ;
+            if(currentDisplay !== 'none' && !module.is.hidden()) {
+              module.verbose('Overriding default display to hide element');
+              $module
+                .css('display', 'none')
+              ;
+            }
+            else if(emptyStyle) {
+              $module
+                .removeAttr('style')
+              ;
+            }
+          }
+        },
+
+        has: {
+          direction: function(animation) {
+            var
+              hasDirection = false
+            ;
+            animation = animation || settings.animation;
+            if(typeof animation === 'string') {
+              animation = animation.split(' ');
+              $.each(animation, function(index, word){
+                if(word === className.inward || word === className.outward) {
+                  hasDirection = true;
+                }
+              });
+            }
+            return hasDirection;
+          },
+          inlineDisplay: function() {
+            var
+              style = $module.attr('style') || ''
+            ;
+            return $.isArray(style.match(/display.*?;/, ''));
+          }
+        },
+
+        set: {
+          animating: function(animation) {
+            var
+              animationClass,
+              direction
+            ;
+            // remove previous callbacks
+            module.remove.completeCallback();
+
+            // determine exact animation
+            animation      = animation || settings.animation;
+            animationClass = module.get.animationClass(animation);
+
+            // save animation class in cache to restore class names
+            module.save.animation(animationClass);
+
+            // override display if necessary so animation appears visibly
+            module.force.visible();
+
+            module.remove.hidden();
+            module.remove.direction();
+
+            module.start.animation(animationClass);
+
+          },
+          duration: function(animationName, duration) {
+            duration = duration || settings.duration;
+            duration = (typeof duration == 'number')
+              ? duration + 'ms'
+              : duration
+            ;
+            if(duration || duration === 0) {
+              module.verbose('Setting animation duration', duration);
+              $module
+                .css({
+                  'animation-duration':  duration
+                })
+              ;
+            }
+          },
+          direction: function(direction) {
+            direction = direction || module.get.direction();
+            if(direction == className.inward) {
+              module.set.inward();
+            }
+            else {
+              module.set.outward();
+            }
+          },
+          looping: function() {
+            module.debug('Transition set to loop');
+            $module
+              .addClass(className.looping)
+            ;
+          },
+          hidden: function() {
+            $module
+              .addClass(className.transition)
+              .addClass(className.hidden)
+            ;
+          },
+          inward: function() {
+            module.debug('Setting direction to inward');
+            $module
+              .removeClass(className.outward)
+              .addClass(className.inward)
+            ;
+          },
+          outward: function() {
+            module.debug('Setting direction to outward');
+            $module
+              .removeClass(className.inward)
+              .addClass(className.outward)
+            ;
+          },
+          visible: function() {
+            $module
+              .addClass(className.transition)
+              .addClass(className.visible)
+            ;
+          }
+        },
+
+        start: {
+          animation: function(animationClass) {
+            animationClass = animationClass || module.get.animationClass();
+            module.debug('Starting tween', animationClass);
+            $module
+              .addClass(animationClass)
+              .one(animationEnd + '.complete' + eventNamespace, module.complete)
+            ;
+            if(settings.useFailSafe) {
+              module.add.failSafe();
+            }
+            module.set.duration(settings.duration);
+            settings.onStart.call(this);
+          }
+        },
+
+        save: {
+          animation: function(animation) {
+            if(!module.cache) {
+              module.cache = {};
+            }
+            module.cache.animation = animation;
+          },
+          displayType: function(displayType) {
+            if(displayType !== 'none') {
+              $module.data(metadata.displayType, displayType);
+            }
+          },
+          transitionExists: function(animation, exists) {
+            $.fn.transition.exists[animation] = exists;
+            module.verbose('Saving existence of transition', animation, exists);
+          }
+        },
+
+        restore: {
+          conditions: function() {
+            var
+              animation = module.get.currentAnimation()
+            ;
+            if(animation) {
+              $module
+                .removeClass(animation)
+              ;
+              module.verbose('Removing animation class', module.cache);
+            }
+            module.remove.duration();
+          }
+        },
+
+        add: {
+          failSafe: function() {
+            var
+              duration = module.get.duration()
+            ;
+            module.timer = setTimeout(function() {
+              $module.triggerHandler(animationEnd);
+            }, duration + settings.failSafeDelay);
+            module.verbose('Adding fail safe timer', module.timer);
+          }
+        },
+
+        remove: {
+          animating: function() {
+            $module.removeClass(className.animating);
+          },
+          animationCallbacks: function() {
+            module.remove.queueCallback();
+            module.remove.completeCallback();
+          },
+          queueCallback: function() {
+            $module.off('.queue' + eventNamespace);
+          },
+          completeCallback: function() {
+            $module.off('.complete' + eventNamespace);
+          },
+          display: function() {
+            $module.css('display', '');
+          },
+          direction: function() {
+            $module
+              .removeClass(className.inward)
+              .removeClass(className.outward)
+            ;
+          },
+          duration: function() {
+            $module
+              .css('animation-duration', '')
+            ;
+          },
+          failSafe: function() {
+            module.verbose('Removing fail safe timer', module.timer);
+            if(module.timer) {
+              clearTimeout(module.timer);
+            }
+          },
+          hidden: function() {
+            $module.removeClass(className.hidden);
+          },
+          visible: function() {
+            $module.removeClass(className.visible);
+          },
+          looping: function() {
+            module.debug('Transitions are no longer looping');
+            if( module.is.looping() ) {
+              module.reset();
+              $module
+                .removeClass(className.looping)
+              ;
+            }
+          },
+          transition: function() {
+            $module
+              .removeClass(className.visible)
+              .removeClass(className.hidden)
+            ;
+          }
+        },
+        get: {
+          settings: function(animation, duration, onComplete) {
+            // single settings object
+            if(typeof animation == 'object') {
+              return $.extend(true, {}, $.fn.transition.settings, animation);
+            }
+            // all arguments provided
+            else if(typeof onComplete == 'function') {
+              return $.extend({}, $.fn.transition.settings, {
+                animation  : animation,
+                onComplete : onComplete,
+                duration   : duration
+              });
+            }
+            // only duration provided
+            else if(typeof duration == 'string' || typeof duration == 'number') {
+              return $.extend({}, $.fn.transition.settings, {
+                animation : animation,
+                duration  : duration
+              });
+            }
+            // duration is actually settings object
+            else if(typeof duration == 'object') {
+              return $.extend({}, $.fn.transition.settings, duration, {
+                animation : animation
+              });
+            }
+            // duration is actually callback
+            else if(typeof duration == 'function') {
+              return $.extend({}, $.fn.transition.settings, {
+                animation  : animation,
+                onComplete : duration
+              });
+            }
+            // only animation provided
+            else {
+              return $.extend({}, $.fn.transition.settings, {
+                animation : animation
+              });
+            }
+            return $.fn.transition.settings;
+          },
+          animationClass: function(animation) {
+            var
+              animationClass = animation || settings.animation,
+              directionClass = (module.can.transition() && !module.has.direction())
+                ? module.get.direction() + ' '
+                : ''
+            ;
+            return className.animating + ' '
+              + className.transition + ' '
+              + directionClass
+              + animationClass
+            ;
+          },
+          currentAnimation: function() {
+            return (module.cache && module.cache.animation !== undefined)
+              ? module.cache.animation
+              : false
+            ;
+          },
+          currentDirection: function() {
+            return module.is.inward()
+              ? className.inward
+              : className.outward
+            ;
+          },
+          direction: function() {
+            return module.is.hidden() || !module.is.visible()
+              ? className.inward
+              : className.outward
+            ;
+          },
+          animationDirection: function(animation) {
+            var
+              direction
+            ;
+            animation = animation || settings.animation;
+            if(typeof animation === 'string') {
+              animation = animation.split(' ');
+              // search animation name for out/in class
+              $.each(animation, function(index, word){
+                if(word === className.inward) {
+                  direction = className.inward;
+                }
+                else if(word === className.outward) {
+                  direction = className.outward;
+                }
+              });
+            }
+            // return found direction
+            if(direction) {
+              return direction;
+            }
+            return false;
+          },
+          duration: function(duration) {
+            duration = duration || settings.duration;
+            if(duration === false) {
+              duration = $module.css('animation-duration') || 0;
+            }
+            return (typeof duration === 'string')
+              ? (duration.indexOf('ms') > -1)
+                ? parseFloat(duration)
+                : parseFloat(duration) * 1000
+              : duration
+            ;
+          },
+          displayType: function() {
+            if(settings.displayType) {
+              return settings.displayType;
+            }
+            if($module.data(metadata.displayType) === undefined) {
+              // create fake element to determine display state
+              module.can.transition(true);
+            }
+            return $module.data(metadata.displayType);
+          },
+          userStyle: function(style) {
+            style = style || $module.attr('style') || '';
+            return style.replace(/display.*?;/, '');
+          },
+          transitionExists: function(animation) {
+            return $.fn.transition.exists[animation];
+          },
+          animationStartEvent: function() {
+            var
+              element     = document.createElement('div'),
+              animations  = {
+                'animation'       :'animationstart',
+                'OAnimation'      :'oAnimationStart',
+                'MozAnimation'    :'mozAnimationStart',
+                'WebkitAnimation' :'webkitAnimationStart'
+              },
+              animation
+            ;
+            for(animation in animations){
+              if( element.style[animation] !== undefined ){
+                return animations[animation];
+              }
+            }
+            return false;
+          },
+          animationEndEvent: function() {
+            var
+              element     = document.createElement('div'),
+              animations  = {
+                'animation'       :'animationend',
+                'OAnimation'      :'oAnimationEnd',
+                'MozAnimation'    :'mozAnimationEnd',
+                'WebkitAnimation' :'webkitAnimationEnd'
+              },
+              animation
+            ;
+            for(animation in animations){
+              if( element.style[animation] !== undefined ){
+                return animations[animation];
+              }
+            }
+            return false;
+          }
+
+        },
+
+        can: {
+          transition: function(forced) {
+            var
+              animation         = settings.animation,
+              transitionExists  = module.get.transitionExists(animation),
+              elementClass,
+              tagName,
+              $clone,
+              currentAnimation,
+              inAnimation,
+              directionExists,
+              displayType
+            ;
+            if( transitionExists === undefined || forced) {
+              module.verbose('Determining whether animation exists');
+              elementClass = $module.attr('class');
+              tagName      = $module.prop('tagName');
+
+              $clone = $('<' + tagName + ' />').addClass( elementClass ).insertAfter($module);
+              currentAnimation = $clone
+                .addClass(animation)
+                .removeClass(className.inward)
+                .removeClass(className.outward)
+                .addClass(className.animating)
+                .addClass(className.transition)
+                .css('animationName')
+              ;
+              inAnimation = $clone
+                .addClass(className.inward)
+                .css('animationName')
+              ;
+              displayType = $clone
+                .attr('class', elementClass)
+                .removeAttr('style')
+                .removeClass(className.hidden)
+                .removeClass(className.visible)
+                .show()
+                .css('display')
+              ;
+              module.verbose('Determining final display state', displayType);
+              module.save.displayType(displayType);
+
+              $clone.remove();
+              if(currentAnimation != inAnimation) {
+                module.debug('Direction exists for animation', animation);
+                directionExists = true;
+              }
+              else if(currentAnimation == 'none' || !currentAnimation) {
+                module.debug('No animation defined in css', animation);
+                return;
+              }
+              else {
+                module.debug('Static animation found', animation, displayType);
+                directionExists = false;
+              }
+              module.save.transitionExists(animation, directionExists);
+            }
+            return (transitionExists !== undefined)
+              ? transitionExists
+              : directionExists
+            ;
+          },
+          animate: function() {
+            // can transition does not return a value if animation does not exist
+            return (module.can.transition() !== undefined);
+          }
+        },
+
+        is: {
+          animating: function() {
+            return $module.hasClass(className.animating);
+          },
+          inward: function() {
+            return $module.hasClass(className.inward);
+          },
+          outward: function() {
+            return $module.hasClass(className.outward);
+          },
+          looping: function() {
+            return $module.hasClass(className.looping);
+          },
+          occurring: function(animation) {
+            animation = animation || settings.animation;
+            animation = '.' + animation.replace(' ', '.');
+            return ( $module.filter(animation).length > 0 );
+          },
+          visible: function() {
+            return $module.is(':visible');
+          },
+          hidden: function() {
+            return $module.css('visibility') === 'hidden';
+          },
+          supported: function() {
+            return(animationEnd !== false);
+          }
+        },
+
+        hide: function() {
+          module.verbose('Hiding element');
+          if( module.is.animating() ) {
+            module.reset();
+          }
+          element.blur(); // IE will trigger focus change if element is not blurred before hiding
+          module.remove.display();
+          module.remove.visible();
+          module.set.hidden();
+          module.force.hidden();
+          settings.onHide.call(this);
+          settings.onComplete.call(this);
+          // module.repaint();
+        },
+
+        show: function(display) {
+          module.verbose('Showing element', display);
+          module.remove.hidden();
+          module.set.visible();
+          module.force.visible();
+          settings.onShow.call(this);
+          settings.onComplete.call(this);
+          // module.repaint();
+        },
+
+        toggle: function() {
+          if( module.is.visible() ) {
+            module.hide();
+          }
+          else {
+            module.show();
+          }
+        },
+
+        stop: function() {
+          module.debug('Stopping current animation');
+          $module.triggerHandler(animationEnd);
+        },
+
+        stopAll: function() {
+          module.debug('Stopping all animation');
+          module.remove.queueCallback();
+          $module.triggerHandler(animationEnd);
+        },
+
+        clear: {
+          queue: function() {
+            module.debug('Clearing animation queue');
+            module.remove.queueCallback();
+          }
+        },
+
+        enable: function() {
+          module.verbose('Starting animation');
+          $module.removeClass(className.disabled);
+        },
+
+        disable: function() {
+          module.debug('Stopping animation');
+          $module.addClass(className.disabled);
+        },
+
+        setting: function(name, value) {
+          module.debug('Changing setting', name, value);
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+          }
+          else {
+            return settings[name];
+          }
+        },
+        internal: function(name, value) {
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+          }
+          else {
+            return module[name];
+          }
+        },
+        debug: function() {
+          if(settings.debug) {
+            if(settings.performance) {
+              module.performance.log(arguments);
+            }
+            else {
+              module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+              module.debug.apply(console, arguments);
+            }
+          }
+        },
+        verbose: function() {
+          if(settings.verbose && settings.debug) {
+            if(settings.performance) {
+              module.performance.log(arguments);
+            }
+            else {
+              module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+              module.verbose.apply(console, arguments);
+            }
+          }
+        },
+        error: function() {
+          module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+          module.error.apply(console, arguments);
+        },
+        performance: {
+          log: function(message) {
+            var
+              currentTime,
+              executionTime,
+              previousTime
+            ;
+            if(settings.performance) {
+              currentTime   = new Date().getTime();
+              previousTime  = time || currentTime;
+              executionTime = currentTime - previousTime;
+              time          = currentTime;
+              performance.push({
+                'Name'           : message[0],
+                'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
+                'Execution Time' : executionTime
+              });
+            }
+            clearTimeout(module.performance.timer);
+            module.performance.timer = setTimeout(module.performance.display, 500);
+          },
+          display: function() {
+            var
+              title = settings.name + ':',
+              totalTime = 0
+            ;
+            time = false;
+            clearTimeout(module.performance.timer);
+            $.each(performance, function(index, data) {
+              totalTime += data['Execution Time'];
+            });
+            title += ' ' + totalTime + 'ms';
+            if(moduleSelector) {
+              title += ' \'' + moduleSelector + '\'';
+            }
+            if($allModules.length > 1) {
+              title += ' ' + '(' + $allModules.length + ')';
+            }
+            if( (console.group !== undefined || console.table !== undefined) && performance.length > 0) {
+              console.groupCollapsed(title);
+              if(console.table) {
+                console.table(performance);
+              }
+              else {
+                $.each(performance, function(index, data) {
+                  console.log(data['Name'] + ': ' + data['Execution Time']+'ms');
+                });
+              }
+              console.groupEnd();
+            }
+            performance = [];
+          }
+        },
+        // modified for transition to return invoke success
+        invoke: function(query, passedArguments, context) {
+          var
+            object = instance,
+            maxDepth,
+            found,
+            response
+          ;
+          passedArguments = passedArguments || queryArguments;
+          context         = element         || context;
+          if(typeof query == 'string' && object !== undefined) {
+            query    = query.split(/[\. ]/);
+            maxDepth = query.length - 1;
+            $.each(query, function(depth, value) {
+              var camelCaseValue = (depth != maxDepth)
+                ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
+                : query
+              ;
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+                return false;
+              }
+            });
+          }
+          if ( $.isFunction( found ) ) {
+            response = found.apply(context, passedArguments);
+          }
+          else if(found !== undefined) {
+            response = found;
+          }
+
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+          }
+          return (found !== undefined)
+            ? found
+            : false
+          ;
+        }
+      };
+      module.initialize();
+    })
+  ;
+  return (returnedValue !== undefined)
+    ? returnedValue
+    : this
+  ;
+};
+
+// Records if CSS transition is available
+$.fn.transition.exists = {};
+
+$.fn.transition.settings = {
+
+  // module info
+  name          : 'Transition',
+
+  // debug content outputted to console
+  debug         : false,
+
+  // verbose debug output
+  verbose       : false,
+
+  // performance data output
+  performance   : true,
+
+  // event namespace
+  namespace     : 'transition',
+
+  // delay between animations in group
+  interval      : 0,
+
+  // whether group animations should be reversed
+  reverse       : 'auto',
+
+  // animation callback event
+  onStart       : function() {},
+  onComplete    : function() {},
+  onShow        : function() {},
+  onHide        : function() {},
+
+  // whether timeout should be used to ensure callback fires in cases animationend does not
+  useFailSafe   : true,
+
+  // delay in ms for fail safe
+  failSafeDelay : 100,
+
+  // whether EXACT animation can occur twice in a row
+  allowRepeats  : false,
+
+  // Override final display type on visible
+  displayType   : false,
+
+  // animation duration
+  animation     : 'fade',
+  duration      : false,
+
+  // new animations will occur after previous ones
+  queue         : true,
+
+  metadata : {
+    displayType: 'display'
+  },
+
+  className   : {
+    animating  : 'animating',
+    disabled   : 'disabled',
+    hidden     : 'hidden',
+    inward     : 'in',
+    loading    : 'loading',
+    looping    : 'looping',
+    outward    : 'out',
+    transition : 'transition',
+    visible    : 'visible'
+  },
+
+  // possible errors
+  error: {
+    noAnimation : 'There is no css animation matching the one you specified. Please make sure your css is vendor prefixed, and you have included transition css.',
+    repeated    : 'That animation is already occurring, cancelling repeated animation',
+    method      : 'The method you called is not defined',
+    support     : 'This browser does not support CSS animations'
+  }
+
+};
+
+
+})( jQuery, window , document );
+
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/semantic-ui-transition/transition.js","/node_modules/semantic-ui-transition")
+},{"_process":93,"buffer":89}],271:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
@@ -58186,4 +65270,4 @@ module.exports = function scrollTrigger(waitParam, toleranceParam, cb) {
 }.call(this));
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/underscore/underscore.js","/node_modules/underscore")
-},{"_process":88,"buffer":84}]},{},[1]);
+},{"_process":93,"buffer":89}]},{},[1]);

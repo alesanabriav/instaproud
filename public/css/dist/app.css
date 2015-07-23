@@ -453,6 +453,23 @@ a {
         text-align: center;
         margin-top: 5px; }
 
+.crop-options {
+  width: 100%;
+  height: 60px;
+  background: #444; }
+  .crop-options li {
+    list-style: none;
+    float: left;
+    width: 33%; }
+    .crop-options li a {
+      height: 50px;
+      text-align: center;
+      display: block; }
+      .crop-options li a i {
+        text-align: center;
+        font-size: 3em;
+        color: #fff; }
+
 .photo-caption {
   background: #fff;
   padding: 20px;
@@ -462,7 +479,6 @@ a {
     margin-bottom: 10px; }
     .photo-caption > .image-and-caption > img {
       display: block;
-      float: left;
       width: 100%; }
     .photo-caption > .image-and-caption textarea {
       width: 100%;

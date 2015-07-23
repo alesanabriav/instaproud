@@ -56,6 +56,7 @@ UserSchema.set('toJSON', {
     delete ret.password;
     delete ret.created;
     delete ret.updated;
+    delete ret.loginAttemps;
     delete ret.salt;
     delete ret._id;
     delete ret.__v;

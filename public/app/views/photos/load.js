@@ -30,10 +30,8 @@ module.exports = Backbone.View.extend({
     alertify.warning('Subiendo imagen... Tenga en cuenta que su conexion podria afectar el tiempo de espera.');
 
     uploadFile(file, 'original_image', '/api/photos/compress', function(res) {
-      $('#app-container')
-      .empty()
-      .append('<div style="height:500px"><img src="' + res + '" height="100%" /></div>');
-      pubsub.trigger('navigator:change', '#crop');
+
+      pubsub.trigger('navigator:change', '#crop/'+ res);
     });
   },
 
@@ -44,7 +42,7 @@ module.exports = Backbone.View.extend({
       reader = new FileReader();
 
       reader.onload = function() {
-        $('#app-container').empty().append('<div style="height:500px"><img src="' + reader.result + '" width="500" /></div>');
+        $('#app-container').empty().append('<div style="height:500px; margin: 0 auto"><img src="' + reader.result + '" width="100%" /></div>');
       };
 
       reader.readAsDataURL(file);

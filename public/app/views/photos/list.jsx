@@ -26,6 +26,10 @@ module.exports = React.createClass({
     this.listenTo(pubsub, 'general:scroll', this.loadMore);
   },
 
+  componentWillUnmount: function() {
+    console.log('unmount list photos');
+  },
+
   loadMore: function(e) {
     if (e) e.preventDefault();
     var skip = this.state.skip + 5;
