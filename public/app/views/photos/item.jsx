@@ -152,6 +152,14 @@ module.exports = React.createClass({
 
             <ButtonLike users={this.state.liked} onLike={this.handleLike} onUnlike={this.handleUnlike} />
             <button className="comment-focus" onclick={this.commentFocus}><i className="icon ion-ios-chatbubble-outline"></i></button>
+             <div className="ui dropdown float-right">
+            <i className="icon ion-ios-more"></i>
+            <div className="menu">
+              <a href="#" className="item">Reportar</a>
+              {optionDelete}
+              {optionFixed}
+          </div>
+          </div>
           </div>
 
           <div className="counters">
@@ -166,14 +174,7 @@ module.exports = React.createClass({
           <Comments comments={this.state.comments} id={photo.id} />
 
           <CommentForm onSubmitComment={this.handleComment} onTagUser={this.handleTag} />
-          <div className="ui dropdown float-right">
-            <i className="icon ion-ios-more"></i>
-            <div className="menu">
-              <a href="#" className="item">Reportar</a>
-              {optionDelete}
-              {optionFixed}
-          </div>
-          </div>
+
         </div>
       </article>
     );

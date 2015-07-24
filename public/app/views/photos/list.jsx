@@ -26,10 +26,6 @@ module.exports = React.createClass({
     this.listenTo(pubsub, 'general:scroll', this.loadMore);
   },
 
-  componentWillUnmount: function() {
-    console.log('unmount list photos');
-  },
-
   loadMore: function(e) {
     if (e) e.preventDefault();
     var skip = this.state.skip + 5;
@@ -47,6 +43,7 @@ module.exports = React.createClass({
     var photoNodes = this.state.photos.map(function(photo) {
       return (<Item key={photo.id} photo={photo} />);
     });
+
     return (
       <div>
         {photoNodes}

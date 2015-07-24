@@ -10,6 +10,7 @@ module.exports = React.createClass({
     var photosCount = photos.length;
     var userlogged = JSON.parse(localStorage.getItem('user'));
     var profileEdit;
+
     if (this.props.prefix && this.props.prefix === 'photos') {
       var yourPhotos = 'active';
     } else {
@@ -34,7 +35,7 @@ module.exports = React.createClass({
           <span className="user-area">{user.area}</span>
 
           <div className="count-and-edit">
-            <span className="photos-count">{photosCount} Fotos</span>
+            <span className="photos-count">{} Fotos</span>
           </div>
         </div>
 

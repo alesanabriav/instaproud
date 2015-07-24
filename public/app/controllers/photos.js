@@ -1,49 +1,25 @@
-"use strict";
-global.jQuery = require("jquery");
-var $ = jQuery;
+'use strict';
 var React = require('react');
-var _ = require('underscore');
-var Photos = require('views/photos/list');
-var Photo = require('views/photos/item');
-var PhotoStore = require('views/photos/store');
-var PhotoAutocomplete = require('views/photos/tag_autocomplete');
-var PhotoHashtag = require('views/photos/hashtag');
-var PhotoSearch = require('views/photos/search');
-var Search = require('views/photos/search.jsx');
-var PhotoAutocompleteHashtag = require('views/photos/autocomplete_hashtag');
-var PhotoAutocompleteUser = require('views/photos/autocomplete_user');
-
-var models = require('models/photo');
-var CommentModels = require('models/comment');
-
+var $http = require('utils/http');
 var pubsub = require('utils/pubsub');
-var loadImages = require('utils/loadImages');
-var React = require('react');
+var Search = require('views/photos/search.jsx');
 var List = require('views/photos/list.jsx');
 var Crop = require('views/photos/crop.jsx');
 var Filter = require('views/photos/filter.jsx');
 var Caption = require('views/photos/caption.jsx');
+var Hashtag = require('views/photos/hashtag.jsx');
+var Photo = require('views/photos/item.jsx');
 
 module.exports = {
 
   list: function() {
-    // var collection = new models.photos();
-    // new Photos({collection: collection});
-    // collection.fetch({reset: true});
     React.render(<List />, document.getElementById('app-container'));
   },
 
   item: function(id) {
-    var model = new models.photo({id: id});
-    var view = new Photo({model: model});
-
-    model.fetch({
-      success: function() {
-        $('#app-container').empty().append(view.el);
-        _.delay(loadImages, 1000);
-      }
+    $http.get('/api/photos/' + id, null, function(res) {
+      React.render(<Photo photo={res} />, document.getElementById('app-container'));
     });
-
   },
 
   crop: function() {
@@ -62,18 +38,6 @@ module.exports = {
     pubsub.trigger('appHeader:change', { bgColor: "444"});
     React.unmountComponentAtNode(document.getElementById('nav-container'));
     React.render(<Caption />, document.getElementById('app-container'));
-
-    // pubsub.trigger('footerNav:remove');
-    // pubsub.trigger('appHeader:showCheck');
-
-    // var photo = new models.photo({id: id});
-    // var view = new PhotoCaption({model: photo});
-    // photo.fetch({success: function() {
-    //   $("#app-container")
-    //   .empty()
-    //   .append(view.render().el);
-    // }});
-
   },
 
   autocomplete: function(id) {
@@ -83,21 +47,11 @@ module.exports = {
   },
 
   hashtag: function(hashtag) {
-    pubsub.trigger('appHeader:change', {title: "#"+hashtag});
-    console.log('hashtag');
-    var view = new PhotoHashtag();
-    view.pull(hashtag);
+    pubsub.trigger('appHeader:change', {title: "#" + hashtag});
+    React.render(<Hashtag hashtag={hashtag} />, document.getElementById('app-container'));
   },
 
   search: function() {
-    // var view = new PhotoSearch();
-    // new PhotoAutocompleteHashtag();
-    // new PhotoAutocompleteUser();
-    // $("#app-container")
-    // .empty()
-    // .append(view.render().el);
-    //
     React.render(<Search />, document.getElementById("app-container"));
   }
-
  }

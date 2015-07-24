@@ -13,6 +13,7 @@ gulp.task('concact_dependencies_css', function() {
     'node_modules/alertifyjs/build/css/alertify.css',
     'node_modules/nprogress/nprogress.css',
     'node_modules/semantic-ui-dropdown/dropdown.css',
+    'node_modules/semantic-ui-feed/feed.css',
     'node_modules/semantic-ui-transition/transition.css'
   ])
   .pipe(concat('dependencies.css'))

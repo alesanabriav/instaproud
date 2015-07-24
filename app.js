@@ -34,7 +34,6 @@ mongoose.connect(dbConfig.url);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
 
 // Middlewares
 app.use(favicon(__dirname + '/public/favicon.ico'));

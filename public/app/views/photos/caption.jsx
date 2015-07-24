@@ -70,16 +70,9 @@ module.exports = React.createClass({
     };
 
     $http.post('/api/photos', data, function(res) {
+      pubsub.trigger('activity:store', {text: 'compartio una nueva foto', photo: res.id});
       pubsub.trigger('navigator:change', '/');
     }.bind(this));
-  },
-
-  storeTagged: function(photo) {
-    _.each(this.state.tagged, function(tag) {
-      $http.post('/api/photos/' + photo.id + '/tagged', {tagged: tag}, function() {
-
-      });
-    });
   },
 
   render: function() {
