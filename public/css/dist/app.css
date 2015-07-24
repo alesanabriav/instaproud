@@ -440,7 +440,9 @@ a {
   width: 100%;
   height: 60px;
   background: #25272a;
-  margin: 0; }
+  margin: 0;
+  max-width: 500px;
+  margin: 0 auto; }
   .filter-options li {
     float: left;
     color: #fff;
@@ -463,7 +465,7 @@ a {
   padding: 10px; }
   .filters-frame ul {
     padding: 0;
-    width: 600px; }
+    width: 750px; }
     .filters-frame ul li {
       display: inline-block;
       list-style: none;
@@ -506,6 +508,23 @@ a {
     .photo-caption > .image-and-caption textarea {
       width: 100%;
       border-radius: 0; }
+
+.caption-options {
+  width: 100%;
+  height: 50px;
+  background: #444; }
+  .caption-options li {
+    list-style: none;
+    float: left;
+    width: 25%; }
+    .caption-options li a {
+      height: 50px;
+      text-align: center;
+      display: block; }
+      .caption-options li a i {
+        text-align: center;
+        font-size: 3em;
+        color: #fff; }
 
 .search-hastag-or-users {
   background: #fff;

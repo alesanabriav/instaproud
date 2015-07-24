@@ -23,10 +23,6 @@ module.exports = React.createClass({
     })
   },
 
-  componentDidMount: function() {
-
-  },
-
   handleFilter: function(filter) {
     var img = document.getElementById('img-main');
     img.src = this.state.src;

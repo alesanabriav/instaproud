@@ -36,14 +36,12 @@ module.exports = Backbone.Router.extend({
    */
   execute: function(callback, args) {
     pubsub.trigger('view:remove');
-    React.unmountComponentAtNode(document.getElementById('app-container'));
     var hash = location.hash;
     AppController.initialize();
     if (hash === '#login' || hash === '#register') {
-       React.unmountComponentAtNode(document.getElementById('header-container'));
-       React.unmountComponentAtNode(document.getElementById('nav-container'));
+      React.unmountComponentAtNode(document.getElementById('header-container'));
+      React.unmountComponentAtNode(document.getElementById('nav-container'));
     }
-
     $(window).scrollTop(0);
     activitiesController.store();
     if (callback) callback.apply(this, args);

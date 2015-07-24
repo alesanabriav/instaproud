@@ -12,9 +12,10 @@ module.exports = React.createClass({
     }
   },
 
-  _crop: function() {
+  crop: function() {
     this.setState({
-      dataURL: this.refs.cropper.getCroppedCanvas({width: 500, height: 500})
+      canvas: this.refs.cropper.getCroppedCanvas({width: 500, height: 500}),
+      canvasThumb: this.refs.cropper.getCroppedCanvas({width: 50, height: 50})
     });
   },
 
@@ -30,8 +31,10 @@ module.exports = React.createClass({
 
   handleNext: function(e) {
     e.preventDefault();
-    var data = this.state.dataURL.toDataURL();
-    localStorage.setItem('src', data);
+    var dataUrl = this.state.canvas.toDataURL();
+    var dataUrlThumb = this.state.canvasThumb.toDataURL();
+    localStorage.setItem('src', dataUrl);
+    localStorage.setItem('srcThumb', dataUrlThumb);
     pubsub.trigger('navigator:change', 'filter');
   },
 
@@ -60,7 +63,7 @@ module.exports = React.createClass({
         cropBoxResizable={false}
         background={false}
         center={false}
-        crop={this._crop} />
+        crop={this.crop} />
 
         <ul className="crop-options">
           <li><a href="#" ><i className="icon ion-ios-close-empty"></i></a></li>

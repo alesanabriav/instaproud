@@ -19,7 +19,7 @@ app.route('/users')
       if (err) {
         if (err.errors) {
           return res.status(400).json(err.errors);
-        };
+        }
         return res.status(400).json({ user: {'message': 'El usuario ya existe'} });
       }
 

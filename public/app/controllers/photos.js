@@ -6,7 +6,6 @@ var _ = require('underscore');
 var Photos = require('views/photos/list');
 var Photo = require('views/photos/item');
 var PhotoStore = require('views/photos/store');
-var PhotoCaption = require('views/photos/caption');
 var PhotoAutocomplete = require('views/photos/tag_autocomplete');
 var PhotoHashtag = require('views/photos/hashtag');
 var PhotoSearch = require('views/photos/search');
@@ -61,6 +60,7 @@ module.exports = {
 
   caption: function(id) {
     pubsub.trigger('appHeader:change', { bgColor: "444"});
+    React.unmountComponentAtNode(document.getElementById('nav-container'));
     React.render(<Caption />, document.getElementById('app-container'));
 
     // pubsub.trigger('footerNav:remove');

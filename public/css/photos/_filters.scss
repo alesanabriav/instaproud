@@ -11,6 +11,8 @@
   height: 60px;
   background: #25272a;
   margin: 0;
+  max-width: 500px;
+  margin: 0 auto;
 
   li {
     float: left;
@@ -37,7 +39,7 @@
 
   ul {
     padding: 0;
-    width: 600px;
+    width: 750px;
 
     li {
       display: inline-block;

@@ -21,16 +21,26 @@ app.get('/api/photos', function(req, res, next) {
 });
 
 app.post('/api/photos', function(req, res) {
-  var src = req.body.src;
+  var data;
+  var body = req.body;
+  var user = req.user;
+  var img = new Buffer(req.body.image, 'base64');
+  console.log(body.geolocation);
+  process(img, user, function(err, src) {
+    if(err) return res.status(400).json(err);
 
-  var data = {
-    path: src,
-    owner: req.user._id
-  };
+    data = {
+      path: src,
+      owner: user._id,
+      caption: body.caption,
+      geolocation: JSON.parse(body.geolocation),
+      tagged: JSON.parse(body.tagged)
+    };
 
-  store(data, function(err, photo) {
-    if (err) res.status(400).json(err);
-    return res.status(201).json(photo);
+    store(data, function(err, photo) {
+      if (err) res.status(400).json(err);
+      return res.status(201).json(photo);
+    });
   });
 });
 
