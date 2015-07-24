@@ -72,10 +72,11 @@ app.put('/api/photos/:id', function(req, res) {
 
 app.delete('/api/photos/:id', function(req, res, next) {
   var photoId = req.params.id;
-  destroy(photoId, function(err) {
-    if (err) return next(err);
-    return res.status(204).json({});
-  });
+
+    destroy(photoId, function(err) {
+      if (err) return next(err);
+      return res.status(204).json({});
+    });
 });
 
 app.post('/api/photos/upload', function(req, res, next) {

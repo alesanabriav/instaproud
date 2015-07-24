@@ -31,6 +31,10 @@ PhotoSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   }],
+  hashtag: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Hashtag'
+  }],
   created: {
     type: Date,
     default: Date.now
@@ -39,7 +43,8 @@ PhotoSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  fixed: Boolean
+  fixed: Boolean,
+  hidden: Boolean
 });
 
 PhotoSchema.set('toJSON', {
