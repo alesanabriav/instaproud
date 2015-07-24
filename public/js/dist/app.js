@@ -1744,6 +1744,7 @@ var Geolocation = require('views/photos/geolocation.jsx');
 var Tokenizer = require('react-typeahead').Tokenizer;
 var $http = require('utils/http');
 var _ = require('underscore');
+var pubsub = require('utils/pubsub');
 
 module.exports = React.createClass({displayName: "exports",
   getInitialState: function() {
@@ -1809,7 +1810,7 @@ module.exports = React.createClass({displayName: "exports",
     };
 
     $http.post('/api/photos', data, function(res) {
-      console.log(res);
+      pubsub.trigger('navigator:change', '/');
     }.bind(this));
   },
 
@@ -1858,7 +1859,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/caption.jsx","/app/views/photos")
-},{"_process":80,"buffer":76,"react":263,"react-typeahead":101,"underscore":267,"utils/http":30,"views/photos/geolocation.jsx":50}],47:[function(require,module,exports){
+},{"_process":80,"buffer":76,"react":263,"react-typeahead":101,"underscore":267,"utils/http":30,"utils/pubsub":33,"views/photos/geolocation.jsx":50}],47:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');

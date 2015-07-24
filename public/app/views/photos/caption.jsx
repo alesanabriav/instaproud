@@ -4,6 +4,7 @@ var Geolocation = require('views/photos/geolocation.jsx');
 var Tokenizer = require('react-typeahead').Tokenizer;
 var $http = require('utils/http');
 var _ = require('underscore');
+var pubsub = require('utils/pubsub');
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -69,7 +70,7 @@ module.exports = React.createClass({
     };
 
     $http.post('/api/photos', data, function(res) {
-      console.log(res);
+      pubsub.trigger('navigator:change', '/');
     }.bind(this));
   },
 
