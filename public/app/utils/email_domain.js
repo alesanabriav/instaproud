@@ -1,15 +1,15 @@
-"use strict";
+'use strict';
 
 module.exports = function(email, domain) {
 
   if (email.indexOf('@') !== -1) {
     var arr = email.split('@');
-    return arr[0]+domain;
+    return arr[0] + domain;
   }
 
-  if (email === "") {
+  if (email === '') {
     return null;
-  };
+  }
 
-  return email+domain;
-}
+  return email + domain;
+};

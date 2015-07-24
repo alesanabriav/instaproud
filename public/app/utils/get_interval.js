@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function getInterval(from, until, sort) {
   var i;
   var interval = [];
@@ -7,9 +9,9 @@ module.exports = function getInterval(from, until, sort) {
   }
 
   if (sort) {
-    return interval.sort(function(a, b){ return b-a } )
+    return interval.sort(function(a, b){ return b - a});
   }
 
   return interval;
 
-}
+};

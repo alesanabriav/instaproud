@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 
 module.exports = function(cb) {
   var user = JSON.parse(localStorage.getItem('user'));
 
   if (user && user.id) {
     return cb(true);
-  };
+  }
 
   return cb(false);
-}
+};

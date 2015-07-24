@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var $ = require('jquery');
 var urls = require('config/urls');
 
@@ -7,7 +7,7 @@ module.exports = function uploadFile(file, fileName, url, cb) {
   formData.append(fileName, file);
 
   $.ajax({
-    url: urls.baseUrl+url,
+    url: urls.baseUrl + url,
     type: 'POST',
     data: formData,
     processData: false, //Avoid be processed by jquery
@@ -20,4 +20,4 @@ module.exports = function uploadFile(file, fileName, url, cb) {
     $('.preloader').addClass('hidden');
     return cb(res);
   });
-}
+};
