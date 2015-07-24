@@ -2455,7 +2455,7 @@ module.exports = React.createClass({displayName: "exports",
 
               React.createElement("span", {className: "tagged-count"}, React.createElement("i", {className: "icon ion-ios-person"}), " ", this.state.taggedCount)
           ), 
-          caption, 
+          React.createElement("span", {dangerouslySetInnerHTML: {__html:caption}}), 
 
           React.createElement(Comments, {comments: this.state.comments, id: photo.id}), 
 

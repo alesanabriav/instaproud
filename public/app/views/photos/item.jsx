@@ -161,7 +161,7 @@ module.exports = React.createClass({
 
               <span className="tagged-count"><i className="icon ion-ios-person"></i> {this.state.taggedCount}</span>
           </div>
-          {caption}
+          <span dangerouslySetInnerHTML={{__html:caption}} />
 
           <Comments comments={this.state.comments} id={photo.id} />
 
