@@ -40,12 +40,6 @@ module.exports = {
     React.render(<Caption />, document.getElementById('app-container'));
   },
 
-  autocomplete: function(id) {
-    var photo = new models.photo({id: id});
-    return new PhotoAutocomplete({model: photo});
-    photo.fetch();
-  },
-
   hashtag: function(hashtag) {
     pubsub.trigger('appHeader:change', {title: "#" + hashtag});
     React.render(<Hashtag hashtag={hashtag} />, document.getElementById('app-container'));

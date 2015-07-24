@@ -2,15 +2,10 @@
 @import 'variables/queries';
 @import url(http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
 
-html{
-  height: 100%;
-}
-
 body {
   background: #F2F2F2;
   font-family: 'Ubuntu', sans-serif;
   font-size: 14px;
-  height: 100%;
 }
 
 .form-control {
@@ -18,6 +13,11 @@ body {
   border: none;
   border-bottom: 1px solid $blue-main;
   transition: all 400ms;
+}
+
+select {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
 }
 
 button {

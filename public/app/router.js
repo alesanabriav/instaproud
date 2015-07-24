@@ -13,15 +13,14 @@ Backbone.$ = $;
 module.exports = Backbone.Router.extend({
   routes: {
     'login': 'login',
+    'logout': 'logout',
     'register': 'register',
     'profile/:id/edit': 'profileEdit',
-    'logout': 'logout',
     '': 'feed',
     'crop': 'crop',
     'filter': 'filters',
     'caption': 'caption',
     'profile/:username': 'profileShow',
-    'profile': 'profileShow',
     'tagged/:username': 'profileTagged',
     'hashtag/:hashtag': 'hashtagPhotos',
     'photo/:id': 'photoShow',
@@ -36,12 +35,7 @@ module.exports = Backbone.Router.extend({
    */
   execute: function(callback, args) {
     pubsub.trigger('view:remove');
-    var hash = location.hash;
     AppController.initialize();
-    if (hash === '#login' || hash === '#register') {
-      React.unmountComponentAtNode(document.getElementById('header-container'));
-      React.unmountComponentAtNode(document.getElementById('nav-container'));
-    }
     $(window).scrollTop(0);
     activitiesController.store();
     if (callback) callback.apply(this, args);
@@ -99,22 +93,17 @@ module.exports = Backbone.Router.extend({
     }
 
     profilesController.tagged(getUsername);
-
   },
 
   hashtagPhotos: function(hashtag) {
     photosController.hashtag(hashtag);
-
-
   },
 
   photoSearch: function() {
     photosController.search();
-
   },
 
   activity: function() {
     activitiesController.feed();
-
   }
 });

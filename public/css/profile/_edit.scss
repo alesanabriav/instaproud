@@ -1,5 +1,6 @@
 .profile-edit {
-
+  max-width: 500px;
+  margin: 0 auto;
   > header {
     background: url('../../img/login-bg.jpg');
     background-size: 100%;
@@ -11,17 +12,11 @@
       @include image_circle(60px, 60px, 2px solid #fff);
       display: block;
       margin: 10px auto;
-      background: #fff;
     }
 
     > .edit-profile-img {
-
-      > button {
-        z-index: 1;
+      a {
         color: #fff;
-        background: transparent;
-        border: 1px solid #fff;
-        border-radius: 0;
       }
       > input {
         height: 50px;
@@ -35,5 +30,11 @@
     background: #fff;
     padding: 15px;
     margin: 0 auto;
+    textarea {
+      border: 1px solid $blue-main;
+    }
+    button {
+      width: 100%;
+    }
   }
 }

@@ -3,39 +3,57 @@ var $ = require('jquery');
 var urls = require('config/urls');
 
 module.exports = {
-  post: function(url, data, cb) {
+  post: function(url, data, next) {
     $.ajax({
       type: 'POST',
       dataType: 'json',
       url: urls.baseUrl + url,
       data: data
     })
-    .then(cb);
+    .then(next);
   },
 
-  get: function(url, data, cb) {
+  get: function(url, data, next) {
     $.ajax({
       type: 'GET',
       url: urls.baseUrl + url,
       data: data
     })
-    .then(cb);
+    .then(next);
   },
 
-  put: function(url, data, cb) {
+  put: function(url, data, next) {
     $.ajax({
       type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
       url: urls.baseUrl + url,
-      data: data
+      data: JSON.stringify(data),
+      dataType: 'json'
     })
-    .then(cb);
+    .then(next);
   },
 
-  delete: function(url, cb) {
+  delete: function(url, next) {
     $.ajax({
       type: 'DELETE',
       url: urls.baseUrl + url
     })
-    .then(cb);
+    .then(next);
+  },
+
+  upload: function(url, fileName, file, next) {
+    var formData = new FormData();
+    formData.append(fileName, file);
+
+    $.ajax({
+      url: urls.baseUrl + url,
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false
+      })
+    .then(function(res) {
+      return next(res);
+    });
   }
 };

@@ -17,7 +17,7 @@ module.exports = React.createClass({
     if (user && user.profile_image) {
       profileImage = (<img src={urlProfileImage} />);
     } else {
-      profileImage = (<img src={'images/placeholders/placeholder_profile.png'} />);
+      profileImage = (<img src={'images/icon-perfil.svg'} />);
     }
 
     return (

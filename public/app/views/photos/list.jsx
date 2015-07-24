@@ -1,7 +1,6 @@
 'use strict';
 var React = require('react');
 var listenTo = require('react-listenTo');
-var models = require('models/photo');
 var Item = require('views/photos/item.jsx');
 var loadImages = require('utils/loadImages');
 var pubsub = require('utils/pubsub');

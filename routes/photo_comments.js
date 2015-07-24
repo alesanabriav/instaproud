@@ -1,9 +1,7 @@
-"use strict";
+'use strict';
 var app = require('express')();
-var _ = require('underscore');
 var xssFilters = require('xss-filters');
 var hashtagStoreOrUpdate = require('../lib/hashtags/store_or_update');
-var User = require('../models/user');
 var Photo = require('../models/photo');
 var Comment = require('../models/comment');
 
@@ -12,7 +10,6 @@ app.route('/api/photos/:id/comments')
 .post(function(req, res, next) {
   var commentText = xssFilters.inHTMLData(req.body.comment);
   var photoId = req.params.id;
-  var data = {};
 
   var newComment = new Comment({
     text: commentText,
@@ -21,15 +18,17 @@ app.route('/api/photos/:id/comments')
 
   newComment.saveAsync()
   .spread(function(comment) {
-
     Photo.findOneAndUpdate(
       {_id: photoId},
-      {$addToSet: {comments: comment._id}
-    }).exec(function(err, photo) {
+      {$addToSet: {
+        comments: comment._id
+      }
+    })
+    .exec(function(err, photo) {
       if(err) return next(err);
 
       Comment.findOne({_id: comment._id})
-      .populate('commenter')
+      .populate('commenter', 'username')
       .exec(function(err, commt) {
         if(err) return next(err);
 
@@ -39,12 +38,11 @@ app.route('/api/photos/:id/comments')
 
       });
 
-    })
+    });
   })
-
   .catch(function(err) {
     return next(err);
   });
-})
+});
 
 module.exports = app;

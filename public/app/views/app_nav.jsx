@@ -14,6 +14,7 @@ module.exports = React.createClass({
     this.listenTo(pubsub, 'footerNav:changeState', this.changeState, this);
     this.listenTo(pubsub, 'input:onFocus', this.hide, this);
     this.listenTo(pubsub, 'input:onFocusOut', this.show, this);
+
   },
 
   hide: function() {
@@ -26,7 +27,6 @@ module.exports = React.createClass({
   },
 
   handleFile: function(e) {
-    console.log('handle');
     var file = $(e.target)[0].files[0];
 
     if (mobile()) {
@@ -64,6 +64,11 @@ module.exports = React.createClass({
   },
 
   render: function() {
+    var username = '';
+    if (localStorage.getItem('user')) {
+      username = JSON.parse( localStorage.getItem('user') ).username;
+    }
+
     return (
       <ul className="footer-nav-actions">
 
@@ -89,7 +94,7 @@ module.exports = React.createClass({
         </li>
 
         <li className="profile">
-          <a href="#profile">
+          <a href={"#profile/" + username}>
             <i className="icon ion-ios-person-outline"></i>
           </a>
         </li>

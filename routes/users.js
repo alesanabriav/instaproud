@@ -31,10 +31,10 @@ app.route('/users')
     });
   });
 
-app.route('/users/:id')
+app.route('/api/users/:id')
 
   .get(function(req, res) {
-    User.findById(req.params.id, 'username name email profile_image role', function(err, user) {
+    User.findById(req.params.id, 'username name email profile_image role birthday gender area bio', function(err, user) {
       if(err) res.status(400).json(err);
       res.json(user);
     });
