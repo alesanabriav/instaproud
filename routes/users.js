@@ -15,13 +15,8 @@ app.route('/users')
     var data = req.body;
     var newUser = new User(data);
 
-    newUser.save( function(err, user) {
-      if (err) {
-        if (err.errors) {
-          return res.status(400).json(err.errors);
-        }
-        return res.status(400).json({ user: {'message': 'El usuario ya existe'} });
-      }
+    newUser.save(function(err, user) {
+      if (err) return status(400).json(err);
 
       req.login(user, function(err) {
         if (err) { return next(err); }

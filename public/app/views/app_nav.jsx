@@ -3,7 +3,7 @@ var React = require('react');
 var listenTo = require('react-listenTo');
 var pubsub = require('utils/pubsub');
 var $ = require('jquery');
-var uploadFile = require('utils/upload_file');
+var $http = require('utils/http');
 var alertify = require('alertifyjs');
 var mobile = require('is-mobile');
 
@@ -39,9 +39,9 @@ module.exports = React.createClass({
   uploadPhoto: function(file) {
     alertify.warning('Subiendo imagen... Tenga en cuenta que su conexion podria afectar el tiempo de espera.');
 
-    uploadFile(file, 'original_image', '/api/photos/compress', function(res) {
+    $http.upload('/api/photos/compress', 'original_image', file, function(res) {
       localStorage.setItem('src', res);
-        pubsub.trigger('navigator:change', '#crop');
+      pubsub.trigger('navigator:change', '#crop');
     });
   },
 

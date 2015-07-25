@@ -1,11 +1,10 @@
 'use strict';
 var React = require('react');
 var $ = require('jquery');
-var Login = require('views/profile/login');
-var Register = require('views/profile/register');
+var Login = require('views/profile/login.jsx');
+var Register = require('views/profile/register.jsx');
 var Edit = require('views/profile/edit.jsx');
 var Item = require('views/profile/item.jsx');
-var UserModels = require('models/user');
 var pubsub = require('utils/pubsub');
 
 module.exports = {
@@ -13,9 +12,11 @@ module.exports = {
   login: function() {
     React.unmountComponentAtNode(document.getElementById('header-container'));
     React.unmountComponentAtNode(document.getElementById('nav-container'));
-    localStorage.removeItem('user');
-    var view = new Login();
-    $('#app-container').empty().append(view.render().el);
+    if (localStorage.getItem('user')) {
+      localStorage.removeItem('user');
+    }
+    React.render(<Login />, document.getElementById('app-container'));
+
   },
 
   logout: function() {
@@ -29,8 +30,7 @@ module.exports = {
     React.unmountComponentAtNode(document.getElementById('header-container'));
     React.unmountComponentAtNode(document.getElementById('nav-container'));
     localStorage.removeItem('user');
-    var view = new Register();
-    $('#app-container').empty().append(view.render().el);
+    React.render(<Register />, document.getElementById('app-container'));
   },
 
   item: function(username) {

@@ -6,6 +6,8 @@
     padding: 15px;
     background: #fff;
     margin-bottom: 4px;
+    float: left;
+    width: 100%;
 
     > .profile-image {
       width: 50px;
@@ -15,7 +17,7 @@
       overflow: hidden;
       margin-right: 10px;
       z-index: 2;
-
+      float: left;
       > img {
         z-index: 1;
         position: absolute;

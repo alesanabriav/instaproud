@@ -10,7 +10,11 @@ module.exports = React.createClass({
 
   render: function() {
     var show = 'hidden';
-    if (location.hash === '#profile') {
+    var username = '';
+    if (localStorage.getItem('user')) {
+      username = JSON.parse(localStorage.getItem('user')).username;
+    }
+    if (location.hash === '#profile/' + username) {
       show = '';
     }
 

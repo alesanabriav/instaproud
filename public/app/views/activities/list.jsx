@@ -1,8 +1,8 @@
 'use strict';
 var React = require('react');
 var moment = require('moment');
-var models = require('models/activity');
 var Item = require('views/activities/item.jsx');
+var $http = require('utils/http');
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -11,14 +11,12 @@ module.exports = React.createClass({
     }
   },
 
-  componentWillMount : function() {
-    var _this = this;
-    var collection = new models.activities();
-    collection.fetch({success: function(activities) {
-      _this.setState({
-        activities: activities
+  componentDidMount : function() {
+    $http.get('/api/activities', null, function(res) {
+      this.setState({
+        activities: res
       });
-    }});
+    }.bind(this));
   },
 
   render: function() {

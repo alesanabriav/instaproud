@@ -1,6 +1,5 @@
 'use strict';
 var $ = require('jquery');
-var React = require('react');
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
 var AppController = require('controllers/app');

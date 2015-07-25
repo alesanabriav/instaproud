@@ -10,7 +10,7 @@ app.get('/api/hashtags/:query', function(req, res) {
   .exec(function(err, hashtags) {
     if (err) return next(err);
     return res.json(hashtags);
-  })
+  });
 });
 
 app.get('/api/hashtags/:hashtag/photos', function(req, res) {

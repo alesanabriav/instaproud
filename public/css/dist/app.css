@@ -618,7 +618,9 @@ a {
   .profile-page > header {
     padding: 15px;
     background: #fff;
-    margin-bottom: 4px; }
+    margin-bottom: 4px;
+    float: left;
+    width: 100%; }
     .profile-page > header > .profile-image {
       width: 50px;
       height: 50px;
@@ -626,7 +628,8 @@ a {
       border: 1px solid #fff;
       overflow: hidden;
       margin-right: 10px;
-      z-index: 2; }
+      z-index: 2;
+      float: left; }
       .profile-page > header > .profile-image > img {
         z-index: 1;
         position: absolute;

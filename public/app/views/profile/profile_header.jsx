@@ -26,6 +26,7 @@ module.exports = React.createClass({
     }
 
     return (
+      <div className="profile-page">
       <header>
         <ProfileImage user={user} containerName="profile-image" />
 
@@ -48,6 +49,7 @@ module.exports = React.createClass({
 
         </div>
       </header>
+      </div>
     );
   }
 });

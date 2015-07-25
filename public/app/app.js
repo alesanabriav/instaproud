@@ -3,14 +3,13 @@ global.jQuery = require('jquery');
 var $ = jQuery;
 var Backbone = require('backbone');
 var pubsub = require('utils/pubsub');
-var loadImages = require('utils/loadImages');
-var helpers = require('helpers/helpers_hbs');
-var fastclick = require('fastclick');
+var attachFastClick = require('fastclick');
 var nprogress = require('nprogress');
 var redirect = require('utils/redirect');
 var scrollTrigger = require('scroll-trigger');
 Backbone.$ = $;
 
+attachFastClick(document.body);
 var Router = require('./router');
 var router = new Router();
 Backbone.history.start();
@@ -44,4 +43,3 @@ $( document ).ajaxError(function( event, jqxhr) {
   }
 });
 
-window.onload = loadImages();

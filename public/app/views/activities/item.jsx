@@ -14,7 +14,7 @@ module.exports = React.createClass({
 
   render: function() {
     var profileImage;
-    var activity = this.props.activity.attributes;
+    var activity = this.props.activity;
     var photo;
     var photoLink;
 
