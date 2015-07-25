@@ -3,6 +3,7 @@ var React = require('react');
 var AccessForm = require('views/profile/access_form.jsx');
 var $http = require('utils/http');
 var alertify = require('alertifyjs');
+
 module.exports = React.createClass({
   handleSubmit: function(userAccess) {
     var userToStore;

@@ -11,8 +11,8 @@ module.exports = React.createClass({
 
   handleChange: function() {
     var userAccess = {
-      username: React.findDOMNode(this.refs.username).value,
-      password: React.findDOMNode(this.refs.password).value
+      username: React.findDOMNode(this.refs.username).value.toLowerCase().trim(),
+      password: React.findDOMNode(this.refs.password).value.toLowerCase().trim()
     };
 
     this.setState({

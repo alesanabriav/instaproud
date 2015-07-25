@@ -179,8 +179,8 @@ module.exports = React.createClass({displayName: "exports",
 'use stricts';
 
 module.exports = {
-  // baseUrl: 'http://instaproud.brandspa.cc',
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'http://instaproud.brandspa.cc',
+  // baseUrl: 'http://localhost:3000',
   s3Bucket: 'https://s3-sa-east-1.amazonaws.com/instaproud'
 };
 
@@ -1831,8 +1831,8 @@ module.exports = React.createClass({displayName: "exports",
 
   handleChange: function() {
     var userAccess = {
-      username: React.findDOMNode(this.refs.username).value,
-      password: React.findDOMNode(this.refs.password).value
+      username: React.findDOMNode(this.refs.username).value.toLowerCase().trim(),
+      password: React.findDOMNode(this.refs.password).value.toLowerCase().trim()
     };
 
     this.setState({
@@ -2152,6 +2152,7 @@ var React = require('react');
 var AccessForm = require('views/profile/access_form.jsx');
 var $http = require('utils/http');
 var alertify = require('alertifyjs');
+
 module.exports = React.createClass({displayName: "exports",
   handleSubmit: function(userAccess) {
     var userToStore;
@@ -2285,10 +2286,27 @@ module.exports = React.createClass({displayName: "exports",
 'use strict';
 var React = require('react');
 var AccessForm = require('views/profile/access_form.jsx');
+var $http = require('utils/http');
+var alertify = require('alertifyjs');
 
 module.exports = React.createClass({displayName: "exports",
   handleSubmit: function(userAccess) {
-    console.log(userAccess);
+    var userToStore;
+    var data = {
+      email: userAccess.username + '@bvc.com.co',
+      password: userAccess.password
+    };
+
+    $http.post('/users', data, function(res){
+      if (res.message || res.error) {
+        alertify.error(res.message);
+        return;
+      }
+
+      userToStore = {id: res.id, username: res.username, role: res.role, active: res.active};
+      localStorage.setItem('user', JSON.stringify(userToStore));
+      window.location.replace('#profile/' + res.id + '/edit');
+    });
   },
 
   render: function() {
@@ -2316,7 +2334,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/register.jsx","/app/views/profile")
-},{"_process":52,"buffer":48,"react":226,"views/profile/access_form.jsx":36}],44:[function(require,module,exports){
+},{"_process":52,"alertifyjs":45,"buffer":48,"react":226,"utils/http":14,"views/profile/access_form.jsx":36}],44:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /*!
  * jQuery JavaScript Library v2.1.4

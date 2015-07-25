@@ -1,10 +1,27 @@
 'use strict';
 var React = require('react');
 var AccessForm = require('views/profile/access_form.jsx');
+var $http = require('utils/http');
+var alertify = require('alertifyjs');
 
 module.exports = React.createClass({
   handleSubmit: function(userAccess) {
-    console.log(userAccess);
+    var userToStore;
+    var data = {
+      email: userAccess.username + '@bvc.com.co',
+      password: userAccess.password
+    };
+
+    $http.post('/users', data, function(res){
+      if (res.message || res.error) {
+        alertify.error(res.message);
+        return;
+      }
+
+      userToStore = {id: res.id, username: res.username, role: res.role, active: res.active};
+      localStorage.setItem('user', JSON.stringify(userToStore));
+      window.location.replace('#profile/' + res.id + '/edit');
+    });
   },
 
   render: function() {
