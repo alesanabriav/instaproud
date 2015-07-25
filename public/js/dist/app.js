@@ -1019,7 +1019,7 @@ module.exports = React.createClass({displayName: "exports",
 
   render: function() {
     return (
-      React.createElement("div", null, 
+      React.createElement("div", {className: "crop-container"}, 
       React.createElement(Cropper, {
         ref: "cropper", 
         src: this.state.src, 

@@ -4,7 +4,7 @@ var minifyCss = require('gulp-minify-css');
 var concat    = require('gulp-concat');
 var autoprefixer = require('gulp-autoprefixer');
 
-gulp.task('concact_css', function(){
+gulp.task('sass', function(){
   gulp.src([
     'css/*.scss'
   ])

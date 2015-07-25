@@ -3,11 +3,11 @@ var gulp = require('gulp');
 var requireDir = require('require-dir');
 var tasks = requireDir('./tasks');
 
-gulp.task('watch', ['concact_css', 'browserify'], function() {
+gulp.task('watch', ['sass', 'browserify'], function() {
   gulp.watch([
     'css/*.scss',
     'css/*/*.scss'
-    ], ['concact_css']);
+    ], ['sass']);
 
   gulp.watch([
     'app/*/*/*.*',

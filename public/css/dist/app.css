@@ -479,6 +479,10 @@ a {
         text-align: center;
         margin-top: 5px; }
 
+.crop-container {
+  max-width: 500px;
+  margin: 0 auto; }
+
 .crop-options {
   width: 100%;
   height: 50px;
@@ -529,7 +533,8 @@ a {
 .search-hastag-or-users {
   background: #fff;
   float: left;
-  width: 100%; }
+  width: 100%;
+  padding-top: 10px; }
   .search-hastag-or-users > .search {
     float: left;
     margin-bottom: 10px;

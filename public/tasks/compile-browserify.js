@@ -1,8 +1,6 @@
 'use strict';
-
 var gulp = require('gulp');
 var browserify = require('browserify');
-var hbsfy = require('hbsfy');
 var source = require('vinyl-source-stream');
 var debowerify = require('debowerify');
 var reactify = require('reactify');
@@ -24,12 +22,7 @@ gulp.task('browserify', function () {
     ]
   };
 
-  hbsfy.configure({
-    extensions: ['hbs']
-  });
-
  browserify('./app/app.js', options)
-  .transform(hbsfy)
     .transform(reactify)
     .transform(debowerify)
     .transform(browserifyCss, {global: true})
@@ -39,6 +32,5 @@ gulp.task('browserify', function () {
     })
     .pipe(source('app.js'))
     .pipe(gulp.dest('js/dist'));
-
 });
 

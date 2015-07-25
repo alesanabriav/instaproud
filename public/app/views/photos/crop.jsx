@@ -47,7 +47,7 @@ module.exports = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className="crop-container">
       <Cropper
         ref='cropper'
         src={this.state.src}
