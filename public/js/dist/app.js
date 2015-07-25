@@ -361,15 +361,8 @@ module.exports = Backbone.Router.extend({
     'activity': 'activity'
   },
 
-  /**
-   *
-   * execute appropriate method when the url match
-   * @params callback, args, name
-   */
   execute: function(callback, args) {
-    pubsub.trigger('view:remove');
     AppController.initialize();
-    $(window).scrollTop(0);
     activitiesController.store();
     if (callback) callback.apply(this, args);
   },
