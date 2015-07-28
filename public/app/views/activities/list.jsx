@@ -3,8 +3,9 @@ var React = require('react');
 var moment = require('moment');
 var Item = require('views/activities/item.jsx');
 var $http = require('utils/http');
+var urls = require('config/urls');
 var io = require('socket.io-client/socket.io.js');
-var socket = io('http://localhost:4000/activities');
+var socket = io(urls.baseUrl + '/activities');
 var _ = require('underscore');
 
 module.exports = React.createClass({
