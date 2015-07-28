@@ -4,6 +4,8 @@ var urls = require('config/urls');
 
 module.exports = {
   post: function(url, data, next) {
+    if (!data) data = {};
+
     $.ajax({
       type: 'POST',
       contentType: 'application/json',
@@ -24,6 +26,7 @@ module.exports = {
   },
 
   put: function(url, data, next) {
+    if (!data) data = {};
     $.ajax({
       type: 'PUT',
       contentType: 'application/json; charset=utf-8',
