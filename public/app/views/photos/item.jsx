@@ -43,7 +43,7 @@ module.exports = React.createClass({
     var newComments;
     $http.post(
       '/api/photos/' + this.props.photo.id + '/comments',
-      JSON.stringify({comment: comment.text}),
+      {comment: comment.text},
       function(res) {
         newComments = this.state.comments.concat([res]);
         this.setState({

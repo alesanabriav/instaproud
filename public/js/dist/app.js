@@ -518,7 +518,7 @@ module.exports = {
       contentType: 'application/json',
       dataType: 'json',
       url: urls.baseUrl + url,
-      data: data
+      data: JSON.stringify(data)
     })
     .then(next);
   },
@@ -926,7 +926,7 @@ module.exports = React.createClass({displayName: "exports",
       tagged: users
     };
 
-    $http.post('/api/photos', JSON.stringify(data), function(res) {
+    $http.post('/api/photos', data, function(res) {
       pubsub.trigger('activity:store', {text: 'compartio una nueva foto', photo: res.id});
       pubsub.trigger('navigator:change', '/');
     }.bind(this));
@@ -1208,6 +1208,7 @@ module.exports = React.createClass({displayName: "exports",
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/filter_filters.jsx","/app/views/photos")
 },{"_process":53,"buffer":49,"react":227,"utils/filters":13,"vintagejs/dist/vintage":233}],27:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+
 'use strict';
 var React = require('react');
 var $ = require("./../../../bower_components/jquery/dist/jquery.js");
@@ -1340,7 +1341,7 @@ module.exports = React.createClass({displayName: "exports",
     var newComments;
     $http.post(
       '/api/photos/' + this.props.photo.id + '/comments',
-      JSON.stringify({comment: comment.text}),
+      {comment: comment.text},
       function(res) {
         newComments = this.state.comments.concat([res]);
         this.setState({

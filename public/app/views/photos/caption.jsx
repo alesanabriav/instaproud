@@ -69,7 +69,7 @@ module.exports = React.createClass({
       tagged: users
     };
 
-    $http.post('/api/photos', JSON.stringify(data), function(res) {
+    $http.post('/api/photos', data, function(res) {
       pubsub.trigger('activity:store', {text: 'compartio una nueva foto', photo: res.id});
       pubsub.trigger('navigator:change', '/');
     }.bind(this));

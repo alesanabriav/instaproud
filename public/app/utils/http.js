@@ -11,7 +11,7 @@ module.exports = {
       contentType: 'application/json',
       dataType: 'json',
       url: urls.baseUrl + url,
-      data: data
+      data: JSON.stringify(data)
     })
     .then(next);
   },
