@@ -30,7 +30,8 @@ module.exports = React.createClass({
       liked: photo.liked,
       likesCount: photo.likesCount,
       commentsCount: photo.commentsCount,
-      taggedCount: photo.taggedCount
+      taggedCount: photo.taggedCount,
+      show: true
     }
   },
 
@@ -84,14 +85,19 @@ module.exports = React.createClass({
   handleDelete: function(e) {
     e.preventDefault();
     $http.delete('/api/photos/' + this.props.photo.id);
-    var node = this.getDOMNode();
-    React.unmountComponentAtNode(node);
-    $(node).remove();
+    this.setState({show: false});
   },
 
   handleReport: function(e) {
     e.preventDefault();
     $http.post('/api/photos/'+ this.props.photo.id + '/report', null, function(res) {
+      console.log(res);
+    });
+  },
+
+  handleFixed: function(e) {
+     e.preventDefault();
+    $http.post('/api/photos/'+ this.props.photo.id + '/starred', null, function(res) {
       console.log(res);
     });
   },
@@ -122,7 +128,7 @@ module.exports = React.createClass({
     var profileImage;
 
     return (
-      <article className="photo-feed">
+      <article className={this.state.show ? "photo-feed": "hidden"}>
         <header className="header">
         <ProfileImage user={user} containerName="avatar-container" />
 
@@ -146,6 +152,7 @@ module.exports = React.createClass({
           <div className="buttons-like-and-comment">
 
             <ButtonLike users={this.state.liked} onLike={this.handleLike} onUnlike={this.handleUnlike} />
+
             <button className="comment-focus" onclick={this.commentFocus}><i className="icon ion-ios-chatbubble-outline"></i></button>
              <div className="ui dropdown float-right">
             <i className="icon ion-ios-more"></i>
@@ -164,6 +171,7 @@ module.exports = React.createClass({
 
               <span className="tagged-count"><i className="icon ion-ios-person"></i> {this.state.taggedCount}</span>
           </div>
+
           <span dangerouslySetInnerHTML={{__html:caption}} />
 
           <Comments comments={this.state.comments} id={photo.id} />

@@ -13,6 +13,7 @@ module.exports = React.createClass({
   getInitialState: function() {
     return {
       photos: [],
+      starred: {},
       skip: 0
     }
   },
@@ -20,6 +21,10 @@ module.exports = React.createClass({
   componentDidMount: function() {
     $http.get('/api/photos', null, function(res) {
       this.setState({photos: res});
+    }.bind(this));
+
+    $http.get('/api/photos/starred', null, function(res) {
+      this.setState({starred: res});
     }.bind(this));
 
     this.listenTo(pubsub, 'general:scroll', this.loadMore);
@@ -31,7 +36,7 @@ module.exports = React.createClass({
     var data = {photosSkip: skip};
     var newPhotos;
     $http.get('/api/photos', data, function(res) {
-      newPhotos = _.union(this.state.photos, res);
+      newPhotos = this.state.photos.concat(res);
       this.setState({photos: newPhotos});
     }.bind(this));
 
@@ -39,13 +44,21 @@ module.exports = React.createClass({
   },
 
   render: function() {
+
+    var starred = '';
+
+    if (!_.isEmpty(this.state.starred)) {
+      starred = (<Item photo={this.state.starred} />);
+    }
     var photoNodes = this.state.photos.map(function(photo) {
       return (<Item key={photo.id} photo={photo} />);
-    });
+    }.bind(this));
 
     return (
       <div>
+        {starred}
         {photoNodes}
+
       </div>
     );
   }

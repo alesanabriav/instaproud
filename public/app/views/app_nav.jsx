@@ -28,7 +28,7 @@ module.exports = React.createClass({
 
   handleFile: function(e) {
     var file = $(e.target)[0].files[0];
-    this.loadPhoto(file);
+    this.uploadPhoto(file);
   },
 
   uploadPhoto: function(file) {

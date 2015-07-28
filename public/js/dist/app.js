@@ -174,8 +174,8 @@ module.exports = React.createClass({displayName: "exports",
 'use stricts';
 
 module.exports = {
-  baseUrl: 'http://instaproud.brandspa.cc',
-  // baseUrl: 'http://localhost:3000',
+  // baseUrl: 'http://instaproud.brandspa.cc',
+  baseUrl: 'http://localhost:3000',
   s3Bucket: 'https://s3-sa-east-1.amazonaws.com/instaproud'
 };
 
@@ -781,7 +781,7 @@ module.exports = React.createClass({displayName: "exports",
 
   handleFile: function(e) {
     var file = $(e.target)[0].files[0];
-    this.loadPhoto(file);
+    this.uploadPhoto(file);
   },
 
   uploadPhoto: function(file) {
@@ -1328,7 +1328,8 @@ module.exports = React.createClass({displayName: "exports",
       liked: photo.liked,
       likesCount: photo.likesCount,
       commentsCount: photo.commentsCount,
-      taggedCount: photo.taggedCount
+      taggedCount: photo.taggedCount,
+      show: true
     }
   },
 
@@ -1382,14 +1383,19 @@ module.exports = React.createClass({displayName: "exports",
   handleDelete: function(e) {
     e.preventDefault();
     $http.delete('/api/photos/' + this.props.photo.id);
-    var node = this.getDOMNode();
-    React.unmountComponentAtNode(node);
-    $(node).remove();
+    this.setState({show: false});
   },
 
   handleReport: function(e) {
     e.preventDefault();
     $http.post('/api/photos/'+ this.props.photo.id + '/report', null, function(res) {
+      console.log(res);
+    });
+  },
+
+  handleFixed: function(e) {
+     e.preventDefault();
+    $http.post('/api/photos/'+ this.props.photo.id + '/starred', null, function(res) {
       console.log(res);
     });
   },
@@ -1420,7 +1426,7 @@ module.exports = React.createClass({displayName: "exports",
     var profileImage;
 
     return (
-      React.createElement("article", {className: "photo-feed"}, 
+      React.createElement("article", {className: this.state.show ? "photo-feed": "hidden"}, 
         React.createElement("header", {className: "header"}, 
         React.createElement(ProfileImage, {user: user, containerName: "avatar-container"}), 
 
@@ -1444,6 +1450,7 @@ module.exports = React.createClass({displayName: "exports",
           React.createElement("div", {className: "buttons-like-and-comment"}, 
 
             React.createElement(ButtonLike, {users: this.state.liked, onLike: this.handleLike, onUnlike: this.handleUnlike}), 
+
             React.createElement("button", {className: "comment-focus", onclick: this.commentFocus}, React.createElement("i", {className: "icon ion-ios-chatbubble-outline"})), 
              React.createElement("div", {className: "ui dropdown float-right"}, 
             React.createElement("i", {className: "icon ion-ios-more"}), 
@@ -1462,6 +1469,7 @@ module.exports = React.createClass({displayName: "exports",
 
               React.createElement("span", {className: "tagged-count"}, React.createElement("i", {className: "icon ion-ios-person"}), " ", this.state.taggedCount)
           ), 
+
           React.createElement("span", {dangerouslySetInnerHTML: {__html:caption}}), 
 
           React.createElement(Comments, {comments: this.state.comments, id: photo.id}), 
@@ -1480,6 +1488,7 @@ module.exports = React.createClass({displayName: "exports",
 'use strict';
 var React = require('react');
 var $http = require('utils/http');
+var _ = require('underscore');
 
 module.exports = React.createClass({displayName: "exports",
   getInitialState: function() {
@@ -1497,16 +1506,31 @@ module.exports = React.createClass({displayName: "exports",
 
   searchUsers: function() {
     var text = React.findDOMNode(this.refs.comment).value;
-    var patt = /@(\S+)/g;
+    var tags = text.match(/\@\w+\b/gm);
+    var tagsWithSpace = text.match(/\@\w+\b\s/gm);
+    var lastWithSpace = _.findLastIndex(tagsWithSpace);
+    var last = _.findLastIndex(tags);
+    var query = '';
+    var queryWithSpace = '';
+    var search = true;
 
-    var query = text.replace('@', '');
+    if (last !== -1) {
+     query = tags[last].replace('@', '');
+    }
+
+    if (last !== -1 && lastWithSpace !== -1) {
+      if (tagsWithSpace[lastWithSpace].match(/\@\w+\b/gm) == tags[last]) {
+        search = false;
+      }
+    }
+
     if (text.length === 0) {
       this.setState({
         users: []
       });
     }
 
-    if (patt.test(text) && text.length >= 2 && text.indexOf(' ') < 0) {
+    if (query && query.length >= 2 && search) {
       $http.get(
         '/users/search/' + query,
         null,
@@ -1520,13 +1544,16 @@ module.exports = React.createClass({displayName: "exports",
 
   handleTag: function(user, e) {
     e.preventDefault();
+    var text = React.findDOMNode(this.refs.comment).value;
+    var tags = text.match(/\@\w+\b/gm);
+    var last = _.findLastIndex(tags);
+    var query = text.replace(tags[last], "@" + user.username + " ");
+    React.findDOMNode(this.refs.comment).value = query;
+    React.findDOMNode(this.refs.comment).focus();
+
     this.setState({
       users: []
     });
-
-    React.findDOMNode(this.refs.comment).value = "@" + user.username + " ";
-    React.findDOMNode(this.refs.comment).focus();
-    this.props.onTagUser({tagged: user.id});
   },
 
   render: function() {
@@ -1554,7 +1581,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/item_comment_form.jsx","/app/views/photos")
-},{"_process":53,"buffer":49,"react":227,"utils/http":15}],31:[function(require,module,exports){
+},{"_process":53,"buffer":49,"react":227,"underscore":232,"utils/http":15}],31:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -1611,6 +1638,7 @@ module.exports = React.createClass({displayName: "exports",
   getInitialState: function() {
     return {
       photos: [],
+      starred: {},
       skip: 0
     }
   },
@@ -1618,6 +1646,10 @@ module.exports = React.createClass({displayName: "exports",
   componentDidMount: function() {
     $http.get('/api/photos', null, function(res) {
       this.setState({photos: res});
+    }.bind(this));
+
+    $http.get('/api/photos/starred', null, function(res) {
+      this.setState({starred: res});
     }.bind(this));
 
     this.listenTo(pubsub, 'general:scroll', this.loadMore);
@@ -1629,7 +1661,7 @@ module.exports = React.createClass({displayName: "exports",
     var data = {photosSkip: skip};
     var newPhotos;
     $http.get('/api/photos', data, function(res) {
-      newPhotos = _.union(this.state.photos, res);
+      newPhotos = this.state.photos.concat(res);
       this.setState({photos: newPhotos});
     }.bind(this));
 
@@ -1637,13 +1669,21 @@ module.exports = React.createClass({displayName: "exports",
   },
 
   render: function() {
+
+    var starred = '';
+
+    if (!_.isEmpty(this.state.starred)) {
+      starred = (React.createElement(Item, {photo: this.state.starred}));
+    }
     var photoNodes = this.state.photos.map(function(photo) {
       return (React.createElement(Item, {key: photo.id, photo: photo}));
-    });
+    }.bind(this));
 
     return (
       React.createElement("div", null, 
+        starred, 
         photoNodes
+
       )
     );
   }
