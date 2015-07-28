@@ -11,13 +11,13 @@ module.exports = {
   },
 
   store: function(data) {
-    $http.post('/api/activities', JSON.stringify(data), function(res) {
+    $http.post('/api/activities', data, function(res) {
       console.log(res);
     });
   },
 
   delete: function(data) {
-    $http.delete('/api/activities', JSON.stringify(data), function(res) {
+    $http.delete('/api/activities', data, function(res) {
       console.log(res);
     });
   }
