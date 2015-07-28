@@ -1,7 +1,6 @@
 'use strict';
 var $ = require('jquery');
 var Backbone = require('backbone');
-var pubsub = require('utils/pubsub');
 var AppController = require('controllers/app');
 var photosController = require('controllers/photos');
 var profilesController = require('controllers/profiles');
@@ -29,7 +28,7 @@ module.exports = Backbone.Router.extend({
 
   execute: function(callback, args) {
     AppController.initialize();
-    activitiesController.store();
+    $(document).scrollTop(0);
     if (callback) callback.apply(this, args);
   },
 

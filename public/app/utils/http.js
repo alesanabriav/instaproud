@@ -6,6 +6,7 @@ module.exports = {
   post: function(url, data, next) {
     $.ajax({
       type: 'POST',
+      contentType: 'application/json',
       dataType: 'json',
       url: urls.baseUrl + url,
       data: data

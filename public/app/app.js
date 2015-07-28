@@ -23,6 +23,12 @@ $( document ).ajaxStart(function() {
   }
 });
 
+$( document ).ajaxError(function( event, jqxhr) {
+  if (jqxhr.status === 403) {
+    router.navigate('#login', {trigger: true, replace: true});
+  }
+});
+
 /** On ajax complete hide preloader */
 $( document ).ajaxComplete(function() {
   nprogress.done();
@@ -31,15 +37,3 @@ $( document ).ajaxComplete(function() {
 scrollTrigger(1000, 700, function() {
   pubsub.trigger('general:scroll');
 });
-
-$('body').on('click', '.back-button', function (event) {
-  event.preventDefault();
-  window.history.back();
-});
-
-$( document ).ajaxError(function( event, jqxhr) {
-  if (jqxhr.status === 403) {
-    router.navigate('#login', {trigger: true, replace: true});
-  }
-});
-

@@ -8,98 +8,62 @@ function base64Encode(file) {
   return new Buffer(bitmap).toString('base64');
 }
 
-describe('GET /api/photos', function() {
-  var src;
-  var srcPhotoWithFilter;
+describe('Api photos', function() {
   var photoId;
 
   before(function(done) {
-    var user = {email: 'al3@bvc.com.co', password: '1234'};
+    var user = {username: 'al3', password: '1234'};
     agent
     .post('/login')
     .send(user)
     .expect(200)
-    .end(function(err, res) {
+    .end(function(err) {
       if (err) return done(err);
       done();
     });
   });
 
-  it('should compress a photo', function(done) {
-    agent
-    .post('/api/photos/compress')
-    .expect(200)
-    .attach('original_image', './test/fixtures/500.jpg')
-    .end(function(err, res) {
-      if (err) return done(err);
-      expect(res.body).to.be.a('string');
-      done();
-    });
-  });
 
-  it('should upload a photo', function(done) {
-    var data = base64Encode('./test/fixtures/500.jpg');
-
-    agent
-    .post('/api/photos/upload')
-    .send({img: data})
-    .expect(200)
-    .end(function(err, res) {
-      if (err) return done(err);
-      var body = res.body;
-      expect(body).to.have.property('original');
-      src = body.original;
-      done();
-    });
-  });
-
-  it('should filter a photo', function(done) {
-    var id = src.split('_');
-    var data = 'images/' + id[0] + '/' + src;
-    var filter = 'love';
-
-    agent
-    .post('/api/photos/filter')
-    .send({src: data, filter: filter})
-    .expect(200)
-    .end(function(err, res) {
-      if(err) return done(err);
-      var body = res.body;
-      expect(body).to.have.property('photo');
-      srcPhotoWithFilter = body.photo;
-      done();
-    });
-  });
-
-  it('should store original photo', function(done) {
-    var id = src.split('_');
-    var data = 'images/' + id[0] + '/' + src;
+  it('should store a photo', function(done) {
+    this.timeout(5000);
+    var image = base64Encode('./test/fixtures/500.jpeg');
+    var data = {
+      'image': image,
+      'caption': '#batman #bat',
+      'geolocation': {
+        'name': 'los cedros',
+        'longitude': '-74.0271377',
+        'latitude': '4.7212798'
+      },
+      'tagged': []
+    };
 
     agent
     .post('/api/photos')
-    .send({src: src})
+    .send(data)
+    .set('Accept', 'application/json')
     .expect(201)
     .end(function(err, res) {
-      if(err) return done(err);
+      if (err) return done(err);
       var body = res.body;
       photoId = body.id;
-      expect(body).to.have.property('path');
-      expect(body).to.have.property('owner');
-      expect(body).to.have.property('created');
-      expect(body).to.have.property('tagged');
-      expect(body).to.have.property('comments');
-      expect(body).to.have.property('liked');
       expect(body).to.have.property('id');
+      expect(body).to.have.property('owner');
+      expect(body).to.have.property('path');
+      expect(body).to.have.property('caption');
+      expect(body).to.have.property('geolocation');
+      expect(body).to.have.property('hashtags');
       done();
     });
   });
 
   it('should update a photo data', function(done) {
     var data = {
-      caption: 'test',
+      'caption': '#batman #bat #bet',
       'geolocation': {
-        'longitude': -74.0271377,
-        'latitude': 4.7212798
+        'name': 'los cedros',
+        'longitude': '-74.0271377',
+        'latitude': '4.7212798'
       }
     };
     agent
@@ -110,9 +74,9 @@ describe('GET /api/photos', function() {
     .end(function(err, res) {
       if(err) return done(err);
       var body = res.body;
-      console.log(body);
       expect(body).to.have.property('caption');
       expect(body).to.have.property('geolocation');
+      expect(body).to.have.property('hashtags').with.length(2);
       done();
     });
   });
@@ -122,11 +86,37 @@ describe('GET /api/photos', function() {
     .get('/api/photos')
     .set('Accept', 'application/json')
     .expect(200)
-    .end(function(err, res){
+    .end(function(err, res) {
       if (err) return done(err);
       var body = res.body;
-      expect(body).to.have.length(5);
+      expect(body).to.be.a('array');
+      expect(body[0]).to.have.property('id');
+      expect(body[0]).to.have.property('path');
+      expect(body[0]).to.have.property('owner');
       done();
     });
+  });
+
+  it('should store a comment', function(done) {
+    var data = {comment: 'Probando con #hashtag y @al3'};
+
+    agent
+    .post('/api/photos/' + photoId + '/comments')
+    .send(data)
+    .set('Accept', 'application/json')
+    .expect(201)
+    .end(function(err, res) {
+      if (err) return done(err);
+      var body = res.body;
+      expect(body).to.have.property('id');
+      expect(body).to.have.property('commenter');
+      expect(body).to.have.property('text');
+      expect(body).to.have.property('created');
+      done();
+    });
+  });
+
+  it('should photo be tagged', function(done) {
+
   });
 });

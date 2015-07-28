@@ -15,12 +15,13 @@ var RedisStore = require('connect-redis')(session);
 var redisClient = redis.createClient();
 var Promise = require('bluebird');
 var requireAuthentication = require('./lib/checkAuth');
+var io = require('socket.io')(4000);
 
 //Global path
 global.__base = __dirname + '/';
-
 var index = require('./routes/index');
-
+var activityStore = require('./lib/activities/store');
+activityStore(io);
 var app = express();
 
 // Config files
@@ -53,8 +54,7 @@ app.use(session({
 //Passport Config
 app.use(passport.initialize());
 app.use(passport.session());
-
-var passportConfig = require('./config/passport');
+require('./config/passport');
 
 app.use(express.static(path.join(__dirname, 'public')));
 

@@ -14,7 +14,7 @@ module.exports = React.createClass({
   componentDidMount: function() {
     var hash = this.state.hashtag;
     $http.get('/api/hashtags/'+ hash +'/photos', null, function(res){
-      this.setState({photos: res.photos});
+      this.setState({photos: res});
     }.bind(this));
   },
 

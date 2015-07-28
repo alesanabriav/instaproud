@@ -32,9 +32,7 @@
 
     tar xzf redis-stable.tar.gz
 
-    cd redis-stable
-
-    make
+    cd redis-stable && make
 
     make test
 
@@ -45,8 +43,6 @@
     cd utils
 
     sudo ./install_server.sh
-
-    sudo service redis_6379 start
 
 ## Install pm2
 

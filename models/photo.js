@@ -31,7 +31,7 @@ PhotoSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   }],
-  hashtag: [{
+  hashtags: [{
     type: Schema.Types.ObjectId,
     ref: 'Hashtag'
   }],
@@ -53,6 +53,7 @@ PhotoSchema.set('toJSON', {
    ret.likesCount = ret.liked.length;
    ret.commentsCount = ret.comments.length;
    ret.taggedCount = ret.tagged.length;
+   ret.hashtagsCount = ret.hashtags.length;
    delete ret._id;
    delete ret.__v;
   }

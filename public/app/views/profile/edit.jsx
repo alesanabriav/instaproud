@@ -47,6 +47,7 @@ module.exports = React.createClass({
       area: React.findDOMNode(this.refs.area.refs.select).value,
       bio: React.findDOMNode(this.refs.bio).value
     };
+
     this.setState({user: user});
   },
 

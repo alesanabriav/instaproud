@@ -5,11 +5,7 @@ var Schema = mongoose.Schema;
 var Hashtag;
 
 var HashtagSchema = new Schema({
-  name: String,
-  photos: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Photo'
-  }]
+  name: String
 });
 
 HashtagSchema.set('toJSON', {

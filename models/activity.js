@@ -12,9 +12,7 @@ ActivitySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Photo'
   },
-
   text: String,
-
   created: {
     type: Date,
     default: Date.now

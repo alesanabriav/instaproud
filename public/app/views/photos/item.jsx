@@ -43,7 +43,7 @@ module.exports = React.createClass({
     var newComments;
     $http.post(
       '/api/photos/' + this.props.photo.id + '/comments',
-      {comment: comment.text},
+      JSON.stringify({comment: comment.text}),
       function(res) {
         newComments = this.state.comments.concat([res]);
         this.setState({
@@ -80,14 +80,7 @@ module.exports = React.createClass({
   },
 
   handleTag: function(data) {
-    $http.post(
-      '/api/photos/' + this.props.photo.id + '/tagged',
-      data,
-      function(res) {
-        this.setState({
-          taggedCount: res.taggedCount
-        });
-    }.bind(this));
+
   },
 
   handleDelete: function(e) {
@@ -111,6 +104,7 @@ module.exports = React.createClass({
     var optionFixed;
 
     if (photo.caption) {
+
       caption = photo.caption.replace(/#(\S+)/g, '<a href="#hashtag/$1">#$1</a>').replace(/@(\S+)/g, '<a href="#tagged/$1">@$1</a>');
     }
 

@@ -1,14 +1,12 @@
 'use strict';
 var app = require('express')();
-var Hashtag = require('../models/hashtag');
+var search = require(__base + 'lib/hashtags/search');
+var byHashtag = require(__base + 'lib/photos/by_hashtag');
 
 app.get('/api/hashtags/:query', function(req, res) {
   var name = req.params.query;
-
-  Hashtag
-  .find({name: new RegExp(name, 'i')})
-  .exec(function(err, hashtags) {
-    if (err) return next(err);
+  search(name, function(err, hashtags) {
+    if (err) return res.status(400).json(err);
     return res.json(hashtags);
   });
 });
@@ -16,18 +14,10 @@ app.get('/api/hashtags/:query', function(req, res) {
 app.get('/api/hashtags/:hashtag/photos', function(req, res) {
   var hashtag = '#' + req.params.hashtag;
   var photosSkip = req.query.photosSkip || 0;
-
-  Hashtag.findOne({name: hashtag})
-  .populate({
-    path: 'photos',
-    match: { 'hidden': {$ne: true} },
-    options: {limit: 25, skip: photosSkip}
-  })
-  .exec(function(err, hash) {
-    if (err) return next(err);
-    return res.json(hash);
+  byHashtag(hashtag, function(err, photos) {
+    if(err) return res.json(err);
+    return res.json(photos);
   });
 
 });
-
 module.exports = app;
