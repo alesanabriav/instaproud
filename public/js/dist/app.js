@@ -781,7 +781,12 @@ module.exports = React.createClass({displayName: "exports",
 
   handleFile: function(e) {
     var file = $(e.target)[0].files[0];
-    this.loadPhoto(file);
+    if (mobile()) {
+      this.uploadPhoto(file);
+    } else {
+      this.loadPhoto(file);
+    }
+
   },
 
   uploadPhoto: function(file) {

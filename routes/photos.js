@@ -8,6 +8,17 @@ var destroy = require(base + 'lib/photos/destroy');
 var update = require(base + 'lib/photos/update');
 var hashtagStore = require(base + 'lib/hashtags/store');
 var process = require(base + 'lib/photos/process');
+var resize = require(base + 'lib/photos/resize');
+
+app.post('/api/photos/compress', function(req, res, next) {
+  var file = req.files.original_image;
+  var user = req.user;
+
+  resize(file, user, function(err, path) {
+    if (err) return next(err);
+    return res.json(path);
+  });
+});
 
 app.get('/api/photos', function(req, res, next) {
   var photosSkip = parseInt(req.query.photosSkip) || 0;
