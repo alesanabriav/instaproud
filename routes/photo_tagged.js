@@ -1,14 +1,15 @@
 'use strict';
 var app = require('express')();
 var Photo = require('../models/photo');
+var updateArray = require(__base + 'lib/photos/update_array');
 
 app.post('/api/photos/:id/tagged', function(req, res) {
   var id = req.params.id;
   var tagged = req.body.tagged;
-
-  Photo.update({_id: id}, {$addToSet: {tagged: tagged} }, function(err) {
+  var data = {tagged: tagged};
+  updateArray(id, data, function(err, photo) {
     if (err) return res.status(400).json(err);
-    return res.status(204).json({});
+    return res.status(201).json(photo);
   });
 });
 

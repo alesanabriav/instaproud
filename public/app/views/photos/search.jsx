@@ -5,6 +5,7 @@ var $ = require('jquery');
 var urls = require('config/urls');
 var Hashtag = require('views/photos/search_hashtag.jsx');
 var User = require('views/photos/search_user.jsx');
+var Typeahead = require('react-typeahead').Typeahead;
 
 module.exports = React.createClass({
   getInitialState: function() {

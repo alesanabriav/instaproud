@@ -4,7 +4,8 @@ var $ = require('jquery');
 var Login = require('views/profile/login.jsx');
 var Register = require('views/profile/register.jsx');
 var Edit = require('views/profile/edit.jsx');
-var Item = require('views/profile/item.jsx');
+var Tagged = require('views/profile/Tagged.jsx');
+var Profile = require('views/profile/profile.jsx');
 var pubsub = require('utils/pubsub');
 
 module.exports = {
@@ -34,13 +35,14 @@ module.exports = {
   },
 
   item: function(username) {
-    React.render(<Item username={username} prefix={'photos'} /> , document.getElementById("app-container"));
+    React.render(<Profile username={username}/> , document.getElementById("app-container"));
     pubsub.trigger('appHeader:change', {title: username});
     pubsub.trigger('appHeader:showCloseSession');
   },
 
   tagged: function(username) {
-    React.render(<Item username={username} prefix={'tagged'} /> , document.getElementById("app-container"));
+    console.log(username);
+    React.render(<Tagged username={username} /> , document.getElementById("app-container"));
     pubsub.trigger('appHeader:change', {title: username});
     pubsub.trigger('appHeader:showCloseSession');
   },

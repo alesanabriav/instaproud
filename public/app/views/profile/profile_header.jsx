@@ -36,7 +36,7 @@ module.exports = React.createClass({
           <span className="user-area">{user.area}</span>
 
           <div className="count-and-edit">
-            <span className="photos-count">{} Fotos</span>
+            <span className="photos-count">{this.props.photos.length} Fotos</span>
           </div>
         </div>
 

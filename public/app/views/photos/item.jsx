@@ -49,7 +49,8 @@ module.exports = React.createClass({
         this.setState({
           comments: newComments,
           commentsCount: newComments.length
-        })
+        });
+        pubsub.trigger('activity:store', {text: 'comento: ' + comment.text, photo: this.props.photo.id});
     }.bind(this));
   },
 
@@ -75,12 +76,9 @@ module.exports = React.createClass({
           liked: res.liked,
           likesCount: res.likesCount
         });
-        pubsub.trigger('activity:store', {text: 'le gusta', photo: this.props.photo.id});
+
+        pubsub.trigger('activity:delete', {text: 'le gusta', photo: this.props.photo.id});
     }.bind(this));
-  },
-
-  handleTag: function(data) {
-
   },
 
   handleDelete: function(e) {
@@ -91,8 +89,11 @@ module.exports = React.createClass({
     node.remove();
   },
 
-  componentWillUnmount: function() {
-    console.log('unmonut');
+  handleReport: function(e) {
+    e.preventDefault();
+    $http.post('/api/photos/'+ this.props.photo.id + '/report', null, function(res) {
+      console.log(res);
+    });
   },
 
   render: function() {
@@ -149,7 +150,7 @@ module.exports = React.createClass({
              <div className="ui dropdown float-right">
             <i className="icon ion-ios-more"></i>
             <div className="menu">
-              <a href="#" className="item">Reportar</a>
+              <a href="#" className="item" onClick={this.handleReport}>Reportar</a>
               {optionDelete}
               {optionFixed}
           </div>

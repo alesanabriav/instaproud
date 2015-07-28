@@ -1,3 +1,4 @@
+'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ActivitySchema;
@@ -7,7 +8,6 @@ ActivitySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-
   photo: {
     type: Schema.Types.ObjectId,
     ref: 'Photo'
@@ -16,6 +16,14 @@ ActivitySchema = new Schema({
   created: {
     type: Date,
     default: Date.now
+  }
+});
+
+ActivitySchema.set('toJSON', {
+  transform: function (doc, ret) {
+   ret.id = ret._id;
+   delete ret._id;
+   delete ret.__v;
   }
 });
 

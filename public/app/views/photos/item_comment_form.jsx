@@ -1,4 +1,3 @@
-
 'use strict';
 var React = require('react');
 var $http = require('utils/http');

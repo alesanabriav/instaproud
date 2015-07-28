@@ -10,6 +10,7 @@ function base64Encode(file) {
 
 describe('Api photos', function() {
   var photoId;
+  var userId;
 
   before(function(done) {
     var user = {username: 'al3', password: '1234'};
@@ -17,8 +18,9 @@ describe('Api photos', function() {
     .post('/login')
     .send(user)
     .expect(200)
-    .end(function(err) {
+    .end(function(err, res) {
       if (err) return done(err);
+      userId = res.body.id;
       done();
     });
   });
@@ -66,6 +68,7 @@ describe('Api photos', function() {
         'latitude': '4.7212798'
       }
     };
+
     agent
     .put('/api/photos/' + photoId)
     .send(data)
@@ -117,6 +120,19 @@ describe('Api photos', function() {
   });
 
   it('should photo be tagged', function(done) {
+    var data = {tagged: userId};
 
+    agent
+    .post('/api/photos/' + photoId + '/tagged')
+    .send(data)
+    .set('Accept', 'application/json')
+    .expect(201)
+    .end(function(err, res) {
+      if (err) return done(err);
+      var body = res.body;
+      expect(body).to.have.property('tagged');
+      expect(body.taggedCount).to.equal(1);
+      done();
+    });
   });
 });

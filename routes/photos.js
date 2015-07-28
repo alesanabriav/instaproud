@@ -78,4 +78,8 @@ app.delete('/api/photos/:id', function(req, res, next) {
     });
 });
 
+app.post('/api/photos/:id/report', function(req, res) {
+  return res.json({ok: true});
+});
+
 module.exports = app;

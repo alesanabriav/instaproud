@@ -28,6 +28,7 @@ module.exports = Backbone.Router.extend({
 
   execute: function(callback, args) {
     AppController.initialize();
+    activitiesController.initialize();
     $(document).scrollTop(0);
     if (callback) callback.apply(this, args);
   },

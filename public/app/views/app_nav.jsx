@@ -28,16 +28,11 @@ module.exports = React.createClass({
 
   handleFile: function(e) {
     var file = $(e.target)[0].files[0];
-
-    if (mobile()) {
-     this.uploadPhoto(file);
-    } else {
-      this.loadPhoto(file);
-    }
+    this.loadPhoto(file);
   },
 
   uploadPhoto: function(file) {
-    alertify.warning('Subiendo imagen... Tenga en cuenta que su conexion podria afectar el tiempo de espera.');
+    alertify.warning('Subiendo imagen. Tenga en cuenta que su conexion podria afectar el tiempo de espera.');
 
     $http.upload('/api/photos/compress', 'original_image', file, function(res) {
       localStorage.setItem('src', res);

@@ -29,7 +29,7 @@ module.exports = React.createClass({
         <div className="media">
           <div className="media-body">
             <ProfileImage user={activity.from} containerName="profile-image" />
-            <a href={'#profile/' + activity.from.username }>{ activity.from.name }</a> { activity.text } <Timeago date={activity.created} />
+            <a href={'#profile/' + activity.from.username }>{ activity.from.username }</a> { activity.text } <Timeago date={activity.created} />
           </div>
           <div className="media-right">
             <a href={photoLink}>
