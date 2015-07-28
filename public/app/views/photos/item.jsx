@@ -84,9 +84,9 @@ module.exports = React.createClass({
   handleDelete: function(e) {
     e.preventDefault();
     $http.delete('/api/photos/' + this.props.photo.id);
-    var node = React.findDOMNode(this);
+    var node = this.getDOMNode();
     React.unmountComponentAtNode(node);
-    node.remove();
+    $(node).remove();
   },
 
   handleReport: function(e) {
