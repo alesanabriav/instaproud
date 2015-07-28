@@ -378,7 +378,13 @@ a {
     .photo-feed > .photo-container > .photo-image {
       width: 100%;
       -webkit-transform: translateZ(0);
-      transform: translateZ(0); }
+      transform: translateZ(0);
+      image-rendering: optimizeSpeed;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: optimize-contrast;
+      image-rendering: pixelated;
+      -ms-interpolation-mode: nearest-neighbor; }
   .photo-feed > .info {
     padding: 0 20px;
     position: relative; }

@@ -5,6 +5,7 @@
   white-space: nowrap;
 }
 
+
 .mixin-button {
   outline: 0;
   background: none;
@@ -72,6 +73,12 @@
       width: 100%;
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
+      image-rendering: optimizeSpeed;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: optimize-contrast;
+      image-rendering: pixelated;
+      -ms-interpolation-mode: nearest-neighbor;
     }
 
   }
