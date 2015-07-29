@@ -32,5 +32,5 @@ gulp.task('browserify', function () {
     })
     .pipe(source('app.js'))
     .pipe(gulp.dest('js/dist'));
+    console.log('finish');
 });
-
