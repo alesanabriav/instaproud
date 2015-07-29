@@ -114,7 +114,7 @@ module.exports = React.createClass({
             <FormSelect
               ref="gender"
               options={gender}
-              default="Genéro"
+              default="Género"
               value={user.gender}
               onSelectChange={this.handleChange}
             />
@@ -160,7 +160,7 @@ module.exports = React.createClass({
             <FormSelect
               ref="area"
               options={areas}
-              default="Seleccionar Areá"
+              default="Seleccionar área"
               value={user.area}
               onSelectChange={this.handleChange}
             />

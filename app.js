@@ -55,7 +55,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport');
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Parse files
@@ -69,8 +68,7 @@ app.use(index);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
+  return res.sendfile('./views/index.html');
   next(err);
 });
 

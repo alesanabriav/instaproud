@@ -125,7 +125,7 @@ module.exports = React.createClass({
     }
 
     if (userlogged.role === 'admin') {
-      optionFixed = (<a href="#" className="item" onClick={this.handleFixed}>Establecer</a>);
+      optionFixed = (<a href="#" className="item" onClick={this.handleFixed}>Resaltar</a>);
     }
 
     var src = 'https://s3-sa-east-1.amazonaws.com/instaproud/' + user.id + '/' + photo.path;
@@ -137,13 +137,12 @@ module.exports = React.createClass({
         <header className="header">
         <ProfileImage user={user} containerName="avatar-container" />
 
-          <div className="owner-username-and-name">
-            <a className="profile_link" href={"#profile/" + user.username}>{user.name}</a>
-            <span className="area">{user.area}</span>
-          </div>
+          <ul className="owner-username-and-name">
+          <li><a className="profile_link" href={"#profile/" + user.username}>{user.name}</a></li>
+          <li><span className="area">{user.area}</span></li>
+          </ul>
 
           <Timeago date={photo.created} />
-
         </header>
         <div className="photo-container">
           <ImageLoader
@@ -157,8 +156,6 @@ module.exports = React.createClass({
           <div className="buttons-like-and-comment">
 
             <ButtonLike users={this.state.liked} onLike={this.handleLike} onUnlike={this.handleUnlike} />
-
-            <button className="comment-focus" onclick={this.commentFocus}><i className="icon ion-ios-chatbubble-outline"></i></button>
 
              <div className="ui dropdown float-right">
             <i className="icon ion-ios-more"></i>

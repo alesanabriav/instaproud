@@ -19,7 +19,7 @@
   width: 100%;
   margin: 0 auto 0 auto;
   margin-bottom: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 1px;
 
   > .header {
     height: 65px;
@@ -38,16 +38,16 @@
       font-size: 1em;
       overflow: hidden;
       flex: 1;
+      padding: 0;
+      line-height: 1.4;
 
-      > .profile_link, > .area {
-        margin-right: 100%;
-        max-width: 100%;
+      .profile_link, .area {
         font-size: 0.9em;
         color: lighten($blue-main, 10%);
         @extend .mixin-profile-link;
       }
 
-      > .area {
+      .area {
         font-weight: 200;
         font-size: 0.8em;
         padding-top: -5px;
@@ -57,7 +57,7 @@
     }
 
     > .timeago {
-      margin: 10px 0 0 0;
+      margin: 7px 0 0 0;
       color: #ccc;
       font-weight: 200;
     }
@@ -159,15 +159,16 @@
       .form-control {
           border: none;
           border-bottom: 1px solid $blue-main;
+          border-right: 1px solid $blue-main;
           padding-left: 0;
         }
 
       > .input-group-btn{
         > .comment {
-          color: #fff;
+          color: $blue-main;
           box-shadow: none;
           border: 1px solid $blue-main;
-          background: $blue-main;
+          background: transparent;
           border-radius: 0;
         }
 

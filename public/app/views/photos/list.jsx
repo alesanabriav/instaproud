@@ -59,6 +59,7 @@ module.exports = React.createClass({
 
     return (
       <div>
+      {starred}
       {photoNodes}
       <Waypoint
         onEnter={this.loadMore}

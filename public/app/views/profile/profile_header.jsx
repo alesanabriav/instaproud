@@ -18,7 +18,7 @@ module.exports = React.createClass({
     if (userlogged.id === user.id) {
       profileEdit = (
         <a href={'#profile/' + user.id + '/edit'} className="btn">
-          Editar perfil
+          <i className="icon ion-ios-gear-outline"></i>
         </a>
       );
     }
@@ -28,24 +28,31 @@ module.exports = React.createClass({
       <header>
         <ProfileImage user={user} containerName="profile-image" />
 
-        <div className="profile-info">
-          <span className="user-name">{user.name}</span>
-          <br />
-          <span className="user-area">{user.area}</span>
-
-          <div className="count-and-edit">
-            <span className="photos-count">{this.props.photosCount} Fotos</span>
+        <ul className="profile-info">
+          <li className="user-name">{user.name}</li>
+          <li className="user-area">{user.area}</li>
+          <li className="user-area">{user.email}</li>
+        </ul>
+        <div className="count">
+          <span className="divider"></span>
+            <span className="photos-count"><span className="count-num">{this.props.photosCount}</span><br /> Fotos</span>
           </div>
-        </div>
 
-        <div className="profile-actions">
+        <ul className="profile-actions">
+        <li>
           <a href={'#profile/' + user.username} className={"btn " + yourPhotos}>
-            <span className="icon ion-ios-photos-outline"></span> <span className="text">Tus fotos</span>
-          </a> <a href={'#tagged/' + user.username} className={"btn " + tagged}>
-            <i className="icon ion-ios-pricetags-outline"></i> <span className="text">Etiquetado</span>
-          </a> {profileEdit}
+            <span className="icon ion-ios-photos-outline"></span> <span className="text"></span>
+          </a>
+        </li>
+        <li>
+        <a href={'#tagged/' + user.username} className={"btn " + tagged}>
+            <i className="icon ion-ios-pricetags-outline"></i> <span className="text"></span>
+          </a>
+        </li>
+        <li>{profileEdit}</li>
 
-        </div>
+
+        </ul>
       </header>
       </div>
     );
