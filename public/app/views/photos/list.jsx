@@ -6,6 +6,7 @@ var loadImages = require('utils/loadImages');
 var pubsub = require('utils/pubsub');
 var $http = require('utils/http');
 var _ = require('underscore');
+var Waypoint = require('react-waypoint');
 
 module.exports = React.createClass({
   mixins: [listenTo],
@@ -14,7 +15,8 @@ module.exports = React.createClass({
     return {
       photos: [],
       starred: {},
-      skip: 0
+      skip: 0,
+      hasMore: true
     }
   },
 
@@ -31,16 +33,20 @@ module.exports = React.createClass({
   },
 
   loadMore: function(e) {
-    if (e) e.preventDefault();
     var skip = this.state.skip + 5;
     var data = {photosSkip: skip};
+    var hasMore = this.state.hasMore;
     var newPhotos;
-    $http.get('/api/photos', data, function(res) {
-      newPhotos = this.state.photos.concat(res);
-      this.setState({photos: newPhotos});
-    }.bind(this));
-
-    this.state.skip = skip;
+    if (hasMore) {
+      $http.get('/api/photos', data, function(res) {
+        if (res.length === 0) {
+          this.setState({hasMore: false});
+        }
+        newPhotos = this.state.photos.concat(res);
+        this.setState({photos: newPhotos});
+      }.bind(this));
+      this.state.skip = skip;
+    }
   },
 
   render: function() {
@@ -56,10 +62,14 @@ module.exports = React.createClass({
 
     return (
       <div>
-        {starred}
-        {photoNodes}
+      {photoNodes}
+      <Waypoint
+        onEnter={this.loadMore}
+        threshold={0.2}
+      />
 
       </div>
+
     );
   }
 });

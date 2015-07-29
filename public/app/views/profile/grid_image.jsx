@@ -1,10 +1,14 @@
 'use strict';
 var React = require('react');
 var loadImages = require('utils/loadImages');
+var ImageLoader = require('react-imageloader');
 
 module.exports = React.createClass({
-  componentDidMount: function() {
-    loadImages();
+
+  preloader: function() {
+    return (
+      <img src="images/photo-placeholder.gif" alt="Loading icon" />
+      );
   },
 
   render: function() {
@@ -13,7 +17,11 @@ module.exports = React.createClass({
 
     return (
       <a href={"#photo/" + photo.id} className="col-xs-4">
-        <img src={"images/photo-placeholder.gif"} data-src={src} className="box"/>
+       <ImageLoader
+            src={src}
+            preloader={this.preloader}>
+            Fallo!
+          </ImageLoader>
       </a>
     );
   }

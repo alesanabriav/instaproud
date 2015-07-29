@@ -77,6 +77,13 @@ module.exports = React.createClass({
       userActive = 'active';
     }
 
+    var classes = {
+      input: "form-control autocomplete",
+      results: 'list-group',
+      listItem: 'list-group-item',
+      token: 'btn btn-primary btn-sm'
+    };
+
     return (
       <div className="search-hastag-or-users">
 

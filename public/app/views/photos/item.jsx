@@ -7,10 +7,10 @@ var CommentForm = require('views/photos/item_comment_form.jsx');
 var ProfileImage = require('components/profile_image.jsx');
 var Timeago = require('components/timeago.jsx');
 var ButtonLike = require('components/button_like.jsx');
-var loadImages = require('utils/loadImages');
 var pubsub = require('utils/pubsub');
 var dropdown = require('semantic-ui-dropdown/dropdown');
 require('semantic-ui-transition/transition');
+var ImageLoader = require('react-imageloader');
 
 module.exports = React.createClass({
   getDefaultProps: function() {
@@ -36,7 +36,6 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function() {
-    loadImages();
     $('.ui.dropdown').dropdown();
   },
 
@@ -102,6 +101,12 @@ module.exports = React.createClass({
     });
   },
 
+  preloader: function() {
+    return (
+      <img src="images/photo-placeholder.gif" alt="Loading icon" />
+      );
+  },
+
   render: function() {
     var photo = this.props.photo;
     var caption = '';
@@ -140,13 +145,13 @@ module.exports = React.createClass({
           <Timeago date={photo.created} />
 
         </header>
-
         <div className="photo-container">
-          <img className="photo-image b-lazy"
-          src={'images/photo-placeholder.gif'}
-          data-src={src} />
+          <ImageLoader
+            src={src}
+            preloader={this.preloader}>
+            Fallo!
+          </ImageLoader>
         </div>
-
         <div className="info">
 
           <div className="buttons-like-and-comment">

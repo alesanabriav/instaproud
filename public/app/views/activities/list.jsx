@@ -21,10 +21,6 @@ module.exports = React.createClass({
     }.bind(this));
   },
 
-  componentWillUnmount: function() {
-    socket.removeListener()
-  },
-
   render: function() {
     return (
       <ul className="list-group">

@@ -13,7 +13,8 @@ gulp.task('concact_dependencies_css', function() {
     'node_modules/nprogress/nprogress.css',
     'node_modules/semantic-ui-dropdown/dropdown.css',
     'node_modules/semantic-ui-feed/feed.css',
-    'node_modules/semantic-ui-transition/transition.css'
+    'node_modules/semantic-ui-transition/transition.css',
+    'node_modules/loaders.css/loaders.min.css'
   ])
   .pipe(concat('dependencies.css'))
   .pipe(gulp.dest('css/dist'));
