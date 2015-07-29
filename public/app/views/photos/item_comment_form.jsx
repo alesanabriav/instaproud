@@ -1,6 +1,7 @@
 'use strict';
 var React = require('react');
 var $http = require('utils/http');
+var _ = require('underscore');
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -18,16 +19,31 @@ module.exports = React.createClass({
 
   searchUsers: function() {
     var text = React.findDOMNode(this.refs.comment).value;
-    var patt = /@(\S+)/g;
+    var tags = text.match(/\@\w+\b/gm);
+    var tagsWithSpace = text.match(/\@\w+\b\s/gm);
+    var lastWithSpace = _.findLastIndex(tagsWithSpace);
+    var last = _.findLastIndex(tags);
+    var query = '';
+    var queryWithSpace = '';
+    var search = true;
 
-    var query = text.replace('@', '');
+    if (last !== -1) {
+     query = tags[last].replace('@', '');
+    }
+
+    if (last !== -1 && lastWithSpace !== -1) {
+      if (tagsWithSpace[lastWithSpace].match(/\@\w+\b/gm) == tags[last]) {
+        search = false;
+      }
+    }
+
     if (text.length === 0) {
       this.setState({
         users: []
       });
     }
 
-    if (patt.test(text) && text.length >= 2 && text.indexOf(' ') < 0) {
+    if (query && query.length >= 2 && search) {
       $http.get(
         '/users/search/' + query,
         null,
@@ -41,13 +57,16 @@ module.exports = React.createClass({
 
   handleTag: function(user, e) {
     e.preventDefault();
+    var text = React.findDOMNode(this.refs.comment).value;
+    var tags = text.match(/\@\w+\b/gm);
+    var last = _.findLastIndex(tags);
+    var query = text.replace(tags[last], "@" + user.username + " ");
+    React.findDOMNode(this.refs.comment).value = query;
+    React.findDOMNode(this.refs.comment).focus();
+
     this.setState({
       users: []
     });
-
-    React.findDOMNode(this.refs.comment).value = "@" + user.username + " ";
-    React.findDOMNode(this.refs.comment).focus();
-    this.props.onTagUser({tagged: user.id});
   },
 
   render: function() {
