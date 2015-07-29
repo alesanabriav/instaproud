@@ -90,7 +90,7 @@ module.exports = React.createClass({
           <img src={src} width="100" />
           <ul className="caption-options">
           <li><a href="#filter"><i className="icon ion-ios-arrow-back"></i></a></li>
-            <li>Compartir Imagen</li>
+            <li className="title">Compartir Imagen</li>
             <li><a href="#" onClick={this.handleNext}><i className="icon ion-ios-arrow-forward"></i></a></li>
           </ul>
           <textarea ref="caption" className="caption form-control" placeholder="Título"></textarea>

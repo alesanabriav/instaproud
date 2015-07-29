@@ -423,6 +423,9 @@ a {
         margin-right: 7px;
         font-size: 2.2em;
         float: left; }
+      .photo-feed > .info > .buttons-like-and-comment .dropdown {
+        color: #C1C3C3;
+        font-size: 2.2em; }
       .photo-feed > .info > .buttons-like-and-comment .unlike {
         color: #003294; }
     .photo-feed > .info .comment-create-container .form-control {
@@ -452,15 +455,16 @@ a {
   padding: 0; }
   .filter-options .title {
     padding-top: 10px;
-    font-weight: 200; }
+    font-weight: 200;
+    width: 60%; }
   .filter-options li {
     height: 50px;
     float: left;
     color: #fff;
-    font-size: 1.4em;
+    font-size: 1.2em;
     text-align: center;
     display: block;
-    width: 33%; }
+    width: 20%; }
     .filter-options li a {
       text-align: center;
       color: #fff; }
@@ -502,7 +506,7 @@ a {
 .crop-options {
   width: 100%;
   height: 50px;
-  background: #444;
+  background: #25272a;
   padding: 0 0 5px 0; }
   .crop-options li {
     list-style: none;
@@ -519,7 +523,7 @@ a {
 .photo-caption {
   background: #fff;
   max-width: 500px;
-  margin: 0 auto; }
+  margin: -50px auto 0 auto; }
   .photo-caption > .image-and-caption {
     margin-bottom: 10px; }
     .photo-caption > .image-and-caption > img {
@@ -532,19 +536,27 @@ a {
 .caption-options {
   width: 100%;
   height: 50px;
-  background: #444; }
+  background: #25272a;
+  padding: 0; }
+  .caption-options .title {
+    padding-top: 10px;
+    font-weight: 200;
+    font-size: 1.2em;
+    width: 60%; }
   .caption-options li {
     list-style: none;
     float: left;
-    width: 25%; }
+    width: 20%;
+    color: #fff;
+    text-align: center;
+    font-size: 1.4em; }
     .caption-options li a {
       height: 50px;
       text-align: center;
-      display: block; }
+      display: block;
+      color: #fff; }
       .caption-options li a i {
-        text-align: center;
-        font-size: 3em;
-        color: #fff; }
+        font-size: 2em; }
 
 .search-hastag-or-users {
   background: #fff;

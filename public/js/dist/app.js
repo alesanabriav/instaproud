@@ -228,6 +228,7 @@ var Caption = require('views/photos/caption.jsx');
 var Hashtag = require('views/photos/hashtag.jsx');
 var Photo = require('views/photos/item.jsx');
 var isMobile = require('is-mobile');
+
 module.exports = {
 
   list: function() {
@@ -250,16 +251,18 @@ module.exports = {
     if (isMobile()) {
       React.unmountComponentAtNode(document.getElementById('header-container'));
     }
-
     React.unmountComponentAtNode(document.getElementById('nav-container'));
     React.render(React.createElement(Filter, null), document.getElementById('app-container'));
     pubsub.trigger('appHeader:change', {bgColor: "444"});
   },
 
   caption: function(id) {
-    pubsub.trigger('appHeader:change', { bgColor: "444"});
+    if (isMobile()) {
+      React.unmountComponentAtNode(document.getElementById('header-container'));
+    }
     React.unmountComponentAtNode(document.getElementById('nav-container'));
     React.render(React.createElement(Caption, null), document.getElementById('app-container'));
+    pubsub.trigger('appHeader:change', { bgColor: "444"});
   },
 
   hashtag: function(hashtag) {
@@ -945,7 +948,7 @@ module.exports = React.createClass({displayName: "exports",
           React.createElement("img", {src: src, width: "100"}), 
           React.createElement("ul", {className: "caption-options"}, 
           React.createElement("li", null, React.createElement("a", {href: "#filter"}, React.createElement("i", {className: "icon ion-ios-arrow-back"}))), 
-            React.createElement("li", null, "Compartir Imagen"), 
+            React.createElement("li", {className: "title"}, "Compartir Imagen"), 
             React.createElement("li", null, React.createElement("a", {href: "#", onClick: this.handleNext}, React.createElement("i", {className: "icon ion-ios-arrow-forward"})))
           ), 
           React.createElement("textarea", {ref: "caption", className: "caption form-control", placeholder: "Título"})
@@ -1465,6 +1468,7 @@ module.exports = React.createClass({displayName: "exports",
             React.createElement(ButtonLike, {users: this.state.liked, onLike: this.handleLike, onUnlike: this.handleUnlike}), 
 
             React.createElement("button", {className: "comment-focus", onclick: this.commentFocus}, React.createElement("i", {className: "icon ion-ios-chatbubble-outline"})), 
+
              React.createElement("div", {className: "ui dropdown float-right"}, 
             React.createElement("i", {className: "icon ion-ios-more"}), 
             React.createElement("div", {className: "menu"}, 
