@@ -78,7 +78,7 @@ module.exports = React.createClass({
         crop={this.crop} />
 
         <ul className="crop-options">
-          <li><a href="#" ><i className="icon ion-close"></i></a></li>
+          <li><a href="#" ><i className="icon ion-android-close"></i></a></li>
           <li><a herf="#" onClick={this.rotateUndo}><i className="icon ion-ios-undo-outline"></i></a></li>
           <li><a herf="#" onClick={this.rotateRedo}><i className="icon ion-ios-redo-outline"></i></a></li>
           <li><a href="#" onClick={this.handleNext}><i className="icon ion-ios-arrow-forward"></i></a></li>

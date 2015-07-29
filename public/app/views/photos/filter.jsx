@@ -70,7 +70,7 @@ module.exports = React.createClass({
           <li>
             <a href="#crop"><i className="icon ion-ios-arrow-back"></i></a>
           </li>
-          <li>Filtros</li>
+          <li className="title">Filtros</li>
           <li>
             <a href="#" onClick={this.handleNext}><i className="icon ion-ios-arrow-forward"></i></a>
           </li>

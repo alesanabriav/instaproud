@@ -9,7 +9,7 @@ var Filter = require('views/photos/filter.jsx');
 var Caption = require('views/photos/caption.jsx');
 var Hashtag = require('views/photos/hashtag.jsx');
 var Photo = require('views/photos/item.jsx');
-
+var isMobile = require('is-mobile');
 module.exports = {
 
   list: function() {
@@ -29,6 +29,10 @@ module.exports = {
   },
 
   filter: function(src) {
+    if (isMobile()) {
+      React.unmountComponentAtNode(document.getElementById('header-container'));
+    }
+
     React.unmountComponentAtNode(document.getElementById('nav-container'));
     React.render(<Filter />, document.getElementById('app-container'));
     pubsub.trigger('appHeader:change', {bgColor: "444"});

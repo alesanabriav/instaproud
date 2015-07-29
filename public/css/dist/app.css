@@ -438,28 +438,34 @@ a {
 
 .img-active {
   max-width: 500px;
-  margin: 0 auto; }
+  margin: -50px auto 0 auto; }
   .img-active img {
     width: 100%; }
 
 .filter-options {
   width: 100%;
-  height: 60px;
+  height: 50px;
   background: #25272a;
   margin: 0;
   max-width: 500px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  padding: 0; }
+  .filter-options .title {
+    padding-top: 10px;
+    font-weight: 200; }
   .filter-options li {
+    height: 50px;
     float: left;
     color: #fff;
-    font-size: 1.5em;
+    font-size: 1.4em;
     text-align: center;
     display: block;
     width: 33%; }
     .filter-options li a {
-      text-align: left;
-      color: #fff;
-      font-size: 2em; }
+      text-align: center;
+      color: #fff; }
+      .filter-options li a i {
+        font-size: 2em; }
 
 .filters-frame {
   max-width: 500px;
@@ -468,7 +474,7 @@ a {
   backface-visibility: hidden;
   overflow-x: scroll;
   background: #161819;
-  padding: 10px; }
+  padding: 10px 0 0 0; }
   .filters-frame ul {
     padding: 0;
     width: 750px; }
@@ -480,6 +486,7 @@ a {
         display: block;
         margin: 0 auto; }
       .filters-frame ul li > p {
+        font-weight: 200;
         color: #fff;
         font-size: 1.1em;
         text-align: center;
@@ -487,53 +494,16 @@ a {
 
 .crop-container {
   max-width: 500px;
-  margin: 0 auto;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  height: 100%;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  /* align items in Main Axis */
-  -webkit-align-items: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  /* align items in Cross Axis */
-  -webkit-align-content: stretch;
-  -ms-flex-line-pack: stretch;
-  align-content: stretch;
-  /* Extra space in Cross Axis */ }
+  margin: 0 auto; }
 
 .cropper {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  height: 100%;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  /* align items in Main Axis */
-  -webkit-align-items: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  /* align items in Cross Axis */
-  -webkit-align-content: stretch;
-  -ms-flex-line-pack: stretch;
-  align-content: stretch;
-  /* Extra space in Cross Axis */ }
+  height: 100%; }
 
 .crop-options {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
   width: 100%;
   height: 50px;
   background: #444;
-  padding: 0; }
+  padding: 0 0 5px 0; }
   .crop-options li {
     list-style: none;
     float: left;
@@ -541,11 +511,10 @@ a {
     .crop-options li a {
       height: 50px;
       text-align: center;
-      display: block; }
+      display: block;
+      color: #fff; }
       .crop-options li a i {
-        text-align: center;
-        font-size: 3em;
-        color: #fff; }
+        font-size: 2.8em; }
 
 .photo-caption {
   background: #fff;

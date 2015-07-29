@@ -174,9 +174,9 @@ module.exports = React.createClass({displayName: "exports",
 'use stricts';
 
 module.exports = {
-  baseUrl: 'http://104.238.110.106',
+  // baseUrl: 'http://104.238.110.106',
   // baseUrl: 'http://instaproud.brandspa.cc',
-  // baseUrl: 'http://localhost:3000',
+  baseUrl: 'http://localhost:3000',
   s3Bucket: 'https://s3-sa-east-1.amazonaws.com/instaproud'
 };
 
@@ -227,7 +227,7 @@ var Filter = require('views/photos/filter.jsx');
 var Caption = require('views/photos/caption.jsx');
 var Hashtag = require('views/photos/hashtag.jsx');
 var Photo = require('views/photos/item.jsx');
-
+var isMobile = require('is-mobile');
 module.exports = {
 
   list: function() {
@@ -247,6 +247,10 @@ module.exports = {
   },
 
   filter: function(src) {
+    if (isMobile()) {
+      React.unmountComponentAtNode(document.getElementById('header-container'));
+    }
+
     React.unmountComponentAtNode(document.getElementById('nav-container'));
     React.render(React.createElement(Filter, null), document.getElementById('app-container'));
     pubsub.trigger('appHeader:change', {bgColor: "444"});
@@ -269,7 +273,7 @@ module.exports = {
  }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/controllers/photos.js","/app/controllers")
-},{"_process":53,"buffer":49,"react":229,"utils/http":15,"utils/pubsub":17,"views/photos/caption.jsx":23,"views/photos/crop.jsx":24,"views/photos/filter.jsx":25,"views/photos/hashtag.jsx":28,"views/photos/item.jsx":29,"views/photos/list.jsx":32,"views/photos/search.jsx":33}],10:[function(require,module,exports){
+},{"_process":53,"buffer":49,"is-mobile":55,"react":229,"utils/http":15,"utils/pubsub":17,"views/photos/caption.jsx":23,"views/photos/crop.jsx":24,"views/photos/filter.jsx":25,"views/photos/hashtag.jsx":28,"views/photos/item.jsx":29,"views/photos/list.jsx":32,"views/photos/search.jsx":33}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -1045,7 +1049,7 @@ module.exports = React.createClass({displayName: "exports",
         crop: this.crop}), 
 
         React.createElement("ul", {className: "crop-options"}, 
-          React.createElement("li", null, React.createElement("a", {href: "#"}, React.createElement("i", {className: "icon ion-close"}))), 
+          React.createElement("li", null, React.createElement("a", {href: "#"}, React.createElement("i", {className: "icon ion-android-close"}))), 
           React.createElement("li", null, React.createElement("a", {herf: "#", onClick: this.rotateUndo}, React.createElement("i", {className: "icon ion-ios-undo-outline"}))), 
           React.createElement("li", null, React.createElement("a", {herf: "#", onClick: this.rotateRedo}, React.createElement("i", {className: "icon ion-ios-redo-outline"}))), 
           React.createElement("li", null, React.createElement("a", {href: "#", onClick: this.handleNext}, React.createElement("i", {className: "icon ion-ios-arrow-forward"})))
@@ -1131,7 +1135,7 @@ module.exports = React.createClass({displayName: "exports",
           React.createElement("li", null, 
             React.createElement("a", {href: "#crop"}, React.createElement("i", {className: "icon ion-ios-arrow-back"}))
           ), 
-          React.createElement("li", null, "Filtros"), 
+          React.createElement("li", {className: "title"}, "Filtros"), 
           React.createElement("li", null, 
             React.createElement("a", {href: "#", onClick: this.handleNext}, React.createElement("i", {className: "icon ion-ios-arrow-forward"}))
           )
