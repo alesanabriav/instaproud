@@ -1,6 +1,5 @@
 'use strict';
 var React = require('react');
-var listenTo = require('react-listenTo');
 var Item = require('views/photos/item.jsx');
 var loadImages = require('utils/loadImages');
 var pubsub = require('utils/pubsub');
@@ -9,7 +8,6 @@ var _ = require('underscore');
 var Waypoint = require('react-waypoint');
 
 module.exports = React.createClass({
-  mixins: [listenTo],
 
   getInitialState: function() {
     return {
@@ -28,15 +26,14 @@ module.exports = React.createClass({
     $http.get('/api/photos/starred', null, function(res) {
       this.setState({starred: res});
     }.bind(this));
-
-    this.listenTo(pubsub, 'general:scroll', this.loadMore);
   },
 
   loadMore: function(e) {
     var skip = this.state.skip + 5;
     var data = {photosSkip: skip};
     var hasMore = this.state.hasMore;
-    var newPhotos;
+    var newPhotos = [];
+
     if (hasMore) {
       $http.get('/api/photos', data, function(res) {
         if (res.length === 0) {
@@ -67,7 +64,6 @@ module.exports = React.createClass({
         onEnter={this.loadMore}
         threshold={0.2}
       />
-
       </div>
 
     );

@@ -970,12 +970,14 @@ var React = require('react');
 var Cropper = require('react-cropper');
 var pubsub = require('utils/pubsub');
 var $http = require('utils/http');
-
+var $ = require("./../../../bower_components/jquery/dist/jquery.js");
+var isMobile = require('is-mobile');
 module.exports = React.createClass({displayName: "exports",
   getInitialState: function() {
     return {
       src: 'http://fengyuanchen.github.io/cropper/img/picture.jpg',
-      dataURL: ''
+      dataURL: '',
+      height: 0
     }
   },
 
@@ -1007,18 +1009,28 @@ module.exports = React.createClass({displayName: "exports",
 
   componentWillMount: function() {
     var src = localStorage.getItem('src');
+    var height = 500;
+
+    if (isMobile()) {
+      height = $( document ).height() - 100;
+    }
+
     this.setState({
-      src: src
-    })
+      src: src,
+      height: height
+    });
+
   },
 
   render: function() {
     return (
       React.createElement("div", {className: "crop-container"}, 
+
       React.createElement(Cropper, {
+        className: "cropper", 
         ref: "cropper", 
         src: this.state.src, 
-        style: {height: 300, width: '100%'}, 
+        style: {height: this.state.height, width: '100%'}, 
         minCropBoxWidth: 500, 
         minCropBoxHeight: 500, 
         aspectRatio: 1, 
@@ -1033,13 +1045,11 @@ module.exports = React.createClass({displayName: "exports",
         crop: this.crop}), 
 
         React.createElement("ul", {className: "crop-options"}, 
-          React.createElement("li", null, React.createElement("a", {href: "#"}, React.createElement("i", {className: "icon ion-ios-close-empty"}))), 
+          React.createElement("li", null, React.createElement("a", {href: "#"}, React.createElement("i", {className: "icon ion-close"}))), 
           React.createElement("li", null, React.createElement("a", {herf: "#", onClick: this.rotateUndo}, React.createElement("i", {className: "icon ion-ios-undo-outline"}))), 
           React.createElement("li", null, React.createElement("a", {herf: "#", onClick: this.rotateRedo}, React.createElement("i", {className: "icon ion-ios-redo-outline"}))), 
           React.createElement("li", null, React.createElement("a", {href: "#", onClick: this.handleNext}, React.createElement("i", {className: "icon ion-ios-arrow-forward"})))
-        ), 
-
-        React.createElement("canvas", {id: "crop", width: "500", height: "500"})
+        )
       )
     );
 
@@ -1047,7 +1057,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/crop.jsx","/app/views/photos")
-},{"_process":53,"buffer":49,"react":229,"react-cropper":60,"utils/http":15,"utils/pubsub":17}],25:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":45,"_process":53,"buffer":49,"is-mobile":55,"react":229,"react-cropper":60,"utils/http":15,"utils/pubsub":17}],25:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -1624,7 +1634,6 @@ module.exports = React.createClass({displayName: "exports",
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
-var listenTo = require('react-listenTo');
 var Item = require('views/photos/item.jsx');
 var loadImages = require('utils/loadImages');
 var pubsub = require('utils/pubsub');
@@ -1633,7 +1642,6 @@ var _ = require('underscore');
 var Waypoint = require('react-waypoint');
 
 module.exports = React.createClass({displayName: "exports",
-  mixins: [listenTo],
 
   getInitialState: function() {
     return {
@@ -1652,15 +1660,14 @@ module.exports = React.createClass({displayName: "exports",
     $http.get('/api/photos/starred', null, function(res) {
       this.setState({starred: res});
     }.bind(this));
-
-    this.listenTo(pubsub, 'general:scroll', this.loadMore);
   },
 
   loadMore: function(e) {
     var skip = this.state.skip + 5;
     var data = {photosSkip: skip};
     var hasMore = this.state.hasMore;
-    var newPhotos;
+    var newPhotos = [];
+
     if (hasMore) {
       $http.get('/api/photos', data, function(res) {
         if (res.length === 0) {
@@ -1691,7 +1698,6 @@ module.exports = React.createClass({displayName: "exports",
         onEnter: this.loadMore, 
         threshold: 0.2}
       )
-
       )
 
     );
@@ -1699,7 +1705,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/list.jsx","/app/views/photos")
-},{"_process":53,"buffer":49,"react":229,"react-listenTo":64,"react-waypoint":74,"underscore":233,"utils/http":15,"utils/loadImages":16,"utils/pubsub":17,"views/photos/item.jsx":29}],33:[function(require,module,exports){
+},{"_process":53,"buffer":49,"react":229,"react-waypoint":74,"underscore":233,"utils/http":15,"utils/loadImages":16,"utils/pubsub":17,"views/photos/item.jsx":29}],33:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -1882,65 +1888,65 @@ module.exports = React.createClass({displayName: "exports",
 var React = require('react');
 var Header = require('views/profile/profile_header.jsx');
 var Grid = require('views/profile/profile_grid.jsx');
-var urls = require('config/urls');
-var $  = require("./../../../bower_components/jquery/dist/jquery.js");
-var pubsub = require('utils/pubsub');
-var listenTo = require('react-listenTo');
 var _ = require('underscore');
+var $http = require('utils/http');
 
 module.exports = React.createClass({displayName: "exports",
-  mixins: [listenTo],
 
   getInitialState: function() {
     return {
       user: {},
       photos: [],
-      skip: 0
+      skip: 0,
+      photosCount: 0,
+      hasMore: true
     }
   },
 
   fetchUser: function(username) {
-    $.get(urls.baseUrl + '/api/users/' + username + '/tagged')
-    .then(function(res) {
+    $http.get('/api/users/' + username + '/profile', null, function(res) {
       this.setState({
         user: res.user,
-        photos: res.photos
+        photosCount: res.photosCount
       });
     }.bind(this));
   },
 
-  loadMore: function(e) {
-    if (e) e.preventDefault();
-    var photosSkip = this.state.skip;
-    var skip = photosSkip + 12;
-    var photos = this.state.photos;
-
-    $.ajax({
-      url: urls.baseUrl + '/api/users/' + this.props.username + '/tagged',
-      method: 'GET',
-      data: {photosSkip: skip}
-    })
-    .then(function(res) {
-      var newPhotos = this.state.photos.concat(res.photos);
+  fetchTagged: function(username) {
+    $http.get('/api/users/' + username + '/tagged', null, function(res) {
       this.setState({
-        photos: newPhotos
+        photos: res
       });
     }.bind(this));
+  },
 
-    this.setState({
-      skip: skip
-    });
+  loadMore: function() {
+     var skip = this.state.skip + 12;
+    var data = {photosSkip: skip};
+    var hasMore = this.state.hasMore;
+    var newPhotos;
+
+    if (hasMore) {
+      $http.get('/api/users/' + this.props.username + '/tagged', data, function(res) {
+        if (res.length === 0) {
+          this.setState({hasMore: false});
+        }
+        newPhotos = this.state.photos.concat(res);
+        this.setState({photos: newPhotos});
+      }.bind(this));
+      this.state.skip = skip;
+    }
   },
 
   componentDidMount: function() {
-    this.listenTo(pubsub, 'general:scroll', this.loadMore);
     this.fetchUser(this.props.username);
+    this.fetchTagged(this.props.username);
   },
 
   render: function() {
     return (
       React.createElement("div", {className: "profile-page"}, 
-        React.createElement(Header, {user: this.state.user, photos: this.state.photos, prefix: "tagged"}), 
+        React.createElement(Header, {user: this.state.user, photosCount: this.state.photosCount, prefix: "tagged"}), 
         React.createElement(Grid, {photos: this.state.photos})
       )
     );
@@ -1948,7 +1954,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/Tagged.jsx","/app/views/profile")
-},{"./../../../bower_components/jquery/dist/jquery.js":45,"_process":53,"buffer":49,"config/urls":6,"react":229,"react-listenTo":64,"underscore":233,"utils/pubsub":17,"views/profile/profile_grid.jsx":42,"views/profile/profile_header.jsx":43}],37:[function(require,module,exports){
+},{"_process":53,"buffer":49,"react":229,"underscore":233,"utils/http":15,"views/profile/profile_grid.jsx":42,"views/profile/profile_header.jsx":43}],37:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -2271,75 +2277,82 @@ var Header = require('views/profile/profile_header.jsx');
 var Grid = require('views/profile/profile_grid.jsx');
 var urls = require('config/urls');
 var $  = require("./../../../bower_components/jquery/dist/jquery.js");
-var pubsub = require('utils/pubsub');
-var listenTo = require('react-listenTo');
-var _ = require('underscore');
+var $http = require('utils/http');
+var Waypoint = require('react-waypoint');
 
 module.exports = React.createClass({displayName: "exports",
-  mixins: [listenTo],
 
   getInitialState: function() {
     return {
       user: {},
       photos: [],
-      skip: 0
+      photosCount: 0,
+      skip: 0,
+      hasMore: true
     }
   },
 
   fetchUser: function(username) {
-    $.get(urls.baseUrl + '/api/users/' + username + '/photos')
-    .then(function(res) {
+    $http.get('/api/users/' + username + '/profile', null, function(res) {
       this.setState({
         user: res.user,
-        photos: res.photos
+        photosCount: res.photosCount
       });
     }.bind(this));
   },
 
-  loadMore: function(e) {
-    if (e) e.preventDefault();
-    var photosSkip = this.state.skip;
-    var skip = photosSkip + 12;
-    var photos = this.state.photos;
-
-    $.ajax({
-      url: urls.baseUrl + '/api/users/' + this.props.username + '/photos',
-      method: 'GET',
-      data: {photosSkip: skip}
-    })
-    .then(function(res) {
-      var newPhotos = this.state.photos.concat(res.photos);
+  fetchPhotos: function(username) {
+    $http.get('/api/users/' + username + '/photos', null, function(res) {
       this.setState({
-        photos: newPhotos
+        photos: res
       });
     }.bind(this));
+  },
 
-    this.setState({
-      skip: skip
-    });
+  loadMore: function() {
+     var skip = this.state.skip + 12;
+    var data = {photosSkip: skip};
+    var hasMore = this.state.hasMore;
+    var newPhotos;
+
+    if (hasMore) {
+      $http.get('/api/users/' + this.props.username + '/photos', data, function(res) {
+        if (res.length === 0) {
+          this.setState({hasMore: false});
+        }
+        newPhotos = this.state.photos.concat(res);
+        this.setState({photos: newPhotos});
+      }.bind(this));
+      this.state.skip = skip;
+    }
   },
 
   componentDidMount: function() {
-    this.fetchUser(this.props.username, this.props.prefix);
-    this.listenTo(pubsub, 'general:scroll', this.loadMore);
-  },
+    this.fetchUser(this.props.username);
+    this.fetchPhotos(this.props.username);
 
-  componentWillReceiveProps: function(props) {
-    this.fetchUser(props.username, props.prefix);
   },
 
   render: function() {
     return (
       React.createElement("div", {className: "profile-page"}, 
-        React.createElement(Header, {user: this.state.user, photos: this.state.photos, prefix: "photos"}), 
-        React.createElement(Grid, {photos: this.state.photos})
+        React.createElement(Header, {
+          user: this.state.user, 
+          photosCount: this.state.photosCount, 
+          prefix: "photos"}
+        ), 
+        React.createElement(Grid, {photos: this.state.photos}), 
+        React.createElement(Waypoint, {
+          onEnter: this.loadMore, 
+          threshold: 0.2}
+        )
       )
     );
   }
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/profile.jsx","/app/views/profile")
-},{"./../../../bower_components/jquery/dist/jquery.js":45,"_process":53,"buffer":49,"config/urls":6,"react":229,"react-listenTo":64,"underscore":233,"utils/pubsub":17,"views/profile/profile_grid.jsx":42,"views/profile/profile_header.jsx":43}],42:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":45,"_process":53,"buffer":49,"config/urls":6,"react":229,"react-waypoint":74,"utils/http":15,"views/profile/profile_grid.jsx":42,"views/profile/profile_header.jsx":43}],42:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -2373,8 +2386,6 @@ module.exports = React.createClass({displayName: "exports",
 
   render: function() {
     var user = this.props.user;
-    var photos = this.props.photos;
-    var photosCount = photos.length;
     var userlogged = JSON.parse(localStorage.getItem('user'));
     var profileEdit;
 
@@ -2403,7 +2414,7 @@ module.exports = React.createClass({displayName: "exports",
           React.createElement("span", {className: "user-area"}, user.area), 
 
           React.createElement("div", {className: "count-and-edit"}, 
-            React.createElement("span", {className: "photos-count"}, this.props.photos.length, " Fotos")
+            React.createElement("span", {className: "photos-count"}, this.props.photosCount, " Fotos")
           )
         ), 
 

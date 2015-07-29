@@ -4,68 +4,75 @@ var Header = require('views/profile/profile_header.jsx');
 var Grid = require('views/profile/profile_grid.jsx');
 var urls = require('config/urls');
 var $  = require('jquery');
-var pubsub = require('utils/pubsub');
-var listenTo = require('react-listenTo');
-var _ = require('underscore');
+var $http = require('utils/http');
+var Waypoint = require('react-waypoint');
 
 module.exports = React.createClass({
-  mixins: [listenTo],
 
   getInitialState: function() {
     return {
       user: {},
       photos: [],
-      skip: 0
+      photosCount: 0,
+      skip: 0,
+      hasMore: true
     }
   },
 
   fetchUser: function(username) {
-    $.get(urls.baseUrl + '/api/users/' + username + '/photos')
-    .then(function(res) {
+    $http.get('/api/users/' + username + '/profile', null, function(res) {
       this.setState({
         user: res.user,
-        photos: res.photos
+        photosCount: res.photosCount
       });
     }.bind(this));
   },
 
-  loadMore: function(e) {
-    if (e) e.preventDefault();
-    var photosSkip = this.state.skip;
-    var skip = photosSkip + 12;
-    var photos = this.state.photos;
-
-    $.ajax({
-      url: urls.baseUrl + '/api/users/' + this.props.username + '/photos',
-      method: 'GET',
-      data: {photosSkip: skip}
-    })
-    .then(function(res) {
-      var newPhotos = this.state.photos.concat(res.photos);
+  fetchPhotos: function(username) {
+    $http.get('/api/users/' + username + '/photos', null, function(res) {
       this.setState({
-        photos: newPhotos
+        photos: res
       });
     }.bind(this));
+  },
 
-    this.setState({
-      skip: skip
-    });
+  loadMore: function() {
+     var skip = this.state.skip + 12;
+    var data = {photosSkip: skip};
+    var hasMore = this.state.hasMore;
+    var newPhotos;
+
+    if (hasMore) {
+      $http.get('/api/users/' + this.props.username + '/photos', data, function(res) {
+        if (res.length === 0) {
+          this.setState({hasMore: false});
+        }
+        newPhotos = this.state.photos.concat(res);
+        this.setState({photos: newPhotos});
+      }.bind(this));
+      this.state.skip = skip;
+    }
   },
 
   componentDidMount: function() {
-    this.fetchUser(this.props.username, this.props.prefix);
-    this.listenTo(pubsub, 'general:scroll', this.loadMore);
-  },
+    this.fetchUser(this.props.username);
+    this.fetchPhotos(this.props.username);
 
-  componentWillReceiveProps: function(props) {
-    this.fetchUser(props.username, props.prefix);
   },
 
   render: function() {
     return (
       <div className="profile-page">
-        <Header user={this.state.user} photos={this.state.photos} prefix="photos" />
+        <Header
+          user={this.state.user}
+          photosCount={this.state.photosCount}
+          prefix="photos"
+        />
         <Grid photos={this.state.photos} />
+        <Waypoint
+          onEnter={this.loadMore}
+          threshold={0.2}
+        />
       </div>
     );
   }

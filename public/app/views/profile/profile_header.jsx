@@ -6,8 +6,6 @@ module.exports = React.createClass({
 
   render: function() {
     var user = this.props.user;
-    var photos = this.props.photos;
-    var photosCount = photos.length;
     var userlogged = JSON.parse(localStorage.getItem('user'));
     var profileEdit;
 
@@ -36,7 +34,7 @@ module.exports = React.createClass({
           <span className="user-area">{user.area}</span>
 
           <div className="count-and-edit">
-            <span className="photos-count">{this.props.photos.length} Fotos</span>
+            <span className="photos-count">{this.props.photosCount} Fotos</span>
           </div>
         </div>
 

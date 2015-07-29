@@ -1,16 +1,16 @@
 'use strict';
 var app = require('express')();
-var User = require('../models/user');
-var photosByOwner = require('../lib/photos/by_owner');
-var photosByTagged = require('../lib/photos/by_tagged');
-var generateHash = require('../lib/createName');
-
-var processProfileImage = require('../lib/users/process_profile_image');
-var addProfileImage = require('../lib/users/add_profile_image');
-var uploadToS3 = require('../lib/photos/upload_to_S3');
+var User = require(__base + 'models/user');
+var photosByOwner = require(__base + 'lib/photos/by_owner');
+var photosByTagged = require(__base + 'lib/photos/by_tagged');
+var generateHash = require(__base + 'lib/createName');
+var photosCount = require(__base + 'lib/photos/count_by_owner');
+var photosTaggedCount = require(__base + 'lib/photos/count_tagged_by_owner');
+var processProfileImage = require(__base + 'lib/users/process_profile_image');
+var addProfileImage = require(__base + 'lib/users/add_profile_image');
+var uploadToS3 = require(__base + 'lib/photos/upload_to_S3');
 
 app.route('/users')
-
   .post(function(req, res, next) {
     var data = req.body;
     var newUser = new User(data);
@@ -26,15 +26,28 @@ app.route('/users')
     });
   });
 
-app.route('/api/users/:id')
+app.get('/api/users/:username/profile', function(req, res) {
+  var username = req.params.username;
+  var data = {};
 
+  User.findOne({username: username})
+  .exec(function(err, user) {
+    if (err) return res.status(400).json({message: 'No existe'});
+    photosCount(user.id, function(err, count) {
+      if (err) return res.status(400).json({message: err});
+      data = {user: user, photosCount: count};
+      return res.json(data);
+    });
+  });
+});
+
+app.route('/api/users/:id')
   .get(function(req, res) {
     User.findById(req.params.id, 'username name email profile_image role birthday gender area bio', function(err, user) {
       if(err) res.status(400).json(err);
       res.json(user);
     });
   })
-
   .put(function(req, res) {
     var data = req.body;
     var id = req.params.id;
@@ -93,8 +106,8 @@ app.get('/users/search/:query', function(req, res) {
   var query = req.params.query;
 
   User.find({$or: [
-    {username: new RegExp(query, 'i')},
-    {name: new RegExp(query, 'i')}
+    {name: new RegExp(query, 'i')},
+    {username: new RegExp(query, 'i')}
   ]}, 'name username')
   .exec(function(err, users) {
     if (err) throw err;
@@ -128,7 +141,7 @@ app.get('/api/users/:username/tagged', function(req, res, next) {
 
     photosByTagged(user, photosSkip, function(err, data) {
       if (err) return next(err);
-      return res.json(data);
+      return res.json(data.photos);
     });
   });
 

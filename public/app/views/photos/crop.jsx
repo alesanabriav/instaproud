@@ -3,12 +3,14 @@ var React = require('react');
 var Cropper = require('react-cropper');
 var pubsub = require('utils/pubsub');
 var $http = require('utils/http');
-
+var $ = require('jquery');
+var isMobile = require('is-mobile');
 module.exports = React.createClass({
   getInitialState: function() {
     return {
       src: 'http://fengyuanchen.github.io/cropper/img/picture.jpg',
-      dataURL: ''
+      dataURL: '',
+      height: 0
     }
   },
 
@@ -40,18 +42,28 @@ module.exports = React.createClass({
 
   componentWillMount: function() {
     var src = localStorage.getItem('src');
+    var height = 500;
+
+    if (isMobile()) {
+      height = $( document ).height() - 100;
+    }
+
     this.setState({
-      src: src
-    })
+      src: src,
+      height: height
+    });
+
   },
 
   render: function() {
     return (
       <div className="crop-container">
+
       <Cropper
+        className='cropper'
         ref='cropper'
         src={this.state.src}
-        style={{height: 300, width: '100%'}}
+        style={{height: this.state.height, width: '100%'}}
         minCropBoxWidth={500}
         minCropBoxHeight={500}
         aspectRatio={1}
@@ -66,13 +78,11 @@ module.exports = React.createClass({
         crop={this.crop} />
 
         <ul className="crop-options">
-          <li><a href="#" ><i className="icon ion-ios-close-empty"></i></a></li>
+          <li><a href="#" ><i className="icon ion-close"></i></a></li>
           <li><a herf="#" onClick={this.rotateUndo}><i className="icon ion-ios-undo-outline"></i></a></li>
           <li><a herf="#" onClick={this.rotateRedo}><i className="icon ion-ios-redo-outline"></i></a></li>
           <li><a href="#" onClick={this.handleNext}><i className="icon ion-ios-arrow-forward"></i></a></li>
         </ul>
-
-        <canvas id="crop" width="500" height="500" />
       </div>
     );
 
