@@ -1585,7 +1585,7 @@ module.exports = React.createClass({displayName: "exports",
     return (
       React.createElement("div", null, 
         React.createElement("form", {className: "input-group comment-create-container", onSubmit: this.submitComment}, 
-          React.createElement("input", {type: "text", ref: "comment", onChange: this.searchUsers, className: "form-control commentText", placeholder: "Comentar..."}), 
+          React.createElement("input", {type: "text", ref: "comment", onChange: this.searchUsers, className: "form-control commentText", placeholder: "Comentar"}), 
           React.createElement("span", {className: "input-group-btn"}, 
             React.createElement("button", {className: "comment btn"}, React.createElement("i", {className: "icon ion-ios-paperplane-outline"}))
           )

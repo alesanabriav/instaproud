@@ -81,7 +81,7 @@ module.exports = React.createClass({
     return (
       <div>
         <form className="input-group comment-create-container" onSubmit={this.submitComment}>
-          <input type="text" ref="comment" onChange={this.searchUsers} className="form-control commentText" placeholder="Comentar..." />
+          <input type="text" ref="comment" onChange={this.searchUsers} className="form-control commentText" placeholder="Comentar" />
           <span className="input-group-btn">
             <button className="comment btn"><i className="icon ion-ios-paperplane-outline"></i></button>
           </span>
