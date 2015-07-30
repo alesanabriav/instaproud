@@ -62,7 +62,7 @@ module.exports = React.createClass({
 
   render: function() {
     return (
-      <div className="profile-page">
+      <div className="profile-page animated slideInLeft">
         <Header
           user={this.state.user}
           photosCount={this.state.photosCount}

@@ -2,6 +2,7 @@
 var React = require('react');
 var $http = require('utils/http');
 var _ = require('underscore');
+var pubsub = require('utils/pubsub');
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -12,12 +13,14 @@ module.exports = React.createClass({
 
   submitComment: function(e) {
     e.preventDefault();
+    pubsub.trigger('input:onFocusOut');
     var text = React.findDOMNode(this.refs.comment).value;
     this.props.onSubmitComment({text: text});
     React.findDOMNode(this.refs.comment).value = '';
   },
 
   searchUsers: function() {
+    pubsub.trigger('input:onFocus');
     var text = React.findDOMNode(this.refs.comment).value;
     var tags = text.match(/\@\w+\b/gm);
     var tagsWithSpace = text.match(/\@\w+\b\s/gm);

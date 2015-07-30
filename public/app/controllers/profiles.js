@@ -48,8 +48,11 @@ module.exports = {
   },
 
   edit: function(id) {
-    React.unmountComponentAtNode(document.getElementById('nav-container'));
-    React.render(<Edit userId={id} />, document.getElementById("app-container"));
+    var user = JSON.parse(localStorage.getItem('user'));
+    if(user.id === id) {
+      React.unmountComponentAtNode(document.getElementById('nav-container'));
+      React.render(<Edit userId={id} />, document.getElementById("app-container"));
+    }
   }
 
 };

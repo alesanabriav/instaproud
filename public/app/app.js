@@ -2,11 +2,8 @@
 global.jQuery = require('jquery');
 var $ = jQuery;
 var Backbone = require('backbone');
-var pubsub = require('utils/pubsub');
-
 var nprogress = require('nprogress');
 var redirect = require('utils/redirect');
-var scrollTrigger = require('scroll-trigger');
 Backbone.$ = $;
 
 var Router = require('./router');
@@ -31,8 +28,4 @@ $( document ).ajaxError(function( event, jqxhr) {
 /** On ajax complete hide preloader */
 $( document ).ajaxComplete(function() {
   nprogress.done();
-});
-
-scrollTrigger(1000, 700, function() {
-  pubsub.trigger('general:scroll');
 });

@@ -11,19 +11,17 @@ module.exports = React.createClass({
   mixins: [listenTo],
 
   componentDidMount: function() {
-    this.listenTo(pubsub, 'footerNav:changeState', this.changeState, this);
-    this.listenTo(pubsub, 'input:onFocus', this.hide, this);
-    this.listenTo(pubsub, 'input:onFocusOut', this.show, this);
-
+    this.listenTo(pubsub, 'input:onFocus', this.hide);
+    this.listenTo(pubsub, 'input:onFocusOut', this.show);
   },
 
   hide: function() {
-    React.findDOMNode(this).hide();
+    $(React.findDOMNode(this)).hide();
   },
 
   /** show this */
   show: function() {
-    React.findDOMNode(this).show();
+     $(React.findDOMNode(this)).show();
   },
 
   handleFile: function(e) {

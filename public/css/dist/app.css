@@ -36,6 +36,9 @@ button:focus {
   .btn:active {
     outline: none; }
 
+p {
+  margin: 0; }
+
 li {
   list-style: none; }
 
@@ -178,6 +181,20 @@ a {
 
 .alert-warning {
   border: none; }
+
+.example-enter {
+  opacity: 0; }
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 5s ease-in; }
+
+.example-appear {
+  opacity: 0.01;
+  transition: opacity 5s ease-in; }
+
+.example-appear.example-appear-active {
+  opacity: 1; }
 
 .footer-nav-actions {
   width: 100%;

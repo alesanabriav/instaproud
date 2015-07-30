@@ -16,6 +16,12 @@ app.route('/api/photos/:id/comments')
       if(err) return res.status(400).json(err);
       return res.status(201).json(comment);
     });
-  });
+});
+
+app.route('/api/photos/:id/comments/:commentId', function() {
+  var id = req.params.id;
+  var commentId = req.params.commentId;
+
+});
 
 module.exports = app;

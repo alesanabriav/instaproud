@@ -1,6 +1,5 @@
 'use strict';
 var React = require('react');
-var pubsub = require('utils/pubsub');
 var $ = require('jquery');
 var urls = require('config/urls');
 var Hashtag = require('views/photos/search_hashtag.jsx');

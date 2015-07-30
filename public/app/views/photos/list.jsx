@@ -1,72 +1,44 @@
 'use strict';
 var React = require('react');
 var Item = require('views/photos/item.jsx');
-var loadImages = require('utils/loadImages');
-var pubsub = require('utils/pubsub');
-var $http = require('utils/http');
-var _ = require('underscore');
 var Waypoint = require('react-waypoint');
+var photoStore = require('stores/photosStore');
 
 module.exports = React.createClass({
 
   getInitialState: function() {
     return {
-      photos: [],
-      starred: {},
-      skip: 0,
-      hasMore: true
+      photos: []
     }
   },
 
   componentDidMount: function() {
-    $http.get('/api/photos', null, function(res) {
-      this.setState({photos: res});
-    }.bind(this));
-
-    $http.get('/api/photos/starred', null, function(res) {
-      this.setState({starred: res});
-    }.bind(this));
+    photoStore.getAll();
+    photoStore.addChangeListener(this._onChange);
   },
 
-  loadMore: function(e) {
-    var skip = this.state.skip + 5;
-    var data = {photosSkip: skip};
-    var hasMore = this.state.hasMore;
-    var newPhotos = [];
+  componentWillUnmount: function() {
+    photoStore.removeChangeListener(this._onChange);
+  },
 
-    if (hasMore) {
-      $http.get('/api/photos', data, function(res) {
-        if (res.length === 0) {
-          this.setState({hasMore: false});
-        }
-        newPhotos = this.state.photos.concat(res);
-        this.setState({photos: newPhotos});
-      }.bind(this));
-      this.state.skip = skip;
-    }
+  _onChange: function(data) {
+    this.setState({photos: data});
+  },
+
+  loadMore: function() {
+    photoStore.getMore(this.state.photos);
   },
 
   render: function() {
-
-    var starred = '';
-
-    if (!_.isEmpty(this.state.starred)) {
-      starred = (<Item photo={this.state.starred} />);
-    }
     var photoNodes = this.state.photos.map(function(photo) {
-      return (<Item key={photo.id} photo={photo} />);
+      return <Item key={photo.id} photo={photo} />;
     }.bind(this));
 
     return (
-      <div>
-      {starred}
+    <div>
       {photoNodes}
-      <Waypoint
-        onEnter={this.loadMore}
-        threshold={0.2}
-      />
-      </div>
-
+      <Waypoint onEnter={this.loadMore} threshold={0.2} />
+    </div>
     );
   }
 });
