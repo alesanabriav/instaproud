@@ -10,8 +10,12 @@ var Caption = require('views/photos/caption.jsx');
 var Hashtag = require('views/photos/hashtag.jsx');
 var Photo = require('views/photos/item.jsx');
 var isMobile = require('is-mobile');
+var Map = require('views/photos/locations.jsx');
 
 module.exports = {
+  map: function() {
+    React.render(<Map />, document.getElementById('app-container'));
+  },
 
   list: function() {
     React.render(<List />, document.getElementById('app-container'));

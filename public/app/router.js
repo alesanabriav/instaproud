@@ -34,6 +34,9 @@ module.exports = Backbone.Router.extend({
     'profile/:id/edit': function(id) {
       profilesController.edit(id);
     },
+    'map': function() {
+      photosController.map();
+    },
     'crop': function() {
       photosController.crop();
     },

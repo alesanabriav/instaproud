@@ -48,12 +48,34 @@ PhotoSchema = new Schema({
 });
 
 PhotoSchema.set('toJSON', {
+
   transform: function (doc, ret) {
+    var likesCount = 0;
+    var commentsCount = 0;
+    var hashtagsCount = 0;
+    var taggedCount = 0;
+
+    if (ret.liked) {
+      likesCount = ret.liked.length;
+    }
+
+    if (ret.comments) {
+      commentsCount =  ret.comments.length;
+    }
+
+    if (ret.hashtags) {
+      hashtagsCount =  ret.hashtags.length;
+    }
+
+    if (ret.tagged) {
+      taggedCount =  ret.tagged.length;
+    }
+
    ret.id = ret._id;
-   ret.likesCount = ret.liked.length;
-   ret.commentsCount = ret.comments.length;
-   ret.taggedCount = ret.tagged.length;
-   ret.hashtagsCount = ret.hashtags.length;
+   ret.likesCount = likesCount;
+   ret.commentsCount = commentsCount;
+   ret.taggedCount = taggedCount;
+   ret.hashtagsCount = hashtagsCount;
    delete ret._id;
    delete ret.__v;
   }

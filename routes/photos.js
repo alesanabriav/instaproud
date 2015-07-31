@@ -11,6 +11,7 @@ var hashtagStore = require(base + 'lib/hashtags/store');
 var process = require(base + 'lib/photos/process');
 var starred = require(base + 'lib/photos/starred');
 var resize = require(base + 'lib/photos/resize');
+var getLocations = require(base + 'lib/photos/get_locations');
 
 app.post('/api/photos/compress', function(req, res, next) {
   var file = req.files.original_image;
@@ -21,8 +22,6 @@ app.post('/api/photos/compress', function(req, res, next) {
     return res.json(path);
   });
 });
-
-
 
 app.get('/api/photos', function(req, res, next) {
   var photosSkip = parseInt(req.query.photosSkip) || 0;
@@ -52,6 +51,7 @@ app.post('/api/photos', function(req, res) {
     };
 
     store(data, function(err, photo) {
+      if(err) return res.status(400).json(err);
       hashtagStore(photo.caption, photo.id, function() {
         return res.status(201).json(photo);
       });
@@ -60,12 +60,21 @@ app.post('/api/photos', function(req, res) {
   });
 });
 
-app.post('/api/photos/compress', function(req, res) {
-  var path = req.files.path;
-  resize(req.files.path, function(path) {
+app.get('/api/photos/locations', function(req, res) {
+  getLocations(req.user.id, function(err, locations) {
+    if(err) res.status(400).json(err);
+    return res.json(locations);
+  });
 
+});
+
+app.post('/api/photos/compress', function(req, res) {
+  resize(req.files.path, function(path) {
+    return res.json(path);
   });
 });
+
+
 
 app.get('/api/photos/starred', function(req, res) {
   byStarred(function(err, photos) {
