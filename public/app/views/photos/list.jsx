@@ -2,31 +2,68 @@
 var React = require('react');
 var Item = require('views/photos/item.jsx');
 var Waypoint = require('react-waypoint');
-var photoStore = require('stores/photosStore');
+var $http = require('utils/http');
 
 module.exports = React.createClass({
 
   getInitialState: function() {
     return {
-      photos: []
+      photos: [],
+      hasMore: true,
+      skip: 0
     }
   },
 
   componentDidMount: function() {
-    photoStore.getAll();
-    photoStore.addChangeListener(this._onChange);
+    this.getAll();
   },
 
-  componentWillUnmount: function() {
-    photoStore.removeChangeListener(this._onChange);
+   getStarred: function(next) {
+    $http.get('/api/photos/starred', null, function(res) {
+      return next(res);
+    }.bind(this));
+  },
+
+  getAll: function() {
+    var photos = [];
+
+    this.getStarred(function(starred) {
+
+      $http.get('/api/photos', null, function(res) {
+        if(starred) {
+          photos = [starred].concat(res);
+        } else {
+          photos = res;
+        }
+
+        this._onChange(photos);
+      }.bind(this));
+
+    }.bind(this));
+  },
+
+  loadMore: function() {
+    var skip = this.state.skip + 5;
+    var data = {photosSkip: skip};
+    var newPhotos = [];
+    var photos = this.state.photos;
+
+    if (this.state.hasMore) {
+      $http.get('/api/photos', data, function(res) {
+        if (res.length === 0) {
+          this.state.hasMore = false;
+        }
+
+        newPhotos = photos.concat(res);
+        this._onChange(newPhotos);
+      }.bind(this));
+
+      this.state.skip = skip;
+    }
   },
 
   _onChange: function(data) {
     this.setState({photos: data});
-  },
-
-  loadMore: function() {
-    photoStore.getMore(this.state.photos);
   },
 
   render: function() {
