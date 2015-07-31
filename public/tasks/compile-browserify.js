@@ -5,6 +5,7 @@ var source = require('vinyl-source-stream');
 var debowerify = require('debowerify');
 var reactify = require('reactify');
 var browserifyCss = require('browserify-css');
+var concat = require('gulp-concat');
 // compile browersify app
 gulp.task('browserify', function () {
   var options = {
@@ -32,5 +33,4 @@ gulp.task('browserify', function () {
     })
     .pipe(source('app.js'))
     .pipe(gulp.dest('js/dist'));
-    console.log('finish');
 });
