@@ -26,6 +26,24 @@ app.route('/users')
     });
   });
 
+app.get('/users/:id/validation/', function(req, res) {
+  var id = req.params.id;
+  var salt = req.query.code;
+  User.findOne({_id: id, salt: salt}).exec(function(err, user) {
+    if(err) return res.status(400).json(err);
+    if (user) {
+      user
+        .update({_id: id}, {$set: {status: 'active'}})
+        .exec(function(err) {
+        if(err) return err;
+         return res.sendfile('./views/activated.html');
+      });
+    } else {
+      return res.status(400).json('error');
+    }
+  });
+});
+
 app.get('/api/users/:username/profile', function(req, res) {
   var username = req.params.username;
   var data = {};
