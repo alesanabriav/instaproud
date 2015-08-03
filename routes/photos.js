@@ -12,6 +12,7 @@ var process = require(base + 'lib/photos/process');
 var starred = require(base + 'lib/photos/starred');
 var resize = require(base + 'lib/photos/resize');
 var getLocations = require(base + 'lib/photos/get_locations');
+var mailReport = require(base +'mails/report');
 
 app.post('/api/photos/compress', function(req, res, next) {
   var file = req.files.original_image;
@@ -112,7 +113,14 @@ app.delete('/api/photos/:id', function(req, res, next) {
 });
 
 app.post('/api/photos/:id/report', function(req, res) {
-  return res.json({ok: true});
+  var id = req.params.id;
+  console.log(id);
+  byId(id, function(err, photo) {
+    if(err) return res.status(400).json(err);
+    mailReport(photo, function() {
+      return res.json({ok: true});
+    });
+  });
 });
 
 app.post('/api/photos/:id/starred', function(req, res) {

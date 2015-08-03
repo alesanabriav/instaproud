@@ -10,6 +10,9 @@ module.exports = Backbone.Router.extend({
     '': function(){
       photosController.list();
     },
+    'photo/:id': function(id) {
+      photosController.item(id);
+    },
     'search': function(){
       photosController.search();
     },

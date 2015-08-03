@@ -166,9 +166,9 @@ module.exports = React.createClass({displayName: "exports",
 'use stricts';
 
 module.exports = {
-  baseUrl: 'http://104.238.110.106',
+  // baseUrl: 'http://104.238.110.106',
   // baseUrl: 'http://instaproud.brandspa.cc',
-  // baseUrl: 'http://localhost:3000',
+  baseUrl: 'http://localhost:3000',
   s3Bucket: 'https://s3-sa-east-1.amazonaws.com/instaproud'
 };
 
@@ -343,6 +343,9 @@ module.exports = Backbone.Router.extend({
   routes: {
     '': function(){
       photosController.list();
+    },
+    'photo/:id': function(id) {
+      photosController.item(id);
     },
     'search': function(){
       photosController.search();

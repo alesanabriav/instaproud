@@ -16,10 +16,7 @@
   "dependencies": {
     "animate.css": "~3.3.0",
     "bootstrap": "~3.3.4",
-    "cropper": "~0.9.3",
-    "font-awesome": "~4.3.0",
     "open-iconic": "~1.1.1",
-    "svg-loaders": "~1.0.2",
     "timeago": "~1.4.1"
   }
 }
