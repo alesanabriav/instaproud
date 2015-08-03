@@ -13,9 +13,6 @@ module.exports = {
   login: function() {
     React.unmountComponentAtNode(document.getElementById('header-container'));
     React.unmountComponentAtNode(document.getElementById('nav-container'));
-    if (localStorage.getItem('user')) {
-      localStorage.removeItem('user');
-    }
     React.render(<Login />, document.getElementById('app-container'));
 
   },
@@ -30,7 +27,6 @@ module.exports = {
   register: function() {
     React.unmountComponentAtNode(document.getElementById('header-container'));
     React.unmountComponentAtNode(document.getElementById('nav-container'));
-    localStorage.removeItem('user');
     React.render(<Register />, document.getElementById('app-container'));
   },
 

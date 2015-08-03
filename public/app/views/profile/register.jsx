@@ -18,7 +18,13 @@ module.exports = React.createClass({
         return;
       }
 
-      userToStore = {id: res.id, username: res.username, role: res.role, active: res.active};
+      userToStore = {
+        id: res.id,
+        username: res.username,
+        role: res.role,
+        active: res.active
+      };
+
       localStorage.setItem('user', JSON.stringify(userToStore));
       window.location.replace('#profile/' + res.id + '/edit');
     });

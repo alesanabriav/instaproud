@@ -9,22 +9,23 @@ var photosTaggedCount = require(__base + 'lib/photos/count_tagged_by_owner');
 var processProfileImage = require(__base + 'lib/users/process_profile_image');
 var addProfileImage = require(__base + 'lib/users/add_profile_image');
 var uploadToS3 = require(__base + 'lib/photos/upload_to_S3');
+var mailVerification = require(__base + 'mails/verification');
 
-app.route('/users')
-  .post(function(req, res, next) {
-    var data = req.body;
-    var newUser = new User(data);
+app.post('/users', function(req, res, next) {
+  var data = req.body;
+  var newUser = new User(data);
 
-    newUser.save(function(err, user) {
-      if (err) return status(400).json(err);
-
-      req.login(user, function(err) {
-        if (err) { return next(err); }
-        return res.json(user);
+  newUser.save(function(err, user) {
+    if (err) return res.status(400).json(err);
+    req.login(user, function(err) {
+      if (err) return next(err);
+      mailVerification(user, function(err, status) {
+        if(err) return console.log(err);
+        return res.status(201).json(user);
       });
-
     });
   });
+});
 
 app.get('/users/:id/validation/', function(req, res) {
   var id = req.params.id;

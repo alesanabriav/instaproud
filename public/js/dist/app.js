@@ -289,9 +289,6 @@ module.exports = {
   login: function() {
     React.unmountComponentAtNode(document.getElementById('header-container'));
     React.unmountComponentAtNode(document.getElementById('nav-container'));
-    if (localStorage.getItem('user')) {
-      localStorage.removeItem('user');
-    }
     React.render(React.createElement(Login, null), document.getElementById('app-container'));
 
   },
@@ -306,7 +303,6 @@ module.exports = {
   register: function() {
     React.unmountComponentAtNode(document.getElementById('header-container'));
     React.unmountComponentAtNode(document.getElementById('nav-container'));
-    localStorage.removeItem('user');
     React.render(React.createElement(Register, null), document.getElementById('app-container'));
   },
 
