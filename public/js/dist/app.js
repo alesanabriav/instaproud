@@ -166,9 +166,9 @@ module.exports = React.createClass({displayName: "exports",
 'use stricts';
 
 module.exports = {
-  // baseUrl: 'http://104.238.110.106',
+  baseUrl: 'http://104.238.110.106',
   // baseUrl: 'http://instaproud.brandspa.cc',
-  baseUrl: 'http://localhost:3000',
+  // baseUrl: 'http://localhost:3000',
   s3Bucket: 'https://s3-sa-east-1.amazonaws.com/instaproud'
 };
 
@@ -2512,7 +2512,13 @@ module.exports = React.createClass({displayName: "exports",
         return;
       }
 
-      userToStore = {id: res.id, username: res.username, role: res.role, active: res.active};
+      userToStore = {
+        id: res.id,
+        username: res.username,
+        role: res.role,
+        active: res.active
+      };
+
       localStorage.setItem('user', JSON.stringify(userToStore));
       window.location.replace('#profile/' + res.id + '/edit');
     });
