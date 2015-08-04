@@ -2,25 +2,35 @@
 var React = require('react');
 var photoFilters = require('utils/filters');
 var Vintage = require('vintagejs/dist/vintage');
+var $ = require('jquery');
 
 module.exports = React.createClass({
+  getInitialState: function() {
+    return {
+      active: ''
+    }
+  },
+
   getDefaultProps: function() {
     return {
       filters: [
-      'original',
-      '1977',
-      'brannan',
-      'gotham',
-      'hefe',
-      'lordKelvin',
-      'Nashville',
-      'xpro',
-      'inkwell'
-    ]
+        'original',
+        '1977',
+        'brannan',
+        'gotham',
+        'hefe',
+        'lordKelvin',
+        'Nashville',
+        'xpro',
+        'inkwell'
+      ]
     }
   },
 
   handleSelect: function(filter, e) {
+    var containers = $('.select-image').removeClass('active');
+    var container = $("#container-" + filter);
+    container.addClass('active');
     this.props.onAddFilter(filter);
   },
 
@@ -40,10 +50,9 @@ module.exports = React.createClass({
     var src = localStorage.getItem('srcThumb');
     var filterNodes = this.props.filters.map(function(filter, i) {
       return (
-        <li key={i} className={"select-image"} onClick={this.handleSelect.bind(null, filter)}>
+        <li key={i} id={"container-" + filter} className={"select-image"} onClick={this.handleSelect.bind(null, filter)}>
           <img
             src={src}
-            data-filter={"filter-" + filter}
             id={"filter-" + filter}
             width="50"
           />

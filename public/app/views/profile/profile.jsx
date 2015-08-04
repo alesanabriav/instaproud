@@ -57,12 +57,11 @@ module.exports = React.createClass({
   componentDidMount: function() {
     this.fetchUser(this.props.username);
     this.fetchPhotos(this.props.username);
-
   },
 
   render: function() {
     return (
-      <div className="profile-page animated slideInLeft">
+      <div className="profile-page">
         <Header
           user={this.state.user}
           photosCount={this.state.photosCount}

@@ -1,6 +1,7 @@
 'use strict';
 var React = require('react');
 var GMaps = require('gmaps');
+var urls = require('config/urls');
 
 module.exports = React.createClass({
   getDefaultProps: function() {
@@ -29,12 +30,15 @@ module.exports = React.createClass({
       if (location.geolocation) {
          map.addMarker({
           lat: location.geolocation.latitude,
-          lng: location.geolocation.longitude
+          lng: location.geolocation.longitude,
+          click: function(e) {
+            window.location = "/#photo/" + location.id;
+          }
         });
       }
-
     });
-     map.fitZoom();
+
+    map.fitZoom();
   },
 
   render: function(){

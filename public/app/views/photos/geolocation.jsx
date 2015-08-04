@@ -25,7 +25,6 @@ module.exports = React.createClass({
         locationData.address = res.results[0].formatted_address;
         locationData.name = res.results[0].address_components[2].short_name;
         this.setState({status: locationData.name});
-
         this.props.onLocation(locationData);
 
         }.bind(this));

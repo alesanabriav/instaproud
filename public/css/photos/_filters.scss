@@ -29,6 +29,9 @@
       text-align: center;
       display: block;
       width: 20%;
+    &.active {
+      border-bottom: 4px solid red;
+    }
     a{
       text-align: center;
       color: #fff;
@@ -55,6 +58,11 @@
       display: inline-block;
       list-style: none;
       width: 80px;
+      padding-bottom: 5px;
+
+      &.active {
+        border-bottom: 3px solid #fff;
+      }
 
       img {
         display: block;

@@ -508,6 +508,8 @@ a {
     text-align: center;
     display: block;
     width: 20%; }
+    .filter-options li.active {
+      border-bottom: 4px solid red; }
     .filter-options li a {
       text-align: center;
       color: #fff; }
@@ -528,7 +530,10 @@ a {
     .filters-frame ul li {
       display: inline-block;
       list-style: none;
-      width: 80px; }
+      width: 80px;
+      padding-bottom: 5px; }
+      .filters-frame ul li.active {
+        border-bottom: 3px solid #fff; }
       .filters-frame ul li img {
         display: block;
         margin: 0 auto; }
