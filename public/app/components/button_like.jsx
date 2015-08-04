@@ -18,7 +18,7 @@ module.exports = React.createClass({
     var users = this.props.users;
 
     if (_.where(users, username).length > 0) {
-      var like = <button className="unlike" onClick={this.handleUnlike}><i className="icon ion-ios-heart"></i></button>;
+      var like = <button className="unlike animated tada" onClick={this.handleUnlike}><i className="icon ion-ios-heart"></i></button>;
     } else {
       var like = <button className="like" onClick={this.handleLike}><i className="icon ion-ios-heart-outline"></i></button>;
     }

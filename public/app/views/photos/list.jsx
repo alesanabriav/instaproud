@@ -1,8 +1,9 @@
 'use strict';
-var React = require('react');
+var React = require('react/addons');
 var Item = require('views/photos/item.jsx');
 var Waypoint = require('react-waypoint');
 var $http = require('utils/http');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 module.exports = React.createClass({
 
@@ -18,6 +19,10 @@ module.exports = React.createClass({
     this.getAll();
   },
 
+  componentWillLeave: function() {
+    console.log('will leave');
+  },
+
    getStarred: function(next) {
     $http.get('/api/photos/starred', null, function(res) {
       return next(res);
@@ -29,7 +34,8 @@ module.exports = React.createClass({
 
     this.getStarred(function(starred) {
 
-      $http.get('/api/photos', null, function(res) {
+      $http
+        .get('/api/photos', null, function(res) {
         if(starred) {
           photos = [starred].concat(res);
         } else {
@@ -68,12 +74,14 @@ module.exports = React.createClass({
 
   render: function() {
     var photoNodes = this.state.photos.map(function(photo) {
-      return <Item key={photo.id} photo={photo} />;
+      return (
+          <Item key={photo.id} photo={photo} />
+        );
     }.bind(this));
 
     return (
     <div>
-      {photoNodes}
+        {photoNodes}
       <Waypoint onEnter={this.loadMore} threshold={0.2} />
     </div>
     );

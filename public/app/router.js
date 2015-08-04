@@ -54,6 +54,10 @@ module.exports = Backbone.Router.extend({
     }
   },
 
+  initialize: function() {
+
+  },
+
   execute: function(callback, args) {
     AppController.initialize();
     activitiesController.initialize();

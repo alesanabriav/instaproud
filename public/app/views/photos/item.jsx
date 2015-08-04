@@ -133,7 +133,7 @@ module.exports = React.createClass({
     var profileImage;
 
     return (
-      <article className={this.state.show ? "photo-feed": "hidden"}>
+      <article className={this.state.show ? "photo-feed animated fadeInDown": "hidden"}>
         <header className="header">
         <ProfileImage user={user} containerName="avatar-container" />
 
