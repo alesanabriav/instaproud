@@ -6,6 +6,7 @@ var session = require('express-session');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var compression = require('compression');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var multer = require('multer');
@@ -44,6 +45,7 @@ mongooseCache.install(mongoose, cacheOpts);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 // Middlewares
+app.use(compression());
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json({limit: '50mb'}));
