@@ -43,8 +43,6 @@ mongooseCache.install(mongoose, cacheOpts);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('x-powered-by', false);
-app.set('Server', false);
 // Middlewares
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
@@ -104,5 +102,7 @@ app.use(function(err, req, res) {
     errors: {}
   });
 });
+
+app.set('x-powered-by', false);
 
 module.exports = app;
