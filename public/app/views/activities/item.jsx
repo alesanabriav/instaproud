@@ -19,7 +19,7 @@ module.exports = React.createClass({
     var photoLink;
 
     if (activity.photo) {
-      photo = 'https://s3-sa-east-1.amazonaws.com/instaproud/' + activity.from.id + '/' +
+      photo = 'https://s3-sa-east-1.amazonaws.com/bvcinstaproud/' + activity.from.id + '/' +
     activity.photo.path;
       photoLink = '#photo/' + activity.photo.id
     }
