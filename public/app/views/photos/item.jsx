@@ -128,7 +128,7 @@ module.exports = React.createClass({
       optionFixed = (<a href="#" className="item" onClick={this.handleFixed}>Resaltar</a>);
     }
 
-    var src = 'https://s3-sa-east-1.amazonaws.com/instaproud/' + user.id + '/' + photo.path;
+    var src = 'https://s3-sa-east-1.amazonaws.com/bvcinstaproud/' + user.id + '/' + photo.path;
 
     var profileImage;
 

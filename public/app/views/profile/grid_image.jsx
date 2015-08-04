@@ -13,7 +13,7 @@ module.exports = React.createClass({
 
   render: function() {
     var photo = this.props.photo;
-    var src = 'https://s3-sa-east-1.amazonaws.com/instaproud/' + photo.owner + '/' + photo.path;
+    var src = 'https://s3-sa-east-1.amazonaws.com/bvcinstaproud/' + photo.owner + '/' + photo.path;
 
     return (
       <a href={"#photo/" + photo.id} className="col-xs-4">
