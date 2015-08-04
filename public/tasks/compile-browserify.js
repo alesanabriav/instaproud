@@ -6,6 +6,8 @@ var debowerify = require('debowerify');
 var reactify = require('reactify');
 var browserifyCss = require('browserify-css');
 var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var buffer = require('vinyl-buffer');
 // compile browersify app
 gulp.task('browserify', function () {
   var options = {
@@ -32,5 +34,7 @@ gulp.task('browserify', function () {
       console.log(err.toString());
     })
     .pipe(source('app.js'))
+    .pipe(buffer())
+    .pipe(uglify())
     .pipe(gulp.dest('js/dist'));
 });
