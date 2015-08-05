@@ -21,18 +21,23 @@ module.exports = React.createClass({
 
   fetchUser: function(username) {
     $http.get('/api/users/' + username + '/profile', null, function(res) {
-      this.setState({
+      if (res) {
+        this.setState({
         user: res.user,
         photosCount: res.photosCount
       });
+      }
+
     }.bind(this));
   },
 
   fetchPhotos: function(username) {
     $http.get('/api/users/' + username + '/photos', null, function(res) {
-      this.setState({
-        photos: res
-      });
+      if (res) {
+        this.setState({
+         photos: res
+        });
+      }
     }.bind(this));
   },
 
@@ -43,12 +48,18 @@ module.exports = React.createClass({
     var newPhotos;
 
     if (hasMore) {
-      $http.get('/api/users/' + this.props.username + '/photos', data, function(res) {
-        if (res.length === 0) {
+      $http.get(
+        '/api/users/' + this.props.username + '/photos',
+        data,
+        function(res) {
+        if (res && res.length === 0) {
           this.setState({hasMore: false});
         }
-        newPhotos = this.state.photos.concat(res);
-        this.setState({photos: newPhotos});
+
+        if (res) {
+          newPhotos = this.state.photos.concat(res);
+          this.setState({photos: newPhotos});
+        }
       }.bind(this));
       this.state.skip = skip;
     }

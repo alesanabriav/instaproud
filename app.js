@@ -11,7 +11,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var mongoose = require('mongoose');
-var mongooseCache = require('mongoose-cache');
 var redis = require('redis');
 var RedisStore = require('connect-redis')(session);
 var redisClient = redis.createClient();
@@ -35,15 +34,9 @@ Promise.promisifyAll(mongoose);
 //Database connection
 mongoose.connect(dbConfig.url);
 
-var cacheOpts = {
-    max: 50,
-    maxAge: 1000 * 60 * 2
-};
-
-mongooseCache.install(mongoose, cacheOpts);
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
 // Middlewares
 app.use(compression());
 app.use(favicon(__dirname + '/public/favicon.ico'));

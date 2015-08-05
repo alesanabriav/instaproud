@@ -1,5 +1,6 @@
 'use strict';
 var React = require('react');
+var ImageLoader = require('react-imageloader');
 
 module.exports = React.createClass({
   getDefaultProps: function() {
@@ -9,20 +10,25 @@ module.exports = React.createClass({
     }
   },
 
+  preloader: function() {
+    return (
+      <img src="images/photo-placeholder.gif" alt="Loading icon" />
+      );
+  },
+
   render: function() {
     var user = this.props.user;
     var profileImage;
-    var urlProfileImage = 'https://s3-sa-east-1.amazonaws.com/instaproud/' + user.id + '/' + user.profile_image;
-
-    if (user && user.profile_image) {
-      profileImage = (<img src={urlProfileImage} />);
-    } else {
-      profileImage = (<img src={'images/icon-perfil.svg'} />);
-    }
+    var src = 'https://s3-sa-east-1.amazonaws.com/bvcinstaproud/' + user.id + '/' + user.profile_image;
 
     return (
       <div className={this.props.containerName}>
-        {profileImage}
+        <ImageLoader
+            src={src}
+            preloader={this.preloader}
+            >
+            {this.preloader()}
+          </ImageLoader>
       </div>
     );
   }

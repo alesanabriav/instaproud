@@ -5,6 +5,7 @@ var pubsub = require('utils/pubsub');
 var $http = require('utils/http');
 var $ = require('jquery');
 var isMobile = require('is-mobile');
+
 module.exports = React.createClass({
   getInitialState: function() {
     return {

@@ -19,6 +19,7 @@ module.exports = {
   get: function(url, data, next) {
     $.ajax({
       type: 'GET',
+      cache: true,
       url: urls.baseUrl + url,
       data: data
     })
