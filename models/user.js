@@ -79,6 +79,8 @@ UserSchema.methods.validPassword = function(password) {
   return bcrypt.compareSync(password, user.password);
 };
 
+
+
 UserSchema.pre('save', function(next) {
   var user = this;
   var username = user.email.split('@');
@@ -99,6 +101,12 @@ UserSchema.pre('save', function(next) {
 });
 
 User = mongoose.model('User', UserSchema);
+
+User.schema.path('password').validate(function(value) {
+  var rexPassword = /(?=.*[a-z])(?=.*[0-9]).{8,}/g;
+  return rexPassword.test(value);
+}, 'La contraseña no cumple con los parametros');
+
 Promise.promisifyAll(User);
 Promise.promisifyAll(User.prototype);
 

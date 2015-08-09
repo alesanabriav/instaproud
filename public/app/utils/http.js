@@ -13,7 +13,10 @@ module.exports = {
       url: urls.baseUrl + url,
       data: JSON.stringify(data)
     })
-    .then(next);
+    .then(next)
+    .fail(function(res) {
+      next(null, JSON.parse(res.responseText));
+    });
   },
 
   get: function(url, data, next) {

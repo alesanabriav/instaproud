@@ -50,8 +50,6 @@ module.exports = React.createClass({
           </a>
         </li>
         <li>{profileEdit}</li>
-
-
         </ul>
       </header>
       </div>

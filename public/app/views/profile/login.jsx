@@ -5,6 +5,11 @@ var $http = require('utils/http');
 var alertify = require('alertifyjs');
 
 module.exports = React.createClass({
+  getInitialState: function() {
+    return {
+      errorMessage: ''
+    }
+  },
   handleSubmit: function(userAccess) {
     var userToStore;
     var data = {
@@ -14,16 +19,21 @@ module.exports = React.createClass({
 
     $http.post('/login', data, function(res){
       if (res.message || res.error) {
-        alertify.error(res.message);
+        this.setState({errorMessage: res.message});
         return;
       }
       userToStore = {id: res.id, username: res.username, role: res.role, active: res.active};
       localStorage.setItem('user', JSON.stringify(userToStore));
       window.location.replace('#');
-    });
+    }.bind(this));
   },
 
   render: function() {
+     var message = '';
+
+    if (this.state.errorMessage.length > 0) {
+      message = (<div className="alert alert-danger">{this.state.errorMessage}</div>);
+    }
     return (
       <section className="login">
         <header>
@@ -40,7 +50,11 @@ module.exports = React.createClass({
           </ul>
 
         <div className="tabs-and-form">
-        <AccessForm onFormSubmit={this.handleSubmit} buttonText="Iniciar Sesión" />
+          <AccessForm onFormSubmit={this.handleSubmit} buttonText="Iniciar Sesión" />
+          <div className="col-xs-12">
+            <br />
+            {message}
+          </div>
         </div>
       </section>
     );

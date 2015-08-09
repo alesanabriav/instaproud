@@ -99,7 +99,11 @@ module.exports = React.createClass({
 
           <span className="edit-profile-img">
             <a href="#">Subir imagen de perfil</a>
-            <input type="file" onChange={this.handleProfileImage} className="uploadPhoto" name="photo" />
+            <input
+              type="file"
+              onChange={this.handleProfileImage}
+              className="uploadPhoto"
+              />
           </span>
 
         </header>
@@ -107,7 +111,12 @@ module.exports = React.createClass({
         <form onSubmit={this.handleSubmit}>
 
           <div className="form-group">
-            <input className="form-control" onChange={this.handleChange} ref="name" placeholder="Nombre" value={user.name} />
+            <input
+              ref="name"
+              className="form-control"
+              onChange={this.handleChange}
+              placeholder="Nombre"
+              value={user.name} />
           </div>
 
           <div className="form-group">
@@ -167,7 +176,13 @@ module.exports = React.createClass({
           </div>
 
           <div className="form-group">
-            <textarea ref="bio" className="form-control" placeholder="¿Qué te hace sentir #OrgullosamenteBVC?" value={user.bio} onChange={this.handleChange}></textarea>
+            <textarea
+              ref="bio"
+              className="form-control"
+              placeholder="¿Qué te hace sentir #OrgullosamenteBVC?"
+              value={user.bio}
+              onChange={this.handleChange}>
+            </textarea>
           </div>
 
           <button className="btn btn-primary"><i className="icon ion-ios-arrow-forward"></i></button>

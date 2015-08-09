@@ -16,7 +16,7 @@ app.post('/users', function(req, res, next) {
   var newUser = new User(data);
 
   newUser.save(function(err, user) {
-    if (err) return res.status(400).json(err);
+    if (err) return res.status(400).json(err.errors.password);
     req.login(user, function(err) {
       if (err) return next(err);
       mailVerification(user, function(err, status) {
@@ -166,8 +166,44 @@ app.get('/api/users/:username/tagged', function(req, res, next) {
 
 });
 
-app.get('/users/me/logged', function(req, res){
+app.get('/api/users/me/logged', function(req, res){
   return res.json(req.user);
+});
+
+app.post('/api/users/:id/password', function(req, res) {
+    var body = req.body;
+    var id = req.params.id;
+
+    if (body.password === '') {
+      return res.status(400).json({message: 'debe ingresar la contraseña actual'});
+    }
+
+   if (body.newPassword === '') {
+      return res.status(400).json({message: 'debe ingresar una nueva contraseña'});
+    }
+
+    if (body.rePassword === '') {
+      return res.status(400).json({message: 'debe verificar la contraseña'});
+    }
+
+    if (body.newPassword !== body.rePassword) {
+      return res.status(400).json({message: 'no coincide'});
+    }
+
+    User.findOne({_id: id}, function(err, user) {
+      if(err) res.status(400).json({message: 'no existe'});
+      if(user.validPassword(body.password)) {
+        user.password = body.newPassword;
+        user.save(function(err) {
+          if(err) return res.status(400).json(err.errors.password);
+          return res.json({status: 'ok'});
+        });
+      } else {
+        return res.status(400).json({message: 'contraseña actual no valida'});
+      }
+    });
+
+
 });
 
 module.exports = app;

@@ -5,16 +5,34 @@ var $http = require('utils/http');
 var alertify = require('alertifyjs');
 
 module.exports = React.createClass({
+  getInitialState: function() {
+    return {
+      message: ''
+    }
+  },
+
   handleSubmit: function(userAccess) {
     var userToStore;
+    var rexUsername = /([a-z]){4,}/g;
+
     var data = {
       email: userAccess.username + '@bvc.com.co',
       password: userAccess.password
     };
 
-    $http.post('/users', data, function(res){
+    if (!rexUsername.test(userAccess.username)) {
+      this.setState({message: 'El usario no cumple con los parametros'});
+      return;
+    }
+
+    $http.post('/users', data, function(res, err){
+      if (err.message) {
+        this.setState({message: err.message});
+        return;
+      }
+
       if (res.message || res.error) {
-        alertify.error(res.message);
+        this.setState({message: res.message});
         return;
       }
 
@@ -27,10 +45,16 @@ module.exports = React.createClass({
 
       localStorage.setItem('user', JSON.stringify(userToStore));
       window.location.replace('#profile/' + res.id + '/edit');
-    });
+    }.bind(this));
   },
 
   render: function() {
+    var message = '';
+
+    if (this.state.message.length > 0) {
+      message = (<div className="alert alert-danger">{this.state.message}</div>);
+    }
+
     return (
       <section className="login">
         <header>
@@ -48,6 +72,11 @@ module.exports = React.createClass({
 
         <div className="tabs-and-form">
         <AccessForm onFormSubmit={this.handleSubmit} buttonText="Registrarse" />
+        <div className="col-xs-12">
+        <br/>
+        {message}
+        <div className="alert alert-warning">La contraseña debe tener mínimo 8 caracteres y un número.</div>
+        </div>
         </div>
       </section>
     );

@@ -37,6 +37,9 @@ module.exports = Backbone.Router.extend({
     'profile/:id/edit': function(id) {
       profilesController.edit(id);
     },
+    'profile/:id/password': function(id) {
+      profilesController.changePassword(id);
+    },
     'map': function() {
       photosController.map();
     },

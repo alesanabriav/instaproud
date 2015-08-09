@@ -8,6 +8,11 @@
     height: 200px;
     padding-top: 30px;
 
+    h4 {
+      text-align: center;
+      color: #fff;
+    }
+
     > .profile-image {
       @include image_circle(60px, 60px, 2px solid #fff);
       display: block;

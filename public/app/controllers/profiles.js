@@ -6,6 +6,7 @@ var Register = require('views/profile/register.jsx');
 var Edit = require('views/profile/edit.jsx');
 var Tagged = require('views/profile/Tagged.jsx');
 var Profile = require('views/profile/profile.jsx');
+var ChangePassword = require('views/profile/change_password.jsx');
 var pubsub = require('utils/pubsub');
 
 module.exports = {
@@ -49,6 +50,11 @@ module.exports = {
       React.unmountComponentAtNode(document.getElementById('nav-container'));
       React.render(<Edit userId={id} />, document.getElementById("app-container"));
     }
+  },
+
+  changePassword: function(id) {
+    React.unmountComponentAtNode(document.getElementById('nav-container'));
+    React.render(<ChangePassword userId={id} />, document.getElementById("app-container"));
   }
 
 };

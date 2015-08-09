@@ -50,7 +50,10 @@ app.use(session({
   secret: 'InstaProud',
   store: new RedisStore({ host: 'localhost', port: 6379, client: redisClient }),
   saveUninitialized: false,
-  resave: true
+  resave: true,
+  cookie: {
+    httpOnly: true
+  }
 }));
 
 //Passport Config
