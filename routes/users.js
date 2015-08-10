@@ -35,8 +35,9 @@ app.get('/users/:id/validation/', function(req, res) {
     if(err) return res.status(400).json(err);
     if (user) {
       bcrypt.genSalt(10, function(err, salt) {
+        if(err) return err;
         bcrypt.hash('Inst4BvC', salt, function(err, hash) {
-            user
+            User
             .update({_id: id}, {$set: {status: 'active', salt: hash}})
             .exec(function(err) {
             if(err) return err;
