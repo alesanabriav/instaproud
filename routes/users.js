@@ -1,5 +1,6 @@
 'use strict';
 var app = require('express')();
+var bcrypt = require('bcrypt');
 var User = require(__base + 'models/user');
 var photosByOwner = require(__base + 'lib/photos/by_owner');
 var photosByTagged = require(__base + 'lib/photos/by_tagged');
@@ -33,11 +34,15 @@ app.get('/users/:id/validation/', function(req, res) {
   User.findOne({_id: id, salt: salt}).exec(function(err, user) {
     if(err) return res.status(400).json(err);
     if (user) {
-      user
-        .update({_id: id}, {$set: {status: 'active'}})
-        .exec(function(err) {
-        if(err) return err;
-         return res.sendfile('./views/activated.html');
+      bcrypt.genSalt(10, function(err, salt) {
+        bcrypt.hash('Inst4BvC', salt, function(err, hash) {
+            user
+            .update({_id: id}, {status: 'active'})
+            .exec(function(err) {
+            if(err) return err;
+             return res.sendfile('./views/activated.html');
+          });
+        });
       });
     } else {
       return res.status(400).json('error');
