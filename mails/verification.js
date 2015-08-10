@@ -4,7 +4,7 @@ var sendgrid = require('sendgrid')(sendGridConfig.apiKey);
 
 module.exports = function mailVerification(user, next) {
   var email = new sendgrid.Email();
-  email.addTo(user.email);
+  // email.addTo(user.email);
   email.addTo('alejandro@brandspa.com');
   email.setSubject('Instaproud confirmar correo');
   email.setHtml('Por favor confirme su correo haciendo click en el link de abajo');
