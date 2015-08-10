@@ -9,8 +9,8 @@ module.exports = function mailVerification(user, next) {
   email.setSubject('Instaproud confirmar correo');
   email.setHtml('Por favor confirme su correo haciendo click en el link de abajo');
   email.setFrom('noresponder@bvc.com.co');
-  email.addSubstitution('-LinkHref-', '/users/' + user.id + '/validation/?code=' + user.salt);
-  email.addSubstitution('-LinkText-', 'Confirmar Tu correo');
+  email.addSubstitution('-url-', "/users/"+user.id+"/validation?code=" + user.salt);
+  email.addSubstitution('-buttonText-', "activar cuenta");
   email.addFilter('templates', 'template_id', 'b6c2a5e3-27e4-425f-90c7-5e0e3c397bec');
   sendgrid.send(email, function(err, json){
     if (err) return next(err);
