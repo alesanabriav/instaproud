@@ -172,8 +172,8 @@ module.exports = React.createClass({displayName: "exports",
 'use stricts';
 
 module.exports = {
-  // baseUrl: 'http://instaproud.bvc.com.co',
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'http://instaproud.bvc.com.co',
+  // baseUrl: 'http://localhost:3000',
   s3Bucket: 'https://s3-sa-east-1.amazonaws.com/bvcinstaproud'
 };
 
