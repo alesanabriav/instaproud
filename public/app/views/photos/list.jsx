@@ -11,7 +11,7 @@ module.exports = React.createClass({
     return {
       photos: [],
       hasMore: true,
-      skip: 0
+      skip: -5
     }
   },
 
@@ -30,18 +30,18 @@ module.exports = React.createClass({
   },
 
   getAll: function() {
-    var photos = [];
+    console.log(this.state.photos);
+    var photos = this.state.photos;
 
     this.getStarred(function(starred) {
+      if(starred) {
+        photos = photos.concat([starred]);
+      }
 
       $http
         .get('/api/photos', null, function(res) {
-        if(starred) {
-          photos = [starred].concat(res);
-        } else {
-          photos = res;
-        }
-
+        photos = photos.concat(res);
+        console.log(photos);
         this._onChange(photos);
       }.bind(this));
 
@@ -51,17 +51,16 @@ module.exports = React.createClass({
   loadMore: function() {
     var skip = this.state.skip + 5;
     var data = {photosSkip: skip};
-    var newPhotos = [];
     var photos = this.state.photos;
 
     if (this.state.hasMore) {
       $http.get('/api/photos', data, function(res) {
+        console.log('load more ', res);
         if (res.length === 0) {
           this.state.hasMore = false;
         }
-
-        newPhotos = photos.concat(res);
-        this._onChange(newPhotos);
+        photos = photos.concat(res);
+        this._onChange(photos);
       }.bind(this));
 
       this.state.skip = skip;
@@ -81,7 +80,7 @@ module.exports = React.createClass({
 
     return (
     <div>
-        {photoNodes}
+      {photoNodes}
       <Waypoint onEnter={this.loadMore} threshold={0.2} />
     </div>
     );

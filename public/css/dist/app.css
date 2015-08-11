@@ -398,7 +398,7 @@ a {
       margin-right: 10px;
       z-index: 2;
       background: #fff; }
-      .photo-feed > .header > .avatar-container > img {
+      .photo-feed > .header > .avatar-container img {
         z-index: 1;
         position: absolute;
         left: 0;
@@ -692,7 +692,7 @@ a {
   overflow: hidden;
   margin-right: 10px;
   z-index: 2; }
-  .search-user-profile > a > .profile-image > img {
+  .search-user-profile > a > .profile-image img {
     z-index: 1;
     position: absolute;
     left: 0;
@@ -874,7 +874,7 @@ a {
       z-index: 2;
       display: block;
       margin: 10px auto; }
-      .profile-edit > header > .profile-image > img {
+      .profile-edit > header > .profile-image img {
         z-index: 1;
         position: absolute;
         left: 0;
@@ -916,7 +916,7 @@ a {
     overflow: hidden;
     margin-right: 10px;
     z-index: 2; }
-    .activity-item > .media > .media-body > .profile-image > img {
+    .activity-item > .media > .media-body > .profile-image img {
       z-index: 1;
       position: absolute;
       left: 0;
