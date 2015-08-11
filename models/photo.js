@@ -60,15 +60,15 @@ PhotoSchema.set('toJSON', {
     }
 
     if (ret.comments) {
-      commentsCount =  ret.comments.length;
+      commentsCount = ret.comments.length;
     }
 
     if (ret.hashtags) {
-      hashtagsCount =  ret.hashtags.length;
+      hashtagsCount = ret.hashtags.length;
     }
 
     if (ret.tagged) {
-      taggedCount =  ret.tagged.length;
+      taggedCount = ret.tagged.length;
     }
 
    ret.id = ret._id;

@@ -1,16 +1,17 @@
 'use strict';
 var app = require('express')();
 var bcrypt = require('bcrypt');
-var User = require(__base + 'models/user');
-var photosByOwner = require(__base + 'lib/photos/by_owner');
-var photosByTagged = require(__base + 'lib/photos/by_tagged');
-var generateHash = require(__base + 'lib/createName');
-var photosCount = require(__base + 'lib/photos/count_by_owner');
-var photosTaggedCount = require(__base + 'lib/photos/count_tagged_by_owner');
-var processProfileImage = require(__base + 'lib/users/process_profile_image');
-var addProfileImage = require(__base + 'lib/users/add_profile_image');
-var uploadToS3 = require(__base + 'lib/photos/upload_to_S3');
-var mailVerification = require(__base + 'mails/verification');
+var base = __base;
+var User = require(base + 'models/user');
+var photosByOwner = require(base + 'lib/photos/by_owner');
+var photosByTagged = require(base + 'lib/photos/by_tagged');
+var generateHash = require(base + 'lib/createName');
+var photosCount = require(base + 'lib/photos/count_by_owner');
+var processProfileImage = require(base + 'lib/users/process_profile_image');
+var addProfileImage = require(base + 'lib/users/add_profile_image');
+var uploadToS3 = require(base + 'lib/photos/upload_to_S3');
+var mailVerification = require(base + 'mails/verification');
+var mailRecover = require(base + 'mails/recover');
 
 app.post('/users', function(req, res, next) {
   var data = req.body;
@@ -28,10 +29,40 @@ app.post('/users', function(req, res, next) {
   });
 });
 
+app.post('/user/recover/:id', function(req, res) {
+  var body = req.body;
+  var id = req.params.id;
+  var salt = req.query.code;
+
+  User.findOne({_id: id, salt: salt}, function(err, user) {
+    if(err) return res.status(400).json({message: 'no existe'});
+    if(!user) return res.status(400).json({message: 'no existe'});
+
+      user.password = body.password;
+      user.save(function(err) {
+        if(err) return res.status(400).json(err.errors.password);
+        return res.json({status: 'ok'});
+      });
+  });
+});
+
+app.post('/users/recoverpassword/:username', function(req, res) {
+  var username = req.params.username;
+  User.findOne({username: username}).exec(function(err, user) {
+    if(err) return res.status(400).json({message: 'error'});
+    if(!user) return res.status(400).json({message: 'error'});
+    mailRecover(user, function() {
+      return res.json({status: 'ok'});
+    });
+  });
+});
+
 app.get('/users/:id/validation/', function(req, res) {
   var id = req.params.id;
   var salt = req.query.code;
-  User.findOne({_id: id, salt: salt}).exec(function(err, user) {
+  User
+  .findOne({_id: id, salt: salt})
+  .exec(function(err, user) {
     if(err) return res.status(400).json(err);
     if (user) {
       bcrypt.genSalt(10, function(err, salt) {
@@ -40,8 +71,8 @@ app.get('/users/:id/validation/', function(req, res) {
             User
             .update({_id: id}, {$set: {status: 'active', salt: hash}})
             .exec(function(err) {
-            if(err) return err;
-             return res.sendfile('./views/activated.html');
+            if(err) return res.status(400).json(err);
+            return res.sendfile('./views/activated.html');
           });
         });
       });
@@ -49,6 +80,18 @@ app.get('/users/:id/validation/', function(req, res) {
       return res.status(400).json('error');
     }
   });
+});
+
+app.get('/users/:id/recover', function(req, res) {
+  var id = req.params.id;
+  var salt = req.query.code;
+
+  User
+    .findOne({_id: id, salt: salt})
+    .exec(function(err, user) {
+      if(err) return res.status(400).json(err);
+      return res.sendfile('./views/recover.html');
+    });
 });
 
 app.get('/api/users/:username/profile', function(req, res) {
@@ -177,39 +220,37 @@ app.get('/api/users/me/logged', function(req, res){
 });
 
 app.post('/api/users/:id/password', function(req, res) {
-    var body = req.body;
-    var id = req.params.id;
+  var body = req.body;
+  var id = req.params.id;
 
-    if (body.password === '') {
-      return res.status(400).json({message: 'debe ingresar la contraseña actual'});
-    }
+  if (body.password === '') {
+    return res.status(400).json({message: 'debe ingresar la contraseña actual'});
+  }
 
-   if (body.newPassword === '') {
-      return res.status(400).json({message: 'debe ingresar una nueva contraseña'});
-    }
+  if (body.newPassword === '') {
+    return res.status(400).json({message: 'debe ingresar una nueva contraseña'});
+  }
 
-    if (body.rePassword === '') {
-      return res.status(400).json({message: 'debe verificar la contraseña'});
-    }
+  if (body.rePassword === '') {
+    return res.status(400).json({message: 'debe verificar la contraseña'});
+  }
 
-    if (body.newPassword !== body.rePassword) {
-      return res.status(400).json({message: 'no coincide'});
-    }
+  if (body.newPassword !== body.rePassword) {
+    return res.status(400).json({message: 'no coincide'});
+  }
 
-    User.findOne({_id: id}, function(err, user) {
-      if(err) res.status(400).json({message: 'no existe'});
-      if(user.validPassword(body.password)) {
-        user.password = body.newPassword;
-        user.save(function(err) {
-          if(err) return res.status(400).json(err.errors.password);
-          return res.json({status: 'ok'});
-        });
-      } else {
+  User.findOne({_id: id}, function(err, user) {
+    if(err) res.status(400).json({message: 'no existe'});
+    if(user.validPassword(body.password)) {
+      user.password = body.newPassword;
+      user.save(function(err) {
+        if(err) return res.status(400).json(err.errors.password);
+        return res.json({status: 'ok'});
+      });
+    } else {
         return res.status(400).json({message: 'contraseña actual no valida'});
-      }
-    });
-
-
+    }
+  });
 });
 
 module.exports = app;

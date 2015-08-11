@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Instaproud</title>
+  <meta name="theme-color" content="#00297a">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel='stylesheet' href='/css/dist/dependencies.css' />
+
+    <style>
+      body {
+        background: #f1f1f1;
+      }
+      section {
+        max-width: 500px;
+        margin: 0 auto;
+        background: #fff;
+        padding-bottom: 20px;
+        text-align: center;
+      }
+      header {
+        background: url('../../images/login-bg.jpg');
+        background-size: 100%;
+        width: 100%;
+        height: 200px;
+        padding-top: 50px;
+        margin-top: -50px;
+        margin-bottom: 20px;
+      }
+
+      .login {
+      display: block;
+      max-width: 50%;
+      margin: 20px auto;
+    }
+    .btn{
+      width: 100%;
+    }
+    </style>
+</head>
+<body>
+
+<section>
+  <header>
+    <img src="/images/logo.svg" class="login" />
+</header>
+
+  <form class="form col-lg-12" id="form">
+    <div class="form-group">
+      <input type="password" class="form-control" name="password" placeholder="Contraseña">
+    </div>
+
+    <div class="form-group">
+      <input type="password" class="form-control" name="rePassword" placeholder="verificar contraseña">
+    </div>
+    <button class="btn btn-primary">Enviar</button>
+  </form>
+  </section>
+</body>
+</html>

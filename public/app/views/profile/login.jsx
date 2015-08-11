@@ -2,14 +2,16 @@
 var React = require('react');
 var AccessForm = require('views/profile/access_form.jsx');
 var $http = require('utils/http');
-var alertify = require('alertifyjs');
+var Modal = require('react-bootstrap').Modal;
 
 module.exports = React.createClass({
   getInitialState: function() {
     return {
-      errorMessage: ''
+      errorMessage: '',
+      modalIsOpen: false
     }
   },
+
   handleSubmit: function(userAccess) {
     var userToStore;
     var data = {
@@ -28,12 +30,28 @@ module.exports = React.createClass({
     }.bind(this));
   },
 
+  handleRecover: function() {
+    this.setState({modalIsOpen: true});
+  },
+
+  closeModal: function() {
+    this.setState({modalIsOpen: false});
+  },
+
+  sendRecovery: function() {
+    var username = React.findDOMNode(this.refs.username).value;
+    $http.post('/users/recoverpassword/'+ username, null, function(res, err) {
+      console.log(res);
+    });
+  },
+
   render: function() {
      var message = '';
 
     if (this.state.errorMessage.length > 0) {
       message = (<div className="alert alert-danger">{this.state.errorMessage}</div>);
     }
+
     return (
       <section className="login">
         <header>
@@ -50,12 +68,31 @@ module.exports = React.createClass({
           </ul>
 
         <div className="tabs-and-form">
-          <AccessForm onFormSubmit={this.handleSubmit} buttonText="Iniciar Sesión" />
+          <AccessForm
+            onFormSubmit={this.handleSubmit}
+            onRecover={this.handleRecover}
+            buttonText="Iniciar Sesión"
+            showRecover={true}
+            />
           <div className="col-xs-12">
             <br />
             {message}
           </div>
         </div>
+
+        <Modal show={this.state.modalIsOpen} onHide={this.closeModal}>
+          <Modal.Header closeButton>
+          <h4>Restablecer contraseña</h4>
+          </Modal.Header>
+          <Modal.Body>
+            <form onSubmit={this.sendRecovery}>
+              <input ref="username" type="text" className="form-control" placeholder="Usuario"/>
+              <br/>
+              <button className="btn btn-primary" style={{width: '100%'}}>Enviar</button>
+            </form>
+          </Modal.Body>
+        </Modal>
+
       </section>
     );
   }

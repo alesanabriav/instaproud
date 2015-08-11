@@ -7,6 +7,7 @@ var Edit = require('views/profile/edit.jsx');
 var Tagged = require('views/profile/Tagged.jsx');
 var Profile = require('views/profile/profile.jsx');
 var ChangePassword = require('views/profile/change_password.jsx');
+var RecoverPassword = require('views/profile/recover_password.jsx');
 var pubsub = require('utils/pubsub');
 
 module.exports = {
@@ -15,7 +16,6 @@ module.exports = {
     React.unmountComponentAtNode(document.getElementById('header-container'));
     React.unmountComponentAtNode(document.getElementById('nav-container'));
     React.render(<Login />, document.getElementById('app-container'));
-
   },
 
   logout: function() {
@@ -55,6 +55,11 @@ module.exports = {
   changePassword: function(id) {
     React.unmountComponentAtNode(document.getElementById('nav-container'));
     React.render(<ChangePassword userId={id} />, document.getElementById("app-container"));
+  },
+
+  recoverPassword: function(id, salt) {
+    React.unmountComponentAtNode(document.getElementById('nav-container'));
+    React.render(<RecoverPassword userId={id} salt={salt} />, document.getElementById("app-container"));
   }
 
 };

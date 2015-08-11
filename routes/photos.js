@@ -75,8 +75,6 @@ app.post('/api/photos/compress', function(req, res) {
   });
 });
 
-
-
 app.get('/api/photos/starred', function(req, res) {
   byStarred(function(err, photos) {
     if(err) return res.status(400).json(err);
@@ -130,6 +128,5 @@ app.post('/api/photos/:id/starred', function(req, res) {
     return res.status(200).json(photo);
   });
 });
-
 
 module.exports = app;
