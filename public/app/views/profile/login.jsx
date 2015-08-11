@@ -17,7 +17,6 @@ module.exports = React.createClass({
   },
 
   handleSubmit: function(userAccess) {
-    var userToStore;
     var data = {
       username: userAccess.username,
       password: userAccess.password
@@ -31,18 +30,19 @@ module.exports = React.createClass({
     if(this.state.showCaptcha && this.state.captchaIsValid) {
       this.logginUser(data);
     }
-
   },
 
   logginUser: function(data) {
+    var userToStore;
     $http.post('/login', data, function(res){
       if (res.message || res.error) {
         if(res.message === 'Usuario bloqueado') {
-            this.setState({showCaptcha: true});
+          this.setState({showCaptcha: true});
         }
         this.setState({errorMessage: res.message});
         return;
       }
+
       userToStore = {id: res.id, username: res.username, role: res.role, active: res.active};
       localStorage.setItem('user', JSON.stringify(userToStore));
       window.location.replace('#');
@@ -77,19 +77,22 @@ module.exports = React.createClass({
     var captcha = '';
 
     if (this.state.errorMessage.length > 0) {
-      message = (<div className="alert alert-danger">{this.state.errorMessage}</div>);
+      message = (<div><br/><div className="alert alert-danger">{this.state.errorMessage}</div></div>);
     }
 
     if (this.state.message.length > 0) {
-      message = (<div className="alert alert-warning">{this.state.message}</div>);
+      message = (<div><br/><div className="alert alert-warning">{this.state.message}</div></div>);
     }
 
     if(this.state.showCaptcha) {
       captcha = (
+        <div>
+        <br />
         <ReCATPCHA
           sitekey="6LcCIAsTAAAAABFdhElgOPUdKU7nbWxQCLfd0bgi"
           onChange={this.captchaCallback}
         />
+        </div>
       );
     }
 
@@ -116,9 +119,7 @@ module.exports = React.createClass({
             showRecover={true}
             />
           <div className="col-xs-12">
-            <br />
             {captcha}
-            <br />
             {message}
           </div>
         </div>

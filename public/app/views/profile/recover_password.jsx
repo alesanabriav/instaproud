@@ -26,8 +26,8 @@ module.exports = React.createClass({
 
   render: function() {
     var message = '';
-
-    if (this.state.errorMessage || this.state.errorMessage.length > 0) {
+    console.log(this.state.errorMessage);
+    if (this.state.errorMessage && this.state.errorMessage.length > 0) {
       message = (<div className="alert alert-danger">{this.state.errorMessage}</div>);
     }
 
