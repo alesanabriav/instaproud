@@ -4,6 +4,9 @@ var passport = require('passport');
 
 app.post('/login', function(req, res, next) {
   var user = req.body;
+  if(!user.username || !user.password) {
+    return res.json({message: 'Usuario o contraseña incorrecto'});
+  }
 
   passport.authenticate('local', function(err, user, info) {
     if (err) return next(err);

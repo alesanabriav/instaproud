@@ -3,13 +3,16 @@ var React = require('react');
 var AccessForm = require('views/profile/access_form.jsx');
 var $http = require('utils/http');
 var Modal = require('react-bootstrap').Modal;
+var ReCATPCHA = require("react-google-recaptcha");
 
 module.exports = React.createClass({
   getInitialState: function() {
     return {
       errorMessage: '',
       message: '',
-      modalIsOpen: false
+      modalIsOpen: false,
+      showCaptcha: false,
+      captchaIsValid: false
     }
   },
 
@@ -20,8 +23,23 @@ module.exports = React.createClass({
       password: userAccess.password
     };
 
+    if(!this.state.showCaptcha) {
+      this.logginUser(data);
+      return;
+    }
+
+    if(this.state.showCaptcha && this.state.captchaIsValid) {
+      this.logginUser(data);
+    }
+
+  },
+
+  logginUser: function(data) {
     $http.post('/login', data, function(res){
       if (res.message || res.error) {
+        if(res.message === 'Usuario bloqueado') {
+            this.setState({showCaptcha: true});
+        }
         this.setState({errorMessage: res.message});
         return;
       }
@@ -50,8 +68,13 @@ module.exports = React.createClass({
     }.bind(this));
   },
 
+  captchaCallback: function(res) {
+    this.setState({captchaIsValid: true});
+  },
+
   render: function() {
-     var message = '';
+    var message = '';
+    var captcha = '';
 
     if (this.state.errorMessage.length > 0) {
       message = (<div className="alert alert-danger">{this.state.errorMessage}</div>);
@@ -59,6 +82,15 @@ module.exports = React.createClass({
 
     if (this.state.message.length > 0) {
       message = (<div className="alert alert-warning">{this.state.message}</div>);
+    }
+
+    if(this.state.showCaptcha) {
+      captcha = (
+        <ReCATPCHA
+          sitekey="6LcCIAsTAAAAABFdhElgOPUdKU7nbWxQCLfd0bgi"
+          onChange={this.captchaCallback}
+        />
+      );
     }
 
     return (
@@ -84,6 +116,8 @@ module.exports = React.createClass({
             showRecover={true}
             />
           <div className="col-xs-12">
+            <br />
+            {captcha}
             <br />
             {message}
           </div>
