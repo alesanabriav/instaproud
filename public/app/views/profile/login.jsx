@@ -8,6 +8,7 @@ module.exports = React.createClass({
   getInitialState: function() {
     return {
       errorMessage: '',
+      message: '',
       modalIsOpen: false
     }
   },
@@ -38,11 +39,15 @@ module.exports = React.createClass({
     this.setState({modalIsOpen: false});
   },
 
-  sendRecovery: function() {
+  sendRecovery: function(e) {
+    e.preventDefault();
     var username = React.findDOMNode(this.refs.username).value;
     $http.post('/users/recoverpassword/'+ username, null, function(res, err) {
-      console.log(res);
-    });
+      this.setState({
+        message: 'restablecer contraseña enviado',
+        modalIsOpen: false
+      });
+    }.bind(this));
   },
 
   render: function() {
@@ -50,6 +55,10 @@ module.exports = React.createClass({
 
     if (this.state.errorMessage.length > 0) {
       message = (<div className="alert alert-danger">{this.state.errorMessage}</div>);
+    }
+
+    if (this.state.message.length > 0) {
+      message = (<div className="alert alert-warning">{this.state.message}</div>);
     }
 
     return (
