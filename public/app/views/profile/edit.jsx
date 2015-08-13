@@ -55,7 +55,7 @@ module.exports = React.createClass({
     e.preventDefault();
     var user = this.state.user;
     $http.put('/api/users/' + user.id, user, function(res) {
-      pubsub.trigger('navigator:change', '#profile/'+ res.username);
+      pubsub.trigger('navigator:change', '#');
     });
   },
 
@@ -184,7 +184,7 @@ module.exports = React.createClass({
               onChange={this.handleChange}>
             </textarea>
           </div>
-
+          <a href={"/#profile/" + user.id + "/password"} className="pull-right">Cambiar contraseña</a>
           <button className="btn btn-primary"><i className="icon ion-ios-arrow-forward"></i></button>
         </form>
       </section>

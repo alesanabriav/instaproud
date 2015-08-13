@@ -16,6 +16,15 @@ module.exports = React.createClass({
     }
   },
 
+  componentDidMount: function() {
+    $.get('/api/hashtags', null, function(hashtags) {
+      this.setState({
+        hashtags: hashtags,
+        users: []
+      });
+    }.bind(this));
+  },
+
   searchHashtags: function(query) {
     $.get(urls.baseUrl+"/api/hashtags/"+ query)
     .then(function(res) {

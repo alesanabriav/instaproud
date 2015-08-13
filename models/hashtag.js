@@ -5,7 +5,11 @@ var Schema = mongoose.Schema;
 var Hashtag;
 
 var HashtagSchema = new Schema({
-  name: String
+  name: String,
+  created: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 HashtagSchema.set('toJSON', {

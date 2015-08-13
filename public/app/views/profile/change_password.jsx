@@ -1,6 +1,7 @@
 'use strict';
 var React = require('react');
 var $http = require('utils/http');
+var pubsub = require('utils/pubsub');
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -19,8 +20,8 @@ module.exports = React.createClass({
 
     $http.post('/api/users/' + this.props.userId + '/password', data, function(res, err) {
       if(err) this.setState({errorMessage: err.message});
-      if (res && res.status) {
-        window.location.hash = "#";
+      if (res && res.status === 'ok') {
+        pubsub.trigger('navigator:change', '#');
       }
     }.bind(this));
 
@@ -29,7 +30,7 @@ module.exports = React.createClass({
   render: function() {
     var message = '';
 
-    if (this.state.errorMessage || this.state.errorMessage.length > 0) {
+    if (this.state.errorMessage && this.state.errorMessage.length !== '') {
       message = (<div className="alert alert-danger">{this.state.errorMessage}</div>);
     }
 
