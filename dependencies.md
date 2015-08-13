@@ -24,7 +24,6 @@
 - NPM: Package managment
 
 ## Server Dependencies
-
 - Node.js
 - NPM: Node package managment
 - PM2: Production process manager and load balancer.
