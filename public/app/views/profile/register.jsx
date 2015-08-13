@@ -52,7 +52,7 @@ module.exports = React.createClass({
     var message = '';
 
     if (this.state.message.length > 0) {
-      message = (<div className="alert alert-danger">{this.state.message}</div>);
+      message = (<div><br/><div className="alert alert-danger">{this.state.message}</div></div>);
     }
 
     return (
@@ -71,12 +71,10 @@ module.exports = React.createClass({
           </ul>
 
         <div className="tabs-and-form">
-        <AccessForm onFormSubmit={this.handleSubmit} buttonText="Registrarse" />
-        <div className="col-xs-12">
-        <br/>
-        {message}
-        <div className="alert alert-warning">La contraseña debe tener mínimo 8 caracteres y un número.</div>
-        </div>
+        <AccessForm onFormSubmit={this.handleSubmit} showPasswordLabel={true} buttonText="Registrarse" />
+          <div className="col-xs-12">
+          {message}
+          </div>
         </div>
       </section>
     );

@@ -30,29 +30,31 @@ module.exports = React.createClass({
   },
 
   render: function() {
-    var show = 'hidden';
-    if(this.props.showRecover) {
-      show = '';
-    }
-
     return (
       <form className="form-login col-lg-12" onSubmit={this.handleSubmit}>
         <div className="row">
+
           <div className="form-group col-xs-8">
             <input type="text" className="form-control" onChange={this.handleChange} ref="username" placeholder="Usuario"/>
           </div>
-          <div className="col-xs-4">@bvc.com.co</div>
+          <div
+            className="col-xs-4"
+            style={{'margin-top': '10px'}}
+            >@bvc.com.co</div>
         </div>
+
         <div className="form-group">
           <input type="password" className="form-control" onChange={this.handleChange} ref="password" placeholder="Contraseña" />
           <a href="#"
             onClick={this.handleRecover}
             style={{padding: '5px' }}
-            className={"pull-right " + show}>
+            className={this.props.showRecover ? "pull-right" : "hidden"}>
             ¿olvido contraseña?
           </a>
+          <label
+            className={this.props.showPasswordLabel ? "pull-right" : "hidden"}
+          >Debe tener mínimo ocho caracteres y un número</label>
         </div>
-
         <button className="form-login-btn btn">{this.props.buttonText}</button>
       </form>
     );

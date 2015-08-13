@@ -10,7 +10,7 @@ var hashtags = require('./hashtags');
 var activities = require('./activities');
 
 app.get('/', function(req, res) {
-  return res.sendfile('./views/index.html');
+  return res.sendFile(__base + '/views/index.html');
   // return res.render('layout');
 });
 

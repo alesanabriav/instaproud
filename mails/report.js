@@ -8,8 +8,7 @@ module.exports = function mailReport(photo, next) {
   email.setSubject('Instaproud reporte');
   email.setHtml('Una foto fue reportada');
   email.setFrom('noresponder@bvc.com.co');
-  email.addSubstitution('-link-', 'http://instaproud.bvc.com.co/#photo/' + photo.id);
-  email.addSubstitution('-linkText-', 'Ver foto');
+  email.addSubstitution('-id-', 'http://instaproud.bvc.com.co/#photo/' + photo.id);
   email.addFilter('templates', 'template_id', 'b6c2a5e3-27e4-425f-90c7-5e0e3c397bec');
   sendgrid.send(email, function(err, json){
     if (err) return next(err);

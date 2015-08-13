@@ -10,19 +10,22 @@ body {
   font-size: 14px;
   font-weight: 200; }
 
-.example-enter {
-  opacity: 0.01; }
+.nav-tabs > li {
+  margin-bottom: 0; }
 
-.example-enter.example-enter-active {
-  opacity: 1;
-  transition: opacity 100ms ease-in; }
+label {
+  font-weight: normal;
+  padding: 5px 0 0 0; }
 
-.example-leave {
-  opacity: 1; }
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+  border: none; }
 
-.example-leave.example-leave-active {
-  opacity: 0.01;
-  transition: opacity 100ms ease-in; }
+.alert-danger {
+  background: #f75b5b;
+  border: none;
+  color: #fff; }
 
 .map-holder {
   max-width: 500px;
