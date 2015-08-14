@@ -48,13 +48,13 @@ module.exports = React.createClass({
 
           <a href="#"
             onClick={this.handleRecover}
-            style={{padding: '5px', 'color': '#ccc', 'font-weight': '200'}}
+            style={{padding: '5px', 'color': '#ccc', 'font-weight': 200}}
             className={this.props.showRecover ? "pull-right" : "hidden"}>
             ¿Olvidaste tu contraseña?
           </a>
 
           <label
-            style={{'color': '#ccc', 'font-weight': '200'}}
+            style={{'color': '#ccc', 'font-weight': 200}}
             className={this.props.showPasswordLabel ? "pull-right" : "hidden"}
           >Debe tener mínimo ocho caracteres y un número</label>
         </div>
