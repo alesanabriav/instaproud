@@ -45,13 +45,16 @@ module.exports = React.createClass({
 
         <div className="form-group">
           <input type="password" className="form-control" onChange={this.handleChange} ref="password" placeholder="Contraseña" />
+
           <a href="#"
             onClick={this.handleRecover}
-            style={{padding: '5px' }}
+            style={{padding: '5px', 'color': '#ccc', 'font-weight': '200'}}
             className={this.props.showRecover ? "pull-right" : "hidden"}>
-            ¿olvido contraseña?
+            ¿Olvidaste tu contraseña?
           </a>
+
           <label
+            style={{'color': '#ccc', 'font-weight': '200'}}
             className={this.props.showPasswordLabel ? "pull-right" : "hidden"}
           >Debe tener mínimo ocho caracteres y un número</label>
         </div>
