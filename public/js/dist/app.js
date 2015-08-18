@@ -1421,7 +1421,7 @@ module.exports = React.createClass({displayName: "exports",
   render: function() {
     var photo = this.props.photo;
     var caption = '';
-    var user = photo.owner;
+    var user = photo.owner || {};
     var userlogged = JSON.parse(localStorage.getItem('user')) || {};
     var optionDelete;
     var optionFixed;
