@@ -36,10 +36,6 @@ module.exports = React.createClass({
     }
   },
 
-  componentDidMount: function() {
-
-  },
-
   handleComment: function(comment) {
     var newComments;
     $http.post(
@@ -112,7 +108,7 @@ module.exports = React.createClass({
     var photo = this.props.photo;
     var caption = '';
     var user = photo.owner;
-    var userlogged = JSON.parse(localStorage.getItem('user'));
+    var userlogged = JSON.parse(localStorage.getItem('user')) || {};
     var optionDelete;
     var optionFixed;
 
