@@ -176,7 +176,7 @@ app.get('/users/search/:query', function(req, res) {
   User.find({$or: [
     {name: new RegExp(query, 'i')},
     {username: new RegExp(query, 'i')}
-  ]}, 'name username')
+  ]}, 'name username profile_image')
   .exec(function(err, users) {
     if (err) throw err;
     return res.json(users);

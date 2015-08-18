@@ -686,24 +686,27 @@ a {
     width: 100%;
     border-radius: 0; }
 
-.search-user-profile > a > .profile-image {
+.search-user-profile {
   float: left;
-  position: relative;
-  border: none;
-  width: 50px;
-  height: 50px;
-  overflow: hidden;
-  margin-right: 10px;
-  z-index: 2; }
-  .search-user-profile > a > .profile-image img {
-    z-index: 1;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    max-width: 100%;
-    margin: auto; }
+  width: 100%; }
+  .search-user-profile > a > .profile-image {
+    position: relative;
+    border: none;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    margin-right: 10px;
+    z-index: 2;
+    float: left; }
+    .search-user-profile > a > .profile-image img {
+      z-index: 1;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      max-width: 100%;
+      margin: auto; }
 
 .photos-grid > .row {
   margin: 0; }
@@ -741,17 +744,21 @@ a {
         .profile-page > header .count > .photos-count .count-num {
           font-weight: 400;
           font-size: 1.8em; }
-    .profile-page > header > .profile-image {
-      width: 50px;
-      height: 50px;
-      position: relative;
+    .profile-page > header .profile-image {
       border: 1px solid #fff;
       overflow: hidden;
       margin-right: 10px;
       z-index: 2;
       float: left;
-      margin: 10px 0 0 10px; }
-      .profile-page > header > .profile-image > img {
+      margin: 10px 0 0 10px;
+      position: relative;
+      border: 2px solid #fff;
+      width: 50px;
+      height: 50px;
+      overflow: hidden;
+      margin-right: 10px;
+      z-index: 2; }
+      .profile-page > header .profile-image img {
         z-index: 1;
         position: absolute;
         left: 0;

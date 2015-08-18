@@ -33,7 +33,7 @@ gulp.task('browserify', function () {
       console.log(err.toString());
     })
     .pipe(source('app.js'))
-    .pipe(buffer())
-    .pipe(uglify())
+    // .pipe(buffer())
+    // .pipe(uglify())
     .pipe(gulp.dest('js/dist'));
 });
