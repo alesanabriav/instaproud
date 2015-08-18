@@ -1427,7 +1427,6 @@ module.exports = React.createClass({displayName: "exports",
     var optionFixed;
 
     if (photo.caption) {
-
       caption = photo.caption.replace(/#(\S+)/g, '<a href="#hashtag/$1">#$1</a>').replace(/@(\S+)/g, '<a href="#tagged/$1">@$1</a>');
     }
 
@@ -1436,7 +1435,7 @@ module.exports = React.createClass({displayName: "exports",
     }
 
     if (userlogged.role === 'admin') {
-      optionFixed = (React.createElement(MenuItem, {eventKey: "2", onSelect: this.handleFixed}, "Resaltar imagen"));
+      optionFixed = (React.createElement(MenuItem, {eventKey: "3", onSelect: this.handleFixed}, "Resaltar imagen"));
     }
 
     var src = 'https://s3-sa-east-1.amazonaws.com/bvcinstaproud/' + user.id + '/' + photo.path;
