@@ -4,10 +4,10 @@ var sendgrid = require('sendgrid')(sendGridConfig.apiKey);
 
 module.exports = function mailRecover(user, next) {
   var email = new sendgrid.Email();
-  email.addTo('alejandro@brandspa.com');
+  email.addTo(user.email);
   email.setSubject('Instaproud restablecer contraseña');
   email.setHtml('Por favor haga click en el link de abajo para restablecer su contraseña');
-  email.setFrom('noresponder@bvc.com.co');
+  email.setFrom('sconlabvc@bvc.com.co');
   email.addSubstitution('-id-', user.id);
   email.addSubstitution('-salt-', user.salt);
   email.addFilter('templates', 'template_id', 'cf08d496-f606-4d95-b6d8-23757441c8f2');

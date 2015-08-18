@@ -8,9 +8,10 @@ var ProfileImage = require('components/profile_image.jsx');
 var Timeago = require('components/timeago.jsx');
 var ButtonLike = require('components/button_like.jsx');
 var pubsub = require('utils/pubsub');
-var dropdown = require('semantic-ui-dropdown/dropdown');
-require('semantic-ui-transition/transition');
 var ImageLoader = require('react-imageloader');
+var alertify = require('alertifyjs');
+var DropdownButton = require('react-bootstrap').DropdownButton;
+var MenuItem = require('react-bootstrap').MenuItem;
 
 module.exports = React.createClass({
   getDefaultProps: function() {
@@ -36,7 +37,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function() {
-    $('.ui.dropdown').dropdown();
+
   },
 
   handleComment: function(comment) {
@@ -82,22 +83,22 @@ module.exports = React.createClass({
   },
 
   handleDelete: function(e) {
-    e.preventDefault();
+    // e.preventDefault();
     $http.delete('/api/photos/' + this.props.photo.id);
     this.setState({show: false});
   },
 
   handleReport: function(e) {
-    e.preventDefault();
+    // e.preventDefault();
     $http.post('/api/photos/'+ this.props.photo.id + '/report', null, function(res) {
-      console.log(res);
+      alertify.warning('Revisaremos esta imagen y en caso de considerarla inadecuada será retirada de Instaproud.');
     });
   },
 
   handleFixed: function(e) {
-     e.preventDefault();
+     // e.preventDefault();
     $http.post('/api/photos/'+ this.props.photo.id + '/starred', null, function(res) {
-      console.log(res);
+      alertify.warning('Imagen establecida');
     });
   },
 
@@ -121,11 +122,11 @@ module.exports = React.createClass({
     }
 
     if (userlogged.id === user.id || userlogged.role === 'admin') {
-      optionDelete = (<a href="#" className="item" onClick={this.handleDelete}>Eliminar</a>);
+      optionDelete = (<MenuItem eventKey='2' onSelect={this.handleDelete}>Eliminar</MenuItem>);
     }
 
     if (userlogged.role === 'admin') {
-      optionFixed = (<a href="#" className="item" onClick={this.handleFixed}>Resaltar</a>);
+      optionFixed = (<MenuItem eventKey='2' onSelect={this.handleFixed}>Resaltar imagen</MenuItem>);
     }
 
     var src = 'https://s3-sa-east-1.amazonaws.com/bvcinstaproud/' + user.id + '/' + photo.path;
@@ -156,16 +157,11 @@ module.exports = React.createClass({
           <div className="buttons-like-and-comment">
 
             <ButtonLike users={this.state.liked} onLike={this.handleLike} onUnlike={this.handleUnlike} />
+            <DropdownButton bsStyle="link" title={<i className="icon ion-ios-more"></i>} noCaret>
+              <MenuItem eventKey='1' onSelect={this.handleReport}>Reportar imagen</MenuItem>
+            </DropdownButton>
+          </div>
 
-             <div className="ui dropdown float-right">
-            <i className="icon ion-ios-more"></i>
-            <div className="menu">
-              <a href="#" className="item" onClick={this.handleReport}>Reportar</a>
-              {optionDelete}
-              {optionFixed}
-          </div>
-          </div>
-          </div>
 
           <div className="counters">
             <span className="likes-count"><i className="icon ion-ios-heart"></i> {this.state.likesCount}</span>

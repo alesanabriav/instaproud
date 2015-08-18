@@ -143,11 +143,18 @@
         font-size: 2.2em;
         float: left;
       }
-
-      .dropdown {
+      .dropdown-toggle {
         color: #C1C3C3;
         font-size: 2.2em;
+        padding: 0;
+        padding-left: 10px;
       }
+
+      .dropdown-menu {
+        border-radius: 0;
+        border-color: $blue-main;
+      }
+
 
       .unlike {
         color: lighten($blue-main, 5%);

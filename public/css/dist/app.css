@@ -482,9 +482,14 @@ a {
         margin-right: 7px;
         font-size: 2.2em;
         float: left; }
-      .photo-feed > .info > .buttons-like-and-comment .dropdown {
+      .photo-feed > .info > .buttons-like-and-comment .dropdown-toggle {
         color: #C1C3C3;
-        font-size: 2.2em; }
+        font-size: 2.2em;
+        padding: 0;
+        padding-left: 10px; }
+      .photo-feed > .info > .buttons-like-and-comment .dropdown-menu {
+        border-radius: 0;
+        border-color: #00297a; }
       .photo-feed > .info > .buttons-like-and-comment .unlike {
         color: #003294; }
     .photo-feed > .info .comment-create-container .form-control {
