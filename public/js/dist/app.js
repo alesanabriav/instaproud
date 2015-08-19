@@ -172,8 +172,8 @@ module.exports = React.createClass({displayName: "exports",
 'use stricts';
 
 module.exports = {
-  // baseUrl: 'http://instaproud.bvc.com.co:3000',
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'http://instaproud.bvc.com.co:3000',
+  // baseUrl: 'http://localhost:3000',
   s3Bucket: 'https://s3-sa-east-1.amazonaws.com/bvcinstaproud'
 };
 
@@ -215,33 +215,36 @@ module.exports = {
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
+var isMobile = require('is-mobile');
 var $http = require('utils/http');
 var pubsub = require('utils/pubsub');
 var Search = require('views/search/section.jsx');
-var List = require('views/photos/list.jsx');
+var Section = require('views/photos/section.jsx');
 var Crop = require('views/photos/crop.jsx');
 var Filter = require('views/photos/filter.jsx');
 var Caption = require('views/photos/caption.jsx');
 var Hashtag = require('views/photos/hashtag.jsx');
 var Photo = require('views/photos/item.jsx');
-var isMobile = require('is-mobile');
 var Map = require('views/photos/locations.jsx');
 
 module.exports = {
   unmountHeader: function() {
-    return React.unmountComponentAtNode(document.getElementById('header-container'));
+    var container = document.getElementById('header-container');
+    return React.unmountComponentAtNode(container);
   },
 
   unmountNav: function() {
-    return React.unmountComponentAtNode(document.getElementById('nav-container'));
+    var container = document.getElementById('nav-container');
+    return React.unmountComponentAtNode(container);
   },
 
   mountComponent: function(component) {
-    React.render(component, document.getElementById('app-container'));
+    var container = document.getElementById('app-container');
+    return React.render(component, container);
   },
 
   changeColorHeader: function(color) {
-    pubsub.trigger('appHeader:change', {bgColor: color});
+    return pubsub.trigger('appHeader:change', {bgColor: color});
   },
 
   map: function() {
@@ -249,50 +252,46 @@ module.exports = {
   },
 
   list: function() {
-    this.mountComponent(React.createElement(List, null));
+    this.mountComponent(React.createElement(Section, null));
   },
 
   item: function(id) {
     $http.get('/api/photos/' + id, null, function(res) {
       this.mountComponent(React.createElement(Photo, {photo: res}));
-    });
+    }.bind(this));
   },
 
   crop: function() {
     this.unmountNav();
-    React.render(React.createElement(Crop, null), document.getElementById('app-container'));
+    this.mountComponent(React.createElement(Crop, null));
     this.changeColorHeader('444')
   },
 
   filter: function(src) {
-    if (isMobile()) {
-      this.unmountHeader();
-    }
+    if (isMobile()) this.unmountHeader();
     this.unmountNav();
-    React.render(React.createElement(Filter, null), document.getElementById('app-container'));
+    this.mountComponent(React.createElement(Filter, null));
     this.changeColorHeader('444')
   },
 
   caption: function(id) {
-    if (isMobile()) {
-      this.unmountHeader();
-    }
+    if (isMobile()) this.unmountHeader();
     this.unmountNav();
-    React.render(React.createElement(Caption, null), document.getElementById('app-container'));
+    this.mountComponent(React.createElement(Caption, null));
     this.changeColorHeader('444')
   },
 
   hashtag: function(hashtag) {
-    React.render(React.createElement(Hashtag, {hashtag: hashtag}), document.getElementById('app-container'));
+    this.mountComponent(React.createElement(Hashtag, {hashtag: hashtag}));
   },
 
   search: function() {
-    React.render(React.createElement(Search, null), document.getElementById("app-container"));
+    this.mountComponent(React.createElement(Search, null));
   }
- }
+ };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/controllers/photos.js","/app/controllers")
-},{"_process":57,"buffer":53,"is-mobile":59,"react":442,"utils/http":15,"utils/pubsub":17,"views/photos/caption.jsx":23,"views/photos/crop.jsx":24,"views/photos/filter.jsx":25,"views/photos/hashtag.jsx":28,"views/photos/item.jsx":29,"views/photos/list.jsx":32,"views/photos/locations.jsx":33,"views/search/section.jsx":47}],10:[function(require,module,exports){
+},{"_process":57,"buffer":53,"is-mobile":59,"react":442,"utils/http":15,"utils/pubsub":17,"views/photos/caption.jsx":23,"views/photos/crop.jsx":24,"views/photos/filter.jsx":25,"views/photos/hashtag.jsx":28,"views/photos/item.jsx":29,"views/photos/locations.jsx":32,"views/photos/section.jsx":34,"views/search/section.jsx":47}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -1331,16 +1330,16 @@ module.exports = React.createClass({displayName: "exports",
 var React = require('react');
 var $ = require("./../../../bower_components/jquery/dist/jquery.js");
 var $http = require('utils/http');
-var Comments = require('views/photos/item_comments.jsx');
-var CommentForm = require('views/photos/item_comment_form.jsx');
-var ProfileImage = require('components/profile_image.jsx');
-var Timeago = require('components/timeago.jsx');
-var ButtonLike = require('components/button_like.jsx');
 var pubsub = require('utils/pubsub');
 var ImageLoader = require('react-imageloader');
 var alertify = require('alertifyjs');
 var DropdownButton = require('react-bootstrap').DropdownButton;
 var MenuItem = require('react-bootstrap').MenuItem;
+var Comments = require('views/photos/item_comments.jsx');
+var CommentForm = require('views/photos/item_comment_form.jsx');
+var ProfileImage = require('components/profile_image.jsx');
+var Timeago = require('components/timeago.jsx');
+var ButtonLike = require('components/button_like.jsx');
 
 module.exports = React.createClass({displayName: "exports",
   getDefaultProps: function() {
@@ -1355,6 +1354,7 @@ module.exports = React.createClass({displayName: "exports",
 
   getInitialState: function() {
     var photo = this.props.photo;
+
     return {
       comments: photo.comments,
       liked: photo.liked,
@@ -1365,14 +1365,12 @@ module.exports = React.createClass({displayName: "exports",
     }
   },
 
-  componentDidMount: function() {
-    $('.ui.dropdown').dropdown();
-  },
-
   handleComment: function(comment) {
     var newComments;
+    var id = this.props.photo.id;
+
     $http.post(
-      '/api/photos/' + this.props.photo.id + '/comments',
+      '/api/photos/' + id + '/comments',
       {comment: comment.text},
       function(res) {
         newComments = this.state.comments.concat([res]);
@@ -1380,26 +1378,30 @@ module.exports = React.createClass({displayName: "exports",
           comments: newComments,
           commentsCount: newComments.length
         });
-        pubsub.trigger('activity:store', {text: 'comento: ' + comment.text, photo: this.props.photo.id});
+        pubsub.trigger('activity:store', {text: 'comento: ' + comment.text, photo: id});
     }.bind(this));
   },
 
   handleLike: function() {
+    var id = this.props.photo.id;
+
     $http.post(
-      '/api/photos/' + this.props.photo.id + '/liked',
+      '/api/photos/' + id + '/liked',
       null,
       function(res) {
         this.setState({
           liked: res.liked,
           likesCount: res.likesCount
         });
-        pubsub.trigger('activity:store', {text: 'le gusta', photo: this.props.photo.id});
+        pubsub.trigger('activity:store', {text: 'le gusta', photo: id});
     }.bind(this));
   },
 
   handleUnlike: function() {
+    var id = this.props.photo.id;
+
     $http.post(
-      '/api/photos/' + this.props.photo.id + '/unliked',
+      '/api/photos/' + id + '/unliked',
       null,
       function(res) {
         this.setState({
@@ -1407,46 +1409,58 @@ module.exports = React.createClass({displayName: "exports",
           likesCount: res.likesCount
         });
 
-        pubsub.trigger('activity:delete', {text: 'le gusta', photo: this.props.photo.id});
+        pubsub.trigger('activity:delete', {text: 'le gusta', photo: id});
     }.bind(this));
   },
 
   handleDelete: function(e) {
     e.preventDefault();
-    $http.delete('/api/photos/' + this.props.photo.id);
+    var id = this.props.photo.id;
+
+    $http.delete('/api/photos/' + id);
     this.setState({show: false});
   },
 
   handleReport: function(e) {
     e.preventDefault();
-    $http.post('/api/photos/'+ this.props.photo.id + '/report', null, function(res) {
-      alertify.warning('Revisaremos esta imagen y en caso de considerarla inadecuada será retirada de Instaproud.');
+    var msg = 'Revisaremos esta imagen y en caso de considerarla inadecuada será retirada de Instaproud.';
+    var id = this.props.photo.id;
+
+    $http.post(
+      '/api/photos/'+ id + '/report',
+      null,
+      function(res) {
+        alertify.warning(msg);
     });
   },
 
   handleFixed: function(e) {
-     e.preventDefault();
-    $http.post('/api/photos/'+ this.props.photo.id + '/starred', null, function(res) {
-      console.log(res);
+    e.preventDefault();
+    var id = this.props.photo.id;
+
+    $http.post(
+      '/api/photos/'+ id + '/starred',
+      null,
+      function(res) {
     });
   },
 
   preloader: function() {
     return (
-      React.createElement("img", {src: "images/photo-placeholder.gif", alt: "Loading icon"})
-      );
+      React.createElement("img", {src: "images/photo-placeholder.gif"})
+    );
   },
 
   render: function() {
     var photo = this.props.photo;
-    var caption = '';
     var user = photo.owner;
     var userlogged = JSON.parse(localStorage.getItem('user'));
+    var caption = '';
     var optionDelete;
     var optionFixed;
+    var src;
 
     if (photo.caption) {
-
       caption = photo.caption.replace(/#(\S+)/g, '<a href="#hashtag/$1">#$1</a>').replace(/@(\S+)/g, '<a href="#tagged/$1">@$1</a>');
     }
 
@@ -1455,26 +1469,25 @@ module.exports = React.createClass({displayName: "exports",
     }
 
     if (userlogged.role === 'admin') {
-      React.createElement(MenuItem, {eventKey: "2", onSelect: this.handleFixed}, "Reslatar iamgen")
+      React.createElement(MenuItem, {eventKey: "2", onSelect: this.handleFixed}, "Resaltar iamgen")
       optionFixed = (React.createElement("a", {href: "#", className: "item", onClick: this.handleFixed}, "Resaltar"));
     }
 
-    var src = 'https://s3-sa-east-1.amazonaws.com/bvcinstaproud/' + user.id + '/' + photo.path;
-
-    var profileImage;
+    src = 'https://s3-sa-east-1.amazonaws.com/bvcinstaproud/' + user.id + '/' + photo.path;
 
     return (
-      React.createElement("article", {className: this.state.show ? "photo-feed animated fadeInDown": "hidden"}, 
+      React.createElement("article", {className: this.state.show ? "photo-feed": "hidden"}, 
         React.createElement("header", {className: "header"}, 
-        React.createElement(ProfileImage, {user: user, containerName: "avatar-container"}), 
+          React.createElement(ProfileImage, {user: user, containerName: "avatar-container"}), 
 
           React.createElement("ul", {className: "owner-username-and-name"}, 
-          React.createElement("li", null, React.createElement("a", {className: "profile_link", href: "#profile/" + user.username}, user.name)), 
-          React.createElement("li", null, React.createElement("span", {className: "area"}, user.area))
+            React.createElement("li", null, React.createElement("a", {className: "profile_link", href: "#profile/" + user.username}, user.name)), 
+            React.createElement("li", null, React.createElement("span", {className: "area"}, user.area))
           ), 
 
           React.createElement(Timeago, {date: photo.created})
         ), 
+
         React.createElement("div", {className: "photo-container"}, 
           React.createElement(ImageLoader, {
             src: src, 
@@ -1482,23 +1495,26 @@ module.exports = React.createClass({displayName: "exports",
             "Fallo!"
           )
         ), 
+
         React.createElement("div", {className: "info"}, 
-
           React.createElement("div", {className: "buttons-like-and-comment"}, 
-
             React.createElement(ButtonLike, {users: this.state.liked, onLike: this.handleLike, onUnlike: this.handleUnlike}), 
             React.createElement(DropdownButton, {bsStyle: "link", title: React.createElement("i", {className: "icon ion-ios-more"}), noCaret: true}, 
               React.createElement(MenuItem, {eventKey: "1", onSelect: this.handleReport}, "Reportar imagen")
             )
           ), 
 
-
           React.createElement("div", {className: "counters"}, 
-            React.createElement("span", {className: "likes-count"}, React.createElement("i", {className: "icon ion-ios-heart"}), " ", this.state.likesCount), 
+            React.createElement("span", {className: "likes-count"}, 
+              React.createElement("i", {className: "icon ion-ios-heart"}), " ", this.state.likesCount
+            ), 
 
-              React.createElement("span", {className: "comments-count"}, React.createElement("i", {className: "icon ion-ios-chatbubble"}), " ", this.state.commentsCount), 
-
-              React.createElement("span", {className: "tagged-count"}, React.createElement("i", {className: "icon ion-ios-person"}), " ", this.state.taggedCount)
+            React.createElement("span", {className: "comments-count"}, 
+              React.createElement("i", {className: "icon ion-ios-chatbubble"}, " "), " ", this.state.commentsCount
+            ), 
+            React.createElement("span", {className: "tagged-count"}, 
+              React.createElement("i", {className: "icon ion-ios-person"}), " ", this.state.taggedCount
+            )
           ), 
 
           React.createElement("span", {dangerouslySetInnerHTML: {__html:caption}}), 
@@ -1506,7 +1522,6 @@ module.exports = React.createClass({displayName: "exports",
           React.createElement(Comments, {comments: this.state.comments, id: photo.id}), 
 
           React.createElement(CommentForm, {onSubmitComment: this.handleComment, onTagUser: this.handleTag})
-
         )
       )
     );
@@ -1658,98 +1673,6 @@ module.exports = React.createClass({displayName: "exports",
 },{"_process":57,"buffer":53,"react":442,"underscore":443}],32:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
-var React = require('react/addons');
-var Item = require('views/photos/item.jsx');
-var Waypoint = require('react-waypoint');
-var $http = require('utils/http');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-
-module.exports = React.createClass({displayName: "exports",
-
-  getInitialState: function() {
-    return {
-      photos: [],
-      hasMore: true,
-      skip: -5
-    }
-  },
-
-  componentDidMount: function() {
-    this.getAll();
-  },
-
-  componentWillLeave: function() {
-    console.log('will leave');
-  },
-
-   getStarred: function(next) {
-    $http.get('/api/photos/starred', null, function(res) {
-      return next(res);
-    }.bind(this));
-  },
-
-  getAll: function() {
-    console.log(this.state.photos);
-    var photos = this.state.photos;
-
-    this.getStarred(function(starred) {
-      if(starred) {
-        photos = photos.concat([starred]);
-      }
-
-      $http
-        .get('/api/photos', null, function(res) {
-        photos = photos.concat(res);
-        console.log(photos);
-        this._onChange(photos);
-      }.bind(this));
-
-    }.bind(this));
-  },
-
-  loadMore: function() {
-    var skip = this.state.skip + 5;
-    var data = {photosSkip: skip};
-    var photos = this.state.photos;
-
-    if (this.state.hasMore) {
-      $http.get('/api/photos', data, function(res) {
-        console.log('load more ', res);
-        if (res.length === 0) {
-          this.state.hasMore = false;
-        }
-        photos = photos.concat(res);
-        this._onChange(photos);
-      }.bind(this));
-
-      this.state.skip = skip;
-    }
-  },
-
-  _onChange: function(data) {
-    this.setState({photos: data});
-  },
-
-  render: function() {
-    var photoNodes = this.state.photos.map(function(photo) {
-      return (
-          React.createElement(Item, {key: photo.id, photo: photo})
-        );
-    }.bind(this));
-
-    return (
-    React.createElement("div", null, 
-      photoNodes, 
-      React.createElement(Waypoint, {onEnter: this.loadMore, threshold: 0.2})
-    )
-    );
-  }
-});
-
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/list.jsx","/app/views/photos")
-},{"_process":57,"buffer":53,"react-waypoint":269,"react/addons":270,"utils/http":15,"views/photos/item.jsx":29}],33:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-'use strict';
 var React = require('react');
 var Map = require('views/photos/map.jsx');
 var $http = require('utils/http');
@@ -1777,7 +1700,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/locations.jsx","/app/views/photos")
-},{"_process":57,"buffer":53,"react":442,"utils/http":15,"views/photos/map.jsx":34}],34:[function(require,module,exports){
+},{"_process":57,"buffer":53,"react":442,"utils/http":15,"views/photos/map.jsx":33}],33:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -1833,7 +1756,92 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/map.jsx","/app/views/photos")
-},{"_process":57,"buffer":53,"config/urls":6,"gmaps":58,"react":442}],35:[function(require,module,exports){
+},{"_process":57,"buffer":53,"config/urls":6,"gmaps":58,"react":442}],34:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+'use strict';
+var React = require('react/addons');
+var Item = require('views/photos/item.jsx');
+var Waypoint = require('react-waypoint');
+var $http = require('utils/http');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
+module.exports = React.createClass({displayName: "exports",
+
+  getInitialState: function() {
+    return {
+      photos: [],
+      hasMore: true,
+      skip: -5
+    }
+  },
+
+  componentDidMount: function() {
+    this.getAll();
+  },
+
+   getStarred: function(next) {
+    $http.get('/api/photos/starred', null, function(res) {
+      return next(res);
+    }.bind(this));
+  },
+
+  getAll: function() {
+    var photos = this.state.photos;
+
+    this.getStarred(function(starred) {
+      if(starred) {
+        photos = photos.concat([starred]);
+      }
+
+      $http
+        .get('/api/photos', null, function(res) {
+        photos = photos.concat(res);
+        this._onChange(photos);
+      }.bind(this));
+
+    }.bind(this));
+  },
+
+  loadMore: function() {
+    var skip = this.state.skip + 5;
+    var data = {photosSkip: skip};
+    var photos = this.state.photos;
+
+    if (this.state.hasMore) {
+      $http.get('/api/photos', data, function(res) {
+        if (res.length === 0) {
+          this.state.hasMore = false;
+        }
+        photos = photos.concat(res);
+        this._onChange(photos);
+      }.bind(this));
+
+      this.state.skip = skip;
+    }
+  },
+
+  _onChange: function(data) {
+    this.setState({photos: data});
+  },
+
+  render: function() {
+    var photoNodes = this.state.photos.map(function(photo) {
+      return (
+          React.createElement(Item, {key: photo.id, photo: photo})
+        );
+    }.bind(this));
+
+    return (
+    React.createElement("div", null, 
+      photoNodes, 
+      React.createElement(Waypoint, {onEnter: this.loadMore, threshold: 0.2})
+    )
+    );
+  }
+});
+
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/section.jsx","/app/views/photos")
+},{"_process":57,"buffer":53,"react-waypoint":269,"react/addons":270,"utils/http":15,"views/photos/item.jsx":29}],35:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');

@@ -19,10 +19,6 @@ module.exports = React.createClass({
     this.getAll();
   },
 
-  componentWillLeave: function() {
-    console.log('will leave');
-  },
-
    getStarred: function(next) {
     $http.get('/api/photos/starred', null, function(res) {
       return next(res);
@@ -30,7 +26,6 @@ module.exports = React.createClass({
   },
 
   getAll: function() {
-    console.log(this.state.photos);
     var photos = this.state.photos;
 
     this.getStarred(function(starred) {
@@ -41,7 +36,6 @@ module.exports = React.createClass({
       $http
         .get('/api/photos', null, function(res) {
         photos = photos.concat(res);
-        console.log(photos);
         this._onChange(photos);
       }.bind(this));
 
@@ -55,7 +49,6 @@ module.exports = React.createClass({
 
     if (this.state.hasMore) {
       $http.get('/api/photos', data, function(res) {
-        console.log('load more ', res);
         if (res.length === 0) {
           this.state.hasMore = false;
         }

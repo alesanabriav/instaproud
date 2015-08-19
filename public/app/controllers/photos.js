@@ -1,15 +1,15 @@
 'use strict';
 var React = require('react');
+var isMobile = require('is-mobile');
 var $http = require('utils/http');
 var pubsub = require('utils/pubsub');
 var Search = require('views/search/section.jsx');
-var List = require('views/photos/list.jsx');
+var Section = require('views/photos/section.jsx');
 var Crop = require('views/photos/crop.jsx');
 var Filter = require('views/photos/filter.jsx');
 var Caption = require('views/photos/caption.jsx');
 var Hashtag = require('views/photos/hashtag.jsx');
 var Photo = require('views/photos/item.jsx');
-var isMobile = require('is-mobile');
 var Map = require('views/photos/locations.jsx');
 
 module.exports = {
@@ -29,7 +29,7 @@ module.exports = {
   },
 
   changeColorHeader: function(color) {
-    pubsub.trigger('appHeader:change', {bgColor: color});
+    return pubsub.trigger('appHeader:change', {bgColor: color});
   },
 
   map: function() {
@@ -37,13 +37,13 @@ module.exports = {
   },
 
   list: function() {
-    this.mountComponent(<List/>);
+    this.mountComponent(<Section/>);
   },
 
   item: function(id) {
     $http.get('/api/photos/' + id, null, function(res) {
       this.mountComponent(<Photo photo={res}/>);
-    });
+    }.bind(this));
   },
 
   crop: function() {
@@ -53,18 +53,14 @@ module.exports = {
   },
 
   filter: function(src) {
-    if (isMobile()) {
-      this.unmountHeader();
-    }
+    if (isMobile()) this.unmountHeader();
     this.unmountNav();
-    this.mountComponent((<Filter/>);
+    this.mountComponent(<Filter/>);
     this.changeColorHeader('444')
   },
 
   caption: function(id) {
-    if (isMobile()) {
-      this.unmountHeader();
-    }
+    if (isMobile()) this.unmountHeader();
     this.unmountNav();
     this.mountComponent(<Caption />);
     this.changeColorHeader('444')

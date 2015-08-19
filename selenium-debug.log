@@ -1,214 +1,127 @@
-17:52:07.267 INFO - Launching a standalone Selenium Server
-17:52:07.310 INFO - Java: Oracle Corporation 25.40-b25
-17:52:07.310 INFO - OS: Mac OS X 10.11 x86_64
-17:52:07.323 INFO - v2.47.1, with Core v2.47.1. Built from revision 411b314
-17:52:07.399 INFO - Driver provider org.openqa.selenium.ie.InternetExplorerDriver registration is skipped:
+10:32:45.230 INFO - Launching a standalone Selenium Server
+10:32:45.300 INFO - Java: Oracle Corporation 25.40-b25
+10:32:45.300 INFO - OS: Mac OS X 10.11 x86_64
+10:32:45.322 INFO - v2.47.1, with Core v2.47.1. Built from revision 411b314
+10:32:45.414 INFO - Driver provider org.openqa.selenium.ie.InternetExplorerDriver registration is skipped:
 registration capabilities Capabilities [{ensureCleanSession=true, browserName=internet explorer, version=, platform=WINDOWS}] does not match the current platform MAC
-17:52:07.400 INFO - Driver provider org.openqa.selenium.edge.EdgeDriver registration is skipped:
+10:32:45.414 INFO - Driver provider org.openqa.selenium.edge.EdgeDriver registration is skipped:
 registration capabilities Capabilities [{browserName=MicrosoftEdge, version=, platform=WINDOWS}] does not match the current platform MAC
-17:52:07.400 INFO - Driver class not found: com.opera.core.systems.OperaDriver
-17:52:07.401 INFO - Driver provider com.opera.core.systems.OperaDriver is not registered
-17:52:07.503 INFO - RemoteWebDriver instances should connect to: http://127.0.0.1:4444/wd/hub
-17:52:07.504 INFO - Selenium Server is up and running
-17:52:07.838 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Photo, browserName=firefox, javascriptEnabled=true, platform=ANY}]])
-17:52:07.849 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Photo, browserName=firefox, javascriptEnabled=true, platform=ANY}]
-17:52:10.251 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Photo, browserName=firefox, javascriptEnabled=true, platform=ANY}]]
-17:52:10.266 INFO - Executing: [get: localhost:3000])
-17:52:11.323 INFO - Done: [get: localhost:3000]
-17:52:11.333 INFO - Executing: [find elements: By.cssSelector: body])
-17:52:11.398 INFO - Done: [find elements: By.cssSelector: body]
-17:52:11.405 INFO - Executing: [is displayed: 0 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: body]])
-17:52:11.418 INFO - Done: [is displayed: 0 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: body]]
-17:52:11.426 INFO - Executing: [find element: By.cssSelector: input[type=text]])
-17:52:11.437 INFO - Done: [find element: By.cssSelector: input[type=text]]
-17:52:11.442 INFO - Executing: [send keys: 1 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: input[type=text]], [a, l, e, j, a, n, d, r, o, s, a, n, a, b]])
-17:52:11.576 INFO - Done: [send keys: 1 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: input[type=text]], [a, l, e, j, a, n, d, r, o, s, a, n, a, b]]
-17:52:11.581 INFO - Executing: [find element: By.cssSelector: input[type=password]])
-17:52:11.610 INFO - Done: [find element: By.cssSelector: input[type=password]]
-17:52:11.618 INFO - Executing: [send keys: 2 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: input[type=password]], [d, u, r, d, e, n, 9, 9]])
-17:52:11.717 INFO - Done: [send keys: 2 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: input[type=password]], [d, u, r, d, e, n, 9, 9]]
-17:52:11.723 INFO - Executing: [find element: By.cssSelector: .form-login-btn])
-17:52:11.741 INFO - Done: [find element: By.cssSelector: .form-login-btn]
-17:52:11.753 INFO - Executing: [click: 3 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: .form-login-btn]])
-17:52:11.829 INFO - Done: [click: 3 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: .form-login-btn]]
-17:52:12.836 INFO - Executing: [get: localhost:3000/#])
-20:22:53.372 WARN - Exception thrown
-org.openqa.selenium.TimeoutException: Timed out waiting for page load.
-Command duration or timeout: 9039.01 seconds
-Build info: version: '2.47.1', revision: '411b314', time: '2015-07-30 03:03:16'
-System info: host: 'alejandros-macbook-pro.local', ip: '192.168.1.33', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.11', java.version: '1.8.0_40'
-Driver info: org.openqa.selenium.firefox.FirefoxDriver
-Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=39.0, platform=MAC, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
-Session ID: 1f763dd5-d5c6-a547-8bda-0608b8930f94
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
-	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
-	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:595)
-	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:306)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:497)
-	at org.openqa.selenium.support.events.EventFiringWebDriver$2.invoke(EventFiringWebDriver.java:102)
-	at com.sun.proxy.$Proxy1.get(Unknown Source)
-	at org.openqa.selenium.support.events.EventFiringWebDriver.get(EventFiringWebDriver.java:160)
-	at org.openqa.selenium.remote.server.handler.ChangeUrl.call(ChangeUrl.java:40)
-	at org.openqa.selenium.remote.server.handler.ChangeUrl.call(ChangeUrl.java:1)
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
-	at org.openqa.selenium.remote.server.DefaultSession$1.run(DefaultSession.java:176)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
-	at java.lang.Thread.run(Thread.java:745)
-Caused by: org.openqa.selenium.TimeoutException: Timed out waiting for page load.
-Build info: version: '2.47.1', revision: '411b314', time: '2015-07-30 03:03:16'
-System info: host: 'alejandros-macbook-pro.local', ip: '192.168.1.33', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.11', java.version: '1.8.0_40'
-Driver info: driver.version: unknown
-	at <anonymous class>.Utils.initWebLoadingListener/<(file:///var/folders/sh/rqz0_7492776x6w5x1kkfcnm0000gp/T/anonymous8792219261522793797webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:8993)
-	at <anonymous class>.WebLoadingListener/e(file:///var/folders/sh/rqz0_7492776x6w5x1kkfcnm0000gp/T/anonymous8792219261522793797webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:5076)
-	at <anonymous class>.WebLoadingListener/<(file:///var/folders/sh/rqz0_7492776x6w5x1kkfcnm0000gp/T/anonymous8792219261522793797webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:5084)
-	at <anonymous class>.fxdriver.Timer.prototype.setTimeout/<.notify(file:///var/folders/sh/rqz0_7492776x6w5x1kkfcnm0000gp/T/anonymous8792219261522793797webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:623)
-20:22:53.380 WARN - Exception: Timed out waiting for page load.
-Build info: version: '2.47.1', revision: '411b314', time: '2015-07-30 03:03:16'
-System info: host: 'alejandros-macbook-pro.local', ip: '192.168.1.33', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.11', java.version: '1.8.0_40'
-Driver info: driver.version: unknown
-20:22:54.451 INFO - Executing: [find element: By.cssSelector: input[type=file]])
-20:22:55.980 INFO - Done: [find element: By.cssSelector: input[type=file]]
-20:22:55.987 INFO - Executing: [send keys: 4 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: input[type=file]], [/, U, s, e, r, s, /, a, l, e, /, a, p, p, s, /, i, n, s, t, a, p, r, o, u, d, /, t, e, s, t, /, e, 2, e, /, f, i, x, t, u, r, e, s, /, r, e, a, l, ., j, p, g]])
-20:22:56.136 INFO - Done: [send keys: 4 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: input[type=file]], [/, U, s, e, r, s, /, a, l, e, /, a, p, p, s, /, i, n, s, t, a, p, r, o, u, d, /, t, e, s, t, /, e, 2, e, /, f, i, x, t, u, r, e, s, /, r, e, a, l, ., j, p, g]]
-20:22:57.145 INFO - Executing: [find element: By.cssSelector: .crop-options>li:nth-child(4) a])
-20:22:59.886 INFO - Done: [find element: By.cssSelector: .crop-options>li:nth-child(4) a]
-20:22:59.890 INFO - Executing: [click: 5 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: .crop-options>li:nth-child(4) a]])
-20:23:00.782 INFO - Done: [click: 5 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: .crop-options>li:nth-child(4) a]]
-20:23:01.792 INFO - Executing: [find element: By.cssSelector: .slidee>li:nth-child(7)])
-20:23:03.815 INFO - Done: [find element: By.cssSelector: .slidee>li:nth-child(7)]
-20:23:03.820 INFO - Executing: [click: 6 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: .slidee>li:nth-child(7)]])
-20:23:04.207 INFO - Done: [click: 6 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: .slidee>li:nth-child(7)]]
-20:23:04.211 INFO - Executing: [find element: By.cssSelector: .filter-options>li:nth-child(3) a])
-20:23:04.228 INFO - Done: [find element: By.cssSelector: .filter-options>li:nth-child(3) a]
-20:23:04.231 INFO - Executing: [click: 7 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: .filter-options>li:nth-child(3) a]])
-20:23:04.363 INFO - Done: [click: 7 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: .filter-options>li:nth-child(3) a]]
-20:23:05.368 INFO - Executing: [find element: By.cssSelector: textarea])
-20:23:11.589 INFO - Done: [find element: By.cssSelector: textarea]
-20:23:11.595 INFO - Executing: [send keys: 8 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: textarea], [#, h, a, s, h, t, a, g, T, e, s, t, C, a, p, t, i, o, n]])
-20:23:13.594 INFO - Done: [send keys: 8 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: textarea], [#, h, a, s, h, t, a, g, T, e, s, t, C, a, p, t, i, o, n]]
-20:23:13.605 INFO - Executing: [find element: By.cssSelector: .caption-options>li:nth-child(3) a])
-20:23:13.656 INFO - Done: [find element: By.cssSelector: .caption-options>li:nth-child(3) a]
-20:23:13.661 INFO - Executing: [click: 9 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: .caption-options>li:nth-child(3) a]])
-20:23:17.192 INFO - Done: [click: 9 [[FirefoxDriver: firefox on MAC (1f763dd5-d5c6-a547-8bda-0608b8930f94)] -> css selector: .caption-options>li:nth-child(3) a]]
-20:23:21.205 INFO - Executing: [find element: By.cssSelector: .photo-feed:nth-child(1)])
-20:23:21.266 INFO - Done: [find element: By.cssSelector: .photo-feed:nth-child(1)]
-20:23:21.285 INFO - Executing: [delete session: 5a1638e7-7a83-4cd9-9412-5e5c1ca78dd0])
-20:23:21.521 INFO - Done: [delete session: 5a1638e7-7a83-4cd9-9412-5e5c1ca78dd0]
-20:23:21.545 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Photo, browserName=firefox, javascriptEnabled=true, platform=ANY}]])
-20:23:21.551 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Photo, browserName=firefox, javascriptEnabled=true, platform=ANY}]
-20:23:24.793 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Photo, browserName=firefox, javascriptEnabled=true, platform=ANY}]]
-20:23:24.798 INFO - Executing: [get: localhost:3000])
-20:23:27.899 INFO - Done: [get: localhost:3000]
-20:23:27.911 INFO - Executing: [find elements: By.cssSelector: body])
-20:23:27.988 INFO - Done: [find elements: By.cssSelector: body]
-20:23:27.992 INFO - Executing: [is displayed: 0 [[FirefoxDriver: firefox on MAC (91b32946-fdb4-4f46-8871-46b1c74a1c32)] -> css selector: body]])
-20:23:28.003 INFO - Done: [is displayed: 0 [[FirefoxDriver: firefox on MAC (91b32946-fdb4-4f46-8871-46b1c74a1c32)] -> css selector: body]]
-20:23:28.010 INFO - Executing: [find element: By.cssSelector: input[type=text]])
-20:23:28.024 INFO - Done: [find element: By.cssSelector: input[type=text]]
-20:23:28.032 INFO - Executing: [send keys: 1 [[FirefoxDriver: firefox on MAC (91b32946-fdb4-4f46-8871-46b1c74a1c32)] -> css selector: input[type=text]], [a, l, e, j, a, n, d, r, o, s, a, n, a, b]])
-20:23:28.149 INFO - Done: [send keys: 1 [[FirefoxDriver: firefox on MAC (91b32946-fdb4-4f46-8871-46b1c74a1c32)] -> css selector: input[type=text]], [a, l, e, j, a, n, d, r, o, s, a, n, a, b]]
-20:23:28.162 INFO - Executing: [find element: By.cssSelector: input[type=password]])
-20:23:28.182 INFO - Done: [find element: By.cssSelector: input[type=password]]
-20:23:28.187 INFO - Executing: [send keys: 2 [[FirefoxDriver: firefox on MAC (91b32946-fdb4-4f46-8871-46b1c74a1c32)] -> css selector: input[type=password]], [d, u, r, d, e, n, 9, 9]])
-20:23:28.274 INFO - Done: [send keys: 2 [[FirefoxDriver: firefox on MAC (91b32946-fdb4-4f46-8871-46b1c74a1c32)] -> css selector: input[type=password]], [d, u, r, d, e, n, 9, 9]]
-20:23:28.284 INFO - Executing: [find element: By.cssSelector: .form-login-btn])
-20:23:28.304 INFO - Done: [find element: By.cssSelector: .form-login-btn]
-20:23:28.308 INFO - Executing: [click: 3 [[FirefoxDriver: firefox on MAC (91b32946-fdb4-4f46-8871-46b1c74a1c32)] -> css selector: .form-login-btn]])
-20:23:28.385 INFO - Done: [click: 3 [[FirefoxDriver: firefox on MAC (91b32946-fdb4-4f46-8871-46b1c74a1c32)] -> css selector: .form-login-btn]]
-20:23:29.395 INFO - Executing: [get: localhost:3000/#])
-20:23:32.952 INFO - Done: [get: localhost:3000/#]
-20:23:33.957 INFO - Executing: [find element: By.cssSelector: .photo-feed:nth-child(1) input[type=text]])
-20:23:33.977 INFO - Done: [find element: By.cssSelector: .photo-feed:nth-child(1) input[type=text]]
-20:23:33.985 INFO - Executing: [send keys: 4 [[FirefoxDriver: firefox on MAC (91b32946-fdb4-4f46-8871-46b1c74a1c32)] -> css selector: .photo-feed:nth-child(1) input[type=text]], [L, o, r, e, m,  , i, p, s, u, m,  , d, o, l, o, r,  , s, i, t,  , a, m, e, t, ,,  , c, o, n, s, e, c, t, e, t, u, r,  , a, d, i, p, i, s, i, c, i, n, g,  , e, l, i, t, .,  , D, o, l, o, r, e, m, q, u, e,  , d, i, g, n, i, s, s, i, m, o, s,  , d, i, s, t, i, n, c, t, i, o,  , e, r, r, o, r, ,,  , q, u, a, m,  , v, o, l, u, p, t, a, t, u, m,  , f, u, g, a,  , e, x, e, r, c, i, t, a, t, i, o, n, e, m,  , b, e, a, t, a, e,  , q, u, a, s, i,  , u, t,  , m, a, g, n, i,  , i, p, s, a, m,  , c, o, n, s, e, c, t, e, t, u, r,  , a, d, i, p, i, s, c, i, ,,  , v, e, n, i, a, m,  , i, n, v, e, n, t, o, r, e,  , e, x, p, l, i, c, a, b, o, ,,  , p, r, o, v, i, d, e, n, t,  , c, o, m, m, o, d, i,  , u, l, l, a, m, ,,  , a, l, i, q, u, a, m, .]])
-20:23:34.456 INFO - Done: [send keys: 4 [[FirefoxDriver: firefox on MAC (91b32946-fdb4-4f46-8871-46b1c74a1c32)] -> css selector: .photo-feed:nth-child(1) input[type=text]], [L, o, r, e, m,  , i, p, s, u, m,  , d, o, l, o, r,  , s, i, t,  , a, m, e, t, ,,  , c, o, n, s, e, c, t, e, t, u, r,  , a, d, i, p, i, s, i, c, i, n, g,  , e, l, i, t, .,  , D, o, l, o, r, e, m, q, u, e,  , d, i, g, n, i, s, s, i, m, o, s,  , d, i, s, t, i, n, c, t, i, o,  , e, r, r, o, r, ,,  , q, u, a, m,  , v, o, l, u, p, t, a, t, u, m,  , f, u, g, a,  , e, x, e, r, c, i, t, a, t, i, o, n, e, m,  , b, e, a, t, a, e,  , q, u, a, s, i,  , u, t,  , m, a, g, n, i,  , i, p, s, a, m,  , c, o, n, s, e, c, t, e, t, u, r,  , a, d, i, p, i, s, c, i, ,,  , v, e, n, i, a, m,  , i, n, v, e, n, t, o, r, e,  , e, x, p, l, i, c, a, b, o, ,,  , p, r, o, v, i, d, e, n, t,  , c, o, m, m, o, d, i,  , u, l, l, a, m, ,,  , a, l, i, q, u, a, m, .]]
-20:23:34.462 INFO - Executing: [find element: By.cssSelector: .photo-feed:nth-child(1) .comment-create-container button])
-20:23:34.487 INFO - Done: [find element: By.cssSelector: .photo-feed:nth-child(1) .comment-create-container button]
-20:23:34.493 INFO - Executing: [click: 5 [[FirefoxDriver: firefox on MAC (91b32946-fdb4-4f46-8871-46b1c74a1c32)] -> css selector: .photo-feed:nth-child(1) .comment-create-container button]])
-20:23:34.609 INFO - Done: [click: 5 [[FirefoxDriver: firefox on MAC (91b32946-fdb4-4f46-8871-46b1c74a1c32)] -> css selector: .photo-feed:nth-child(1) .comment-create-container button]]
-20:23:35.616 INFO - Executing: [find element: By.cssSelector: .photo-feed:nth-child(1) .comments>ul>li])
-20:23:35.631 INFO - Done: [find element: By.cssSelector: .photo-feed:nth-child(1) .comments>ul>li]
-20:23:35.634 INFO - Executing: [delete session: 7947790b-6776-4587-8a47-213336e6966c])
-20:23:35.713 INFO - Done: [delete session: 7947790b-6776-4587-8a47-213336e6966c]
-20:23:35.721 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Photo, browserName=firefox, javascriptEnabled=true, platform=ANY}]])
-20:23:35.721 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Photo, browserName=firefox, javascriptEnabled=true, platform=ANY}]
-20:23:37.517 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Photo, browserName=firefox, javascriptEnabled=true, platform=ANY}]]
-20:23:37.522 INFO - Executing: [get: localhost:3000])
-20:23:39.700 INFO - Done: [get: localhost:3000]
-20:23:39.704 INFO - Executing: [find elements: By.cssSelector: body])
-20:23:39.757 INFO - Done: [find elements: By.cssSelector: body]
-20:23:39.760 INFO - Executing: [is displayed: 0 [[FirefoxDriver: firefox on MAC (84af5d18-1d51-0d4b-963b-fedbb1d0f498)] -> css selector: body]])
-20:23:39.767 INFO - Done: [is displayed: 0 [[FirefoxDriver: firefox on MAC (84af5d18-1d51-0d4b-963b-fedbb1d0f498)] -> css selector: body]]
-20:23:39.770 INFO - Executing: [find element: By.cssSelector: input[type=text]])
-20:23:39.779 INFO - Done: [find element: By.cssSelector: input[type=text]]
-20:23:39.785 INFO - Executing: [send keys: 1 [[FirefoxDriver: firefox on MAC (84af5d18-1d51-0d4b-963b-fedbb1d0f498)] -> css selector: input[type=text]], [a, l, e, j, a, n, d, r, o, s, a, n, a, b]])
-20:23:39.880 INFO - Done: [send keys: 1 [[FirefoxDriver: firefox on MAC (84af5d18-1d51-0d4b-963b-fedbb1d0f498)] -> css selector: input[type=text]], [a, l, e, j, a, n, d, r, o, s, a, n, a, b]]
-20:23:39.882 INFO - Executing: [find element: By.cssSelector: input[type=password]])
-20:23:39.889 INFO - Done: [find element: By.cssSelector: input[type=password]]
-20:23:39.894 INFO - Executing: [send keys: 2 [[FirefoxDriver: firefox on MAC (84af5d18-1d51-0d4b-963b-fedbb1d0f498)] -> css selector: input[type=password]], [d, u, r, d, e, n, 9, 9]])
-20:23:39.955 INFO - Done: [send keys: 2 [[FirefoxDriver: firefox on MAC (84af5d18-1d51-0d4b-963b-fedbb1d0f498)] -> css selector: input[type=password]], [d, u, r, d, e, n, 9, 9]]
-20:23:39.960 INFO - Executing: [find element: By.cssSelector: .form-login-btn])
-20:23:39.969 INFO - Done: [find element: By.cssSelector: .form-login-btn]
-20:23:39.973 INFO - Executing: [click: 3 [[FirefoxDriver: firefox on MAC (84af5d18-1d51-0d4b-963b-fedbb1d0f498)] -> css selector: .form-login-btn]])
-20:23:40.045 INFO - Done: [click: 3 [[FirefoxDriver: firefox on MAC (84af5d18-1d51-0d4b-963b-fedbb1d0f498)] -> css selector: .form-login-btn]]
-20:23:41.053 INFO - Executing: [get: localhost:3000/#])
-21:24:40.141 INFO - Executing: [find element: By.cssSelector: .photo-feed:nth-child(1) .like])
-21:24:40.360 ERROR - Unexpected exception during findElement
-org.openqa.selenium.remote.UnreachableBrowserException: Error communicating with the remote browser. It may have died.
-Build info: version: '2.47.1', revision: '411b314', time: '2015-07-30 03:03:16'
-System info: host: 'alejandros-macbook-pro.local', ip: '192.168.1.33', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.11', java.version: '1.8.0_40'
-Driver info: driver.version: EventFiringWebDriver
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:589)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:348)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElementByCssSelector(RemoteWebDriver.java:437)
-	at org.openqa.selenium.By$ByCssSelector.findElement(By.java:427)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:340)
-	at sun.reflect.GeneratedMethodAccessor11.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:497)
-	at org.openqa.selenium.support.events.EventFiringWebDriver$2.invoke(EventFiringWebDriver.java:102)
-	at com.sun.proxy.$Proxy1.findElement(Unknown Source)
-	at org.openqa.selenium.support.events.EventFiringWebDriver.findElement(EventFiringWebDriver.java:185)
-	at org.openqa.selenium.remote.server.handler.FindElement.call(FindElement.java:48)
-	at org.openqa.selenium.remote.server.handler.FindElement.call(FindElement.java:1)
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
-	at org.openqa.selenium.remote.server.DefaultSession$1.run(DefaultSession.java:176)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
-	at java.lang.Thread.run(Thread.java:745)
-Caused by: org.apache.http.conn.HttpHostConnectException: Connect to localhost:7056 [localhost/127.0.0.1] failed: Connection refused
-	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:151)
-	at org.apache.http.impl.conn.PoolingHttpClientConnectionManager.connect(PoolingHttpClientConnectionManager.java:353)
-	at org.apache.http.impl.execchain.MainClientExec.establishRoute(MainClientExec.java:380)
-	at org.apache.http.impl.execchain.MainClientExec.execute(MainClientExec.java:236)
-	at org.apache.http.impl.execchain.ProtocolExec.execute(ProtocolExec.java:184)
-	at org.apache.http.impl.execchain.RetryExec.execute(RetryExec.java:88)
-	at org.apache.http.impl.execchain.RedirectExec.execute(RedirectExec.java:110)
-	at org.apache.http.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:184)
-	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:71)
-	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:55)
-	at org.openqa.selenium.remote.internal.ApacheHttpClient.fallBackExecute(ApacheHttpClient.java:143)
-	at org.openqa.selenium.remote.internal.ApacheHttpClient.execute(ApacheHttpClient.java:89)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:134)
-	at org.openqa.selenium.firefox.internal.NewProfileExtensionConnection.execute(NewProfileExtensionConnection.java:170)
-	at org.openqa.selenium.firefox.FirefoxDriver$LazyCommandExecutor.execute(FirefoxDriver.java:393)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:568)
-	... 17 more
-Caused by: java.net.ConnectException: Connection refused
-	at java.net.PlainSocketImpl.socketConnect(Native Method)
-	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
-	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
-	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
-	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
-	at java.net.Socket.connect(Socket.java:589)
-	at org.apache.http.conn.socket.PlainConnectionSocketFactory.connectSocket(PlainConnectionSocketFactory.java:74)
-	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:134)
-	... 32 more
-21:24:42.376 INFO - Executing: [delete session: b62b27e1-de73-4d85-bf26-e24af7fad022])
+10:32:45.414 INFO - Driver class not found: com.opera.core.systems.OperaDriver
+10:32:45.415 INFO - Driver provider com.opera.core.systems.OperaDriver is not registered
+10:32:45.574 INFO - RemoteWebDriver instances should connect to: http://127.0.0.1:4444/wd/hub
+10:32:45.574 INFO - Selenium Server is up and running
+10:32:46.023 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Photo, browserName=firefox, javascriptEnabled=true, platform=ANY}]])
+10:32:46.040 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Photo, browserName=firefox, javascriptEnabled=true, platform=ANY}]
+10:32:48.981 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Photo, browserName=firefox, javascriptEnabled=true, platform=ANY}]]
+10:32:48.994 INFO - Executing: [get: localhost:3000])
+10:32:50.348 INFO - Done: [get: localhost:3000]
+10:32:50.362 INFO - Executing: [find elements: By.cssSelector: body])
+10:32:50.423 INFO - Done: [find elements: By.cssSelector: body]
+10:32:50.427 INFO - Executing: [is displayed: 0 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: body]])
+10:32:50.436 INFO - Done: [is displayed: 0 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: body]]
+10:32:50.442 INFO - Executing: [find element: By.cssSelector: input[type=text]])
+10:32:50.449 INFO - Done: [find element: By.cssSelector: input[type=text]]
+10:32:50.453 INFO - Executing: [send keys: 1 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: input[type=text]], [a, l, e, j, a, n, d, r, o, s, a, n, a, b]])
+10:32:50.548 INFO - Done: [send keys: 1 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: input[type=text]], [a, l, e, j, a, n, d, r, o, s, a, n, a, b]]
+10:32:50.555 INFO - Executing: [find element: By.cssSelector: input[type=password]])
+10:32:50.567 INFO - Done: [find element: By.cssSelector: input[type=password]]
+10:32:50.571 INFO - Executing: [send keys: 2 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: input[type=password]], [d, u, r, d, e, n, 9, 9]])
+10:32:50.630 INFO - Done: [send keys: 2 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: input[type=password]], [d, u, r, d, e, n, 9, 9]]
+10:32:50.637 INFO - Executing: [find element: By.cssSelector: .form-login-btn])
+10:32:50.647 INFO - Done: [find element: By.cssSelector: .form-login-btn]
+10:32:50.651 INFO - Executing: [click: 3 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: .form-login-btn]])
+10:32:50.713 INFO - Done: [click: 3 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: .form-login-btn]]
+10:32:51.728 INFO - Executing: [get: localhost:3000/#])
+10:32:55.196 INFO - Done: [get: localhost:3000/#]
+10:32:56.206 INFO - Executing: [find element: By.cssSelector: input[type=file]])
+10:32:56.219 INFO - Done: [find element: By.cssSelector: input[type=file]]
+10:32:56.226 INFO - Executing: [send keys: 4 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: input[type=file]], [/, U, s, e, r, s, /, a, l, e, /, a, p, p, s, /, i, n, s, t, a, p, r, o, u, d, /, t, e, s, t, /, e, 2, e, /, f, i, x, t, u, r, e, s, /, r, e, a, l, ., j, p, g]])
+10:32:56.251 INFO - Done: [send keys: 4 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: input[type=file]], [/, U, s, e, r, s, /, a, l, e, /, a, p, p, s, /, i, n, s, t, a, p, r, o, u, d, /, t, e, s, t, /, e, 2, e, /, f, i, x, t, u, r, e, s, /, r, e, a, l, ., j, p, g]]
+10:32:57.259 INFO - Executing: [find element: By.cssSelector: .crop-options>li:nth-child(4) a])
+10:32:58.679 INFO - Done: [find element: By.cssSelector: .crop-options>li:nth-child(4) a]
+10:32:58.682 INFO - Executing: [click: 5 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: .crop-options>li:nth-child(4) a]])
+10:32:59.334 INFO - Done: [click: 5 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: .crop-options>li:nth-child(4) a]]
+10:33:00.339 INFO - Executing: [find element: By.cssSelector: .slidee>li:nth-child(6)])
+10:33:00.361 INFO - Done: [find element: By.cssSelector: .slidee>li:nth-child(6)]
+10:33:00.365 INFO - Executing: [click: 6 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: .slidee>li:nth-child(6)]])
+10:33:00.592 INFO - Done: [click: 6 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: .slidee>li:nth-child(6)]]
+10:33:00.596 INFO - Executing: [find element: By.cssSelector: .filter-options>li:nth-child(3) a])
+10:33:00.609 INFO - Done: [find element: By.cssSelector: .filter-options>li:nth-child(3) a]
+10:33:00.612 INFO - Executing: [click: 7 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: .filter-options>li:nth-child(3) a]])
+10:33:00.737 INFO - Done: [click: 7 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: .filter-options>li:nth-child(3) a]]
+10:33:01.748 INFO - Executing: [find element: By.cssSelector: textarea])
+10:33:01.756 INFO - Done: [find element: By.cssSelector: textarea]
+10:33:01.761 INFO - Executing: [send keys: 8 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: textarea], [#, h, a, s, h, t, a, g, T, e, s, t, C, a, p, t, i, o, n]])
+10:33:01.836 INFO - Done: [send keys: 8 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: textarea], [#, h, a, s, h, t, a, g, T, e, s, t, C, a, p, t, i, o, n]]
+10:33:01.840 INFO - Executing: [find element: By.cssSelector: .caption-options>li:nth-child(3) a])
+10:33:01.851 INFO - Done: [find element: By.cssSelector: .caption-options>li:nth-child(3) a]
+10:33:01.858 INFO - Executing: [click: 9 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: .caption-options>li:nth-child(3) a]])
+10:33:01.933 INFO - Done: [click: 9 [[FirefoxDriver: firefox on MAC (33bf5f1e-0a73-1144-8e38-a6034d7d4069)] -> css selector: .caption-options>li:nth-child(3) a]]
+10:33:05.945 INFO - Executing: [find element: By.cssSelector: .photo-feed:nth-child(1)])
+10:33:07.092 INFO - Done: [find element: By.cssSelector: .photo-feed:nth-child(1)]
+10:33:07.099 INFO - Executing: [delete session: 106f051e-a9d6-4847-a04a-8ccdd18d369a])
+10:33:07.234 INFO - Done: [delete session: 106f051e-a9d6-4847-a04a-8ccdd18d369a]
+10:33:07.243 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Photo, browserName=firefox, javascriptEnabled=true, platform=ANY}]])
+10:33:07.244 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Photo, browserName=firefox, javascriptEnabled=true, platform=ANY}]
+10:33:09.104 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Photo, browserName=firefox, javascriptEnabled=true, platform=ANY}]]
+10:33:09.109 INFO - Executing: [get: localhost:3000])
+10:33:10.209 INFO - Done: [get: localhost:3000]
+10:33:10.213 INFO - Executing: [find elements: By.cssSelector: body])
+10:33:10.265 INFO - Done: [find elements: By.cssSelector: body]
+10:33:10.268 INFO - Executing: [is displayed: 0 [[FirefoxDriver: firefox on MAC (fd3f42d8-2882-8148-a702-cca24d17b357)] -> css selector: body]])
+10:33:10.277 INFO - Done: [is displayed: 0 [[FirefoxDriver: firefox on MAC (fd3f42d8-2882-8148-a702-cca24d17b357)] -> css selector: body]]
+10:33:10.280 INFO - Executing: [find element: By.cssSelector: input[type=text]])
+10:33:10.287 INFO - Done: [find element: By.cssSelector: input[type=text]]
+10:33:10.290 INFO - Executing: [send keys: 1 [[FirefoxDriver: firefox on MAC (fd3f42d8-2882-8148-a702-cca24d17b357)] -> css selector: input[type=text]], [a, l, e, j, a, n, d, r, o, s, a, n, a, b]])
+10:33:10.391 INFO - Done: [send keys: 1 [[FirefoxDriver: firefox on MAC (fd3f42d8-2882-8148-a702-cca24d17b357)] -> css selector: input[type=text]], [a, l, e, j, a, n, d, r, o, s, a, n, a, b]]
+10:33:10.396 INFO - Executing: [find element: By.cssSelector: input[type=password]])
+10:33:10.416 INFO - Done: [find element: By.cssSelector: input[type=password]]
+10:33:10.425 INFO - Executing: [send keys: 2 [[FirefoxDriver: firefox on MAC (fd3f42d8-2882-8148-a702-cca24d17b357)] -> css selector: input[type=password]], [d, u, r, d, e, n, 9, 9]])
+10:33:10.543 INFO - Done: [send keys: 2 [[FirefoxDriver: firefox on MAC (fd3f42d8-2882-8148-a702-cca24d17b357)] -> css selector: input[type=password]], [d, u, r, d, e, n, 9, 9]]
+10:33:10.547 INFO - Executing: [find element: By.cssSelector: .form-login-btn])
+10:33:10.564 INFO - Done: [find element: By.cssSelector: .form-login-btn]
+10:33:10.571 INFO - Executing: [click: 3 [[FirefoxDriver: firefox on MAC (fd3f42d8-2882-8148-a702-cca24d17b357)] -> css selector: .form-login-btn]])
+10:33:10.642 INFO - Done: [click: 3 [[FirefoxDriver: firefox on MAC (fd3f42d8-2882-8148-a702-cca24d17b357)] -> css selector: .form-login-btn]]
+10:33:11.650 INFO - Executing: [get: localhost:3000/#])
+10:33:15.075 INFO - Done: [get: localhost:3000/#]
+10:33:16.081 INFO - Executing: [find element: By.cssSelector: .photo-feed:nth-child(1) input[type=text]])
+10:33:16.091 INFO - Done: [find element: By.cssSelector: .photo-feed:nth-child(1) input[type=text]]
+10:33:16.097 INFO - Executing: [send keys: 4 [[FirefoxDriver: firefox on MAC (fd3f42d8-2882-8148-a702-cca24d17b357)] -> css selector: .photo-feed:nth-child(1) input[type=text]], [L, o, r, e, m,  , i, p, s, u, m,  , d, o, l, o, r,  , s, i, t,  , a, m, e, t, ,,  , c, o, n, s, e, c, t, e, t, u, r,  , a, d, i, p, i, s, i, c, i, n, g,  , e, l, i, t, .,  , D, o, l, o, r, e, m, q, u, e,  , d, i, g, n, i, s, s, i, m, o, s,  , d, i, s, t, i, n, c, t, i, o,  , e, r, r, o, r, ,,  , q, u, a, m,  , v, o, l, u, p, t, a, t, u, m,  , f, u, g, a,  , e, x, e, r, c, i, t, a, t, i, o, n, e, m,  , b, e, a, t, a, e,  , q, u, a, s, i,  , u, t,  , m, a, g, n, i,  , i, p, s, a, m,  , c, o, n, s, e, c, t, e, t, u, r,  , a, d, i, p, i, s, c, i, ,,  , v, e, n, i, a, m,  , i, n, v, e, n, t, o, r, e,  , e, x, p, l, i, c, a, b, o, ,,  , p, r, o, v, i, d, e, n, t,  , c, o, m, m, o, d, i,  , u, l, l, a, m, ,,  , a, l, i, q, u, a, m, .]])
+10:33:16.579 INFO - Done: [send keys: 4 [[FirefoxDriver: firefox on MAC (fd3f42d8-2882-8148-a702-cca24d17b357)] -> css selector: .photo-feed:nth-child(1) input[type=text]], [L, o, r, e, m,  , i, p, s, u, m,  , d, o, l, o, r,  , s, i, t,  , a, m, e, t, ,,  , c, o, n, s, e, c, t, e, t, u, r,  , a, d, i, p, i, s, i, c, i, n, g,  , e, l, i, t, .,  , D, o, l, o, r, e, m, q, u, e,  , d, i, g, n, i, s, s, i, m, o, s,  , d, i, s, t, i, n, c, t, i, o,  , e, r, r, o, r, ,,  , q, u, a, m,  , v, o, l, u, p, t, a, t, u, m,  , f, u, g, a,  , e, x, e, r, c, i, t, a, t, i, o, n, e, m,  , b, e, a, t, a, e,  , q, u, a, s, i,  , u, t,  , m, a, g, n, i,  , i, p, s, a, m,  , c, o, n, s, e, c, t, e, t, u, r,  , a, d, i, p, i, s, c, i, ,,  , v, e, n, i, a, m,  , i, n, v, e, n, t, o, r, e,  , e, x, p, l, i, c, a, b, o, ,,  , p, r, o, v, i, d, e, n, t,  , c, o, m, m, o, d, i,  , u, l, l, a, m, ,,  , a, l, i, q, u, a, m, .]]
+10:33:16.584 INFO - Executing: [find element: By.cssSelector: .photo-feed:nth-child(1) .comment-create-container button])
+10:33:16.613 INFO - Done: [find element: By.cssSelector: .photo-feed:nth-child(1) .comment-create-container button]
+10:33:16.616 INFO - Executing: [click: 5 [[FirefoxDriver: firefox on MAC (fd3f42d8-2882-8148-a702-cca24d17b357)] -> css selector: .photo-feed:nth-child(1) .comment-create-container button]])
+10:33:16.712 INFO - Done: [click: 5 [[FirefoxDriver: firefox on MAC (fd3f42d8-2882-8148-a702-cca24d17b357)] -> css selector: .photo-feed:nth-child(1) .comment-create-container button]]
+10:33:17.719 INFO - Executing: [find element: By.cssSelector: .photo-feed:nth-child(1) .comments>ul>li])
+10:33:17.736 INFO - Done: [find element: By.cssSelector: .photo-feed:nth-child(1) .comments>ul>li]
+10:33:17.739 INFO - Executing: [delete session: ca5df5f6-4834-4b4e-b546-5e7f2172878f])
+10:33:17.866 INFO - Done: [delete session: ca5df5f6-4834-4b4e-b546-5e7f2172878f]
+10:33:17.872 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Photo, browserName=firefox, javascriptEnabled=true, platform=ANY}]])
+10:33:17.873 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Photo, browserName=firefox, javascriptEnabled=true, platform=ANY}]
+10:33:19.495 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Photo, browserName=firefox, javascriptEnabled=true, platform=ANY}]]
+10:33:19.500 INFO - Executing: [get: localhost:3000])
+10:33:20.834 INFO - Done: [get: localhost:3000]
+10:33:20.841 INFO - Executing: [find elements: By.cssSelector: body])
+10:33:20.902 INFO - Done: [find elements: By.cssSelector: body]
+10:33:20.905 INFO - Executing: [is displayed: 0 [[FirefoxDriver: firefox on MAC (7b824a55-d1c1-b443-b001-38995aba916c)] -> css selector: body]])
+10:33:20.917 INFO - Done: [is displayed: 0 [[FirefoxDriver: firefox on MAC (7b824a55-d1c1-b443-b001-38995aba916c)] -> css selector: body]]
+10:33:20.930 INFO - Executing: [find element: By.cssSelector: input[type=text]])
+10:33:20.946 INFO - Done: [find element: By.cssSelector: input[type=text]]
+10:33:20.952 INFO - Executing: [send keys: 1 [[FirefoxDriver: firefox on MAC (7b824a55-d1c1-b443-b001-38995aba916c)] -> css selector: input[type=text]], [a, l, e, j, a, n, d, r, o, s, a, n, a, b]])
+10:33:21.063 INFO - Done: [send keys: 1 [[FirefoxDriver: firefox on MAC (7b824a55-d1c1-b443-b001-38995aba916c)] -> css selector: input[type=text]], [a, l, e, j, a, n, d, r, o, s, a, n, a, b]]
+10:33:21.067 INFO - Executing: [find element: By.cssSelector: input[type=password]])
+10:33:21.080 INFO - Done: [find element: By.cssSelector: input[type=password]]
+10:33:21.088 INFO - Executing: [send keys: 2 [[FirefoxDriver: firefox on MAC (7b824a55-d1c1-b443-b001-38995aba916c)] -> css selector: input[type=password]], [d, u, r, d, e, n, 9, 9]])
+10:33:21.159 INFO - Done: [send keys: 2 [[FirefoxDriver: firefox on MAC (7b824a55-d1c1-b443-b001-38995aba916c)] -> css selector: input[type=password]], [d, u, r, d, e, n, 9, 9]]
+10:33:21.166 INFO - Executing: [find element: By.cssSelector: .form-login-btn])
+10:33:21.177 INFO - Done: [find element: By.cssSelector: .form-login-btn]
+10:33:21.180 INFO - Executing: [click: 3 [[FirefoxDriver: firefox on MAC (7b824a55-d1c1-b443-b001-38995aba916c)] -> css selector: .form-login-btn]])
+10:33:21.251 INFO - Done: [click: 3 [[FirefoxDriver: firefox on MAC (7b824a55-d1c1-b443-b001-38995aba916c)] -> css selector: .form-login-btn]]
+10:33:22.264 INFO - Executing: [get: localhost:3000/#])
+10:33:25.486 INFO - Done: [get: localhost:3000/#]
+10:33:26.489 INFO - Executing: [find element: By.cssSelector: .photo-feed:nth-child(1) .like])
+10:33:26.504 INFO - Done: [find element: By.cssSelector: .photo-feed:nth-child(1) .like]
+10:33:26.519 INFO - Executing: [click: 4 [[FirefoxDriver: firefox on MAC (7b824a55-d1c1-b443-b001-38995aba916c)] -> css selector: .photo-feed:nth-child(1) .like]])
+10:33:26.603 INFO - Done: [click: 4 [[FirefoxDriver: firefox on MAC (7b824a55-d1c1-b443-b001-38995aba916c)] -> css selector: .photo-feed:nth-child(1) .like]]
+10:33:28.612 INFO - Executing: [delete session: 42f55d1e-9532-4ef6-845d-033a43b7d0a0])
+10:33:28.763 INFO - Done: [delete session: 42f55d1e-9532-4ef6-845d-033a43b7d0a0]
