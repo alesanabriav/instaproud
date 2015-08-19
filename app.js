@@ -17,7 +17,6 @@ var redisClient = redis.createClient();
 var Promise = require('bluebird');
 var requireAuthentication = require('./lib/checkAuth');
 var io = require('socket.io')(4000);
-var lusca = require('lusca');
 
 //Global path
 global.__base = __dirname + '/';
@@ -55,13 +54,6 @@ app.use(session({
   cookie: {
     httpOnly: true
   }
-}));
-
-app.use(lusca({
-  csrf: false,
-  xframe: 'SAMEORIGIN',
-  p3p: 'BVCInSt@pr0uD',
-  xssProtection: true
 }));
 
 //Passport Config

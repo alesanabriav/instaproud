@@ -12,7 +12,7 @@ module.exports = React.createClass({
 
   preloader: function() {
     return (
-      <img src="images/photo-placeholder.gif" alt="Loading icon" />
+      <img src="images/profile-placeholder.png" alt="Loading icon" />
       );
   },
 

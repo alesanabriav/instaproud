@@ -121,7 +121,7 @@ module.exports = React.createClass({displayName: "exports",
 
   preloader: function() {
     return (
-      React.createElement("img", {src: "images/photo-placeholder.gif", alt: "Loading icon"})
+      React.createElement("img", {src: "images/profile-placeholder.png", alt: "Loading icon"})
       );
   },
 
