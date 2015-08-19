@@ -6,13 +6,13 @@ var Filters = require('views/photos/filter_filters.jsx');
 var Vintage = require('vintagejs/dist/vintage');
 var photoFilters = require('utils/filters');
 var pubsub = require('utils/pubsub');
+var _ = require('underscore');
 
 module.exports = React.createClass({
   getInitialState: function() {
     return {
       src: '',
-      original: '',
-      filtered: {}
+      effect: {}
     }
   },
 
@@ -28,23 +28,26 @@ module.exports = React.createClass({
     img.src = this.state.src;
 
     var options = {
-        onError: function() {
-          console.log('ERROR');
-        }
+      onError: function() {
+        console.log('ERROR');
+      }
     };
 
-    var effect = {
+    var effect = _.extend(this.state.effect, {
       curves: photoFilters[filter],
-      vignette: 0.2
-    };
+      vignette: 0.2,
+      desaturate: 0
+    });
 
     if (filter === 'inkwell') {
-      effect = {
+      effect = _.extend(this.state.effect,{
         desaturate: 1
-      }
+      });
     }
 
-    this.state.filtered = new Vintage(img, options, effect);
+    this.setState({effect: effect});
+
+    new Vintage(img, options, this.state.effect);
   },
 
   componentWillUpdate: function() {
@@ -57,6 +60,16 @@ module.exports = React.createClass({
 
     localStorage.setItem('filtered', img.src);
     pubsub.trigger('navigator:change', 'caption');
+  },
+
+  handleChange: function() {
+    var brightness = React.findDOMNode(this.refs.brightness).value;
+    var effect = _.extend(this.state.effect, {contrast: parseInt(brightness)});
+    console.log(effect);
+    this.setState({effect: effect});
+    var img = document.getElementById('img-main');
+    img.src = this.state.src;
+    new Vintage(img, null, this.state.effect);
   },
 
   render: function() {
@@ -75,6 +88,15 @@ module.exports = React.createClass({
             <a href="#" onClick={this.handleNext}><i className="icon ion-ios-arrow-forward"></i></a>
           </li>
         </ul>
+        <input
+          ref="brightness"
+          type="range"
+          min="-50"
+          value={this.state.brightness}
+          max="50"
+          step="10"
+          onChange={this.handleChange}
+           />
         <Filters onAddFilter={this.handleFilter} />
     </div>
     );

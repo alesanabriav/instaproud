@@ -1085,13 +1085,13 @@ var Filters = require('views/photos/filter_filters.jsx');
 var Vintage = require('vintagejs/dist/vintage');
 var photoFilters = require('utils/filters');
 var pubsub = require('utils/pubsub');
+var _ = require('underscore');
 
 module.exports = React.createClass({displayName: "exports",
   getInitialState: function() {
     return {
       src: '',
-      original: '',
-      filtered: {}
+      effect: {}
     }
   },
 
@@ -1107,23 +1107,26 @@ module.exports = React.createClass({displayName: "exports",
     img.src = this.state.src;
 
     var options = {
-        onError: function() {
-          console.log('ERROR');
-        }
+      onError: function() {
+        console.log('ERROR');
+      }
     };
 
-    var effect = {
+    var effect = _.extend(this.state.effect, {
       curves: photoFilters[filter],
-      vignette: 0.2
-    };
+      vignette: 0.2,
+      desaturate: 0
+    });
 
     if (filter === 'inkwell') {
-      effect = {
+      effect = _.extend(this.state.effect,{
         desaturate: 1
-      }
+      });
     }
 
-    this.state.filtered = new Vintage(img, options, effect);
+    this.setState({effect: effect});
+
+    new Vintage(img, options, this.state.effect);
   },
 
   componentWillUpdate: function() {
@@ -1136,6 +1139,16 @@ module.exports = React.createClass({displayName: "exports",
 
     localStorage.setItem('filtered', img.src);
     pubsub.trigger('navigator:change', 'caption');
+  },
+
+  handleChange: function() {
+    var brightness = React.findDOMNode(this.refs.brightness).value;
+    var effect = _.extend(this.state.effect, {contrast: parseInt(brightness)});
+    console.log(effect);
+    this.setState({effect: effect});
+    var img = document.getElementById('img-main');
+    img.src = this.state.src;
+    new Vintage(img, null, this.state.effect);
   },
 
   render: function() {
@@ -1154,6 +1167,15 @@ module.exports = React.createClass({displayName: "exports",
             React.createElement("a", {href: "#", onClick: this.handleNext}, React.createElement("i", {className: "icon ion-ios-arrow-forward"}))
           )
         ), 
+        React.createElement("input", {
+          ref: "brightness", 
+          type: "range", 
+          min: "-50", 
+          value: this.state.brightness, 
+          max: "50", 
+          step: "10", 
+          onChange: this.handleChange}
+           ), 
         React.createElement(Filters, {onAddFilter: this.handleFilter})
     )
     );
@@ -1161,7 +1183,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/filter.jsx","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":49,"_process":57,"buffer":53,"react":442,"utils/filters":13,"utils/pubsub":17,"views/photos/filter_filters.jsx":26,"vintagejs/dist/vintage":444}],26:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":49,"_process":57,"buffer":53,"react":442,"underscore":443,"utils/filters":13,"utils/pubsub":17,"views/photos/filter_filters.jsx":26,"vintagejs/dist/vintage":444}],26:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
