@@ -172,8 +172,8 @@ module.exports = React.createClass({displayName: "exports",
 'use stricts';
 
 module.exports = {
-  baseUrl: 'http://instaproud.bvc.com.co:3000',
-  // baseUrl: 'http://localhost:3000',
+  // baseUrl: 'http://instaproud.bvc.com.co:3000',
+  baseUrl: 'http://localhost:3000',
   s3Bucket: 'https://s3-sa-east-1.amazonaws.com/bvcinstaproud'
 };
 
@@ -217,7 +217,7 @@ module.exports = {
 var React = require('react');
 var $http = require('utils/http');
 var pubsub = require('utils/pubsub');
-var Search = require('views/photos/search.jsx');
+var Search = require('views/search/section.jsx');
 var List = require('views/photos/list.jsx');
 var Crop = require('views/photos/crop.jsx');
 var Filter = require('views/photos/filter.jsx');
@@ -228,46 +228,61 @@ var isMobile = require('is-mobile');
 var Map = require('views/photos/locations.jsx');
 
 module.exports = {
+  unmountHeader: function() {
+    return React.unmountComponentAtNode(document.getElementById('header-container'));
+  },
+
+  unmountNav: function() {
+    return React.unmountComponentAtNode(document.getElementById('nav-container'));
+  },
+
+  mountComponent: function(component) {
+    React.render(component, document.getElementById('app-container'));
+  },
+
+  changeColorHeader: function(color) {
+    pubsub.trigger('appHeader:change', {bgColor: color});
+  },
+
   map: function() {
-    React.render(React.createElement(Map, null), document.getElementById('app-container'));
+    this.mountComponent(React.createElement(Map, null));
   },
 
   list: function() {
-    React.render(React.createElement(List, null), document.getElementById('app-container'));
+    this.mountComponent(React.createElement(List, null));
   },
 
   item: function(id) {
     $http.get('/api/photos/' + id, null, function(res) {
-      React.render(React.createElement(Photo, {photo: res}), document.getElementById('app-container'));
+      this.mountComponent(React.createElement(Photo, {photo: res}));
     });
   },
 
   crop: function() {
-    React.unmountComponentAtNode(document.getElementById('nav-container'));
-    pubsub.trigger('appHeader:change', {bgColor: "444"});
+    this.unmountNav();
     React.render(React.createElement(Crop, null), document.getElementById('app-container'));
+    this.changeColorHeader('444')
   },
 
   filter: function(src) {
     if (isMobile()) {
-      React.unmountComponentAtNode(document.getElementById('header-container'));
+      this.unmountHeader();
     }
-    React.unmountComponentAtNode(document.getElementById('nav-container'));
+    this.unmountNav();
     React.render(React.createElement(Filter, null), document.getElementById('app-container'));
-    pubsub.trigger('appHeader:change', {bgColor: "444"});
+    this.changeColorHeader('444')
   },
 
   caption: function(id) {
     if (isMobile()) {
-      React.unmountComponentAtNode(document.getElementById('header-container'));
+      this.unmountHeader();
     }
-    React.unmountComponentAtNode(document.getElementById('nav-container'));
+    this.unmountNav();
     React.render(React.createElement(Caption, null), document.getElementById('app-container'));
-    pubsub.trigger('appHeader:change', { bgColor: "444"});
+    this.changeColorHeader('444')
   },
 
   hashtag: function(hashtag) {
-    pubsub.trigger('appHeader:change', {title: "#" + hashtag});
     React.render(React.createElement(Hashtag, {hashtag: hashtag}), document.getElementById('app-container'));
   },
 
@@ -277,7 +292,7 @@ module.exports = {
  }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/controllers/photos.js","/app/controllers")
-},{"_process":57,"buffer":53,"is-mobile":59,"react":442,"utils/http":15,"utils/pubsub":17,"views/photos/caption.jsx":23,"views/photos/crop.jsx":24,"views/photos/filter.jsx":25,"views/photos/hashtag.jsx":28,"views/photos/item.jsx":29,"views/photos/list.jsx":32,"views/photos/locations.jsx":33,"views/photos/search.jsx":35}],10:[function(require,module,exports){
+},{"_process":57,"buffer":53,"is-mobile":59,"react":442,"utils/http":15,"utils/pubsub":17,"views/photos/caption.jsx":23,"views/photos/crop.jsx":24,"views/photos/filter.jsx":25,"views/photos/hashtag.jsx":28,"views/photos/item.jsx":29,"views/photos/list.jsx":32,"views/photos/locations.jsx":33,"views/search/section.jsx":47}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -346,7 +361,7 @@ module.exports = {
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/controllers/profiles.js","/app/controllers")
-},{"./../../bower_components/jquery/dist/jquery.js":49,"_process":57,"buffer":53,"react":442,"utils/pubsub":17,"views/profile/Tagged.jsx":38,"views/profile/change_password.jsx":40,"views/profile/edit.jsx":41,"views/profile/login.jsx":43,"views/profile/profile.jsx":44,"views/profile/recover_password.jsx":47,"views/profile/register.jsx":48}],11:[function(require,module,exports){
+},{"./../../bower_components/jquery/dist/jquery.js":49,"_process":57,"buffer":53,"react":442,"utils/pubsub":17,"views/profile/Tagged.jsx":35,"views/profile/change_password.jsx":37,"views/profile/edit.jsx":38,"views/profile/login.jsx":40,"views/profile/profile.jsx":41,"views/profile/recover_password.jsx":44,"views/profile/register.jsx":45}],11:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var Backbone = require('backbone');
@@ -1310,7 +1325,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/hashtag.jsx","/app/views/photos")
-},{"_process":57,"buffer":53,"react":442,"utils/http":15,"views/profile/grid_image.jsx":42}],29:[function(require,module,exports){
+},{"_process":57,"buffer":53,"react":442,"utils/http":15,"views/profile/grid_image.jsx":39}],29:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -1348,6 +1363,10 @@ module.exports = React.createClass({displayName: "exports",
       taggedCount: photo.taggedCount,
       show: true
     }
+  },
+
+  componentDidMount: function() {
+    $('.ui.dropdown').dropdown();
   },
 
   handleComment: function(comment) {
@@ -1393,22 +1412,22 @@ module.exports = React.createClass({displayName: "exports",
   },
 
   handleDelete: function(e) {
-    // e.preventDefault();
+    e.preventDefault();
     $http.delete('/api/photos/' + this.props.photo.id);
     this.setState({show: false});
   },
 
   handleReport: function(e) {
-    // e.preventDefault();
+    e.preventDefault();
     $http.post('/api/photos/'+ this.props.photo.id + '/report', null, function(res) {
       alertify.warning('Revisaremos esta imagen y en caso de considerarla inadecuada será retirada de Instaproud.');
     });
   },
 
   handleFixed: function(e) {
-     // e.preventDefault();
+     e.preventDefault();
     $http.post('/api/photos/'+ this.props.photo.id + '/starred', null, function(res) {
-      alertify.warning('Imagen establecida');
+      console.log(res);
     });
   },
 
@@ -1421,12 +1440,13 @@ module.exports = React.createClass({displayName: "exports",
   render: function() {
     var photo = this.props.photo;
     var caption = '';
-    var user = photo.owner || {};
-    var userlogged = JSON.parse(localStorage.getItem('user')) || {};
+    var user = photo.owner;
+    var userlogged = JSON.parse(localStorage.getItem('user'));
     var optionDelete;
     var optionFixed;
 
     if (photo.caption) {
+
       caption = photo.caption.replace(/#(\S+)/g, '<a href="#hashtag/$1">#$1</a>').replace(/@(\S+)/g, '<a href="#tagged/$1">@$1</a>');
     }
 
@@ -1435,7 +1455,8 @@ module.exports = React.createClass({displayName: "exports",
     }
 
     if (userlogged.role === 'admin') {
-      optionFixed = (React.createElement(MenuItem, {eventKey: "3", onSelect: this.handleFixed}, "Resaltar imagen"));
+      React.createElement(MenuItem, {eventKey: "2", onSelect: this.handleFixed}, "Reslatar iamgen")
+      optionFixed = (React.createElement("a", {href: "#", className: "item", onClick: this.handleFixed}, "Resaltar"));
     }
 
     var src = 'https://s3-sa-east-1.amazonaws.com/bvcinstaproud/' + user.id + '/' + photo.path;
@@ -1816,182 +1837,6 @@ module.exports = React.createClass({displayName: "exports",
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
-var $ = require("./../../../bower_components/jquery/dist/jquery.js");
-var urls = require('config/urls');
-var Hashtag = require('views/photos/search_hashtag.jsx');
-var User = require('views/photos/search_user.jsx');
-var Typeahead = require('react-typeahead').Typeahead;
-
-module.exports = React.createClass({displayName: "exports",
-  getInitialState: function() {
-    return {
-      hashtags: [],
-      users: [],
-      searchType: 'hashtags',
-      searchText: 'Buscar por hashtag'
-    }
-  },
-
-  componentDidMount: function() {
-    $.get('/api/hashtags', null, function(hashtags) {
-      this.setState({
-        hashtags: hashtags,
-        users: []
-      });
-    }.bind(this));
-  },
-
-  searchHashtags: function(query) {
-    $.get(urls.baseUrl+"/api/hashtags/"+ query)
-    .then(function(res) {
-      this.setState({
-        hashtags: res,
-        users: []
-      });
-    }.bind(this));
-  },
-
-  searchUsers: function(query) {
-    $.get(urls.baseUrl + '/users/search/' + query)
-    .then(function(res) {
-      this.setState({
-        users: res,
-        hashtags: []
-      });
-    }.bind(this));
-  },
-
-  handleChange: function(e) {
-    var query = React.findDOMNode(this.refs.query).value;
-
-    if (query.length >= 2) {
-      if (this.state.searchType === 'hashtags') {
-        this.searchHashtags(query);
-      } else {
-        this.searchUsers(query);
-      }
-    }
-  },
-
-  changeUserType: function(e) {
-    this.setState({
-      searchType: 'users',
-      searchText: 'Buscar por usuario'
-    });
-    this.handleChange();
-    e.preventDefault();
-  },
-
-  changeHashtagType: function(e) {
-    this.setState({
-      searchType: 'hashtags',
-      searchText: 'Buscar por hashtag'
-    });
-    this.handleChange();
-    e.preventDefault();
-  },
-
-  render: function() {
-    var hashtagActive = '';
-    var userActive = '';
-
-    if (this.state.searchType === 'hashtags') {
-      hashtagActive = 'active';
-    } else {
-      userActive = 'active';
-    }
-
-    var classes = {
-      input: "form-control autocomplete",
-      results: 'list-group',
-      listItem: 'list-group-item',
-      token: 'btn btn-primary btn-sm'
-    };
-
-    return (
-      React.createElement("div", {className: "search-hastag-or-users"}, 
-
-        React.createElement("input", {type: "text", ref: "query", className: "search form-control", placeholder: this.state.searchText, onChange: this.handleChange}), 
-
-        React.createElement("ul", {className: "options"}, 
-          React.createElement("li", null, 
-            React.createElement("a", {onClick: this.changeHashtagType, className: "btn " + hashtagActive}, 
-              React.createElement("i", {className: "icon ion-pound"}), " ", React.createElement("span", null, "Hashtags")
-            )
-          ), 
-
-          React.createElement("li", null, 
-            React.createElement("a", {onClick: this.changeUserType, className: "btn " + userActive}, 
-              React.createElement("i", {className: "icon ion-ios-people-outline"}), " ", React.createElement("span", null, "Usuarios")
-            )
-          )
-        ), 
-
-        React.createElement("ul", {className: "search-autocomplete list-group"}, 
-          this.state.hashtags.map(function(data, i) {
-            return (React.createElement(Hashtag, {hashtag: data, key: i}))
-          }), 
-
-          this.state.users.map(function(data, i) {
-            return (React.createElement(User, {user: data, key: i}))
-          })
-        )
-      )
-    );
-  }
-});
-
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/search.jsx","/app/views/photos")
-},{"./../../../bower_components/jquery/dist/jquery.js":49,"_process":57,"buffer":53,"config/urls":6,"react":442,"react-typeahead":261,"views/photos/search_hashtag.jsx":36,"views/photos/search_user.jsx":37}],36:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-'use strict';
-var React = require('react');
-
-module.exports = React.createClass({displayName: "exports",
-
-  render: function() {
-    var hashtag = this.props.hashtag;
-    if (hashtag) {
-      var hashtagFiltered = hashtag.name.replace('#', '');
-    }
-
-    return (
-      React.createElement("li", {className: "list-group-item"}, 
-        React.createElement("a", {href: '#hashtag/' + hashtagFiltered}, hashtag.name)
-      )
-    )
-  }
-});
-
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/search_hashtag.jsx","/app/views/photos")
-},{"_process":57,"buffer":53,"react":442}],37:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-'use strict';
-var React = require('react');
-var ProfileImage = require('components/profile_image.jsx');
-
-module.exports = React.createClass({displayName: "exports",
-
-  render: function() {
-    var user = this.props.user;
-
-    return (
-      React.createElement("li", {className: "list-group-item search-user-profile"}, 
-        React.createElement("a", {href: '#profile/' + user.username}, 
-            React.createElement(ProfileImage, {user: user, containerName: "profile-image"}), 
-          React.createElement("p", null,  user.username), 
-          React.createElement("p", null,  user.name)
-        )
-      )
-    );
-  }
-});
-
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/photos/search_user.jsx","/app/views/photos")
-},{"_process":57,"buffer":53,"components/profile_image.jsx":4,"react":442}],38:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-'use strict';
-var React = require('react');
 var Header = require('views/profile/profile_header.jsx');
 var Grid = require('views/profile/profile_grid.jsx');
 var _ = require('underscore');
@@ -2060,7 +1905,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/Tagged.jsx","/app/views/profile")
-},{"_process":57,"buffer":53,"react":442,"underscore":443,"utils/http":15,"views/profile/profile_grid.jsx":45,"views/profile/profile_header.jsx":46}],39:[function(require,module,exports){
+},{"_process":57,"buffer":53,"react":442,"underscore":443,"utils/http":15,"views/profile/profile_grid.jsx":42,"views/profile/profile_header.jsx":43}],36:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -2129,7 +1974,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/access_form.jsx","/app/views/profile")
-},{"_process":57,"buffer":53,"react":442}],40:[function(require,module,exports){
+},{"_process":57,"buffer":53,"react":442}],37:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -2215,7 +2060,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/change_password.jsx","/app/views/profile")
-},{"_process":57,"buffer":53,"react":442,"utils/http":15,"utils/pubsub":17}],41:[function(require,module,exports){
+},{"_process":57,"buffer":53,"react":442,"utils/http":15,"utils/pubsub":17}],38:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -2412,7 +2257,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/edit.jsx","/app/views/profile")
-},{"./../../../bower_components/jquery/dist/jquery.js":49,"_process":57,"buffer":53,"components/form_select.jsx":3,"components/profile_image.jsx":4,"react":442,"underscore":443,"utils/get_interval":14,"utils/http":15,"utils/pubsub":17}],42:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":49,"_process":57,"buffer":53,"components/form_select.jsx":3,"components/profile_image.jsx":4,"react":442,"underscore":443,"utils/get_interval":14,"utils/http":15,"utils/pubsub":17}],39:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -2444,7 +2289,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/grid_image.jsx","/app/views/profile")
-},{"_process":57,"buffer":53,"react":442,"react-imageloader":258,"utils/loadImages":16}],43:[function(require,module,exports){
+},{"_process":57,"buffer":53,"react":442,"react-imageloader":258,"utils/loadImages":16}],40:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -2591,7 +2436,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/login.jsx","/app/views/profile")
-},{"_process":57,"buffer":53,"react":442,"react-bootstrap":132,"react-google-recaptcha":210,"utils/http":15,"views/profile/access_form.jsx":39}],44:[function(require,module,exports){
+},{"_process":57,"buffer":53,"react":442,"react-bootstrap":132,"react-google-recaptcha":210,"utils/http":15,"views/profile/access_form.jsx":36}],41:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -2684,7 +2529,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/profile.jsx","/app/views/profile")
-},{"./../../../bower_components/jquery/dist/jquery.js":49,"_process":57,"buffer":53,"config/urls":6,"react":442,"react-waypoint":269,"utils/http":15,"views/profile/profile_grid.jsx":45,"views/profile/profile_header.jsx":46}],45:[function(require,module,exports){
+},{"./../../../bower_components/jquery/dist/jquery.js":49,"_process":57,"buffer":53,"config/urls":6,"react":442,"react-waypoint":269,"utils/http":15,"views/profile/profile_grid.jsx":42,"views/profile/profile_header.jsx":43}],42:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -2708,7 +2553,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/profile_grid.jsx","/app/views/profile")
-},{"_process":57,"buffer":53,"react":442,"views/profile/grid_image.jsx":42}],46:[function(require,module,exports){
+},{"_process":57,"buffer":53,"react":442,"views/profile/grid_image.jsx":39}],43:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -2770,7 +2615,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/profile_header.jsx","/app/views/profile")
-},{"_process":57,"buffer":53,"components/profile_image.jsx":4,"react":442}],47:[function(require,module,exports){
+},{"_process":57,"buffer":53,"components/profile_image.jsx":4,"react":442}],44:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -2847,7 +2692,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/recover_password.jsx","/app/views/profile")
-},{"_process":57,"buffer":53,"react":442,"utils/http":15}],48:[function(require,module,exports){
+},{"_process":57,"buffer":53,"react":442,"utils/http":15}],45:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 var React = require('react');
@@ -2933,7 +2778,183 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/profile/register.jsx","/app/views/profile")
-},{"_process":57,"alertifyjs":50,"buffer":53,"react":442,"utils/http":15,"views/profile/access_form.jsx":39}],49:[function(require,module,exports){
+},{"_process":57,"alertifyjs":50,"buffer":53,"react":442,"utils/http":15,"views/profile/access_form.jsx":36}],46:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+'use strict';
+var React = require('react');
+
+module.exports = React.createClass({displayName: "exports",
+
+  render: function() {
+    var hashtag = this.props.hashtag;
+    if (hashtag) {
+      var hashtagFiltered = hashtag.name.replace('#', '');
+    }
+
+    return (
+      React.createElement("li", {className: "list-group-item"}, 
+        React.createElement("a", {href: '#hashtag/' + hashtagFiltered}, hashtag.name)
+      )
+    )
+  }
+});
+
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/search/hashtag.jsx","/app/views/search")
+},{"_process":57,"buffer":53,"react":442}],47:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+'use strict';
+var React = require('react');
+var $ = require("./../../../bower_components/jquery/dist/jquery.js");
+var urls = require('config/urls');
+var Hashtag = require('views/search/hashtag.jsx');
+var User = require('views/search/user.jsx');
+var Typeahead = require('react-typeahead').Typeahead;
+
+module.exports = React.createClass({displayName: "exports",
+  getInitialState: function() {
+    return {
+      hashtags: [],
+      users: [],
+      searchType: 'hashtags',
+      searchText: 'Buscar por hashtag'
+    }
+  },
+
+  componentDidMount: function() {
+    $.get('/api/hashtags', null, function(hashtags) {
+      this.setState({
+        hashtags: hashtags,
+        users: []
+      });
+    }.bind(this));
+  },
+
+  searchHashtags: function(query) {
+    $.get(urls.baseUrl+"/api/hashtags/"+ query)
+    .then(function(res) {
+      this.setState({
+        hashtags: res,
+        users: []
+      });
+    }.bind(this));
+  },
+
+  searchUsers: function(query) {
+    $.get(urls.baseUrl + '/users/search/' + query)
+    .then(function(res) {
+      this.setState({
+        users: res,
+        hashtags: []
+      });
+    }.bind(this));
+  },
+
+  handleChange: function(e) {
+    var query = React.findDOMNode(this.refs.query).value;
+
+    if (query.length >= 2) {
+      if (this.state.searchType === 'hashtags') {
+        this.searchHashtags(query);
+      } else {
+        this.searchUsers(query);
+      }
+    }
+  },
+
+  changeUserType: function(e) {
+    this.setState({
+      searchType: 'users',
+      searchText: 'Buscar por usuario'
+    });
+    this.handleChange();
+    e.preventDefault();
+  },
+
+  changeHashtagType: function(e) {
+    this.setState({
+      searchType: 'hashtags',
+      searchText: 'Buscar por hashtag'
+    });
+    this.handleChange();
+    e.preventDefault();
+  },
+
+  render: function() {
+    var hashtagActive = '';
+    var userActive = '';
+
+    if (this.state.searchType === 'hashtags') {
+      hashtagActive = 'active';
+    } else {
+      userActive = 'active';
+    }
+
+    var classes = {
+      input: "form-control autocomplete",
+      results: 'list-group',
+      listItem: 'list-group-item',
+      token: 'btn btn-primary btn-sm'
+    };
+
+    return (
+      React.createElement("div", {className: "search-hastag-or-users"}, 
+
+        React.createElement("input", {type: "text", ref: "query", className: "search form-control", placeholder: this.state.searchText, onChange: this.handleChange}), 
+
+        React.createElement("ul", {className: "options"}, 
+          React.createElement("li", null, 
+            React.createElement("a", {onClick: this.changeHashtagType, className: "btn " + hashtagActive}, 
+              React.createElement("i", {className: "icon ion-pound"}), " ", React.createElement("span", null, "Hashtags")
+            )
+          ), 
+
+          React.createElement("li", null, 
+            React.createElement("a", {onClick: this.changeUserType, className: "btn " + userActive}, 
+              React.createElement("i", {className: "icon ion-ios-people-outline"}), " ", React.createElement("span", null, "Usuarios")
+            )
+          )
+        ), 
+
+        React.createElement("ul", {className: "search-autocomplete list-group"}, 
+          this.state.hashtags.map(function(data, i) {
+            return (React.createElement(Hashtag, {hashtag: data, key: i}))
+          }), 
+
+          this.state.users.map(function(data, i) {
+            return (React.createElement(User, {user: data, key: i}))
+          })
+        )
+      )
+    );
+  }
+});
+
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/search/section.jsx","/app/views/search")
+},{"./../../../bower_components/jquery/dist/jquery.js":49,"_process":57,"buffer":53,"config/urls":6,"react":442,"react-typeahead":261,"views/search/hashtag.jsx":46,"views/search/user.jsx":48}],48:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+'use strict';
+var React = require('react');
+var ProfileImage = require('components/profile_image.jsx');
+
+module.exports = React.createClass({displayName: "exports",
+
+  render: function() {
+    var user = this.props.user;
+
+    return (
+      React.createElement("li", {className: "list-group-item search-user-profile"}, 
+        React.createElement("a", {href: '#profile/' + user.username}, 
+            React.createElement(ProfileImage, {user: user, containerName: "profile-image"}), 
+          React.createElement("p", null,  user.username), 
+          React.createElement("p", null,  user.name)
+        )
+      )
+    );
+  }
+});
+
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/views/search/user.jsx","/app/views/search")
+},{"_process":57,"buffer":53,"components/profile_image.jsx":4,"react":442}],49:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /*!
  * jQuery JavaScript Library v2.1.4

@@ -3,6 +3,7 @@ var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt');
+var uniqueValidator = require('mongoose-unique-validator');
 var UserSchema;
 var User;
 
@@ -16,7 +17,11 @@ UserSchema = new Schema({
     required: 'contraseña requerida'
   },
   salt: String,
-  username: String,
+  username: {
+    type: String,
+    index: true,
+    unique: true
+  },
   'profile_image': String,
   name: String,
   area: String,
@@ -99,6 +104,8 @@ UserSchema.pre('save', function(next) {
     });
   });
 });
+
+UserSchema.plugin(uniqueValidator);
 
 User = mongoose.model('User', UserSchema);
 

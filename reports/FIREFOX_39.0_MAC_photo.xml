@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="0"
+            tests="3">
+
+  <testsuite name="photo"
+    errors="1" failures="0" hostname="" id="" package="photo" skipped="0"
+    tests="3" time="1.276e+4" timestamp="Tue, 18 Aug 2015 22:52:07 GMT">
+  
+    <testcase name="post a photo" time="9074" assertions="2">
+
+    
+
+    
+    </testcase>
+      <system-err>
+        Unable to locate element: &quot;.photo-feed:nth-child(1) .like&quot; using: css selector
+      </system-err>
+  
+    <testcase name="comment a photo" time="14.18" assertions="2">
+
+    
+
+    
+    </testcase>
+      <system-err>
+        Unable to locate element: &quot;.photo-feed:nth-child(1) .like&quot; using: css selector
+      </system-err>
+  
+    <testcase name="like a photo" time="3667" assertions="1">
+
+    
+    </testcase>
+      <system-err>
+        Unable to locate element: &quot;.photo-feed:nth-child(1) .like&quot; using: css selector
+      </system-err>
+  
+  
+  </testsuite>
+</testsuites>

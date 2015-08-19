@@ -2,7 +2,7 @@
 var React = require('react');
 var $http = require('utils/http');
 var pubsub = require('utils/pubsub');
-var Search = require('views/photos/search.jsx');
+var Search = require('views/search/section.jsx');
 var List = require('views/photos/list.jsx');
 var Crop = require('views/photos/crop.jsx');
 var Filter = require('views/photos/filter.jsx');
@@ -13,50 +13,68 @@ var isMobile = require('is-mobile');
 var Map = require('views/photos/locations.jsx');
 
 module.exports = {
+  unmountHeader: function() {
+    var container = document.getElementById('header-container');
+    return React.unmountComponentAtNode(container);
+  },
+
+  unmountNav: function() {
+    var container = document.getElementById('nav-container');
+    return React.unmountComponentAtNode(container);
+  },
+
+  mountComponent: function(component) {
+    var container = document.getElementById('app-container');
+    return React.render(component, container);
+  },
+
+  changeColorHeader: function(color) {
+    pubsub.trigger('appHeader:change', {bgColor: color});
+  },
+
   map: function() {
-    React.render(<Map />, document.getElementById('app-container'));
+    this.mountComponent(<Map/>);
   },
 
   list: function() {
-    React.render(<List />, document.getElementById('app-container'));
+    this.mountComponent(<List/>);
   },
 
   item: function(id) {
     $http.get('/api/photos/' + id, null, function(res) {
-      React.render(<Photo photo={res} />, document.getElementById('app-container'));
+      this.mountComponent(<Photo photo={res}/>);
     });
   },
 
   crop: function() {
-    React.unmountComponentAtNode(document.getElementById('nav-container'));
-    pubsub.trigger('appHeader:change', {bgColor: "444"});
-    React.render(<Crop />, document.getElementById('app-container'));
+    this.unmountNav();
+    this.mountComponent(<Crop/>);
+    this.changeColorHeader('444')
   },
 
   filter: function(src) {
     if (isMobile()) {
-      React.unmountComponentAtNode(document.getElementById('header-container'));
+      this.unmountHeader();
     }
-    React.unmountComponentAtNode(document.getElementById('nav-container'));
-    React.render(<Filter />, document.getElementById('app-container'));
-    pubsub.trigger('appHeader:change', {bgColor: "444"});
+    this.unmountNav();
+    this.mountComponent((<Filter/>);
+    this.changeColorHeader('444')
   },
 
   caption: function(id) {
     if (isMobile()) {
-      React.unmountComponentAtNode(document.getElementById('header-container'));
+      this.unmountHeader();
     }
-    React.unmountComponentAtNode(document.getElementById('nav-container'));
-    React.render(<Caption />, document.getElementById('app-container'));
-    pubsub.trigger('appHeader:change', { bgColor: "444"});
+    this.unmountNav();
+    this.mountComponent(<Caption />);
+    this.changeColorHeader('444')
   },
 
   hashtag: function(hashtag) {
-    pubsub.trigger('appHeader:change', {title: "#" + hashtag});
-    React.render(<Hashtag hashtag={hashtag} />, document.getElementById('app-container'));
+    this.mountComponent(<Hashtag hashtag={hashtag}/>);
   },
 
   search: function() {
-    React.render(<Search />, document.getElementById("app-container"));
+    this.mountComponent(<Search/>);
   }
- }
+ };

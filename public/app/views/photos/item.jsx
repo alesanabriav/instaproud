@@ -36,6 +36,10 @@ module.exports = React.createClass({
     }
   },
 
+  componentDidMount: function() {
+    $('.ui.dropdown').dropdown();
+  },
+
   handleComment: function(comment) {
     var newComments;
     $http.post(
@@ -79,22 +83,22 @@ module.exports = React.createClass({
   },
 
   handleDelete: function(e) {
-    // e.preventDefault();
+    e.preventDefault();
     $http.delete('/api/photos/' + this.props.photo.id);
     this.setState({show: false});
   },
 
   handleReport: function(e) {
-    // e.preventDefault();
+    e.preventDefault();
     $http.post('/api/photos/'+ this.props.photo.id + '/report', null, function(res) {
       alertify.warning('Revisaremos esta imagen y en caso de considerarla inadecuada será retirada de Instaproud.');
     });
   },
 
   handleFixed: function(e) {
-     // e.preventDefault();
+     e.preventDefault();
     $http.post('/api/photos/'+ this.props.photo.id + '/starred', null, function(res) {
-      alertify.warning('Imagen establecida');
+      console.log(res);
     });
   },
 
@@ -107,12 +111,13 @@ module.exports = React.createClass({
   render: function() {
     var photo = this.props.photo;
     var caption = '';
-    var user = photo.owner || {};
-    var userlogged = JSON.parse(localStorage.getItem('user')) || {};
+    var user = photo.owner;
+    var userlogged = JSON.parse(localStorage.getItem('user'));
     var optionDelete;
     var optionFixed;
 
     if (photo.caption) {
+
       caption = photo.caption.replace(/#(\S+)/g, '<a href="#hashtag/$1">#$1</a>').replace(/@(\S+)/g, '<a href="#tagged/$1">@$1</a>');
     }
 
@@ -121,7 +126,8 @@ module.exports = React.createClass({
     }
 
     if (userlogged.role === 'admin') {
-      optionFixed = (<MenuItem eventKey='3' onSelect={this.handleFixed}>Resaltar imagen</MenuItem>);
+      <MenuItem eventKey='2' onSelect={this.handleFixed}>Reslatar iamgen</MenuItem>
+      optionFixed = (<a href="#" className="item" onClick={this.handleFixed}>Resaltar</a>);
     }
 
     var src = 'https://s3-sa-east-1.amazonaws.com/bvcinstaproud/' + user.id + '/' + photo.path;

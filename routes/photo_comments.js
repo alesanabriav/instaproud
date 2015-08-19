@@ -10,11 +10,10 @@ app.route('/api/photos/:id/comments')
     var photoId = req.params.id;
     var userId = req.user._id;
     tag(commentText, photoId, function() {
-
-    });
-    store(commentText, photoId, userId, function(err, comment) {
-      if(err) return res.status(400).json(err);
-      return res.status(201).json(comment);
+      store(commentText, photoId, userId, function(err, comment) {
+        if(err) return res.status(400).json(err);
+        return res.status(201).json(comment);
+      });
     });
 });
 
