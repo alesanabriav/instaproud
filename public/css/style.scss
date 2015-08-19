@@ -111,6 +111,15 @@ img{
 
 a {
   color: $blue-main;
+  &:focus {
+    outline: none;
+  }
+}
+
+button {
+  &:focus, &:active, &:target {
+    outline: none;
+  }
 }
 
 #nprogress .bar {

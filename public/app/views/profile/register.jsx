@@ -62,11 +62,11 @@ module.exports = React.createClass({
         </header>
         <ul className="nav nav-tabs">
             <li>
-              <a href="#login">INGRESAR</a>
+              <a href="#login">Ingresar</a>
             </li>
 
             <li className="active">
-              <a href="#register">REGISTRO</a>
+              <a href="#register">Soy Nuevo</a>
             </li>
           </ul>
 

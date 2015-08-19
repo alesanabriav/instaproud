@@ -88,6 +88,11 @@ img {
 
 a {
   color: #00297a; }
+  a:focus {
+    outline: none; }
+
+button:focus, button:active, button:target {
+  outline: none; }
 
 #nprogress .bar {
   background: #001847;
@@ -859,9 +864,11 @@ a {
     background: #fff;
     padding-bottom: 15px; }
     .login > .tabs-and-form > form {
-      margin-top: 30px; }
+      margin-top: 60px; }
       .login > .tabs-and-form > form > .form-login-btn, .login > .tabs-and-form > form > .form-register-btn {
         width: 100%;
+        margin-top: 30px;
+        padding: 15px 0 15px 0;
         background: #00297a;
         color: #fff;
         text-transform: uppercase;

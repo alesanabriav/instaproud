@@ -53,10 +53,12 @@
     padding-bottom: 15px;
 
     > form {
-      margin-top: 30px;
+      margin-top: 60px;
 
       > .form-login-btn, > .form-register-btn {
         width: 100%;
+        margin-top: 30px;
+        padding: 15px 0 15px 0;
         background: $blue-main;
         color: #fff;;
         text-transform: uppercase;

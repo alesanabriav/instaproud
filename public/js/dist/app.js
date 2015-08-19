@@ -1103,15 +1103,6 @@ module.exports = React.createClass({displayName: "exports",
   },
 
   handleFilter: function(filter) {
-    var img = document.getElementById('img-main');
-    img.src = this.state.src;
-
-    var options = {
-      onError: function() {
-        console.log('ERROR');
-      }
-    };
-
     var effect = _.extend(this.state.effect, {
       curves: photoFilters[filter],
       vignette: 0.2,
@@ -1125,18 +1116,23 @@ module.exports = React.createClass({displayName: "exports",
     }
 
     this.setState({effect: effect});
-
-    new Vintage(img, options, this.state.effect);
+    this.applyFilter();
   },
 
-  componentWillUpdate: function() {
-    console.log('will update');
+  applyFilter: function() {
+    var img = document.getElementById('img-main');
+    img.src = this.state.src;
+    var options = {
+      onError: function() {
+        console.log('Error filters image');
+      }
+    };
+    new Vintage(img, options, this.state.effect);
   },
 
   handleNext: function(e) {
     e.preventDefault();
     var img = document.getElementById('img-main');
-
     localStorage.setItem('filtered', img.src);
     pubsub.trigger('navigator:change', 'caption');
   },
@@ -1146,9 +1142,7 @@ module.exports = React.createClass({displayName: "exports",
     var effect = _.extend(this.state.effect, {contrast: parseInt(brightness)});
     console.log(effect);
     this.setState({effect: effect});
-    var img = document.getElementById('img-main');
-    img.src = this.state.src;
-    new Vintage(img, null, this.state.effect);
+    this.applyFilter();
   },
 
   render: function() {
@@ -1170,12 +1164,15 @@ module.exports = React.createClass({displayName: "exports",
         React.createElement("input", {
           ref: "brightness", 
           type: "range", 
+          className: "form-control", 
           min: "-50", 
           value: this.state.brightness, 
           max: "50", 
           step: "10", 
-          onChange: this.handleChange}
+          onChange: this.handleChange, 
+          style: {'maxWidth': '500px', 'margin': '0 auto'}}
            ), 
+
         React.createElement(Filters, {onAddFilter: this.handleFilter})
     )
     );
@@ -1978,19 +1975,12 @@ module.exports = React.createClass({displayName: "exports",
           ), 
           React.createElement("div", {
             className: "col-xs-4", 
-            style: {'margin-top': '10px'}
+            style: {'margin-top': '10px', 'fontWeight': '600', 'color': '#00297a'}
             }, "@bvc.com.co")
         ), 
 
         React.createElement("div", {className: "form-group"}, 
           React.createElement("input", {type: "password", className: "form-control", onChange: this.handleChange, ref: "password", placeholder: "Contraseña"}), 
-
-          React.createElement("a", {href: "#", 
-            onClick: this.handleRecover, 
-            style: {padding: '5px', 'color': '#ccc', 'fontWeight': 200}, 
-            className: this.props.showRecover ? "pull-right" : "hidden"}, 
-            "¿Olvidaste tu contraseña?"
-          ), 
 
           React.createElement("label", {
             style: {'color': '#ccc', 'fontWeight': 200}, 
@@ -2372,7 +2362,8 @@ module.exports = React.createClass({displayName: "exports",
     }.bind(this));
   },
 
-  handleRecover: function() {
+  handleRecover: function(e) {
+    e.preventDefault();
     this.setState({modalIsOpen: true});
   },
 
@@ -2426,21 +2417,26 @@ module.exports = React.createClass({displayName: "exports",
         ), 
         React.createElement("ul", {className: "nav nav-tabs"}, 
             React.createElement("li", {className: "active"}, 
-              React.createElement("a", {href: "#login"}, "INGRESAR")
+              React.createElement("a", {href: "#login"}, "Ingresar")
             ), 
 
             React.createElement("li", null, 
-              React.createElement("a", {href: "#register"}, "REGISTRO")
+              React.createElement("a", {href: "#register"}, "Soy Nuevo")
             )
           ), 
 
         React.createElement("div", {className: "tabs-and-form"}, 
           React.createElement(AccessForm, {
             onFormSubmit: this.handleSubmit, 
-            onRecover: this.handleRecover, 
             buttonText: "Iniciar Sesión", 
             showRecover: true}
             ), 
+            React.createElement("a", {href: "#", 
+            onClick: this.handleRecover, 
+            style: {'display': 'block', 'text-align': 'center', 'color': '#ccc', 'fontWeight': 200, 'margin-top': '20px'}
+            }, 
+            "¿Olvidaste tu contraseña?"
+          ), 
           React.createElement("div", {className: "col-xs-12"}, 
             captcha, 
             message
@@ -2788,11 +2784,11 @@ module.exports = React.createClass({displayName: "exports",
         ), 
         React.createElement("ul", {className: "nav nav-tabs"}, 
             React.createElement("li", null, 
-              React.createElement("a", {href: "#login"}, "INGRESAR")
+              React.createElement("a", {href: "#login"}, "Ingresar")
             ), 
 
             React.createElement("li", {className: "active"}, 
-              React.createElement("a", {href: "#register"}, "REGISTRO")
+              React.createElement("a", {href: "#register"}, "Soy Nuevo")
             )
           ), 
 

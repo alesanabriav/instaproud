@@ -24,15 +24,6 @@ module.exports = React.createClass({
   },
 
   handleFilter: function(filter) {
-    var img = document.getElementById('img-main');
-    img.src = this.state.src;
-
-    var options = {
-      onError: function() {
-        console.log('ERROR');
-      }
-    };
-
     var effect = _.extend(this.state.effect, {
       curves: photoFilters[filter],
       vignette: 0.2,
@@ -46,18 +37,23 @@ module.exports = React.createClass({
     }
 
     this.setState({effect: effect});
-
-    new Vintage(img, options, this.state.effect);
+    this.applyFilter();
   },
 
-  componentWillUpdate: function() {
-    console.log('will update');
+  applyFilter: function() {
+    var img = document.getElementById('img-main');
+    img.src = this.state.src;
+    var options = {
+      onError: function() {
+        console.log('Error filters image');
+      }
+    };
+    new Vintage(img, options, this.state.effect);
   },
 
   handleNext: function(e) {
     e.preventDefault();
     var img = document.getElementById('img-main');
-
     localStorage.setItem('filtered', img.src);
     pubsub.trigger('navigator:change', 'caption');
   },
@@ -67,9 +63,7 @@ module.exports = React.createClass({
     var effect = _.extend(this.state.effect, {contrast: parseInt(brightness)});
     console.log(effect);
     this.setState({effect: effect});
-    var img = document.getElementById('img-main');
-    img.src = this.state.src;
-    new Vintage(img, null, this.state.effect);
+    this.applyFilter();
   },
 
   render: function() {
@@ -91,12 +85,15 @@ module.exports = React.createClass({
         <input
           ref="brightness"
           type="range"
+          className="form-control"
           min="-50"
           value={this.state.brightness}
           max="50"
           step="10"
           onChange={this.handleChange}
+          style={{'maxWidth': '500px', 'margin': '0 auto'}}
            />
+
         <Filters onAddFilter={this.handleFilter} />
     </div>
     );

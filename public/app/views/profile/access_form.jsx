@@ -39,19 +39,12 @@ module.exports = React.createClass({
           </div>
           <div
             className="col-xs-4"
-            style={{'margin-top': '10px'}}
+            style={{'margin-top': '10px', 'fontWeight': '600', 'color': '#00297a'}}
             >@bvc.com.co</div>
         </div>
 
         <div className="form-group">
           <input type="password" className="form-control" onChange={this.handleChange} ref="password" placeholder="Contraseña" />
-
-          <a href="#"
-            onClick={this.handleRecover}
-            style={{padding: '5px', 'color': '#ccc', 'fontWeight': 200}}
-            className={this.props.showRecover ? "pull-right" : "hidden"}>
-            ¿Olvidaste tu contraseña?
-          </a>
 
           <label
             style={{'color': '#ccc', 'fontWeight': 200}}

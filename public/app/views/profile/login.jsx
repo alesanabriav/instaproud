@@ -49,7 +49,8 @@ module.exports = React.createClass({
     }.bind(this));
   },
 
-  handleRecover: function() {
+  handleRecover: function(e) {
+    e.preventDefault();
     this.setState({modalIsOpen: true});
   },
 
@@ -103,21 +104,26 @@ module.exports = React.createClass({
         </header>
         <ul className="nav nav-tabs">
             <li className="active">
-              <a href="#login">INGRESAR</a>
+              <a href="#login">Ingresar</a>
             </li>
 
             <li>
-              <a href="#register">REGISTRO</a>
+              <a href="#register">Soy Nuevo</a>
             </li>
           </ul>
 
         <div className="tabs-and-form">
           <AccessForm
             onFormSubmit={this.handleSubmit}
-            onRecover={this.handleRecover}
             buttonText="Iniciar Sesión"
             showRecover={true}
             />
+            <a href="#"
+            onClick={this.handleRecover}
+            style={{'display': 'block', 'text-align': 'center', 'color': '#ccc', 'fontWeight': 200, 'margin-top': '20px'}}
+            >
+            ¿Olvidaste tu contraseña?
+          </a>
           <div className="col-xs-12">
             {captcha}
             {message}
