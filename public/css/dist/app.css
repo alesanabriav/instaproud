@@ -405,7 +405,7 @@ button:focus, button:active, button:target {
       overflow: hidden;
       margin-right: 10px;
       z-index: 2;
-      background: #fff; }
+      background: #00297a; }
       .photo-feed > .header > .avatar-container img {
         z-index: 1;
         position: absolute;
@@ -707,6 +707,7 @@ button:focus, button:active, button:target {
     overflow: hidden;
     margin-right: 10px;
     z-index: 2;
+    background: #00297a;
     float: left; }
     .search-user-profile > a > .profile-image img {
       z-index: 1;
@@ -767,7 +768,8 @@ button:focus, button:active, button:target {
       height: 50px;
       overflow: hidden;
       margin-right: 10px;
-      z-index: 2; }
+      z-index: 2;
+      background: #00297a; }
       .profile-page > header .profile-image img {
         z-index: 1;
         position: absolute;
@@ -894,6 +896,7 @@ button:focus, button:active, button:target {
       overflow: hidden;
       margin-right: 10px;
       z-index: 2;
+      background: #00297a;
       display: block;
       margin: 10px auto; }
       .profile-edit > header > .profile-image img {
@@ -937,7 +940,8 @@ button:focus, button:active, button:target {
     height: 40px;
     overflow: hidden;
     margin-right: 10px;
-    z-index: 2; }
+    z-index: 2;
+    background: #00297a; }
     .activity-item > .media > .media-body > .profile-image img {
       z-index: 1;
       position: absolute;

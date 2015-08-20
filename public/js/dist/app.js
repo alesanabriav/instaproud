@@ -1975,7 +1975,7 @@ module.exports = React.createClass({displayName: "exports",
           ), 
           React.createElement("div", {
             className: "col-xs-4", 
-            style: {'margin-top': '10px', 'fontWeight': '600', 'color': '#00297a'}
+            style: {'marginTop': '10px', 'fontWeight': '600', 'color': '#00297a'}
             }, "@bvc.com.co")
         ), 
 
@@ -2431,9 +2431,10 @@ module.exports = React.createClass({displayName: "exports",
             buttonText: "Iniciar Sesión", 
             showRecover: true}
             ), 
+            React.createElement("img", {src: "/images/gh-logo.png", width: "100", style: {display: 'block','margin': '0 auto'}}), 
             React.createElement("a", {href: "#", 
             onClick: this.handleRecover, 
-            style: {'display': 'block', 'text-align': 'center', 'color': '#ccc', 'fontWeight': 200, 'margin-top': '20px'}
+            style: {'display': 'block', textAlign: 'center', 'color': '#ccc', 'fontWeight': 200, 'marginTop': '20px'}
             }, 
             "¿Olvidaste tu contraseña?"
           ), 

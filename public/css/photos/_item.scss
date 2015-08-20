@@ -31,7 +31,6 @@
 
     > .avatar-container {
       @include image-circle(50px, 50px, 2px solid #fff);
-      background: #fff;
     }
 
     > .owner-username-and-name {

@@ -39,7 +39,7 @@ module.exports = React.createClass({
           </div>
           <div
             className="col-xs-4"
-            style={{'margin-top': '10px', 'fontWeight': '600', 'color': '#00297a'}}
+            style={{'marginTop': '10px', 'fontWeight': '600', 'color': '#00297a'}}
             >@bvc.com.co</div>
         </div>
 

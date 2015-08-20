@@ -118,9 +118,10 @@ module.exports = React.createClass({
             buttonText="Iniciar Sesión"
             showRecover={true}
             />
+            <img src="/images/gh-logo.png" width="100" style={{display: 'block','margin': '0 auto'}} />
             <a href="#"
             onClick={this.handleRecover}
-            style={{'display': 'block', 'text-align': 'center', 'color': '#ccc', 'fontWeight': 200, 'margin-top': '20px'}}
+            style={{'display': 'block', textAlign: 'center', 'color': '#ccc', 'fontWeight': 200, 'marginTop': '20px'}}
             >
             ¿Olvidaste tu contraseña?
           </a>
