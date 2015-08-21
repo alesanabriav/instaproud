@@ -115,7 +115,7 @@ module.exports = React.createClass({
               ref="name"
               className="form-control"
               onChange={this.handleChange}
-              placeholder="Nombre"
+              placeholder="Nombre y Apellido"
               value={user.name} />
           </div>
 
@@ -184,8 +184,8 @@ module.exports = React.createClass({
               onChange={this.handleChange}>
             </textarea>
           </div>
-          <a href={"/#profile/" + user.id + "/password"} className="pull-right">Cambiar contraseña</a>
           <button className="btn btn-primary"><i className="icon ion-ios-arrow-forward"></i></button>
+          <a href={"/#profile/" + user.id + "/password"} className="change-password">Cambiar contraseña</a>
         </form>
       </section>
     );

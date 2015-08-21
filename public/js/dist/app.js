@@ -961,19 +961,22 @@ module.exports = React.createClass({displayName: "exports",
             React.createElement("li", {className: "title"}, "Compartir Imagen"), 
             React.createElement("li", null, React.createElement("a", {href: "#", onClick: this.handleNext}, React.createElement("i", {className: "icon ion-ios-arrow-forward"})))
           ), 
-          React.createElement("textarea", {ref: "caption", className: "caption form-control", placeholder: "Título"})
+          React.createElement("div", {className: "caption-container"}, 
+            React.createElement("textarea", {ref: "caption", className: "caption form-control", placeholder: "Título"})
+          )
+
         ), 
       React.createElement("p", null), 
 
        React.createElement(Tokenizer, {
+          className: "tokenizer", 
           customClasses: classes, 
           placeholder: "Etiquetar personas", 
           options: this.state.tokenizerOptions, 
           onTokenAdd: this.handleTokenAdd, 
           onTokenRemove: this.handleTokenRemove, 
           onKeyUp: this.handleSearch}
-        ), 
-        React.createElement(Geolocation, {onLocation: this.handleLocation})
+        )
       )
     );
   }
@@ -1018,8 +1021,8 @@ module.exports = React.createClass({displayName: "exports",
 
   handleNext: function(e) {
     e.preventDefault();
-    var dataUrl = this.state.canvas.toDataURL();
-    var dataUrlThumb = this.state.canvasThumb.toDataURL();
+    var dataUrl = this.state.canvas.toDataURL("image/jpeg", 1.0);
+    var dataUrlThumb = this.state.canvasThumb.toDataURL("image/jpeg", 1.0);
     localStorage.setItem('src', dataUrl);
     localStorage.setItem('srcThumb', dataUrlThumb);
     pubsub.trigger('navigator:change', 'filter');
@@ -2199,7 +2202,7 @@ module.exports = React.createClass({displayName: "exports",
               ref: "name", 
               className: "form-control", 
               onChange: this.handleChange, 
-              placeholder: "Nombre", 
+              placeholder: "Nombre y Apellido", 
               value: user.name})
           ), 
 
@@ -2268,8 +2271,8 @@ module.exports = React.createClass({displayName: "exports",
               onChange: this.handleChange}
             )
           ), 
-          React.createElement("a", {href: "/#profile/" + user.id + "/password", className: "pull-right"}, "Cambiar contraseña"), 
-          React.createElement("button", {className: "btn btn-primary"}, React.createElement("i", {className: "icon ion-ios-arrow-forward"}))
+          React.createElement("button", {className: "btn btn-primary"}, React.createElement("i", {className: "icon ion-ios-arrow-forward"})), 
+          React.createElement("a", {href: "/#profile/" + user.id + "/password", className: "change-password"}, "Cambiar contraseña")
         )
       )
     );
@@ -2617,23 +2620,24 @@ module.exports = React.createClass({displayName: "exports",
           React.createElement("li", {className: "user-area"}, user.area), 
           React.createElement("li", {className: "user-area"}, user.email)
         ), 
+
         React.createElement("div", {className: "count"}, 
           React.createElement("span", {className: "divider"}), 
             React.createElement("span", {className: "photos-count"}, React.createElement("span", {className: "count-num"}, this.props.photosCount), React.createElement("br", null), " Fotos")
           ), 
-
+        React.createElement("p", {className: "bio"}, user.bio), 
         React.createElement("ul", {className: "profile-actions"}, 
-        React.createElement("li", null, 
-          React.createElement("a", {href: '#profile/' + user.username, className: "btn " + yourPhotos}, 
-            React.createElement("span", {className: "icon ion-ios-photos-outline"}), " ", React.createElement("span", {className: "text"})
-          )
-        ), 
-        React.createElement("li", null, 
-        React.createElement("a", {href: '#tagged/' + user.username, className: "btn " + tagged}, 
-            React.createElement("i", {className: "icon ion-ios-pricetags-outline"}), " ", React.createElement("span", {className: "text"})
-          )
-        ), 
-        React.createElement("li", null, profileEdit)
+          React.createElement("li", null, 
+            React.createElement("a", {href: '#profile/' + user.username, className: "btn " + yourPhotos}, 
+              React.createElement("span", {className: "icon ion-ios-photos-outline"}), " ", React.createElement("span", {className: "text"})
+            )
+          ), 
+          React.createElement("li", null, 
+          React.createElement("a", {href: '#tagged/' + user.username, className: "btn " + tagged}, 
+              React.createElement("i", {className: "icon ion-ios-pricetags-outline"}), " ", React.createElement("span", {className: "text"})
+            )
+          ), 
+          React.createElement("li", null, profileEdit)
         )
       )
       )
@@ -2795,6 +2799,7 @@ module.exports = React.createClass({displayName: "exports",
 
         React.createElement("div", {className: "tabs-and-form"}, 
         React.createElement(AccessForm, {onFormSubmit: this.handleSubmit, showPasswordLabel: true, buttonText: "Registrarse"}), 
+        React.createElement("img", {src: "/images/gh-logo.png", width: "100", style: {display: 'block','margin': '0 auto'}}), 
           React.createElement("div", {className: "col-xs-12"}, 
           message
           )

@@ -606,7 +606,12 @@ button:focus, button:active, button:target {
       width: 100%; }
     .photo-caption > .image-and-caption textarea {
       width: 100%;
-      border-radius: 0; }
+      border-radius: 0;
+      padding: 10px; }
+  .photo-caption .typeahead-tokenizer {
+    padding: 10px 10px 20px 10px; }
+  .photo-caption .caption-container {
+    padding: 10px; }
 
 .caption-options {
   width: 100%;
@@ -614,7 +619,7 @@ button:focus, button:active, button:target {
   background: #25272a;
   padding: 0; }
   .caption-options .title {
-    padding-top: 10px;
+    padding-top: 15px;
     font-weight: 200;
     font-size: 1.2em;
     width: 60%; }
@@ -732,6 +737,12 @@ button:focus, button:active, button:target {
     background: #fff;
     float: left;
     width: 100%; }
+    .profile-page > header .bio {
+      width: 100%;
+      display: block;
+      float: left;
+      padding: 5px 10px 0 10px;
+      margin: 0; }
     .profile-page > header .count {
       display: block;
       margin: 10px 10px 0 0;
@@ -914,6 +925,11 @@ button:focus, button:active, button:target {
       height: 50px;
       z-index: 2;
       cursor: pointer; }
+  .profile-edit .change-password {
+    color: #ccc;
+    text-align: center;
+    display: block;
+    margin-top: 10px; }
   .profile-edit > form {
     background: #fff;
     padding: 15px;
@@ -921,7 +937,10 @@ button:focus, button:active, button:target {
     .profile-edit > form textarea {
       border: 1px solid #00297a; }
     .profile-edit > form button {
-      width: 100%; }
+      width: 100%;
+      padding: 0; }
+      .profile-edit > form button i {
+        font-size: 2em; }
 
 .activity-item {
   max-width: 500px;

@@ -72,6 +72,7 @@ module.exports = React.createClass({
 
         <div className="tabs-and-form">
         <AccessForm onFormSubmit={this.handleSubmit} showPasswordLabel={true} buttonText="Registrarse" />
+        <img src="/images/gh-logo.png" width="100" style={{display: 'block','margin': '0 auto'}} />
           <div className="col-xs-12">
           {message}
           </div>

@@ -7,11 +7,18 @@
     background: #fff;
     float: left;
     width: 100%;
+    .bio {
+      width: 100%;
+      display: block;
+      float: left;
+      padding: 5px 10px 0 10px;
+      margin: 0;
+    }
 
    .count{
       display: block;
-        margin: 10px 10px 0 0;
-        float: right;
+      margin: 10px 10px 0 0;
+      float: right;
         .divider {
           height: 20px;
           border-left: 1px solid #ccc;

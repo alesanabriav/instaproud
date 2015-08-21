@@ -93,11 +93,15 @@ module.exports = React.createClass({
             <li className="title">Compartir Imagen</li>
             <li><a href="#" onClick={this.handleNext}><i className="icon ion-ios-arrow-forward"></i></a></li>
           </ul>
-          <textarea ref="caption" className="caption form-control" placeholder="Título"></textarea>
+          <div className="caption-container">
+            <textarea ref="caption" className="caption form-control" placeholder="Título"></textarea>
+          </div>
+
         </div>
       <p></p>
 
        <Tokenizer
+          className="tokenizer"
           customClasses={classes}
           placeholder="Etiquetar personas"
           options={this.state.tokenizerOptions}
@@ -105,7 +109,6 @@ module.exports = React.createClass({
           onTokenRemove={this.handleTokenRemove}
           onKeyUp={this.handleSearch}
         />
-        <Geolocation onLocation={this.handleLocation}/>
       </section>
     );
   }

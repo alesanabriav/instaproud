@@ -13,7 +13,16 @@
     textarea {
       width: 100%;
       border-radius: 0;
+      padding: 10px;
     }
+  }
+
+  .typeahead-tokenizer {
+    padding: 10px 10px 20px 10px;
+  }
+
+  .caption-container {
+    padding: 10px;
   }
 }
 
@@ -24,7 +33,7 @@
   padding: 0;
 
   .title {
-    padding-top: 10px;
+    padding-top: 15px;
     font-weight: 200;
     font-size: 1.2em;
     width: 60%;

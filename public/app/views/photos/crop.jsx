@@ -34,8 +34,8 @@ module.exports = React.createClass({
 
   handleNext: function(e) {
     e.preventDefault();
-    var dataUrl = this.state.canvas.toDataURL();
-    var dataUrlThumb = this.state.canvasThumb.toDataURL();
+    var dataUrl = this.state.canvas.toDataURL("image/jpeg", 1.0);
+    var dataUrlThumb = this.state.canvasThumb.toDataURL("image/jpeg", 1.0);
     localStorage.setItem('src', dataUrl);
     localStorage.setItem('srcThumb', dataUrlThumb);
     pubsub.trigger('navigator:change', 'filter');

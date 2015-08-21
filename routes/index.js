@@ -11,7 +11,6 @@ var activities = require('./activities');
 
 app.get('/', function(req, res) {
   return res.sendFile(__base + '/views/index.html');
-  // return res.render('layout');
 });
 
 app.get('/register', function(req, res) {

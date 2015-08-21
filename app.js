@@ -16,13 +16,10 @@ var RedisStore = require('connect-redis')(session);
 var redisClient = redis.createClient();
 var Promise = require('bluebird');
 var requireAuthentication = require('./lib/checkAuth');
-var io = require('socket.io')(4000);
 
 //Global path
 global.__base = __dirname + '/';
 var index = require('./routes/index');
-var activityStore = require('./lib/activities/store');
-activityStore(io);
 var app = express();
 
 // Config files
@@ -37,9 +34,11 @@ mongoose.connect(dbConfig.url);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
 // Middlewares
 app.use(compression());
 app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(express.static(__dirname + '/public'));
 app.use(logger('dev'));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false }));
@@ -60,8 +59,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport');
-app.use(express.static(path.join(__dirname, 'public')));
-
 //Parse files
 app.use(multer({
   dest: 'public/images'

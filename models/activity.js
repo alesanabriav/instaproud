@@ -1,9 +1,9 @@
 'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var ActivitySchema;
+var model;
 
-ActivitySchema = new Schema({
+var ActivitySchema = new mongoose.Schema({
   from: {
     type: Schema.Types.ObjectId,
     ref: 'User'
@@ -27,8 +27,6 @@ ActivitySchema.set('toJSON', {
   }
 });
 
-try {
-  module.exports = mongoose.model('Activity');
-} catch (err) {
-  module.exports = mongoose.model('Activity', ActivitySchema);
-}
+model = mongoose.model('Activity', ActivitySchema);
+
+module.exports = model;

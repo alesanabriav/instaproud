@@ -33,23 +33,24 @@ module.exports = React.createClass({
           <li className="user-area">{user.area}</li>
           <li className="user-area">{user.email}</li>
         </ul>
+
         <div className="count">
           <span className="divider"></span>
             <span className="photos-count"><span className="count-num">{this.props.photosCount}</span><br /> Fotos</span>
           </div>
-
+        <p className="bio">{user.bio}</p>
         <ul className="profile-actions">
-        <li>
-          <a href={'#profile/' + user.username} className={"btn " + yourPhotos}>
-            <span className="icon ion-ios-photos-outline"></span> <span className="text"></span>
-          </a>
-        </li>
-        <li>
-        <a href={'#tagged/' + user.username} className={"btn " + tagged}>
-            <i className="icon ion-ios-pricetags-outline"></i> <span className="text"></span>
-          </a>
-        </li>
-        <li>{profileEdit}</li>
+          <li>
+            <a href={'#profile/' + user.username} className={"btn " + yourPhotos}>
+              <span className="icon ion-ios-photos-outline"></span> <span className="text"></span>
+            </a>
+          </li>
+          <li>
+          <a href={'#tagged/' + user.username} className={"btn " + tagged}>
+              <i className="icon ion-ios-pricetags-outline"></i> <span className="text"></span>
+            </a>
+          </li>
+          <li>{profileEdit}</li>
         </ul>
       </header>
       </div>
