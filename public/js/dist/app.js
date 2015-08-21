@@ -1987,7 +1987,7 @@ module.exports = React.createClass({displayName: "exports",
 
           React.createElement("label", {
             style: {'color': '#ccc', 'fontWeight': 200, 'font-size': '0.8em'}, 
-            className: this.props.showPasswordLabel ? "pull-right" : "hidden"
+            className: this.props.showPasswordLabel ? "" : "hidden"
           }, "Debe tener mínimo ocho caracteres y un número")
         ), 
         React.createElement("button", {className: "form-login-btn btn"}, this.props.buttonText)

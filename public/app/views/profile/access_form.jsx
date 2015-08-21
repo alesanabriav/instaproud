@@ -48,7 +48,7 @@ module.exports = React.createClass({
 
           <label
             style={{'color': '#ccc', 'fontWeight': 200, 'font-size': '0.8em'}}
-            className={this.props.showPasswordLabel ? "pull-right" : "hidden"}
+            className={this.props.showPasswordLabel ? "" : "hidden"}
           >Debe tener mínimo ocho caracteres y un número</label>
         </div>
         <button className="form-login-btn btn">{this.props.buttonText}</button>
