@@ -113,6 +113,7 @@ module.exports = React.createClass({
           </ul>
 
         <div className="tabs-and-form">
+
           <AccessForm
             onFormSubmit={this.handleSubmit}
             buttonText="Iniciar Sesión"

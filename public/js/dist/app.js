@@ -1986,7 +1986,7 @@ module.exports = React.createClass({displayName: "exports",
           React.createElement("input", {type: "password", className: "form-control", onChange: this.handleChange, ref: "password", placeholder: "Contraseña"}), 
 
           React.createElement("label", {
-            style: {'color': '#ccc', 'fontWeight': 200}, 
+            style: {'color': '#ccc', 'fontWeight': 200, 'font-size': '0.8em'}, 
             className: this.props.showPasswordLabel ? "pull-right" : "hidden"
           }, "Debe tener mínimo ocho caracteres y un número")
         ), 
@@ -2429,6 +2429,7 @@ module.exports = React.createClass({displayName: "exports",
           ), 
 
         React.createElement("div", {className: "tabs-and-form"}, 
+
           React.createElement(AccessForm, {
             onFormSubmit: this.handleSubmit, 
             buttonText: "Iniciar Sesión", 
@@ -2798,8 +2799,8 @@ module.exports = React.createClass({displayName: "exports",
           ), 
 
         React.createElement("div", {className: "tabs-and-form"}, 
-        React.createElement(AccessForm, {onFormSubmit: this.handleSubmit, showPasswordLabel: true, buttonText: "Registrarse"}), 
-        React.createElement("img", {src: "/images/gh-logo.png", width: "100", style: {display: 'block','margin': '0 auto'}}), 
+          React.createElement(AccessForm, {onFormSubmit: this.handleSubmit, showPasswordLabel: true, buttonText: "Registrarse"}), 
+          React.createElement("img", {src: "/images/gh-logo.png", width: "100", style: {display: 'block','margin': '0 auto'}}), 
           React.createElement("div", {className: "col-xs-12"}, 
           message
           )
