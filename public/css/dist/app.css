@@ -886,6 +886,8 @@ button:focus, button:active, button:target {
         color: #fff;
         text-transform: uppercase;
         border-radius: 0; }
+      .login > .tabs-and-form > form > .form-register-btn {
+        margin-top: 10px; }
 
 .profile-edit {
   max-width: 500px;
