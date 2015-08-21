@@ -47,7 +47,7 @@ module.exports = React.createClass({
           <input type="password" className="form-control" onChange={this.handleChange} ref="password" placeholder="Contraseña" />
 
           <label
-            style={{'color': '#ccc', 'fontWeight': 200, 'font-size': '0.8em'}}
+            style={{'color': '#ccc', 'fontWeight': 200, 'font-size': '0.8em', 'float': 'left'}}
             className={this.props.showPasswordLabel ? "" : "hidden"}
           >Debe tener mínimo ocho caracteres y un número</label>
         </div>
