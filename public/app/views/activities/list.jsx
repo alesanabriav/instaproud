@@ -11,7 +11,7 @@ module.exports = React.createClass({
   getInitialState: function() {
     return {
       activities: [],
-      skip: 0,
+      skip: -20,
       hasMore: true
     }
   },

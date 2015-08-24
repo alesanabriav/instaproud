@@ -75,6 +75,7 @@ module.exports = React.createClass({
       'Comercial',
       'Mercadeo y Producto',
       'Gestión de Proyectos',
+      'Operaciones y Servicio al cliente',
       'Jurídica',
       'Presidencia',
       'Tecnología'
