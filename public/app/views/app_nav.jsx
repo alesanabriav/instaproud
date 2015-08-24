@@ -17,8 +17,10 @@ module.exports = React.createClass({
   },
 
   checkSection: function() {
+    console.log(window.location.hash);
+    console.log(this.refs);
     if(window.location.hash === '#') {
-      console.log(this.refs);
+
     }
   },
 
