@@ -13,6 +13,15 @@ module.exports = React.createClass({
   componentDidMount: function() {
     this.listenTo(pubsub, 'input:onFocus', this.hide);
     this.listenTo(pubsub, 'input:onFocusOut', this.show);
+    this.checkSection();
+  },
+
+  checkSection: function() {
+    if(window.location.hash === '#') {
+      console.log(this.refs);
+    } else {
+      // Fragment doesn't exist
+    }
   },
 
   hide: function() {
@@ -70,28 +79,32 @@ module.exports = React.createClass({
     return (
       <ul className="footer-nav-actions">
 
-        <li className="home">
-          <a href="#"><i className="icon ion-ios-home-outline"></i></a>
+        <li ref="home" className="home">
+          <a href="#">
+            <i className="icon ion-ios-home-outline"></i>
+          </a>
         </li>
 
-        <li className="search">
-          <a href="#search"><i className="icon ion-ios-search"></i></a>
+        <li ref="search" className="search">
+          <a href="#search" onClick="handleClick">
+            <i className="icon ion-ios-search"></i>
+          </a>
         </li>
 
-        <li className="camera">
+        <li ref="camera" className="camera">
           <span className="btn-file">
             <i className="icon ion-ios-camera-outline"></i>
             <input type="file" onChange={this.handleFile} className="uploadPhoto" name="photo" />
           </span>
         </li>
 
-        <li className="activity">
-          <a href="#activity">
+        <li ref="activity" className="activity">
+          <a href="#activity" onClick="handleClick">
             <i className="icon ion-ios-chatbubble-outline"></i>
           </a>
         </li>
 
-        <li className="profile">
+        <li ref="profile" className="profile">
           <a href={"#profile/" + username}>
             <i className="icon ion-ios-person-outline"></i>
           </a>
