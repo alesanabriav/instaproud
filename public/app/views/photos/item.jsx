@@ -94,7 +94,6 @@ module.exports = React.createClass({
   },
 
   handleReport: function(e) {
-    e.preventDefault();
     var msg = 'Revisaremos esta imagen y en caso de considerarla inadecuada será retirada de Instaproud.';
     var id = this.props.photo.id;
 
@@ -107,7 +106,6 @@ module.exports = React.createClass({
   },
 
   handleFixed: function(e) {
-    e.preventDefault();
     var id = this.props.photo.id;
 
     $http.post(

@@ -494,8 +494,7 @@ button:focus, button:active, button:target {
             color: #a5a7aa; }
     .photo-feed > .info > .buttons-like-and-comment {
       min-width: 100%;
-      padding: 0;
-      float: left; }
+      padding: 0; }
       .photo-feed > .info > .buttons-like-and-comment .like, .photo-feed > .info > .buttons-like-and-comment .unlike, .photo-feed > .info > .buttons-like-and-comment > .comment-focus {
         color: #C1C3C3;
         margin-right: 7px;
