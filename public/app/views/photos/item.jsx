@@ -173,6 +173,8 @@ module.exports = React.createClass({
             <ButtonLike users={this.state.liked} onLike={this.handleLike} onUnlike={this.handleUnlike}/>
             <DropdownButton bsStyle="link" title={<i className="icon ion-ios-more"></i>} noCaret>
               <MenuItem eventKey='1' onSelect={this.handleReport}>Reportar imagen</MenuItem>
+              {optionDelete}
+              {optionFixed}
             </DropdownButton>
           </div>
 
