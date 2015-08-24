@@ -3,6 +3,7 @@ var React = require('react');
 var listenTo = require('react-listenTo');
 var pubsub = require('utils/pubsub');
 var $ = require('jquery');
+var _ = require('underscore');
 var $http = require('utils/http');
 var alertify = require('alertifyjs');
 var mobile = require('is-mobile');
@@ -17,11 +18,15 @@ module.exports = React.createClass({
   },
 
   checkSection: function() {
-    console.log(window.location.hash);
-    console.log(this.refs);
-    if(window.location.hash === '#') {
+    var hash = window.location.hash;
+    var key = '';
+    var node = 'home';
 
+    if (hash) {
+      key = hash.replace('#', '');
+      node = this.refs[key];
     }
+   $(React.findDOMNode(node)).addClass('active');
   },
 
   hide: function() {
