@@ -19,8 +19,6 @@ module.exports = React.createClass({
   checkSection: function() {
     if(window.location.hash === '#') {
       console.log(this.refs);
-    } else {
-      // Fragment doesn't exist
     }
   },
 
@@ -86,7 +84,7 @@ module.exports = React.createClass({
         </li>
 
         <li ref="search" className="search">
-          <a href="#search" onClick="handleClick">
+          <a href="#search">
             <i className="icon ion-ios-search"></i>
           </a>
         </li>
@@ -99,7 +97,7 @@ module.exports = React.createClass({
         </li>
 
         <li ref="activity" className="activity">
-          <a href="#activity" onClick="handleClick">
+          <a href="#activity">
             <i className="icon ion-ios-chatbubble-outline"></i>
           </a>
         </li>
