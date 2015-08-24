@@ -18,7 +18,6 @@ module.exports = React.createClass({
   },
 
   checkSection: function(e) {
-    if(e) e.preventDefault();
     var hash = window.location.hash;
     var key = '';
     var node = this.refs['home'];
