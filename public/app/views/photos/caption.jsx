@@ -94,7 +94,7 @@ module.exports = React.createClass({
             <li><a href="#" onClick={this.handleNext}><i className="icon ion-ios-arrow-forward"></i></a></li>
           </ul>
           <div className="caption-container">
-            <textarea ref="caption" className="caption form-control" placeholder="Título"></textarea>
+            <textarea ref="caption" className="caption form-control" placeholder="Escribe algo acerca de esta imagen"></textarea>
           </div>
 
         </div>
