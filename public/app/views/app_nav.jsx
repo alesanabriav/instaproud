@@ -11,6 +11,13 @@ var mobile = require('is-mobile');
 module.exports = React.createClass({
   mixins: [listenTo],
 
+  getDefaultState: function() {
+    return {
+      hash: '',
+      last: null
+    }
+  },
+
   componentDidMount: function() {
     this.listenTo(pubsub, 'input:onFocus', this.hide);
     this.listenTo(pubsub, 'input:onFocusOut', this.show);
@@ -27,6 +34,11 @@ module.exports = React.createClass({
       node = this.refs[key];
     }
 
+    if(this.state.last) {
+      $(React.findDOMNode(this.state.last)).removeClass('active');
+    }
+
+   this.setState({last: node});
    $(React.findDOMNode(node)).addClass('active');
   },
 
