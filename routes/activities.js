@@ -4,12 +4,13 @@ var Activity = require('../models/activity');
 
 app.route('/api/activities')
   .get(function(req, res) {
+     var activitySkip = parseInt(req.query.activitySkip) || 0;
 
     Activity
     .find()
     .sort({created: 'desc'})
     .limit(20)
-    .skip(0)
+    .skip(activitySkip)
     .populate(['from', 'photo'])
     .exec(function(err, activities) {
       if (err) return res.status(400).json(err);
@@ -18,6 +19,7 @@ app.route('/api/activities')
     });
 
   })
+
   .post(function(req, res) {
     var body = req.body;
     var user = req.user;
