@@ -24,5 +24,16 @@
       }
 
     }
+
+    .media-right {
+      a {
+        display: block;
+        width: 50px;
+        img {
+          display: block;
+          width: 100%;
+        }
+      }
+    }
   }
 }

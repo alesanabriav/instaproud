@@ -10,7 +10,6 @@ var Filter = require('views/photos/filter.jsx');
 var Caption = require('views/photos/caption.jsx');
 var Hashtag = require('views/photos/hashtag.jsx');
 var Photo = require('views/photos/item.jsx');
-var Map = require('views/photos/locations.jsx');
 
 module.exports = {
   unmountHeader: function() {
@@ -30,10 +29,6 @@ module.exports = {
 
   changeColorHeader: function(color) {
     return pubsub.trigger('appHeader:change', {bgColor: color});
-  },
-
-  map: function() {
-    this.mountComponent(<Map/>);
   },
 
   list: function() {

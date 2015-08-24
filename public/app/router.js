@@ -55,10 +55,6 @@ module.exports = Backbone.Router.extend({
       profilesController.changePassword(id);
     },
 
-    'map': function() {
-      photosController.map();
-    },
-
     'crop': function() {
       photosController.crop();
     },

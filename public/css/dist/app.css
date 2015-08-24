@@ -986,3 +986,9 @@ button:focus, button:active, button:target {
       margin: auto; }
   .activity-item > .media > .media-body > .timeago {
     color: #ccc; }
+  .activity-item > .media .media-right a {
+    display: block;
+    width: 50px; }
+    .activity-item > .media .media-right a img {
+      display: block;
+      width: 100%; }
