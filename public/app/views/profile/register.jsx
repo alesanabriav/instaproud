@@ -81,7 +81,10 @@ module.exports = React.createClass({
           </div>
           <AccessForm onFormSubmit={this.handleSubmit} showPasswordLabel={true} buttonText="Registrarse" />
           <img src="/images/gh-logo.png" width="100" style={{display: 'block','margin': '0 auto'}} />
-          <a href=""></a>
+          <div className="more-info">
+              <a href="/guia" target="_blank">Guía y Rankings</a>
+              <a href="/#terms-and-conditions">Términos y Condiciones</a>
+            </div>
         </div>
       </section>
     );

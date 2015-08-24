@@ -130,7 +130,11 @@ module.exports = React.createClass({
           </a>
           <div className="col-xs-12">
             {captcha}
-            <a href="/guia">Guía y Rankings</a>
+            <div className="more-info">
+              <a href="/guia" target="_blank">Guía y Rankings</a>
+              <a href="/#terms-and-conditions">Términos y Condiciones</a>
+            </div>
+
           </div>
         </div>
 

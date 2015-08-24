@@ -73,6 +73,10 @@ module.exports = Backbone.Router.extend({
 
     'hashtag/:hashtag': function(hashtag) {
       photosController.hashtag(hashtag);
+    },
+
+    'terms-and-conditions': function() {
+      AppController.termsAndConditions();
     }
   },
 

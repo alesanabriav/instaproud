@@ -51,8 +51,8 @@ module.exports = React.createClass({
             </a>
           </li>
           <li>{profileEdit}</li>
-          <li><a href="/guia" className="btn"><i className="ion-ios-information-outline"></i></a></li>
-          <li><a href="#" className="btn"><i className="ion-ios-paper-outline"></i></a></li>
+          <li><a href="/guia" target="_blank" className="btn"><i className="ion-ios-information-outline"></i></a></li>
+          <li><a href="#terms-and-conditions" className="btn"><i className="ion-ios-paper-outline"></i></a></li>
 
         </ul>
       </header>

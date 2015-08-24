@@ -222,7 +222,7 @@ button:focus, button:active, button:target {
 .alert {
   padding: 10px;
   border-radius: 0;
-  margin-bottom: 10px; }
+  margin-bottom: 5px; }
 
 .alert-warning {
   border: none; }
@@ -240,6 +240,20 @@ button:focus, button:active, button:target {
 
 .example-appear.example-appear-active {
   opacity: 1; }
+
+.terms {
+  background: #fff;
+  max-width: 500px;
+  padding: 20px;
+  margin: 0 auto; }
+
+.more-info {
+  max-width: 250px;
+  margin: 10px auto; }
+  .more-info a {
+    color: #ccc;
+    margin-left: 10px;
+    font-size: 0.9em; }
 
 .footer-nav-actions {
   width: 100%;
