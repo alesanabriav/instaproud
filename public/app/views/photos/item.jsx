@@ -141,8 +141,7 @@ module.exports = React.createClass({
     }
 
     if (userlogged.role === 'admin') {
-      <MenuItem eventKey='2' onSelect={this.handleFixed}>Resaltar iamgen</MenuItem>
-      optionFixed = (<a href="#" className="item" onClick={this.handleFixed}>Resaltar</a>);
+      optionFixed = (<MenuItem eventKey='3' onSelect={this.handleFixed}>Resaltar imagen</MenuItem>);
     }
 
     src = 'https://s3-sa-east-1.amazonaws.com/bvcinstaproud/' + user.id + '/' + photo.path;
