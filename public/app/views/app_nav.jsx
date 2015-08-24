@@ -20,12 +20,13 @@ module.exports = React.createClass({
   checkSection: function() {
     var hash = window.location.hash;
     var key = '';
-    var node = 'home';
+    var node = this.refs['home'];
 
     if (hash) {
       key = hash.replace('#', '');
       node = this.refs[key];
     }
+
    $(React.findDOMNode(node)).addClass('active');
   },
 
