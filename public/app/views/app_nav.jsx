@@ -11,7 +11,7 @@ var mobile = require('is-mobile');
 module.exports = React.createClass({
   mixins: [listenTo],
 
-  getDefaultState: function() {
+  getInitialState: function() {
     return {
       hash: '',
       last: null
