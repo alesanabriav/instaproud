@@ -24,7 +24,7 @@ module.exports = React.createClass({
     this.checkSection();
   },
 
-  checkSection: function(e) {
+  checkSection: function() {
     var hash = window.location.hash;
     var key = '';
     var node = this.refs['home'];
@@ -34,6 +34,16 @@ module.exports = React.createClass({
       node = this.refs[key];
     }
 
+    if(this.state.last) {
+      $(React.findDOMNode(this.state.last)).removeClass('active');
+    }
+
+   this.setState({last: node});
+   $(React.findDOMNode(node)).addClass('active');
+  },
+
+  handleClick: function(ref) {
+    var node = this.refs[ref];
     if(this.state.last) {
       $(React.findDOMNode(this.state.last)).removeClass('active');
     }
@@ -98,13 +108,13 @@ module.exports = React.createClass({
       <ul className="footer-nav-actions">
 
         <li ref="home" className="home">
-          <a href="#" onClick={this.checkSection}>
+          <a href="#" onClick={this.handleClick.bind(null, 'home')}>
             <i className="icon ion-ios-home-outline"></i>
           </a>
         </li>
 
         <li ref="search" className="search">
-          <a href="#search" onClick={this.checkSection}>
+          <a href="#search" onClick={this.handleClick.bind(null, 'search')}>
             <i className="icon ion-ios-search"></i>
           </a>
         </li>
@@ -117,13 +127,13 @@ module.exports = React.createClass({
         </li>
 
         <li ref="activity" className="activity">
-          <a href="#activity" onClick={this.checkSection}>
+          <a href="#activity" onClick={this.handleClick.bind(null, 'activity')}>
             <i className="icon ion-ios-chatbubble-outline"></i>
           </a>
         </li>
 
         <li ref="profile" className="profile">
-          <a href={"#profile/" + username} onClick={this.checkSection}>
+          <a href={"#profile/" + username} onClick={this.handleClick.bind(null, 'profile')}>
             <i className="icon ion-ios-person-outline"></i>
           </a>
         </li>
