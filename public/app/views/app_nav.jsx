@@ -17,7 +17,8 @@ module.exports = React.createClass({
     this.checkSection();
   },
 
-  checkSection: function() {
+  checkSection: function(e) {
+    if(e) e.prevenDefault();
     var hash = window.location.hash;
     var key = '';
     var node = this.refs['home'];
@@ -86,13 +87,13 @@ module.exports = React.createClass({
       <ul className="footer-nav-actions">
 
         <li ref="home" className="home">
-          <a href="#">
+          <a href="#" onClick={this.checkSection}>
             <i className="icon ion-ios-home-outline"></i>
           </a>
         </li>
 
         <li ref="search" className="search">
-          <a href="#search">
+          <a href="#search" onClick={this.checkSection}>
             <i className="icon ion-ios-search"></i>
           </a>
         </li>
@@ -105,13 +106,13 @@ module.exports = React.createClass({
         </li>
 
         <li ref="activity" className="activity">
-          <a href="#activity">
+          <a href="#activity" onClick={this.checkSection}>
             <i className="icon ion-ios-chatbubble-outline"></i>
           </a>
         </li>
 
         <li ref="profile" className="profile">
-          <a href={"#profile/" + username}>
+          <a href={"#profile/" + username} onClick={this.checkSection}>
             <i className="icon ion-ios-person-outline"></i>
           </a>
         </li>
