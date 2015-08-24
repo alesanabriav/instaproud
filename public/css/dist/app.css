@@ -813,14 +813,13 @@ button:focus, button:active, button:target {
       margin-top: 10px; }
       .profile-page > header > .profile-actions li {
         float: left;
-        width: 33.3%; }
+        width: 20%;
+        text-align: center; }
         .profile-page > header > .profile-actions li a {
           font-size: 1.5em;
           box-shadow: none; }
         .profile-page > header > .profile-actions li:nth-child(2) {
           text-align: center; }
-        .profile-page > header > .profile-actions li:nth-child(3) {
-          text-align: right; }
       .profile-page > header > .profile-actions > .btn {
         border-radius: 0;
         border: 1px solid #0043c7;

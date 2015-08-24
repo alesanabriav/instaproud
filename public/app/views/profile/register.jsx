@@ -26,12 +26,17 @@ module.exports = React.createClass({
     }
 
     $http.post('/users', data, function(res, err){
-      if (err.message) {
+      if (err && err.message) {
         this.setState({message: err.message});
         return;
       }
 
-      if (res.message || res.error) {
+      if (err && err.password) {
+        this.setState({message: err.password.message});
+        return;
+      }
+
+      if (res && res.message) {
         this.setState({message: res.message});
         return;
       }
@@ -71,11 +76,12 @@ module.exports = React.createClass({
           </ul>
 
         <div className="tabs-and-form">
-          <AccessForm onFormSubmit={this.handleSubmit} showPasswordLabel={true} buttonText="Registrarse" />
-          <img src="/images/gh-logo.png" width="100" style={{display: 'block','margin': '0 auto'}} />
           <div className="col-xs-12">
           {message}
           </div>
+          <AccessForm onFormSubmit={this.handleSubmit} showPasswordLabel={true} buttonText="Registrarse" />
+          <img src="/images/gh-logo.png" width="100" style={{display: 'block','margin': '0 auto'}} />
+          <a href=""></a>
         </div>
       </section>
     );

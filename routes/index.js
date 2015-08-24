@@ -13,6 +13,10 @@ app.get('/', function(req, res) {
   return res.sendFile(__base + '/views/index.html');
 });
 
+app.get('/guia', function(req, res) {
+  return res.sendFile(__base + '/views/guide.html');
+});
+
 app.get('/register', function(req, res) {
   res.render('register');
 });

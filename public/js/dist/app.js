@@ -2435,7 +2435,9 @@ module.exports = React.createClass({displayName: "exports",
           ), 
 
         React.createElement("div", {className: "tabs-and-form"}, 
-
+          React.createElement("div", {className: "col-xs-12"}, 
+            message
+          ), 
           React.createElement(AccessForm, {
             onFormSubmit: this.handleSubmit, 
             buttonText: "Iniciar Sesión", 
@@ -2450,7 +2452,7 @@ module.exports = React.createClass({displayName: "exports",
           ), 
           React.createElement("div", {className: "col-xs-12"}, 
             captcha, 
-            message
+            React.createElement("a", {href: "/guia"}, "Guía y Rankings")
           )
         ), 
 
@@ -2644,7 +2646,10 @@ module.exports = React.createClass({displayName: "exports",
               React.createElement("i", {className: "icon ion-ios-pricetags-outline"}), " ", React.createElement("span", {className: "text"})
             )
           ), 
-          React.createElement("li", null, profileEdit)
+          React.createElement("li", null, profileEdit), 
+          React.createElement("li", null, React.createElement("a", {href: "/guia", className: "btn"}, React.createElement("i", {className: "ion-ios-information-outline"}))), 
+          React.createElement("li", null, React.createElement("a", {href: "#", className: "btn"}, React.createElement("i", {className: "ion-ios-paper-outline"})))
+
         )
       )
       )
@@ -2760,12 +2765,17 @@ module.exports = React.createClass({displayName: "exports",
     }
 
     $http.post('/users', data, function(res, err){
-      if (err.message) {
+      if (err && err.message) {
         this.setState({message: err.message});
         return;
       }
 
-      if (res.message || res.error) {
+      if (err && err.password) {
+        this.setState({message: err.password.message});
+        return;
+      }
+
+      if (res && res.message) {
         this.setState({message: res.message});
         return;
       }
@@ -2805,11 +2815,12 @@ module.exports = React.createClass({displayName: "exports",
           ), 
 
         React.createElement("div", {className: "tabs-and-form"}, 
-          React.createElement(AccessForm, {onFormSubmit: this.handleSubmit, showPasswordLabel: true, buttonText: "Registrarse"}), 
-          React.createElement("img", {src: "/images/gh-logo.png", width: "100", style: {display: 'block','margin': '0 auto'}}), 
           React.createElement("div", {className: "col-xs-12"}, 
           message
-          )
+          ), 
+          React.createElement(AccessForm, {onFormSubmit: this.handleSubmit, showPasswordLabel: true, buttonText: "Registrarse"}), 
+          React.createElement("img", {src: "/images/gh-logo.png", width: "100", style: {display: 'block','margin': '0 auto'}}), 
+          React.createElement("a", {href: ""})
         )
       )
     );

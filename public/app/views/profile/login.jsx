@@ -113,7 +113,9 @@ module.exports = React.createClass({
           </ul>
 
         <div className="tabs-and-form">
-
+          <div className="col-xs-12">
+            {message}
+          </div>
           <AccessForm
             onFormSubmit={this.handleSubmit}
             buttonText="Iniciar Sesión"
@@ -128,7 +130,7 @@ module.exports = React.createClass({
           </a>
           <div className="col-xs-12">
             {captcha}
-            {message}
+            <a href="/guia">Guía y Rankings</a>
           </div>
         </div>
 

@@ -18,7 +18,9 @@ app.post('/users', function(req, res, next) {
   var newUser = new User(data);
 
   newUser.save(function(err, user) {
+    if(err && err.code === 11000) return res.status(400).json({message: 'el usuario ya existe'});
     if (err) return res.status(400).json(err.errors);
+
     req.login(user, function(err) {
       if (err) return next(err);
       mailVerification(user, function(err, status) {
