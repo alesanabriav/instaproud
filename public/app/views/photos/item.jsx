@@ -86,7 +86,6 @@ module.exports = React.createClass({
   },
 
   handleDelete: function(e) {
-    e.preventDefault();
     var id = this.props.photo.id;
 
     $http.delete('/api/photos/' + id);
