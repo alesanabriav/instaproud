@@ -13,9 +13,9 @@ module.exports = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
     var data = {
-      password: React.findDOMNode(this.refs.password).value,
-      newPassword: React.findDOMNode(this.refs.password_new).value,
-      rePassword: React.findDOMNode(this.refs.password_re).value
+      password: React.findDOMNode(this.refs.password).value.toLowerCase().trim(),
+      newPassword: React.findDOMNode(this.refs.password_new).value.toLowerCase().trim(),
+      rePassword: React.findDOMNode(this.refs.password_re).value.toLowerCase().trim()
     };
 
     $http.post('/api/users/' + this.props.userId + '/password', data, function(res, err) {
