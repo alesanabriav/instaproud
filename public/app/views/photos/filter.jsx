@@ -61,7 +61,6 @@ module.exports = React.createClass({
   handleChange: function() {
     var brightness = React.findDOMNode(this.refs.brightness).value;
     var effect = _.extend(this.state.effect, {contrast: parseInt(brightness)});
-    console.log(effect);
     this.setState({effect: effect});
     this.applyFilter();
   },

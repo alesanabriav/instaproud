@@ -76,38 +76,44 @@ module.exports = React.createClass({
   },
 
   loadPhoto: function(file) {
+    localStorage.removeItem('src');
+    localStorage.removeItem('srcThumb');
+    localStorage.removeItem('filtered');
     var reader;
     if (file.type.match(/image.*/)) {
-      reader = window.URL.createObjectURL(file);
       var canvas = React.findDOMNode(this.refs.canv);
-      var ctx = canvas.getContext("2d");
+      reader = window.URL.createObjectURL(file);
       var url;
-
       var img = new Image();
-      img.onload = function () {
-          canvas.height = canvas.width * (img.height / img.width);
+      img.onload = function() {
 
-          /// step 1
-          var oc = document.createElement('canvas'),
-              octx = oc.getContext('2d');
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+      var MAX_WIDTH = 800;
+      var MAX_HEIGHT = 600;
+      var width = img.width;
+      var height = img.height;
 
-          oc.width = img.width * 0.5;
-          oc.height = img.height * 0.5;
-          octx.drawImage(img, 0, 0, oc.width, oc.height);
-
-          /// step 2
-          octx.drawImage(oc, 0, 0, oc.width * 0.5, oc.height * 0.5);
-
-          ctx.drawImage(oc, 0, 0, oc.width * 0.5, oc.height * 0.5,
-          0, 0, canvas.width, canvas.height);
-
-        url = canvas.toDataURL("image/jpeg", 1.0);
-        window.URL.revokeObjectURL(reader);
-        localStorage.setItem('src', url);
-        pubsub.trigger('navigator:change', 'crop');
-
+      if (width > height) {
+        if (width > MAX_WIDTH) {
+          height *= MAX_WIDTH / width;
+          width = MAX_WIDTH;
+        }
+      } else {
+        if (height > MAX_HEIGHT) {
+          width *= MAX_HEIGHT / height;
+          height = MAX_HEIGHT;
+        }
       }
+      canvas.width = width;
+      canvas.height = height;
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, width, height);
 
+      url = canvas.toDataURL("image/jpeg", 1);
+      localStorage.setItem('src', url);
+      pubsub.trigger('navigator:change', 'crop');
+      };
       img.src = reader;
 
     } else {
