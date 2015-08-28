@@ -77,13 +77,39 @@ module.exports = React.createClass({
 
   loadPhoto: function(file) {
     var reader;
-
     if (file.type.match(/image.*/)) {
       reader = window.URL.createObjectURL(file);
-      console.log(file);
-      console.log(reader);
-      localStorage.setItem('src', reader);
-      pubsub.trigger('navigator:change', 'crop');
+      var canvas = React.findDOMNode(this.refs.canv);
+      var ctx = canvas.getContext("2d");
+      var url;
+
+      var img = new Image();
+      img.onload = function () {
+          canvas.height = canvas.width * (img.height / img.width);
+
+          /// step 1
+          var oc = document.createElement('canvas'),
+              octx = oc.getContext('2d');
+
+          oc.width = img.width * 0.5;
+          oc.height = img.height * 0.5;
+          octx.drawImage(img, 0, 0, oc.width, oc.height);
+
+          /// step 2
+          octx.drawImage(oc, 0, 0, oc.width * 0.5, oc.height * 0.5);
+
+          ctx.drawImage(oc, 0, 0, oc.width * 0.5, oc.height * 0.5,
+          0, 0, canvas.width, canvas.height);
+
+        url = canvas.toDataURL("image/jpeg", 1.0);
+        window.URL.revokeObjectURL(reader);
+        localStorage.setItem('src', url);
+        pubsub.trigger('navigator:change', 'crop');
+
+      }
+
+      img.src = reader;
+
     } else {
       alertify.error('Tipo de archivo no permitido');
     }
@@ -96,8 +122,9 @@ module.exports = React.createClass({
     }
 
     return (
-      <ul className="footer-nav-actions">
 
+      <ul className="footer-nav-actions">
+      <canvas ref="canv" width="500" className="hidden" />
         <li ref="home" className="home">
           <a href="#" onClick={this.handleClick.bind(null, 'home')}>
             <i className="icon ion-ios-home-outline"></i>
