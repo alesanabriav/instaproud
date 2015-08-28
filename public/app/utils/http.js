@@ -10,7 +10,7 @@ module.exports = {
       type: 'POST',
       contentType: 'application/json',
       dataType: 'json',
-      url: urls.baseUrl + url,
+      url: url,
       data: JSON.stringify(data)
     })
     .then(next)
@@ -23,7 +23,7 @@ module.exports = {
     $.ajax({
       type: 'GET',
       cache: true,
-      url: urls.baseUrl + url,
+      url: url,
       data: data
     })
     .then(next);
@@ -34,7 +34,7 @@ module.exports = {
     $.ajax({
       type: 'PUT',
       contentType: 'application/json; charset=utf-8',
-      url: urls.baseUrl + url,
+      url: url,
       data: JSON.stringify(data),
       dataType: 'json'
     })
@@ -44,7 +44,7 @@ module.exports = {
   delete: function(url, next) {
     $.ajax({
       type: 'DELETE',
-      url: urls.baseUrl + url
+      url: url
     })
     .then(next);
   },
@@ -54,7 +54,7 @@ module.exports = {
     formData.append(fileName, file);
 
     $.ajax({
-      url: urls.baseUrl + url,
+      url: url,
       type: 'POST',
       data: formData,
       processData: false,
