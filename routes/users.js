@@ -1,8 +1,10 @@
 'use strict';
 var app = require('express')();
 var bcrypt = require('bcrypt');
+var _ = require('underscore');
 var base = __base;
 var User = require(base + 'models/user');
+var Photo = require(base + 'models/photo');
 var photosByOwner = require(base + 'lib/photos/by_owner');
 var photosByTagged = require(base + 'lib/photos/by_tagged');
 var generateHash = require(base + 'lib/createName');
@@ -218,7 +220,11 @@ app.get('/api/users/:username/tagged', function(req, res, next) {
 });
 
 app.get('/api/users/me/logged', function(req, res){
-  return res.json(req.user);
+  Photo
+  .find()
+  .exec(function(err, photos) {
+    return res.json(_.countBy(photos, 'owner'));
+  });
 });
 
 app.post('/api/users/:id/password', function(req, res) {
@@ -254,5 +260,6 @@ app.post('/api/users/:id/password', function(req, res) {
     }
   });
 });
+
 
 module.exports = app;

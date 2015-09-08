@@ -84,8 +84,6 @@ UserSchema.methods.validPassword = function(password) {
   return bcrypt.compareSync(password, user.password);
 };
 
-
-
 UserSchema.pre('save', function(next) {
   var user = this;
   var username = user.email.split('@');
