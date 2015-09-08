@@ -26,7 +26,7 @@ module.exports = React.createClass({
   },
 
   searchHashtags: function(query) {
-    $.get(urls.baseUrl+"/api/hashtags/"+ query)
+    $.get("/api/hashtags/"+ query)
     .then(function(res) {
       this.setState({
         hashtags: res,
@@ -36,7 +36,7 @@ module.exports = React.createClass({
   },
 
   searchUsers: function(query) {
-    $.get(urls.baseUrl + '/users/search/' + query)
+    $.get('/users/search/' + query)
     .then(function(res) {
       this.setState({
         users: res,
