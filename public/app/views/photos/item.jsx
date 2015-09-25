@@ -12,6 +12,8 @@ var CommentForm = require('views/photos/item_comment_form.jsx');
 var ProfileImage = require('components/profile_image.jsx');
 var Timeago = require('components/timeago.jsx');
 var ButtonLike = require('components/button_like.jsx');
+var socket = require('socket.io-client')('http://localhost:3000');
+var _ = require('underscore');
 
 module.exports = React.createClass({
   getDefaultProps: function() {
@@ -37,19 +39,44 @@ module.exports = React.createClass({
     }
   },
 
+  componentDidMount: function() {
+    if(this.props.chat) {
+      this._updateComments();
+    }
+  },
+
+  _addComment: function(comment) {
+    var newComments = _.union(this.state.comments, [comment]);
+    this.setState({
+      comments: newComments,
+      commentsCount: newComments.length
+    });
+  },
+
+  _updateComments: function() {
+    var id = this.props.photo.id;
+    var newComments;
+    socket.emit('change room', id);
+    socket.on('recieve', function(msg) {
+      this._addComment(msg);
+    }.bind(this));
+  },
+
   handleComment: function(comment) {
     var newComments;
+    var user = JSON.parse(localStorage.getItem('user'));
     var id = this.props.photo.id;
+    var mine = {};
+    socket.emit('message', {room: id, message: {commenter: user, text: comment.text, created: Date.now}});
 
     $http.post(
       '/api/photos/' + id + '/comments',
       {comment: comment.text},
       function(res) {
-        newComments = this.state.comments.concat([res]);
-        this.setState({
-          comments: newComments,
-          commentsCount: newComments.length
-        });
+        if(this.props.chat) {
+          mine = {mine: true};
+        }
+        this._addComment(_.extend(res, mine));
         pubsub.trigger('activity:store', {text: 'comento: ' + comment.text, photo: id});
     }.bind(this));
   },
@@ -87,7 +114,6 @@ module.exports = React.createClass({
 
   handleDelete: function(e) {
     var id = this.props.photo.id;
-
     $http.delete('/api/photos/' + id);
     this.setState({show: false});
   },
@@ -187,7 +213,7 @@ module.exports = React.createClass({
             </span>
           </div>
 
-          <span dangerouslySetInnerHTML={{__html:caption}}/>
+          <span dangerouslySetInnerHTML={{__html: caption}}/>
 
           <Comments comments={this.state.comments} id={photo.id} />
 

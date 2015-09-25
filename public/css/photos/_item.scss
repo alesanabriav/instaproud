@@ -106,6 +106,9 @@
     }
 
     > .comments {
+        max-height: 200px;
+        overflow-y: scroll;
+        padding-right: 15px;
         display: block;
         width: 100%;
         margin-bottom: 7px;
@@ -117,6 +120,11 @@
         li {
           margin-bottom: 7px;
           font-size: 0.9em;
+
+          .timeago {
+            color: #a5a7aa;
+            padding-left: 5px;
+          }
 
           > .profile_link {
             @extend .mixin-profile-link;

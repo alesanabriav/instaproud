@@ -35,6 +35,14 @@ module.exports = React.createClass({
   logginUser: function(data) {
     var userToStore;
     $http.post('/login', data, function(res){
+      var hash;
+      hash = window.location.href.split('urlTo=')[1];
+      if(hash) {
+        hash = hash.replace('-hash-', '#');
+      } else {
+        hash = '#';
+      }
+      console.log(hash);
       if (res.message || res.error) {
         if(res.message === 'Usuario bloqueado') {
           this.setState({showCaptcha: true});
@@ -45,7 +53,8 @@ module.exports = React.createClass({
 
       userToStore = {id: res.id, username: res.username, role: res.role, active: res.active};
       localStorage.setItem('user', JSON.stringify(userToStore));
-      window.location.replace('#');
+
+      window.location.replace(hash);
     }.bind(this));
   },
 

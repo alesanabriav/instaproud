@@ -17,7 +17,6 @@ app.route('/api/activities')
 
       return res.json(activities);
     });
-
   })
 
   .post(function(req, res) {

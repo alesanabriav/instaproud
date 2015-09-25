@@ -3,6 +3,7 @@ var app = require('express')();
 var xssFilters = require('xss-filters');
 var store = require(__base + 'lib/comments/store');
 var tag = require(__base + 'lib/photos/tag');
+var _ = require('underscore');
 
 app.route('/api/photos/:id/comments')
   .post(function(req, res) {
@@ -12,7 +13,7 @@ app.route('/api/photos/:id/comments')
     tag(commentText, photoId, function() {
       store(commentText, photoId, userId, function(err, comment) {
         if(err) return res.status(400).json(err);
-        return res.status(201).json(comment);
+        return res.status(201).json(_.extend(comment, {'commenter': req.user}));
       });
     });
 });

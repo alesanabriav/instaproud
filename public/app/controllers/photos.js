@@ -37,7 +37,7 @@ module.exports = {
 
   item: function(id) {
     $http.get('/api/photos/' + id, null, function(res) {
-      this.mountComponent(<Photo photo={res}/>);
+      this.mountComponent(<Photo photo={res} chat={true}/>);
     }.bind(this));
   },
 

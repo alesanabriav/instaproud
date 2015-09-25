@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+'use strict';
 /**
  * Module dependencies.
  */
@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('instaproud:server');
 var http = require('http');
+
 
 /**
  * Get port from environment and store in Express.
@@ -20,6 +21,21 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var io = require('socket.io')(server);
+
+io.on('connection', function(socket) {
+  console.log('a user connected');
+
+  socket.on('change room', function(room) {
+    socket.join(room);
+  });
+
+  socket.on('message', function(data) {
+    socket
+      .to(data.room)
+      .emit('recieve', data.message);
+  });
+});
 
 /**
  * Listen on provided port, on all network interfaces.

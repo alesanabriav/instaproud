@@ -21,7 +21,12 @@ $( document ).ajaxStart(function() {
 
 $( document ).ajaxError(function( event, jqxhr) {
   if (jqxhr.status === 403) {
-    router.navigate('#login', {trigger: true, replace: true});
+    var url = window.location.hash.replace('#', '-hash-');
+    if(url == '-hash-login?urlTo=') {
+      url = '';
+    }
+
+    router.navigate('#login?urlTo=' + url, {trigger: true, replace: true});
   }
 });
 

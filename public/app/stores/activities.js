@@ -12,13 +12,13 @@ module.exports = {
 
   store: function(data) {
     $http.post('/api/activities', data, function(res) {
-      console.log(res);
+
     });
   },
 
   delete: function(data) {
     $http.delete('/api/activities', data, function(res) {
-      console.log(res);
+
     });
   }
 

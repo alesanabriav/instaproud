@@ -47,7 +47,7 @@ app.use(cookieParser());
 //Sessions with redis Config
 app.use(session({
   secret: 'InstaProud',
-  store: new RedisStore({ host: 'localhost', port: 6379, client: redisClient }),
+  store: new RedisStore({ host: '127.0.0.1', port: 6379, client: redisClient }),
   saveUninitialized: false,
   resave: true,
   cookie: {
